@@ -1,0 +1,2204 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard API reference">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>LWM2M Device API Reference | ThingsBoard Cloud</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="LWM2M Device API Reference" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Supported LwM2M API Reference for IoT Devices" />
+<meta property="og:description" content="Supported LwM2M API Reference for IoT Devices" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/paas/reference/lwm2m-api/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/paas/reference/lwm2m-api/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="LWM2M Device API Reference" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/paas/reference/lwm2m-api/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Supported LwM2M API Reference for IoT Devices","@type":"WebPage","headline":"LWM2M Device API Reference","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Supported LwM2M API Reference for IoT Devices"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-c-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Cloud
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/paas/reference/lwm2m-api/" class="product active">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/reference/lwm2m-api/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/reference/lwm2m-api/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/paas/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/paas/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/paas/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/paas/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/paas/api/" class="YAH">API</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/paas/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                        
+                        
+                  
+                    <span class="item">API</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">LWM2M Device API</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/paas/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/paas/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/paas/guides/" >Guides</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="ThingsBoard API reference" href="/docs/paas/api/"></a>
+
+
+<a class="item" data-title="Device Connectivity Protocols" href="/docs/paas/reference/protocols/"></a>
+
+
+<a class="item" data-title="MQTT Device API" href="/docs/paas/reference/mqtt-api/"></a>
+
+
+<a class="item" data-title="CoAP Device API" href="/docs/paas/reference/coap-api/"></a>
+
+
+<a class="item" data-title="HTTP Device API" href="/docs/paas/reference/http-api/"></a>
+
+
+<a class="item" data-title="LWM2M Device API" href="/docs/paas/reference/lwm2m-api/"></a>
+
+
+<a class="item" data-title="Administration REST API" href="/docs/paas/reference/rest-api/"></a>
+
+
+<a class="item" data-title="MQTT Gateway API Reference" href="/docs/paas/reference/gateway-mqtt-api/"></a>
+
+
+<a class="item" data-title="Java REST Client" href="/docs/paas/reference/rest-client/"></a>
+
+
+<a class="item" data-title="Python REST Client" href="/docs/paas/reference/python-rest-client/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/paas/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="ThingsBoard API reference" href="/docs/paas/api/"></a>
+
+
+<a class="item" data-title="Device Connectivity Protocols" href="/docs/paas/reference/protocols/"></a>
+
+
+<a class="item" data-title="MQTT Device API" href="/docs/paas/reference/mqtt-api/"></a>
+
+
+<a class="item" data-title="CoAP Device API" href="/docs/paas/reference/coap-api/"></a>
+
+
+<a class="item" data-title="HTTP Device API" href="/docs/paas/reference/http-api/"></a>
+
+
+<a class="item" data-title="LWM2M Device API" href="/docs/paas/reference/lwm2m-api/"></a>
+
+
+<a class="item" data-title="Administration REST API" href="/docs/paas/reference/rest-api/"></a>
+
+
+<a class="item" data-title="MQTT Gateway API Reference" href="/docs/paas/reference/gateway-mqtt-api/"></a>
+
+
+<a class="item" data-title="Java REST Client" href="/docs/paas/reference/rest-client/"></a>
+
+
+<a class="item" data-title="Python REST Client" href="/docs/paas/reference/python-rest-client/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>LWM2M Device API Reference</h1>
+      <div id="content">
+          
+<ul id="markdown-toc">
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a></li>
+  <li><a href="#lwm2m-basics" id="markdown-toc-lwm2m-basics">LwM2M basics</a></li>
+  <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a>    <ul>
+      <li><a href="#step-1-upload-lwm2m-models" id="markdown-toc-step-1-upload-lwm2m-models">Step 1. Upload LwM2M models</a></li>
+      <li><a href="#step-2-define-lwm2m-device-profile" id="markdown-toc-step-2-define-lwm2m-device-profile">Step 2. Define LwM2M device profile</a></li>
+      <li><a href="#step-3-define-lwm2m-device-credentials" id="markdown-toc-step-3-define-lwm2m-device-credentials">Step 3. Define LwM2M device credentials</a></li>
+      <li><a href="#step-4-connect-the-device" id="markdown-toc-step-4-connect-the-device">Step 4. Connect the device</a></li>
+    </ul>
+  </li>
+  <li><a href="#rpc-commands" id="markdown-toc-rpc-commands">RPC Commands</a>    <ul>
+      <li><a href="#read-operation" id="markdown-toc-read-operation">Read Operation</a></li>
+      <li><a href="#discover-operation" id="markdown-toc-discover-operation">Discover Operation</a></li>
+      <li><a href="#write-operation" id="markdown-toc-write-operation">Write Operation</a></li>
+      <li><a href="#write-attributes-operation" id="markdown-toc-write-attributes-operation">Write-Attributes Operation</a></li>
+      <li><a href="#read-composite-operation" id="markdown-toc-read-composite-operation">Read-Composite Operation</a></li>
+      <li><a href="#write-composite-operation" id="markdown-toc-write-composite-operation">Write Composite Operation</a></li>
+      <li><a href="#execute-operation" id="markdown-toc-execute-operation">Execute Operation</a></li>
+      <li><a href="#delete-operation" id="markdown-toc-delete-operation">Delete Operation</a></li>
+      <li><a href="#observe-operation" id="markdown-toc-observe-operation">Observe Operation</a></li>
+      <li><a href="#cancel-observation-operation" id="markdown-toc-cancel-observation-operation">Cancel Observation Operation</a></li>
+      <li><a href="#cancel-all-observations-operation" id="markdown-toc-cancel-all-observations-operation">Cancel All Observations Operation</a></li>
+      <li><a href="#read-all-observations-operation" id="markdown-toc-read-all-observations-operation">Read All Observations Operation</a></li>
+    </ul>
+  </li>
+  <li><a href="#firmware-over-the-air-updates" id="markdown-toc-firmware-over-the-air-updates">Firmware over-the-air updates</a></li>
+  <li><a href="#software-over-the-air-updates" id="markdown-toc-software-over-the-air-updates">Software over-the-air updates</a></li>
+  <li><a href="#advanced-topics" id="markdown-toc-advanced-topics">Advanced topics</a>    <ul>
+      <li><a href="#dtls-configuration" id="markdown-toc-dtls-configuration">DTLS configuration</a></li>
+      <li><a href="#object-and-resource-attributes" id="markdown-toc-object-and-resource-attributes">Object and Resource attributes</a></li>
+      <li><a href="#bootstrap" id="markdown-toc-bootstrap">Bootstrap</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>We assume you have completed the general <a href="/docs/paas/getting-started-guides/helloworld/">Getting Started</a> guide to get familiar with ThingsBoard.</p>
+
+<h2 id="lwm2m-basics">LwM2M basics</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/OMA_LWM2M">LwM2M</a> is a device management protocol designed for constrained devices and the demands of a machine-to-machine (M2M) environment.
+You can find more information about LwM2M <a href="https://omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-LWM2M/">here</a>.
+Key advantage of the LwM2M protocol is a rich library of data structures that is called <a href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">LwM2M Object and Resource Registry</a>.
+The up-to-date list of available objects is available inside <a href="https://github.com/OpenMobileAlliance/lwm2m-registry">this</a> Github repository.</p>
+
+<p>The registry allows efficient serialization/deserialization of telemetry.
+LwM2M Protocol defines process of device registration, configuration, management and firmware/software updates.</p>
+
+<p>ThingsBoard implements both LwM2M server and bootstrap server that supports plain UDP and DTLS (secure transport over UDP).
+ThingsBoard allows you to provision own LwM2M models (objects and resources) and <a href="TODO">map</a> those objects to ThingsBoard <a href="TODO">telemetry</a> and <a href="TODO">attributes</a>.
+The platform also supports typical <a href="TODO">LwM2M commands</a> using RPC calls.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>This part of documentation covers provisioning of your first LwM2M device in ThingsBoard. We will use <a href="https://github.com/eclipse/wakaama#test-client-example">Eclipse Wakaama</a> test client to simulate LwM2M device.</p>
+
+<h3 id="step-1-upload-lwm2m-models">Step 1. Upload LwM2M models</h3>
+
+<p>System administrator is able to upload LwM2M models using “Resource library” UI located in the “System settings” menu.
+One may upload multiple files at once. We recommend you to download list of available models from official <a href="https://github.com/OpenMobileAlliance/lwm2m-registry">github</a> repo and import all of them.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<p>Tenant administrator is able to use LwM2M models defined by system administrator or overwrite them for the specific tenant.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<h3 id="step-2-define-lwm2m-device-profile">Step 2. Define LwM2M device profile</h3>
+
+<p>Once you upload the LwM2M models, you are ready to use them to define the device profile.
+See general device profile <a href="/docs/user-guide/device-profiles/">documentation</a> for more info about device profiles.
+The important step is to chose LwM2M Transport type on the “Transport configuration” step.
+The Transport Configuration allows us to define list of the LwM2M Objects that your devices supports.</p>
+
+<p>Let’s define a profile that supports Device Object (id: 3), Connectivity, Firmware Update and Location monitoring:</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<p>You may notice that Device Object supports Manufacturer, model, and serial numbers.
+Let’s configure ThingsBoard to fetch those data when device connects and store it as ThingsBoard attributes.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<p>Now, let’s configure ThingsBoard to observe Radio Signal Strength, Link Quality and device location push it as ThingsBoard telemetry.
+Observe is a powerful LwM2M feature that will instruct a device to report changes of those values.
+You may also define conditions for reporting specific resource via LwM2M attributes. These settings are covered in the <a href="#object-and-resource-attributes">advanced</a> documentation.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<p>Transport Configuration also allows you to define 9bootstrap](#bootstrap) and <a href="#other-settings">other</a> settings.</p>
+
+<h3 id="step-3-define-lwm2m-device-credentials">Step 3. Define LwM2M device credentials</h3>
+
+<p>We assume you have already created L2M2M device profile using the previous step.</p>
+
+<p>Now, let’s create the device using our profile and configure LwM2M Credentials.
+ThingsBoard supports 4 different types of credentials: Pre-Shared Key (PSK), Raw Public Ket (RPK), X.509 Certificates and “No Security” mode.</p>
+
+<p>TODO: add screens with 4 different types of credentials populated.</p>
+
+<p>For simplicity, we will connect device using plain UDP and “No Security” mode.
+To connect such a device we just need to specify it’s endpoint name in the device credentials.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<p>You may use other types of credentials with the DTLS mode enabled. See DTLS <a href="#dtls-configuration">configuration</a> for more info.</p>
+
+<h3 id="step-4-connect-the-device">Step 4. Connect the device</h3>
+
+<p>We assume you have already provisioned L2M2M device credentials using the previous step and also built Eclipse Wakaama <a href="https://github.com/eclipse/wakaama#test-client-example">test client</a>.
+Now you are ready to turn on the device and observe the incoming telemetry.</p>
+
+<p>Let’s launch the test client:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>./lwm2mclient <span class="nt">-h</span> lwm2m.thingsboard.cloud <span class="nt">-n</span> UniqueEndpointName <span class="nt">-p</span> 5685 <span class="nt">-c</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Where</p>
+<ul>
+  <li>‘lwm2m.thingsboard.cloud’ is the host name of the LwM2M server;</li>
+  <li>‘5685’ is the port of LwM2M server;</li>
+  <li>‘UniqueEndpointName’ is the unique name of your endpoint. Please replace this with IMEI or other unique ID.</li>
+</ul>
+
+<p>The LwM2M transport implementation also stores the logs of communication with the device into telemetry. You should see the “transportLog” in the device telemetry tab.</p>
+
+<p>TODO: add screens how to do this.</p>
+
+<h2 id="rpc-commands">RPC Commands</h2>
+
+<p>LwM2M transport supports <a href="/docs/user-guide/rpc/">RPC</a> commands that reflect subset of
+<a href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#6-3-0-63-Device-Management-and-Service-Enablement-Interface">Device Management and Service Enablement Interface</a>
+and
+<a href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#6-4-0-64-Information-Reporting-Interface">Information Reporting interface</a>.</p>
+
+<p>The Device Management and Service Enablement Interface is used by the LwM2M Server to access Object Instances and Resources available from a registered LwM2M Client. The operations that a Resource supports are defined in the Object definition using the Object Template.</p>
+
+<p>The Information Reporting Interface is used by a LwM2M Server to observe any changes in a Resource on a registered LwM2M Client, receiving notifications when new values are available. This observation relationship is initiated by sending an “Observe” or “Observe-Composite” operation to the L2M2M Client for an Object, an Object Instance or a Resource. An observation ends when a “Cancel Observation” or “Cancel Observation-Composite” operation is performed.</p>
+
+<p>We will use the “Debug Terminal” widget to send commands to the device.
+<br />
+<em>TO DO: add link to manual how to add Terminal widget.</em></p>
+
+<p>To execute attribute - oriented commands there are two ways to specify the target resource: by Resource ID and by the Key.</p>
+
+<p>Resource  ID is the combination of “/ObjectId/ObjectInstance/ResourceID” numbers,
+Where:</p>
+
+<ul>
+  <li>‘ObjectId’ Indicates the Object.</li>
+  <li>‘ObjectInstance’ Indicates the Object Instance to read.</li>
+  <li>‘ResourceID’ Indicates the Resource to read.</li>
+</ul>
+
+<p>Example:</p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Read</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0/9"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Key is a custom unique user-friendly name, assigned to a certain attribute:</p>
+
+<p>Example:</p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Read</span> <span class="p">{</span><span class="s2">"key"</span><span class="ss">:"batteryLevel"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To be able to use the Key, you have to assign it to the attribute in the Device Profile configuration section:</p>
+<ul>
+  <li>Go to the Device Profiles page;</li>
+  <li>Click the Profile name;</li>
+  <li>Click the “pencil” button on the top-right corner to edit profile;</li>
+  <li>Go to Transport configuration tab;</li>
+  <li>Switch to LWM2M Model tab;</li>
+  <li>Select the target object and expand the Attributes list;</li>
+  <li>Tick the “Attribute” checkbox on the desired attribute and type the Key name;</li>
+  <li>Click save.</li>
+</ul>
+
+<p><em>TO DO: add screenshots for each point.</em></p>
+
+<p>Below you can find examples of usage for commands that are supported by the Thingsboard platform for LWM2M protocol. Please note that your target client may not support all of them, please refer to the client’s documentation for detailed information on supported commands.</p>
+
+<h3 id="read-operation">Read Operation</h3>
+
+<p>The “Read” operation is used to access the value of a Resource, a Resource Instance, an array of Resource Instances, 
+an Object Instance or all the Object Instances of an Object.</p>
+
+<p><b> Example: Read the value of the resource by ID</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Read</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0/9"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mSingleResource [id=9, value=100, type=INTEGER]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+
+<details>
+   <summary>
+ <strong>Read the value of the resource by ID and version</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Read</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3_1.0/0/9"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mSingleResource [id=9, value=20, type=INTEGER]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Read the value of the resource by the key</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Read</span> <span class="p">{</span><span class="s2">"key"</span><span class="ss">:"batteryLevel"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mSingleResource [id=9, value=27, type=INTEGER]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Read the object instance</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Read</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mObjectInstance [id=0, resources={0=LwM2mSingleResource [id=0, value=Thingsboard Test Device, 
+type=STRING], 1=LwM2mSingleResource [id=1, value=Model 500, type=STRING], 2=LwM2mSingleResource [id=2, value=TH-500-000-0001, 
+type=STRING], 3=LwM2mSingleResource [id=3, value=TestThingsboard@TestMore1024_2.04, type=STRING], 6=LwM2mSingleResource [id=6, 
+value=1, type=INTEGER], 7=LwM2mSingleResource [id=7, value=96, type=INTEGER], 8=LwM2mSingleResource [id=8, value=37, type=INTEGER], 
+9=LwM2mSingleResource [id=9, value=75, type=INTEGER], 10=LwM2mSingleResource [id=10, value=110673, type=INTEGER], 
+11=LwM2mMultipleResource [id=11, values={0=LwM2mResourceInstance [id=0, value=1, type=INTEGER]}, type=INTEGER], 13=LwM2mSingleResource 
+[id=13, value=Thu Jul 01 16:39:49 EEST 2021, type=TIME], 14=LwM2mSingleResource [id=14, value=+03, type=STRING], 15=LwM2mSingleResource 
+[id=15, value=Europe/Kiev, type=STRING], 16=LwM2mSingleResource [id=16, value=U, type=STRING], 17=LwM2mSingleResource
+[id=17, value=smart meters, type=STRING], 18=LwM2mSingleResource [id=18, value=1.01, type=STRING], 19=LwM2mSingleResource [id=19, 
+value=1.02, type=STRING], 20=LwM2mSingleResource [id=20, value=2, type=INTEGER], 21=LwM2mSingleResource [id=21, value=256000, type=INTEGER]}]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="discover-operation">Discover Operation</h3>
+
+<p>The “Discover” operation is used to discover LwM2M Attributes attached to an Object, Object Instances, and Resources.
+This operation can be used to discover which Resources are instantiated in a given Object Instance. The returned payload
+is a list of application/link-format CoRE Links [RFC6690] for each targeted Object, Object Instance, or Resource, along
+with their assigned or attached Attributes including the Object Version attribute if required.</p>
+
+<p><b> Example: Discover resources attached to an object </b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Discover</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"&lt;/3&gt;,&lt;/3/0/0&gt;,&lt;/3/0/1&gt;,&lt;/3/0/2&gt;,&lt;/3/0/3&gt;,&lt;/3/0/4&gt;,&lt;/3/0/5&gt;,&lt;/3/0/6&gt;,&lt;/3/0/7&gt;,&lt;/3/0/8&gt;,&lt;/3/0/9&gt;,&lt;/3/0/10&gt;,&lt;/3/0/11&gt;,&lt;/3/0/12&gt;,&lt;/3/0/13&gt;,&lt;/3/0/
+14&gt;,&lt;/3/0/15&gt;,&lt;/3/0/16&gt;"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+
+<details>
+   <summary>
+ <strong>Discover all resources on the client</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">DiscoverAll</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"[{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{</span><span class="se">\"</span><span class="ss">ct</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">110</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">rt</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"\\\"</span><span class="ss">oma.lwm2m</span><span class="se">\\\"\"</span><span class="ss">}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/1</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{</span><span class="se">\"</span><span class="ss">ver</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">1.1</span><span class="se">\"</span><span class="ss">}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/1
+/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/2/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/3/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/4/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/5/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}
+},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/6/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/7/0</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/31024</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{</span><span class="se">\"</span><span class="ss">ver</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">1.0</span><span class="se">\"</span><span class="ss">}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/31024/10</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}
+},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/31024/11</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}},{</span><span class="se">\"</span><span class="ss">url</span><span class="se">\"</span><span class="ss">:</span><span class="se">\"</span><span class="ss">/31024/12</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">attributes</span><span class="se">\"</span><span class="ss">:{}}]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Discover resources attached to the object instance</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Discover</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"&lt;/3/0&gt;,&lt;/3/0/0&gt;,&lt;/3/0/1&gt;,&lt;/3/0/2&gt;,&lt;/3/0/3&gt;,&lt;/3/0/4&gt;,&lt;/3/0/5&gt;,&lt;/3/0/6&gt;,&lt;/3/0/7&gt;,&lt;/3/0/8&gt;,&lt;/3/0/9&gt;,&lt;/3/0/10&gt;,&lt;/3/0/11&gt;,&lt;/3/0/12&gt;,&lt;/3/0/13&gt;,&lt;/3/
+0/14&gt;,&lt;/3/0/15&gt;,&lt;/3/0/16&gt;"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Discover if the resource is instantiated by Id</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Discover</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0/1"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"&lt;/3/0/1&gt;"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Discover if the attribute is instantiated by the Key</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Discover</span> <span class="p">{</span><span class="s2">"key"</span><span class="ss">:"batteryLevel"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"&lt;/3/0/9&gt;"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="write-operation">Write Operation</h3>
+
+<p>The “Write” operation is used to change the value of a Resource, the value of a Resource Instance, the values of an array
+of Resources Instances or the values of multiple Resources from an Object Instance. The “Write” operation can also be
+used to request the deletion or the allocation of specific Instances of a Multiple-Instance Resource.</p>
+
+<p>The request includes the value to be written encoded in one of the data format defined in
+<a href="http://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.html#7-4-0-74-Data-Formats-for-Transferring-Resource-Information">7.4. Data Formats for Transferring Resource Information</a>: plain text, opaque, TLV, JSON, CoRE Link, CBOR, SenML JSON, and SenML CBOR.</p>
+
+<p>There are two mechanisms to change multiple Resources or an array of Resource Instances:</p>
+
+<p>Replace: replaces the Object Instance or the Resource(s) with the new value provided in the “Write” operation. When the Resource is a Multiple-Instance Resource, the existing array of Resource Instances is replaced to the condition the LwM2M Client authorizes that operation.</p>
+
+<p>Partial Update: updates Resources provided in the new value and leaves other existing Resources unchanged. When the Resource is a Multiple-Instance Resource, the existing array of Resource Instances is updated meaning some Instances may be created or overwritten to the condition the LwM2M Client authorizes such operations. Deleting via Partial Update is not possible.</p>
+
+<p><b> Example: WriteUpdate Single ObjectInstance resource</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteUpdate</span>  <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:{</span><span class="s2">"14"</span><span class="ss">:"+5"</span><span class="p">,</span><span class="s2">"15"</span><span class="ss">:"Kiyv/Europe"</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+<details>
+   <summary>
+ <strong>WriteUpdate Multiple ObjectInstance resource</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteUpdate</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"/19/0"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"0"</span><span class="p">:{</span><span class="s2">"0"</span><span class="ss">:"00ad456756"</span><span class="p">,</span> <span class="s2">"25"</span><span class="ss">:"25ad456756"</span><span class="p">}}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>WriteUpdate Multiple resources</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteUpdate</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"/19/0/0"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"0"</span><span class="ss">:"00ad456756"</span><span class="p">,</span> <span class="s2">"25"</span><span class="ss">:"25ad456756"</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>WriteReplace Single resource</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteReplace</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/19/0/0"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"0081"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>WriteReplace Single resource by the Key</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteReplace</span> <span class="p">{</span><span class="s2">"key"</span><span class="ss">:"timezone"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"+10"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>WriteReplace Multiple resource</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteReplace</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="s2">"/19_1.1/0/0"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"0"</span><span class="ss">:"00ad456797"</span><span class="p">,</span> <span class="s2">"25"</span><span class="ss">:"25ad456700"</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="write-attributes-operation">Write-Attributes Operation</h3>
+
+<p>Only Attributes from the   <NOTIFICATION> class MAY be changed in using the "Write-Attributes" operation. The general rules for Attributes which are specified in Section 5.1.1. Attributes Definitions and Rules fully apply here. Table: 5.1.2.-1 Class Attributes in Section 5.1.2. Attributes Classification provides explanation on the Attributes supported by the "Write-Attributes" operation: Minimum Period, Maximum Period, Greater Than, Less Than, Step, Minimum Evaluation Period and Maximum Evaluation Period. The operation permits multiple Attributes to be modified within the same operation.</NOTIFICATION>
+</p>
+
+<p><b> Example: Write multiple attributes </b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteAttributes</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/19/0/0"</span><span class="p">,</span><span class="s2">"attributes"</span><span class="p">:{</span><span class="s2">"pmax"</span><span class="p">:</span><span class="mi">120</span><span class="p">,</span> <span class="s2">"pmin"</span><span class="p">:</span><span class="mi">10</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="read-composite-operation">Read-Composite Operation</h3>
+<p>The LwM2M Client MAY support the “Read-Composite” operation.
+The “Read-Composite” operation can be used by the LwM2M Server to selectively read any combination of Objects,
+Object Instance(s), Resources, and/or Resource Instances of different or same Objects in a single request. The list of
+elements to be read are provided as SenML Pack where the records contain Base Name and/or Name Fields, but no Value
+fields. The Read-Composite operation is treated as non-atomic and handled as best effort by the client. That is, if any of
+the requested resources do not have a valid value to return, they will not be included in the response. Section 7.4.5.
+SenML JSON shows examples of Read-Composite use.</p>
+
+<p><b> Example: Read multiple Objects </b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ReadComposite</span> <span class="p">{</span><span class="s2">"ids"</span><span class="p">:[</span><span class="s2">"/3/0/9"</span><span class="p">,</span> <span class="s2">"/1_1.2"</span><span class="p">]}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"{/3/0/9=LwM2mSingleResource [id=9, value=75, type=INTEGER], /1=LwM2mObject [id=1, instances={0=LwM2mObjectInstance [id=0, resources={0=LwM2mSingleResource [id=0, value=123, t
+ype=INTEGER], 1=LwM2mSingleResource [id=1, value=300, type=INTEGER], 6=LwM2mSingleResource [id=6, value=false, type=BOOLEAN], 22=LwM2mSingleResource [id=22, value=U, type=STRING], 7=LwM2mSingleResource [
+id=7, value=U, type=STRING]}]}]}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+<details>
+   <summary>
+ <b>Read-Composite Multiple resources by Keys </b> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ReadComposite</span> <span class="p">{</span><span class="s2">"keys"</span><span class="p">:[</span><span class="s2">"state"</span><span class="p">,</span> <span class="s2">"updateResult"</span><span class="p">,</span> <span class="s2">"pkgversion"</span><span class="p">,</span> <span class="s2">"batteryLevel"</span><span class="p">]}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"{/5/0/7=LwM2mSingleResource [id=7, value=, type=STRING], /5/0/5=LwM2mSingleResource [id=5, value=0, 
+type=INTEGER], /5/0/3=LwM2mSingleResource [id=3, value=0, type=INTEGER], /
+3/0/9=LwM2mSingleResource [id=9, value=81, type=INTEGER]}"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<details>
+   <summary>
+ <strong>Read-Composite Multiple object instances</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ReadComposite</span> <span class="p">{</span><span class="s2">"ids"</span><span class="p">:[</span><span class="s2">"/3/0"</span><span class="p">,</span> <span class="s2">"/1_1.2/0"</span><span class="p">]}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"{/3/0=LwM2mObjectInstance [id=0, resources={0=LwM2mSingleResource [id=0, value=Thingsboard Test Device, 
+type=STRING], 1=LwM2mSingleResource [id=1, value=Model 500, type=STRING], 2=LwM2mSingleResource [id=2, value=TH-500-000-0001, type=STRING], 
+3=LwM2mSingleResource [id=3, value=TestThingsboard@TestMore1024_2.04, type=STRING], 6=LwM2mSingleResource [id=6, value=1, type=INTEGE
+R], 7=LwM2mSingleResource [id=7, value=2, type=INTEGER], 8=LwM2mSingleResource [id=8, value=61, type=INTEGER], 9=LwM2mSingleResource [id=9, 
+value=25, type=INTEGER], 10=LwM2mSingleResource [id=10, value=102044, type=INTEGER], 11=LwM2mMultipleResource [id=11, 
+values={0=LwM2mResourceInstance [id=0, value=1, type=INTEGER]}, type=INTEGER], 13=LwM2mSingleResource [id=13, 
+value=Thu Jul 01 16:49:25 EEST 2021, type=TIME], 14=LwM2mSingleResource [id=14, value=+03, type=STRING], 15=LwM2mSingleResource [id=15, 
+value=Europe/Kiev, type=STRING], 16=LwM2mSingleResource [id=16, value=U, type=STRING], 17=LwM2mSingleResource [id=17, value=smart meters, 
+type=STRING], 18=LwM2mSingleResource [id=18, value=1.01, type=STRING], 19=LwM2mSingleResource [id=19, value=1.02, type=STRING], 
+20=LwM2mSingleResource [id=20, value=1, type=INTEGER], 21=LwM2mSingleResource [id=21, value=256000, type=INTEGER]}], /1/0=LwM2mObjectInstance 
+[id=0, resources={0=LwM2mSingleResource [id=0, value=123, type=INTEGER], 1=LwM2mSingleResource [id=1, value=300, type=INTEGER], 
+6=LwM2mSingleResource [id=6, value=false, type=BOOLEAN], 22=LwM2mSingleResource [id=22, value=U, type=STRING], 7=LwM2mSingleResource [id=7, 
+value=U, type=STRING]}]}"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="write-composite-operation">Write Composite Operation</h3>
+
+<p>The LwM2M Client MAY support the “Write-Composite” operation.
+In contrast to “Write” operation, the scope of which is limited to a Resource(s) of a single Instance of a single Object,
+the “Write-Composite” operation can be used by the Server to update values of a number of different Resources across
+different Instances of one or more Objects. The Write-Composite operation provides a list of
+all resources to be updated, and their new values, using the SenML JSON/CBOR format. Unlike for Write operation, the
+Resources that are not provided are not impacted by the operation. Examples are shown in Section 7.4.5. SenML JSON.</p>
+
+<p>The “Write-Composite” operation is atomic and cannot have partial success. That is, if the client supports this
+operation, it MUST reject a Server request where it cannot successfully write all the requested values to the requested
+list of Resources. Therefore, before processing Write-Composite, the client MUST ensure that all addressed objects exist
+and that the Server has write access to those Objects and Resources.</p>
+
+<p><b> Example: WriteComposite to multiple Objects </b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteComposite</span> <span class="p">{</span><span class="s2">"nodes"</span><span class="p">:{</span><span class="s2">"/3/0/14"</span><span class="ss">:"+04"</span><span class="p">,</span> <span class="s2">"/1/0/2"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">"/5/0/1"</span><span class="ss">:"coap://localhost:5685"</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+<details>
+   <summary>
+ <strong>WriteComposite with multiple Keys</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">WriteComposite</span> <span class="p">{</span><span class="s2">"nodes"</span><span class="p">:{</span><span class="s2">"timezone"</span><span class="ss">:"+04"</span><span class="p">,</span> <span class="s2">"defaultMinimumPeriod"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">"packageUri"</span><span class="ss">:"coap://localhost:5685"</span><span class="p">}}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="execute-operation">Execute Operation</h3>
+
+<p>The “Execute” operation is used by the LwM2M Server to initiate some action, and can only be performed on individual Resources.</p>
+
+<p><b> Example: Execute resource</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Execute</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"5/0/2"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CHANGED"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="delete-operation">Delete Operation</h3>
+<p>The “Delete” operation is used for LwM2M Server to delete an Object Instance within the LwM2M Client.
+The Object Instance that is deleted in the LwM2M Client by the LwM2M Server MUST be an Object Instance that is
+announced by the LwM2M Client to the LwM2M Server using the “Register” and “Update” operations of the Client
+Registration Interface.</p>
+
+<p>The only exception concerns the single Instance of the mandatory Device Object (ID:3) which SHALL NOT be affected by
+any Delete operation.</p>
+
+<p><b> Example: Delete an Object Instance</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Delete</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/19/1"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"DELETE"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="observe-operation">Observe Operation</h3>
+<p>The LwM2M Server initiates an observation request for changes of a specific Resource, Resources within an Object
+Instance or for all the Object Instances of an Object within the LwM2M Client.
+Related parameters for “Observe” operation are described in Section 6.3.4. Write-Attributes Operation and those
+parameters are configured by “Write-Attributes” operation.</p>
+
+<p><b> Example: Observe resource</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Observe</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0/9"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mSingleResource [id=9, value=28, type=INTEGER]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+<details>
+   <summary>
+ <strong>Observe Object Instance</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">Observe</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/3/0"</span><span class="p">}</span>
+ 
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"LwM2mObjectInstance [id=0, resources={0=LwM2mSingleResource [id=0, value=Thingsboard 
+Test Device, type=STRING], 1=LwM2mSingleResource [id=1, value=Model 500, type=STRING], 2=LwM2mSingleResource [id=2, 
+value=TH-500-000-0001, type=STRING], 3=LwM2mSingleResource [id=3, value=TestThingsboard@TestMore1024_2.04, type=STRING], 
+6=LwM2mSingleResource [id=6, value=1, type=INTEGER], 7=LwM2mSingleResource [id=7, value=90, type=INTEGER], 8=LwM2mSingleResource 
+[id=8, value=29, type=INTEGER], 9=LwM2mSingleResource [id=9, value=19, type=INTEGER], 10=LwM2mSingleResource [id=10, value=76962, 
+type=INTEGER], 11=LwM2mMultipleResource [id=11, values={0=LwM2mResourceInstance [id=0, value=1, type=INTEGER]}, type=INTEGER], 
+13=LwM2mSingleResource [id=13, value=Wed Jul 31 22:49:45 EET 1940, type=TIME], 14=LwM2mSingleResource [id=14, value=+5, type=STRING], 
+15=LwM2mSingleResource [id=15, value=Kiyv/Europe, type=STRING], 16=LwM2mSingleResource [id=16, value=U, type=STRING], 
+17=LwM2mSingleResource [id=17, value=smart meters, type=STRING], 18=LwM2mSingleResource [id=18, value=1.01, type=STRING], 
+19=LwM2mSingleResource [id=19, value=1.02, type=STRING], 20=LwM2mSingleResource [id=20, value=6, type=INTEGER], 21=LwM2mSingleResource 
+[id=21, value=256000, type=INTEGER]}]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="cancel-observation-operation">Cancel Observation Operation</h3>
+<p>The “Cancel Observation” operation is sent from the LwM2M Server to the LwM2M Client to end an observation
+relationship that was previously created with an “Observe” operation</p>
+
+<p><b> Example: Cancel Observation for resource by ID</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ObserveCancel</span> <span class="p">{</span><span class="s2">"id"</span><span class="ss">:"/5/0/7"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"1"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><b> More examples:</b>
+<br /></p>
+<details>
+   <summary>
+ <strong>Example: Cancel Observation for resource by Key</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ObserveCancel</span> <span class="p">{</span><span class="s2">"key"</span><span class="ss">:"updateResult"</span><span class="p">}</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"1"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="cancel-all-observations-operation">Cancel All Observations Operation</h3>
+<p>The “Cancel All Observations” operation is Thingsboard-specific operation and allows to cancel all observations 
+on the device at once</p>
+
+<p><b> Example: Cancel All Observations</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ObserveCancelAll</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"8"</span><span class="p">}</span> <span class="o">/</span><span class="sr">/ - cancelled 8 observations
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="read-all-observations-operation">Read All Observations Operation</h3>
+<p>The “Read All Observations” operation is Thingsboard-specific operation and allows to get all observations 
+that are set on the device</p>
+
+<p><b> Example: Read All Observations</b></p>
+<div class="language-ruby copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Request:</span>
+<span class="no">ObserveReadAll</span>
+
+<span class="c1"># Response:</span>
+<span class="p">{</span><span class="s2">"result"</span><span class="ss">:"CONTENT"</span><span class="p">,</span><span class="s2">"value"</span><span class="ss">:"[</span><span class="se">\"</span><span class="ss">/5/0/7</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">/3/0/3</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">/5/0/3</span><span class="se">\"</span><span class="ss">,</span><span class="se">\"</span><span class="ss">/5/0/5</span><span class="se">\"</span><span class="ss">]"</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="firmware-over-the-air-updates">Firmware over-the-air updates</h2>
+
+<h2 id="software-over-the-air-updates">Software over-the-air updates</h2>
+
+<h2 id="advanced-topics">Advanced topics</h2>
+
+<h3 id="dtls-configuration">DTLS configuration</h3>
+
+<h3 id="object-and-resource-attributes">Object and Resource attributes</h3>
+
+<h3 id="bootstrap">Bootstrap</h3>
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/paas/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,1858 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="Trendz Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Anomaly detection overview | Trendz Analytics</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Anomaly detection overview" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Compleate guide for anomaly detection in timeseries data" />
+<meta property="og:description" content="Compleate guide for anomaly detection in timeseries data" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/trendz/anomaly/anomaly-detection-overview/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/trendz/anomaly/anomaly-detection-overview/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Anomaly detection overview" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/trendz/anomaly/anomaly-detection-overview/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Compleate guide for anomaly detection in timeseries data","@type":"WebPage","headline":"Anomaly detection overview","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Compleate guide for anomaly detection in timeseries data"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/trendz-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Trendz Analytics
+        </div>
+        <div class="product-description">
+            Trendz Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+
+
+        <a href="/docs/pe/" class="product">Professional Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product active">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/trendz/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/trendz/getting-started/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/trendz/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/trendz/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                        
+                        
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Anomaly detection</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/trendz/getting-started/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<div class="item" data-title="Data Visualization">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/trendz/visualizations-overview/"></a>
+
+
+<a class="item" data-title="Tables" href="/docs/trendz/visualizations-tables/"></a>
+
+
+<a class="item" data-title="Line Chart" href="/docs/trendz/visualizations-line/"></a>
+
+
+<a class="item" data-title="Bar & Histogram" href="/docs/trendz/visualizations-bar/"></a>
+
+
+<a class="item" data-title="Pie Chart" href="/docs/trendz/visualizations-pie/"></a>
+
+
+<a class="item" data-title="Scatter Plot" href="/docs/trendz/visualizations-scatter/"></a>
+
+
+<a class="item" data-title="Heat Map" href="/docs/trendz/visualizations-heatmap/"></a>
+
+
+<a class="item" data-title="Cards" href="/docs/trendz/visualizations-card/"></a>
+
+
+<a class="item" data-title="View Settings" href="/docs/trendz/view-settings/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Anomaly detection" href="/docs/trendz/anomaly/anomaly-detection-overview/"></a>
+
+
+<a class="item" data-title="Grouping and Aggregation" href="/docs/trendz/data-grouping-aggregation/"></a>
+
+
+<a class="item" data-title="Filtering" href="/docs/trendz/data-filtering/"></a>
+
+
+<a class="item" data-title="Calculated Fields" href="/docs/trendz/calculated-fields/"></a>
+
+
+<a class="item" data-title="States" href="/docs/trendz/states/"></a>
+
+
+<a class="item" data-title="Prediction" href="/docs/trendz/prediction/"></a>
+
+
+<a class="item" data-title="Share and embed Visualizations" href="/docs/trendz/embed-visuals/"></a>
+
+
+<a class="item" data-title="Trendz Release Notes" href="/docs/trendz/releases/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/trendz/install/installation-options/" >Installation</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<div class="item" data-title="Data Visualization">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/trendz/visualizations-overview/"></a>
+
+
+<a class="item" data-title="Tables" href="/docs/trendz/visualizations-tables/"></a>
+
+
+<a class="item" data-title="Line Chart" href="/docs/trendz/visualizations-line/"></a>
+
+
+<a class="item" data-title="Bar & Histogram" href="/docs/trendz/visualizations-bar/"></a>
+
+
+<a class="item" data-title="Pie Chart" href="/docs/trendz/visualizations-pie/"></a>
+
+
+<a class="item" data-title="Scatter Plot" href="/docs/trendz/visualizations-scatter/"></a>
+
+
+<a class="item" data-title="Heat Map" href="/docs/trendz/visualizations-heatmap/"></a>
+
+
+<a class="item" data-title="Cards" href="/docs/trendz/visualizations-card/"></a>
+
+
+<a class="item" data-title="View Settings" href="/docs/trendz/view-settings/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Anomaly detection" href="/docs/trendz/anomaly/anomaly-detection-overview/"></a>
+
+
+<a class="item" data-title="Grouping and Aggregation" href="/docs/trendz/data-grouping-aggregation/"></a>
+
+
+<a class="item" data-title="Filtering" href="/docs/trendz/data-filtering/"></a>
+
+
+<a class="item" data-title="Calculated Fields" href="/docs/trendz/calculated-fields/"></a>
+
+
+<a class="item" data-title="States" href="/docs/trendz/states/"></a>
+
+
+<a class="item" data-title="Prediction" href="/docs/trendz/prediction/"></a>
+
+
+<a class="item" data-title="Share and embed Visualizations" href="/docs/trendz/embed-visuals/"></a>
+
+
+<a class="item" data-title="Trendz Release Notes" href="/docs/trendz/releases/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Anomaly detection overview</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#what-is-an-anomaly" id="markdown-toc-what-is-an-anomaly">What is an anomaly</a></li>
+  <li><a href="#anomaly-score-and-score-index" id="markdown-toc-anomaly-score-and-score-index">Anomaly score and Score Index</a></li>
+  <li><a href="#technical-background" id="markdown-toc-technical-background">Technical background</a>    <ul>
+      <li><a href="#supervised-anomaly-detection" id="markdown-toc-supervised-anomaly-detection">Supervised anomaly detection</a></li>
+      <li><a href="#unsupervised-anomaly-detection" id="markdown-toc-unsupervised-anomaly-detection">Unsupervised anomaly detection</a></li>
+    </ul>
+  </li>
+  <li><a href="#how-automated-unsupervised-anomaly-detection-works" id="markdown-toc-how-automated-unsupervised-anomaly-detection-works">How automated unsupervised anomaly detection works</a>    <ul>
+      <li><a href="#how-automated-unsupervised-anomaly-detection-works-1" id="markdown-toc-how-automated-unsupervised-anomaly-detection-works-1">How automated unsupervised anomaly detection works</a></li>
+    </ul>
+  </li>
+  <li><a href="#data-segmentation---how-to-split-telemetry-into-intervals" id="markdown-toc-data-segmentation---how-to-split-telemetry-into-intervals">Data segmentation - how to split telemetry into intervals</a></li>
+  <li><a href="#data-normalization" id="markdown-toc-data-normalization">Data normalization</a></li>
+  <li><a href="#feature-extraction" id="markdown-toc-feature-extraction">Feature extraction</a></li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next Steps</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>Anomaly detection is an important component of any asset monitoring system. Simple threshold-based condition monitoring is a good starting point,
+but it is useless in scenarios where hidden correlations between multiple telemetries should be analyzed. In some cases, it is not even possible to
+define thresholds because we just don’t know them. For such use cases, Trendz Analytics provides automated anomaly detection instruments that are based on 
+built-in machine learning algorithms.</p>
+
+<p>The purpose of this article is to give a general overview of what is anomaly detection, how it works and how to implement it.</p>
+
+<h2 id="what-is-an-anomaly">What is an anomaly</h2>
+<p>In the beginning, we need to define what <a href="https://en.wikipedia.org/wiki/Anomaly_detection" target="_blank"><strong>Anomaly</strong></a> - 
+<strong>it is a time interval when a device or process behaves differently from others</strong>.</p>
+
+<p>Let’s assume that we monitoring diesel engines and collect telemetry like rotation speed, temperature, vibration, etc. 
+We can analyze how engine behavior changes under different conditions and we can compare the behavior of different engines.
+We know that when the rotation speed is between 1000-1500 rpm, the temperature should be 270-290°C. We know that because such 
+behavior was observed 1000 times. And now, if we see that under the same conditions, the temperature is greater than 350°C - 
+it is an anomaly because it is not expected behavior. It is very simplified example that explains the basic concept used in 
+different real-life anomaly detection techniques.</p>
+
+<h2 id="anomaly-score-and-score-index">Anomaly score and Score Index</h2>
+<p>After you discovered anomalies in your system you will want to prioritize them and focus on real problems. Anomaly scoring as a 
+technique that allow as to do this.</p>
+
+<p><strong>Anomaly score</strong> - it is a number that says how much current behavior is different 
+from the expected. Higher number - higher anomaly we are looking at. In Trendz, we are using distance measurement functions for 
+computing anomaly scores. The simplest distance measurement function - Euclidean distance. But you can also use other functions 
+like - Chebyshev, Canberra, Manhattan, or Dynamic Time Warping (DTW) distances.</p>
+
+<p>Sometimes an anomaly score is not a perfect candidate for anomalies prioritization. 
+Take a look on example how vibration on the pump looks like right after it is started.</p>
+
+<ul>
+  <li>Pump vibration pattern during start</li>
+</ul>
+
+<div id="0">
+  <div itemscope="" itemtype="http://schema.org/ImageGallery" class="images-gallery" style="justify-content: start;">
+    <figure itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject" style="max-width: min(225px, 100%);
+                    max-height: min(225px, 100%);">
+<a href="/images/trendz/anomaly/score_vs_index.png" onclick="return false;" itemprop="contentUrl"> <img src="/images/trendz/anomaly/score_vs_index.png" itemprop="thumbnail" alt="image" style="max-width: min(225px, 100%);
+                                max-height: min(225px, 100%);" /> </a>       <figcaption itemprop="caption description" style="display: none">
+Pump vibration pattern during start
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        window.removeEventListener("load", arguments.callee, false);
+
+        if(!document.getElementsByClassName('pswp').length){
+            document.body.insertAdjacentHTML('beforeend',
+                '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                '        <div class="pswp__bg"></div>\n' +
+                '        <div class="pswp__scroll-wrap">\n' +
+                '            <div class="pswp__container">\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="pswp__ui pswp__ui--hidden">\n' +
+                '\n' +
+                '                <div class="pswp__top-bar">\n' +
+                '                    <div class="pswp__counter"></div>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--share" title="Share"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>\n' +
+                '\n' +
+                '                    <div class="pswp__preloader">\n' +
+                '                        <div class="pswp__preloader__icn">\n' +
+                '                            <div class="pswp__preloader__cut">\n' +
+                '                                <div class="pswp__preloader__donut"></div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">\n' +
+                '                    <div class="pswp__share-tooltip"></div>\n' +
+                '                </div>\n' +
+                '                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">\n' +
+                '                </button>\n' +
+                '                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">\n' +
+                '                </button>\n' +
+                '                <div class="pswp__caption">\n' +
+                '                    <div class="pswp__caption__center"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>'
+            );
+        }
+
+        var container = document.getElementById('0');
+
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for(var i = 0; i < numNodes; i++) {
+
+                    figureEl = thumbElements[i];
+                    if(figureEl.nodeType !== 1) {
+                        continue;
+                    }
+                    linkEl = figureEl.children[0];
+                    size = linkEl.children[0];
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: 2500,
+                        h: 0,
+                        sizeLoaded: false
+                    };
+
+                    if(figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+                    if(linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+                    if(item.msrc === item.src){
+                        item.w = parseInt(size.naturalWidth, 10);
+                        item.h = parseInt(size.naturalHeight, 10);
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if(!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if(childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if(childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if(index >= 0) {
+                    openPhotoSwipe( index, clickedGallery );
+                }
+                return false;
+            };
+
+            var photoswipeParseHash = function() {
+                var hash = window.location.hash.substring(1),
+                    params = {};
+
+                if(hash.length < 5) {
+                    return params;
+                }
+
+                var vars = hash.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    if(!vars[i]) {
+                        continue;
+                    }
+                    var pair = vars[i].split('=');
+                    if(pair.length < 2) {
+                        continue;
+                    }
+                    params[pair[0]] = pair[1];
+                }
+
+                if(params.gid) {
+                    params.gid = parseInt(params.gid, 10);
+                }
+
+                return params;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+                        return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                    },
+                    bgOpacity: 0.8,
+                    closeOnScroll: false,
+                    shareEl: false,
+                    fullscreenEl: false,
+                    zoomEl: true,
+                    history: false,
+                    loop: false
+                };
+
+                if(fromURL) {
+                    if(options.galleryPIDs) {
+                        for(var j = 0; j < items.length; j++) {
+                            if(items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if( isNaN(options.index) ) {
+                    return;
+                }
+
+                if(disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+
+                gallery.listen('gettingData', function(index, item) {
+                    if (!item.sizeLoaded) {
+                        item.sizeLoaded = true;
+                        var img = new Image();
+                        img.onload = function() {
+                            item.w = this.width;
+                            item.h = this.height;
+                            gallery.updateSize(true);
+                        }
+                        img.src = item.src;
+                    }
+                });
+
+                gallery.init();
+
+                var buttonLeft = pswpElement.getElementsByClassName('pswp__button--arrow--left')[0];
+                var buttonRight = pswpElement.getElementsByClassName('pswp__button--arrow--right')[0];
+
+                buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+
+                gallery.listen('beforeChange', function() {
+                        buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                        buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+                    }
+                );
+            };
+
+            var galleryElements = container.querySelectorAll( gallerySelector );
+
+            for(var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i+1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+
+            var hashData = photoswipeParseHash();
+            if(hashData.pid && hashData.gid) {
+                openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+            }
+        };
+
+        initPhotoSwipeFromDOM('.images-gallery');
+    }, false)
+</script>
+
+<ul>
+  <li><strong>normal behavior</strong> expected vibration pattern for new pumps.</li>
+  <li><strong>anomaly_A</strong> has a higher anomaly score because we observed a big vibration spike during 5 seconds.</li>
+  <li><strong>anomaly_B</strong> has a lower anomaly score without big vibration spikes</li>
+</ul>
+
+<p><strong>anomaly_A</strong> has higher anomaly score compared to <strong>anomaly_B</strong>, but the duration of <strong>anomaly_B</strong> anomaly is much higher 
+and most probably we want to focus on it because it has a higher impact on pump health compared to anomaly_A.</p>
+
+<p><strong>Anomaly Score Index</strong> - is a metric that combines anomaly score and anomaly duration. It is computed as an area between expected 
+and actual behavior. This metric is a good candidate for filtering false-positive anomalies and reducing alert storms in large 
+installations with a lot of connected sensors.</p>
+
+<h2 id="technical-background">Technical background</h2>
+
+<p>Our goal is to train an anomaly detection model to label telemetry as good or abnormal. 
+It is a <a href="https://machinelearningmastery.com/types-of-classification-in-machine-learning/" target="_blank"><strong>binary classification task</strong></a>. 
+There are many Machine learning algorithms that can do this job for us and identify anomalies in the data. We can split them 
+into 2 groups - supervised and unsupervised algorithms.</p>
+
+<h4 id="supervised-anomaly-detection">Supervised anomaly detection</h4>
+<p>Supervised algorithms require a labeled data for model training. It means that we should say what segments are good and what 
+segments contain anomalies. Based on this knowledge, an anomaly detection model will train to detect segments with anomalies automatically.</p>
+
+<p>The most popular supervised classification algorithms are - Knn, SVM, Logistic Regression, Decision trees, RNN\LSTM. 
+Here is a good <a href="https://builtin.com/data-science/supervised-machine-learning-classification/" target="_blank"><strong>overview of those algorithms and how they work</strong></a>.</p>
+
+<p>Despite the fact that these algorithms show good results, they have few important drawbacks:</p>
+<ol>
+  <li>They require a labeled dataset as an input. It may be a problem when labeled data does not exist and manual labeling will 
+take a lot of time and resources.</li>
+  <li>If the dataset does not have anomalies yet - we can not train a model to predict anomalies.</li>
+  <li>Supervised models do not work well with new anomaly types that were not observed during model train. For example, our model 
+shows excellent results for detecting anomalies related to temperature conditions. But the same model does not detect mechanical 
+wear because such problems were not observed in the training dataset.</li>
+</ol>
+
+<h4 id="unsupervised-anomaly-detection">Unsupervised anomaly detection</h4>
+<p>The main advantage of unsupervised classification algorithms is that they do not need labeled datasets for model 
+training. Thanks to this, such algorithms suit well for automated anomaly detection in various use-cases like
+asset monitoring, process fault detection, equipment prediction maintenance.</p>
+
+<p>The second advantage - unsupervised models show good results in detecting abnormal 
+patterns that were not observed before. Supervised algorithms focused on finding known anomalies, and unsupervised trained to tell 
+how far the current observation is from the expected.</p>
+
+<p>The most popular unsupervised clustering and classification algorithms are - 
+<a href="https://towardsdatascience.com/k-means-dbscan-gmm-agglomerative-clustering-mastering-the-popular-models-in-a-segmentation-c891a3818e29/" target="_blank"><strong>K-means, DBSCAN, Gaussian Mixture, Agglomerative Hierarchy clustering</strong></a>.</p>
+
+<h2 id="how-automated-unsupervised-anomaly-detection-works">How automated unsupervised anomaly detection works</h2>
+<p>Let’s split the anomaly detection task into smaller steps:</p>
+<ol>
+  <li>Collect data</li>
+  <li>Normalize data</li>
+  <li>Split data into segments</li>
+  <li>Extract features for each segment</li>
+  <li>Train anomaly detection model to mark a segment as <strong>good</strong> or <strong>abnormal</strong></li>
+  <li>Calculate anomaly score for abnormal segments</li>
+  <li>Validate results</li>
+  <li>Apply the model to detect anomalies in realtime</li>
+</ol>
+
+<p>Trendz Analytics has built-in instruments to perform all those steps with minimal configuration. It actually takes 
+few clicks to create an anomaly detection model with default properties. But for understanding how it works in the 
+background we will explain in detail what should be done in each step and show how to use unsupervised machine learning 
+algorithms for automated anomaly detection.</p>
+
+<h4 id="how-automated-unsupervised-anomaly-detection-works-1">How automated unsupervised anomaly detection works</h4>
+<p><strong>Step 1</strong>: We have collections of data segments from sensors. Each segment is a point. Features of the segment are 
+point coordinates.</p>
+
+<p><strong>Step 2</strong>: The clustering algorithm iteratively split all segments into different clusters. Almost all methods use 
+distance metric to find similar segments and add them into the same cluster. As the result, we receive few 
+clusters and each cluster contains multiple segments that are similar to each other.</p>
+
+<p><strong>Step 3</strong>: We can compute centroid for each cluster - this central point describes what kind of segments are inside 
+the cluster and represent an ideal or good point. Also, we can compute the distance between the centroid and any 
+other point. This distance tells us how far that point from the ‘ideal’ point.</p>
+
+<p><strong>Step 4</strong>: Points that are not included in any clusters after segmentation or are too far from cluster centroid are 
+abnormal points and represent an anomaly. We can use distance from centroid as an anomaly score. Higher 
+distance - a higher anomaly.</p>
+
+<p>Distance measurement function is very important here because it tells how similar 2 segments are. The simplest 
+distance measurement function - Euclidean distance. But you can also use other functions like - Chebyshev, 
+Canberra, Manhattan, etc.</p>
+
+<p>Dynamic Time Warping (DTW) distance.
+In case when we want to compare the behavior of the time-series and Euclidian distance does not show good 
+results, we recommend trying Dynamic Time Warping as a distance measurement function. Dynamic Time Warping
+shows good results when you compare distorted intervals or intervals with a phase shift. More details here</p>
+
+<h2 id="data-segmentation---how-to-split-telemetry-into-intervals">Data segmentation - how to split telemetry into intervals</h2>
+<p>The segment is a collection of measurements for a time interval. It can be 1 minute/hour/day etc. 
+Interval size depends on the type of problem that we solve. The general recommendation - interval should be big 
+enough to include data that describes the current state of the device, asset, or process.</p>
+
+<p>For example, we create a predictive maintenance model for water pumps and want to detect engine abnormalities. 
+The pump can work under different loads, but a 5-minute interval would describe how it works and the current state 
+of the pump - throughput, energy consumption, vibration, etc. In this case, we will group data from pumps into 
+segments with 5-minute intervals.
+Also, we analyzing water pump utilization to understand resource usage patterns and want to detect anomalies 
+that would identify unauthorized usage, leakage, or theft. In this case, the segment interval would be 1 day
+because such interval describes how and when the pump was utilized.
+Similar logic applied in other business areas - environment conditions tracking, electricity grid, soil and 
+crop monitoring, equipment management.</p>
+
+<h2 id="data-normalization">Data normalization</h2>
+<p>All machine learning algorithms require normalized input data for training. We have to:</p>
+<ol>
+  <li>Map non-numeric values, like boolean or text, into numeric values.</li>
+  <li>Filter noise from the dataset, like extremely abnormal readings.</li>
+  <li>Fill gaps in the data. In real life, you will always have gaps in the data because of different connectivity\software issues. Gaps should be removed to increase anomaly detection model accuracy.</li>
+  <li>Scale all raw telemetry values into [0;1]   range.</li>
+</ol>
+
+<p>Trendz does all those steps automatically. Good articles that describes why it is important and how to do this:
+<a href="https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029" target="_blank">https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029</a>.
+<a href="https://towardsdatascience.com/understand-data-normalization-in-machine-learning-8ff3062101f0" target="_blank">https://towardsdatascience.com/understand-data-normalization-in-machine-learning-8ff3062101f0</a>.</p>
+
+<h2 id="feature-extraction">Feature extraction</h2>
+<p>The final step is to extract features from each segment because all ML algorithms work with feature vectors 
+or simply numeric arrays. Each segment represents a single point, feature vector describes that point. 
+An anomaly detection model will train to assign correct classification for each point (segment).</p>
+
+<p>There are 2 different approaches for computing features:</p>
+<ol>
+  <li>The <strong>behavior-based approach</strong> used when behavior inside a segment is important for us. Such features 
+describe the correlation between telemetries over time and order how telemetry changed inside a segment.</li>
+  <li>In the <strong>feature-based approach</strong>, we compute the statistic for raw telemetry data - min, max, variation, 
+distribution, slope etc.</li>
+</ol>
+
+<p>If you don’t know what approach to select - try both and compare results. It’s really easy because in Trendz 
+you just select features type from the dropdown and click ‘Train Model’ and that’s all. You don’t need to 
+implement feature extraction logic all alone.</p>
+
+<p>If the model that we are creating uses only 1 telemetry field, for example, temperature, for detecting anomalies, 
+then it is called a univariate model. But more popular are multivariate models - multiple telemetries are used. 
+In some cases, it is useful to add an attribute of the device to the model. For example, firmware version or 
+device location may be important knowledge that helps to detect abnormal behavior.</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/trendz/getting-started/"><strong>Getting started guide</strong></a> - These guide provide quick overview of main Trendz features.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/install/installation-options/"><strong>Installation guides</strong></a> - Learn how to setup ThingsBoard on various available operating systems.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/states"><strong>States</strong></a> - Learn how to define and analyse states for assets based on raw telemetry.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/data-grouping-aggregation"><strong>Group and Aggregate data</strong></a> - Learn how to group and aggregate data in Trendz.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/prediction"><strong>Prediction</strong></a> - Learn how to make forecasts and predict telemetry behavior.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/data-filtering"><strong>Filters</strong></a> - Learn how filter dataset during analysis.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/visualizations-overview"><strong>Available Visualizations</strong></a> - Learn about visualization widgets available in Trendz and how to configure them.</p>
+  </li>
+  <li>
+    <p><a href="/docs/trendz/embed-visuals"><strong>Share and embed Visualizations</strong></a> - Learn how to add Trendz visualizations on ThingsBoard dashboard or 3rd party web pages.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/trendz/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

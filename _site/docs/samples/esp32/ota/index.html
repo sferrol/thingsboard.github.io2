@@ -1,0 +1,1566 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ESP32 OTA using ThingsBoard | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="ESP32 OTA using ThingsBoard" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ThingsBoard IoT Platform sample for ESP32 OTA update using ThingsBoard" />
+<meta property="og:description" content="ThingsBoard IoT Platform sample for ESP32 OTA update using ThingsBoard" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/samples/esp32/ota/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/samples/esp32/ota/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="ESP32 OTA using ThingsBoard" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/samples/esp32/ota/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"ThingsBoard IoT Platform sample for ESP32 OTA update using ThingsBoard","@type":"WebPage","headline":"ESP32 OTA using ThingsBoard","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="ThingsBoard IoT Platform sample for ESP32 OTA update using ThingsBoard"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/pe/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/samples/esp32/ota/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                <span class="item">ESP32 OTA using ThingsBoard</span>
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsContent" class="noToc hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>ESP32 OTA using ThingsBoard</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#video-tutorial" id="markdown-toc-video-tutorial">Video tutorial</a></li>
+  <li><a href="#what-you-need" id="markdown-toc-what-you-need">What you need</a></li>
+  <li><a href="#thingsboard-configuration" id="markdown-toc-thingsboard-configuration">ThingsBoard configuration</a></li>
+  <li><a href="#configure-and-flash-firmware-for-esp32-factory-partition" id="markdown-toc-configure-and-flash-firmware-for-esp32-factory-partition">Configure and flash firmware for ESP32 factory partition</a></li>
+  <li><a href="#performing-ota-from-thingsboard" id="markdown-toc-performing-ota-from-thingsboard">Performing OTA from ThingsBoard</a></li>
+  <li><a href="#see-also" id="markdown-toc-see-also">See also</a></li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next steps</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>ThingsBoard is an open-source server-side platform that allows you to monitor and control IoT devices.
+It is free for both personal and commercial usage and you can deploy it anywhere. 
+If this is your first experience with the platform we recommend to review 
+<a href="/docs/getting-started-guides/what-is-thingsboard/">what-is-thingsboard</a> page and <a href="/docs/getting-started-guides/helloworld/">getting-started</a> guide.</p>
+
+<p><a href="https://www.espressif.com/en/products/hardware/esp32/overview">ESP32</a> is a series of low-cost, low-power SOC microcontrollers with integrated self-contained Wi-Fi and dual-mode Bluetooth.<br />
+This sample application allow you to deliver a new firmware images to EPS32 with using ThingsBoard and OTA.</p>
+
+<h2 id="video-tutorial">Video tutorial</h2>
+
+<p>See video tutorial below for this sample with additional detailed demonstration how to install and configure <a href="https://github.com/espressif/esp-idf">ESP-IDF</a> for Windows.</p>
+
+<p><br /></p>
+<div id="video">
+  <div id="video_wrapper">
+    <iframe src="https://www.youtube.com/embed/nx44dS_Syqk" frameborder="0" allowfullscreen=""></iframe>
+  </div>
+</div>
+
+<h2 id="what-you-need">What you need</h2>
+<ul>
+  <li>Installed and configured <a href="https://github.com/espressif/esp-idf">ESP-IDF</a>, the official development framework for ESP32 chip.<br />
+Refer to <a href="https://docs.espressif.com/projects/esp-idf/en/latest/get-started/">ESP-IDF Get Started</a> document to set up the software environment.<br />
+Before continuing, please make sure that you can successfully build and flash some example from ESP-IDF, for instance <a href="https://github.com/espressif/esp-idf/tree/master/examples/get-started/hello_world">Hello World</a>.<br />
+For the sample ESP-IDF version <strong><em>v3.3-beta1-328-gabea9e4c0</em></strong> was used.<br />
+In case of any build errors see <a href="https://docs.espressif.com/projects/esp-idf/en/latest/versions.html#esp-idf-versions">ESP-IDF Versions</a> document to update the version of the installed EPS-IDF.</li>
+  <li>Any development board with ESP32-PICO-D4 chip.<br />
+For this sample we were using <a href="https://docs.espressif.com/projects/esp-idf/en/latest/get-started/get-started-pico-kit.html#overview">ESP32-PICO-KIT mini development board</a><br />
+  <img src="/images/samples/esp32/ota/esp32_board.png" width="400" /></li>
+  <li>Account in ThingsBoard application. You can use your own instance or <a href="https://thingsboard.cloud">ThingsBoard Cloud</a><br />
+We need to say that this sample works well with both CE and PE, but we use PE cloud since it has more features and in the next sample we will show how to do mass firmware updates for multiple devices simultaneously.</li>
+</ul>
+
+<h2 id="thingsboard-configuration">ThingsBoard configuration</h2>
+<ol>
+  <li>
+    <p>Create a new device, name it as <em>ESP32</em> and set it’s type as <em>ESP32_OTA</em>.<br />
+The specified device type will be used later in the rule chains and in the dashboard.</p>
+
+    <p><img src="/images/samples/esp32/ota/tb_create_device.png" width="600" /></p>
+  </li>
+  <li>
+    <p>Add the new rule chain that will update the device’s server attribute <em>fwStateIsSynced</em>.<br />
+The attribute type is boolean and it will be used to show on the dashboard is firmware synced or not.<br />
+Download, import <a href="/docs/samples/esp32/resources/check_is_esp32_firmware_synced.json">Check is ESP32 firmware synced</a> rule chain into ThingsBoard and save it:</p>
+
+    <p><img data-gifffer="/images/samples/esp32/ota/import_rule_chain.gif" width="1000" /></p>
+
+    <p>The rule chain has 3 nodes:</p>
+    <ul>
+      <li><em>Add attributes to metadata</em> - adds client attribute <em>currentFwVer</em> and server attribute <em>lastTargetFwVer</em> to metadata</li>
+      <li><em>Update server attribute ‘fwStateIsSynced’</em> - compares for the equality attributes <em>currentFwVer</em> and <em>lastTargetFwVer</em> and assign the comparison result to <em>fwStateIsSynced</em> attribute</li>
+      <li><em>Save ‘fwStateIsSynced’ attribute</em> - saves the updated attribute <em>fwStateIsSynced</em></li>
+    </ul>
+  </li>
+  <li>Add the imported rule chain <em>Check is ESP32 firmware synced</em> to <em>Root Rule Chain</em>. Open <em>Root Rule Chain</em>, drag and drop from nodes list <em>rule chain</em> node and select <em>Check is ESP32 firmware synced</em> from dropdown list.<br />
+To the added node should be connected two links:
+    <ul>
+      <li>From <em>Message Type Switch</em> with link type <em>Attributes Updated</em></li>
+      <li>From <em>Save Attributes</em> with link type <em>Success</em></li>
+    </ul>
+
+    <p><img data-gifffer="/images/samples/esp32/ota/tb_extend_root_rule_chain.gif" width="1000" /></p>
+
+    <p>Such rule configuration allows to compare received firmware version after it was updated in the next cases:</p>
+    <ul>
+      <li>After flashing ESP32 by a new firmware through OTA.<br />
+ The new value of firmware version is sent by ESP32 after restarting (as client attribute <em>currentFwVer</em>) and pass through <em>Post attributes</em> link in the rule chain.</li>
+      <li>After the user save the new OTA configuration in the widget.<br />
+ The new value of firmware version passes through <em>Attributes Updated</em> link in the rule chain as server attribute <em>lastTargetFwVer</em>.</li>
+    </ul>
+  </li>
+  <li>Download and import <a href="/docs/samples/esp32/resources/ota_widgets_v2.json">OTA widgets (ThingsBoard v3.x)</a> or <a href="/docs/samples/esp32/resources/ota_widgets.json">OTA widgets (ThingsBoard v2.x)</a> widgets group to Widgets Library to allow specifying of firmware URL and version and send OTA configuration to ESP32.</li>
+  <li>
+    <p>Download and import <a href="/docs/samples/esp32/resources/ota_for_esp32_v2.json">OTA for ESP32 (ThingsBoard v3.x)</a> or <a href="/docs/samples/esp32/resources/ota_for_esp32.json">OTA for ESP32 (ThingsBoard v2.x)</a> dashboard to Dashboards Group. The dashboard has the alias <em>ESP32_OTA_alias</em> for the devices with type <em>ESP32_OTA</em>.<br />
+It allows to show on the dashboard a list of ESP32 with OTA support and the current firmware state (synced or not synced) for every device in the list.<br />
+User can change and update OTA config of any ESP32 form the list by clicking ‘Select OTA configuration’ control in the last column.</p>
+
+    <p><img src="/images/samples/esp32/ota/tb_dashboard_main_state.png" width="600" /></p>
+
+    <p>Because of only one device with type <em>EPS32_OTA</em> was created, the table contain only one row. If a new device with type <em>ESP32_OTA</em> is added, then it will appear in the dashboard’s entity table automatically.</p>
+  </li>
+</ol>
+
+<h2 id="configure-and-flash-firmware-for-esp32-factory-partition">Configure and flash firmware for ESP32 factory partition</h2>
+<ol>
+  <li>Clone the sample’s sources from <a href="https://github.com/thingsboard/esp32-ota">ESP32 OTA</a> ThingsBoard repository.</li>
+  <li>Go to the directory with the cloned project and configure MQTT broker address, Wi-Fi credentials, etc. <br />
+Open the terminal and execute next command:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> make menuconfig
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>In the opened menu select <em>ThingsBoard OTA configuration</em> sub-menu and enter the valid parameters to the fields:</p>
+    <ul>
+      <li><em>WiFi SSID</em> - login of your WiFi access point</li>
+      <li><em>WiFi Password</em> - password of your WiFi access point</li>
+      <li><em>MQTT broker URL</em> - ThingsBoard MQTT endpoint</li>
+      <li><em>MQTT broker port</em> - ThingsBoard MQTT port</li>
+      <li><em>MQTT access token</em> - device’s access token in ThingsBoard</li>
+    </ul>
+
+    <p><img src="/images/samples/esp32/ota/framework_config.png" width="600" /></p>
+
+    <p>Save the configuration and select <em>Exit</em> to return to the main menu.</p>
+  </li>
+  <li>Select <em>Serial flasher config</em> sub-menu and change <em>Default serial port</em>, <em>Default baud rate</em> and <em>Flash Size</em> parameters:
+    <ul>
+      <li><em>Default serial port</em> - serial port name according to your OS (COM-type for Windows, /dev/cu/ for MacOS or /dev/tty/ for Linux)</li>
+      <li><em>Default baud rate</em> - 921600 baud (by default <em>111500 baud</em>)</li>
+      <li><em>Flash Size</em> - 4 MB (by default <em>1 MB</em>)</li>
+    </ul>
+
+    <p><img src="/images/samples/esp32/ota/serial_flasher_config.png" width="600" /></p>
+
+    <p>Save the configuration and select <em>Exit</em> to return to the main menu.</p>
+  </li>
+  <li>Select <em>Partition table</em> sub-menu and change <em>Partition table</em> parameter:
+    <ul>
+      <li><em>Partition table</em> - Factory app, two OTA definitions (by default <em>Single factory app, no OTA</em>)</li>
+    </ul>
+
+    <p><img src="/images/samples/esp32/ota/partition_table.png" width="600" /></p>
+
+    <p>Save the configuration and select <em>Exit</em> twice to exit from <em>menuconfig</em> utility.</p>
+  </li>
+  <li>
+    <p>Any web server that supports HTTPS and returns the image files can be used for OTA. For this sample we will use the GitHub repository to download the images by ESP32 for OTA update. <em><a href="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/server_certs/ca_cert.pem">ca_cert.pem</a></em> file contains GitHub public certificate already.</p>
+
+    <p><strong>OPTIONAL</strong><br />
+ If you are going to use some another server for the firmware images delivering, then content of <em><a href="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/server_certs/ca_cert.pem">ca_cert.pem</a></em> file should be replaced.<br />
+ To get public SSL certificate of a server, execute the next command (preliminary replace <em>raw.githubusercontent.com</em> by the desired server address)</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> openssl s_client <span class="nt">-showcerts</span> <span class="nt">-connect</span> raw.githubusercontent.com:443
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>Copy a certificate content from the output to <em><a href="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/server_certs/ca_cert.pem">ca_cert.pem</a></em> and save the file.</p>
+  </li>
+  <li>Now the project is configured and ready for compilation and flashing. Before the first flashing it is necessary to erase ESP32 flash memory.<br />
+Go to the <a href="https://github.com/thingsboard/esp32-ota">root sample directory</a> and execute the next command
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> make erase_flash
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>Execute the next command to build sources, flash ESP32 and get the firmware output:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> make flash monitor
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>If compilation and flashing were successful and ESP32 connected to ThingsBoard, the next log messages are printed:</p>
+
+    <p><img src="/images/samples/esp32/ota/monitor_output_after_flashing.png" width="600" /></p>
+
+    <p>Let’s look at a log message format, for example <em>I (5219) tb_ota: Connected to WI-FI, IP address: 192.168.2.45</em></p>
+    <ul>
+      <li><em>I</em> - info log type, can be W (warning), E (error) or D (debug)</li>
+      <li><em>(5219)</em> - time in milliseconds after the scheduler on APP CPU started</li>
+      <li><em>tb_ota:</em> - tag to identify a component that produced the log message</li>
+      <li><em>Connected to …</em> - the log message itself</li>
+    </ul>
+
+    <p>The application’s flow is the next:</p>
+    <ol>
+      <li>The firmware is flashing to the <em>factory</em> partition. In the future, the images received during OTA process will be written to partition <em>ota_0</em> or <em>ota_1</em> alternately.<br />
+ See more details in <a href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/ota.html">Over The Air Updates (OTA)</a> ESP32 API reference.</li>
+      <li>The application checks does the flash memory contain the Wi-Fi credentials.
+ Because the compiled image was flashed to the <em>factory</em> partition and the flash memory was erased, the Wi-Fi credential entered in <em>menuconfig</em> are persisted to the flash memory and will be used further.</li>
+      <li>The application is trying to connect to the provided Wi-Fi access point.</li>
+      <li>After the connection to Wi-Fi access point was established, the application checks does the flash memory contain MQTT URL, port and ThingsBoard access token.<br />
+ Because the application was flashed to the <em>factory</em> partition and the flash memory was erased, MQTT client parameters (URL, port and access token) entered in <em>menuconfig</em> are persisted to the flash memory and will be used further.</li>
+      <li>The application is trying to connect to ThingsBoard over MQTT.</li>
+      <li>After the connection was established, the application fetching shared attributes <em>targetFwUrl</em> and <em>targetFwVer</em> from ThingsBoard.<br />
+ It allows to cover the case when EPS32 was powered off or lose the connection with ThingsBoard but the shared attributes were update that time. 
+ OTA started only if the shared attributes values aren’t empty and <em>targetFwVer</em> isn’t equal to the hardcoded application’s firmware version.<br />
+ Because any shared attributes were not created in ThingsBoard yet (they will be created through the widget later), for now OTA procedure is skipped.</li>
+      <li>The application started to execute a custom task (for example send some telemetry or attributes data to ThingsBoard) and waits for the update of the shared attributes <em>targetFwUrl</em> and <em>targetFwVer</em> to perform OTA.</li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="performing-ota-from-thingsboard">Performing OTA from ThingsBoard</h2>
+<p>Go to the <em>OTA for ESP32</em> dashboard and press <em>Select OTA configuration</em> for the device. In opened dashboard enter the next parameters in <em>OTA control</em> widget:</p>
+<ul>
+  <li><em>Target firmware version</em> - expected firmware version which is hardcoded in the new firmware image, <em>v1.2</em></li>
+  <li><em>Firmware server URL</em> - link to the new firmware image, <em>https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.2.bin</em></li>
+</ul>
+
+<p>Press <em>Start OTA</em> button to create and send the chared attributes to EPS32.</p>
+
+<p><img data-gifffer="/images/samples/esp32/ota/tb_successful_ota_from_dashboard.gif" width="1000" /></p>
+
+<p>The sample’s <a href="https://github.com/thingsboard/esp32-ota/tree/master/firmware/">firmware</a> directory contains two images with the next differences:</p>
+<ul>
+  <li><a href="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.1.bin">example-v1.1.bin</a> - value of <em>FIRMWARE_VERSION</em> in <a href="https://github.com/thingsboard/esp32-ota/blob/master/main/main.h">main.h</a> equals to <em>v1.1</em>.<br />
+  <em>counter</em> variable in <a href="https://github.com/thingsboard/esp32-ota/blob/master/main/main.c">main_application_task</a> has value <em>1</em>.</li>
+  <li><a href="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.2.bin">example-v1.2.bin</a> - value of <em>FIRMWARE_VERSION</em> in <a href="https://github.com/thingsboard/esp32-ota/blob/master/main/main.h">main.h</a> equals to <em>v1.2</em>.<br />
+  <em>counter</em> variable in <a href="https://github.com/thingsboard/esp32-ota/blob/master/main/main.c">main_application_task</a> has value <em>2</em>.</li>
+</ul>
+
+<p>After the firmware version and URL were updated on the <em>OTA control</em> widget, ThingsBoard sends a MQTT message with the shared attributes to <em>v1/devices/me/attributes</em> MQTT topic.<br />
+Because of the ESP32 is subscribed to this MQTT topic, as soon as the update message is received it is parsed and the firmware versions are compared.<br />
+If the value of <em>FIRMWARE_VERSION</em> defined in <a href="https://github.com/thingsboard/esp32-ota/blob/master/main/main.h">main.h</a> isn’t equal to the firmware version received from ThingsBoard, OTA update process will started and <em>monitor</em> utility outputs the next logs:</p>
+
+<p><img src="/images/samples/esp32/ota/shared_attributes_updated.png" width="600" /></p>
+
+<p>The application’s flow is the next:</p>
+<ul>
+  <li>shows the received URL and firmware version</li>
+  <li>shows the warning that firmware versions are different and the difference between them</li>
+  <li>if a server’s certificate is valid and an image was downloaded successfully from the provided URL then OTA process starts (<em>Starting OTA…</em> message is printed)</li>
+  <li>during OTA process all other tasks could be executed with some delays.<br />
+For example, the application sends a telemetry data (in this sample it is the current value of <em>counter</em> variable) to ThingsBoard with not determined period.<br />
+If OTA process was finished successfully, ESP32 will be rebooted and after the start the next logs will be shown:</li>
+</ul>
+
+<p><img src="/images/samples/esp32/ota/ota_finished_successfully.png" width="600" /></p>
+
+<p>Let’s review the logs differences in comparison when the firmware was flashed to <em>factory</em> partition:</p>
+<ul>
+  <li>running partition now is <em>ota_0</em>, not <em>factory</em></li>
+  <li>Wi-Fi credentials were loaded from the flash memory, the credentials entered in <em>menuconfig</em> utility weren’t used</li>
+  <li>MQTT access token for ThingsBoard also was loaded from the flash memory</li>
+  <li>after the shared attributes were fetched, the new OTA process isn’t started because firmware versions are equal</li>
+  <li>the application is waiting for the next update of the shared attributes and a new downloaded image will be written to <em>ota_1</em> partition this time.</li>
+</ul>
+
+<p>Now, just for testing, you can update <em>OTA control</em> widget with next values:</p>
+<ul>
+  <li><em>Target firmware version</em> - v1.1</li>
+  <li><em>Firmware server URL</em> - https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.1.bin</li>
+</ul>
+
+<p>After this OTA update <em>counter</em> periodically changes its value to 0 or to 1, in the same manner as and after flashing the image to <em>factory</em> partition. But the difference this time is that the image was flashed to <em>ota_1</em> partition.</p>
+
+<h2 id="see-also">See also</h2>
+
+<p>Browse other <a href="/docs/samples">samples</a> or explore guides related to main ThingsBoard features:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/attributes/">Device attributes</a> - how to use device attributes.</li>
+  <li><a href="/docs/user-guide/telemetry/">Telemetry data collection</a> - how to collect telemetry data.</li>
+  <li><a href="/docs/user-guide/rpc/">Using RPC capabilities</a> - how to send commands to/from devices.</li>
+  <li><a href="/docs/user-guide/rule-engine/">Rule Engine</a> - how to use rule engine to analyze data from devices.</li>
+  <li><a href="/docs/user-guide/visualization/">Data Visualization</a> - how to visualize collected data.</li>
+</ul>
+
+<p>Don’t hesitate to star ThingsBoard on <strong><a href="https://github.com/thingsboard/thingsboard">github</a></strong> to help us spread the word.
+If you have any questions about this sample - post it on the <strong><a href="https://github.com/thingsboard/esp32-ota/issues">issues</a></strong>.</p>
+
+<div id="share"></div>
+<script>
+    jqueryDefer(initSocials);
+    function initSocials() {
+        var scriptsList = [
+            {src: 'https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css', type: 'css'},
+            {src: 'https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css', type: 'css'},
+            {src: 'https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js', type: 'script'}
+        ];
+        loadNextScript(0, scriptsList,
+                function() {
+                    $("#share").jsSocials({
+                        shares: ["email", "twitter", "facebook", "googleplus", "linkedin", "pinterest", "stumbleupon", "whatsapp", "telegram"],
+                        showLabel: false,
+                        showCount: false
+                    });
+                }
+        );
+    }
+</script>
+
+<h2 id="next-steps">Next steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/guides#AnchorIDGettingStartedGuides">Getting started guides</a> - These guides provide quick overview of main ThingsBoard features. Designed to be completed in 15-30 minutes.</p>
+  </li>
+  <li>
+    <p><a href="/docs/user-guide/install/installation-options/">Installation guides</a> - Learn how to setup ThingsBoard on various available operating systems.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDConnectYourDevice">Connect your device</a> - Learn how to connect devices based on your connectivity technology or solution.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataVisualization">Data visualization</a> - These guides contain instructions how to configure complex ThingsBoard dashboards.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataProcessing">Data processing &amp; actions</a> - Learn how to use ThingsBoard Rule Engine.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataAnalytics">IoT Data analytics</a> - Learn how to use rule engine to perform basic analytics tasks.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDAdvancedFeatures">Advanced features</a> - Learn about advanced ThingsBoard features.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDContribution">Contribution and Development</a> - Learn about contribution and development in ThingsBoard.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

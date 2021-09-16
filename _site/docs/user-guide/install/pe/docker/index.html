@@ -1,0 +1,2854 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="Installation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Installing ThingsBoard PE using Docker (Linux or Mac OS) | ThingsBoard Professional Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Installing ThingsBoard PE using Docker (Linux or Mac OS)" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Installing ThingsBoard PE IoT Platform using Docker (Linux or Mac OS)" />
+<meta property="og:description" content="Installing ThingsBoard PE IoT Platform using Docker (Linux or Mac OS)" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/user-guide/install/pe/docker/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/user-guide/install/pe/docker/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Installing ThingsBoard PE using Docker (Linux or Mac OS)" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/user-guide/install/pe/docker/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Installing ThingsBoard PE IoT Platform using Docker (Linux or Mac OS)","@type":"WebPage","headline":"Installing ThingsBoard PE using Docker (Linux or Mac OS)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Installing ThingsBoard PE IoT Platform using Docker (Linux or Mac OS)"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-p-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Professional Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+            
+            
+
+
+            
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+            
+
+
+            
+        
+    
+
+
+        <a href="/docs/pe/user-guide/install/docker/" class="product active">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+            
+
+
+            
+        
+    
+
+
+        <a href="/docs/user-guide/install/docker/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/pe/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/pe/installation-options/" class="YAH">Installation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">Installation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">On premise</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Docker (Linux or Mac OS)</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/guides/" >Guides</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Installation options" href="/docs/user-guide/install/pe/installation-options/"></a>
+
+
+<div class="item" data-title="On premise">
+  <div class="container">
+
+
+<a class="item" data-title="Ubuntu Server" href="/docs/user-guide/install/pe/ubuntu/"></a>
+
+
+<a class="item" data-title="CentOS/RHEL Server" href="/docs/user-guide/install/pe/rhel/"></a>
+
+
+<a class="item" data-title="Windows" href="/docs/user-guide/install/pe/windows/"></a>
+
+
+<a class="item" data-title="Docker (Linux or Mac OS)" href="/docs/user-guide/install/pe/docker/"></a>
+
+
+<a class="item" data-title="Docker (Windows)" href="/docs/user-guide/install/pe/docker-windows/"></a>
+
+
+<a class="item" data-title="Cluster setup" href="/docs/user-guide/install/pe/cluster-setup/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Cloud">
+  <div class="container">
+
+
+<a class="item" data-title="AWS" href="/docs/user-guide/install/pe/aws/"></a>
+
+
+<a class="item" data-title="Azure" href="/docs/user-guide/install/pe/azure/"></a>
+
+
+<a class="item" data-title="DigitalOcean" href="/docs/user-guide/install/pe/digital-ocean/"></a>
+
+
+<a class="item" data-title="Google Cloud Platform" href="/docs/user-guide/install/pe/gcp/"></a>
+
+
+<a class="item" data-title="IBM Cloud" href="/docs/user-guide/install/pe/ibm-cloud/"></a>
+
+
+<a class="item" data-title="Alibaba Cloud" href="/docs/user-guide/install/pe/alibaba-cloud/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Upgrade instructions" href="/docs/user-guide/install/pe/upgrade-instructions/"></a>
+
+
+<a class="item" data-title="Configuration" href="/docs/pe/user-guide/install/config/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Installation options" href="/docs/user-guide/install/pe/installation-options/"></a>
+
+
+<div class="item" data-title="On premise">
+  <div class="container">
+
+
+<a class="item" data-title="Ubuntu Server" href="/docs/user-guide/install/pe/ubuntu/"></a>
+
+
+<a class="item" data-title="CentOS/RHEL Server" href="/docs/user-guide/install/pe/rhel/"></a>
+
+
+<a class="item" data-title="Windows" href="/docs/user-guide/install/pe/windows/"></a>
+
+
+<a class="item" data-title="Docker (Linux or Mac OS)" href="/docs/user-guide/install/pe/docker/"></a>
+
+
+<a class="item" data-title="Docker (Windows)" href="/docs/user-guide/install/pe/docker-windows/"></a>
+
+
+<a class="item" data-title="Cluster setup" href="/docs/user-guide/install/pe/cluster-setup/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Cloud">
+  <div class="container">
+
+
+<a class="item" data-title="AWS" href="/docs/user-guide/install/pe/aws/"></a>
+
+
+<a class="item" data-title="Azure" href="/docs/user-guide/install/pe/azure/"></a>
+
+
+<a class="item" data-title="DigitalOcean" href="/docs/user-guide/install/pe/digital-ocean/"></a>
+
+
+<a class="item" data-title="Google Cloud Platform" href="/docs/user-guide/install/pe/gcp/"></a>
+
+
+<a class="item" data-title="IBM Cloud" href="/docs/user-guide/install/pe/ibm-cloud/"></a>
+
+
+<a class="item" data-title="Alibaba Cloud" href="/docs/user-guide/install/pe/alibaba-cloud/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Upgrade instructions" href="/docs/user-guide/install/pe/upgrade-instructions/"></a>
+
+
+<a class="item" data-title="Configuration" href="/docs/pe/user-guide/install/config/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Installing ThingsBoard PE using Docker (Linux or Mac OS)</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a></li>
+  <li><a href="#step-1-checkout-all-thingsboard-pe-image" id="markdown-toc-step-1-checkout-all-thingsboard-pe-image">Step 1. Checkout all ThingsBoard PE Image</a></li>
+  <li><a href="#step-2-pull-thingsboard-pe-image" id="markdown-toc-step-2-pull-thingsboard-pe-image">Step 2. Pull ThingsBoard PE Image</a></li>
+  <li><a href="#step-3-obtain-the-license-key" id="markdown-toc-step-3-obtain-the-license-key">Step 3. Obtain the license key</a></li>
+  <li><a href="#step-4-choose-thingsboard-queue-service" id="markdown-toc-step-4-choose-thingsboard-queue-service">Step 4. Choose ThingsBoard queue service</a></li>
+  <li><a href="#step-5-running" id="markdown-toc-step-5-running">Step 5. Running</a></li>
+  <li><a href="#detaching-stop-and-start-commands" id="markdown-toc-detaching-stop-and-start-commands">Detaching, stop and start commands</a></li>
+  <li><a href="#troubleshooting" id="markdown-toc-troubleshooting">Troubleshooting</a>    <ul>
+      <li><a href="#dns-issues" id="markdown-toc-dns-issues">DNS issues</a></li>
+      <li><a href="#upgrading-from-old-postgresql-96-to-postgresql-11-and-thingsboard-301pe" id="markdown-toc-upgrading-from-old-postgresql-96-to-postgresql-11-and-thingsboard-301pe">Upgrading from old PostgreSQL 9.6 to PostgreSQL 11 and ThingsBoard 3.0.1PE</a></li>
+      <li><a href="#upgrading-from-301pe-to-310pe" id="markdown-toc-upgrading-from-301pe-to-310pe">Upgrading from 3.0.1PE to 3.1.0PE</a></li>
+      <li><a href="#upgrade-starting-from-310pe" id="markdown-toc-upgrade-starting-from-310pe">Upgrade starting from 3.1.0PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next steps</a></li>
+</ul>
+
+<p>This guide will help you to install and start ThingsBoard Professional Edition (PE) using Docker and Docker Compose on Linux or Mac OS. 
+This guide covers standalone ThingsBoard PE installation. 
+If you are looking for a cluster installation instruction, please visit <a href="/docs/user-guide/install/pe/cluster-setup/">cluster setup page</a>.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://docs.docker.com/engine/installation/">Install Docker CE</a></li>
+  <li><a href="https://docs.docker.com/compose/install/">Install Docker Compose</a></li>
+</ul>
+
+<div class="warn-banner">
+<img src="/images/doc-warn-icon.svg" />   <div>
+    <p><strong>Don’t forget to add your linux user to the docker group. See <a href="https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user">Manage Docker as a non-root user</a>.</strong></p>
+  </div>
+</div>
+
+<h2 id="step-1-checkout-all-thingsboard-pe-image">Step 1. Checkout all ThingsBoard PE Image</h2>
+
+<p>Please checkout ThingsBoard PE Image from Docker Hub.
+You will need to open all <a href="https://hub.docker.com/search?q=thingsboard&amp;type=image&amp;image_filter=store">verified images</a> and click on “Proceed to checkout” to accept ThingsBoard PE license agreement.</p>
+
+<p>Listing all images <strong>mandatory</strong> for checkout for your convenience below:</p>
+
+<ul>
+  <li><a href="https://hub.docker.com/_/thingsboard-pe">ThingsBoard PE Standalone</a></li>
+</ul>
+
+<p><img src="/images/user-guide/install/docker-pe/checkout-pe-node.png" alt="image" /></p>
+
+<p>Populate basic information about yourself and click “Get Content”</p>
+
+<p><img src="/images/user-guide/install/docker-pe/details.png" alt="image" /></p>
+
+<h2 id="step-2-pull-thingsboard-pe-image">Step 2. Pull ThingsBoard PE Image</h2>
+
+<p>Make sure your have <a href="https://docs.docker.com/engine/reference/commandline/login/">logged in</a> to docker hub using command line.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker pull store/thingsboard/tb-pe:3.3.1PE
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="step-3-obtain-the-license-key">Step 3. Obtain the license key</h2>
+
+<p>We assume you have already chosen your subscription plan or decided to purchase a perpetual license. 
+If not, please navigate to <a href="/pricing/">pricing</a> page to select the best license option for your case and get your license. 
+See <a href="https://www.youtube.com/watch?v=dK-QDFGxWek" target="_blank">How-to get pay-as-you-go subscription</a> or <a href="https://www.youtube.com/watch?v=GPe0lHolWek" target="_blank">How-to get perpetual license</a> for more details.</p>
+
+<p>Note: We will reference the license key you have obtained during this step as PUT_YOUR_LICENSE_SECRET_HERE later in this guide.</p>
+
+<h2 id="step-4-choose-thingsboard-queue-service">Step 4. Choose ThingsBoard queue service</h2>
+
+<p>ThingsBoard is able to use various messaging systems/brokers for storing the messages and communication between ThingsBoard services. How to choose the right queue implementation?</p>
+
+<ul>
+  <li>
+    <p><strong>In Memory</strong> queue implementation is built-in and default. 
+It is useful for development(PoC) environments and is not suitable for production deployments or any sort of cluster deployments.</p>
+  </li>
+  <li>
+    <p><strong>Kafka</strong> is recommended for production deployments. This queue is used on the most of ThingsBoard production environments now. 
+It is useful for both on-prem and private cloud deployments. It is also useful if you like to stay independent from your cloud provider.
+However, some providers also have managed services for Kafka. See AWS <a href="https://aws.amazon.com/msk/">MSK</a> for example.</p>
+  </li>
+  <li>
+    <p><strong>RabbitMQ</strong> is recommended if you don’t have much load and you already have experience with this messaging system.</p>
+  </li>
+  <li>
+    <p><strong>AWS SQS</strong> is a fully managed message queuing service from AWS. Useful if you plan to deploy ThingsBoard on AWS.</p>
+  </li>
+  <li>
+    <p><strong>Google Pub/Sub</strong> is a fully managed message queuing service from Google. Useful if you plan to deploy ThingsBoard on Google Cloud.</p>
+  </li>
+  <li>
+    <p><strong>Azure Service Bus</strong> is a fully managed message queuing service from Azure. Useful if you plan to deploy ThingsBoard on Azure.</p>
+  </li>
+  <li>
+    <p><strong>Confluent Cloud</strong> is a fully managed streaming platform based on Kafka. Useful for a cloud agnostic deployments.</p>
+  </li>
+</ul>
+
+<p>See corresponding architecture <a href="/docs/reference/#message-queues-are-awesome">page</a> and rule engine <a href="/docs/user-guide/rule-engine-2-0/overview/#rule-engine-queue">page</a> for more details.</p>
+
+<div class="tb-content-toggle" id="ubuntuThingsboardQueue">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+<a class="content-toggle-button" data-target="#inmemory">
+                <div class="content-toggle-button-text">
+                    In Memory <small>(built-in and default)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#kafka">
+                <div class="content-toggle-button-text">
+                    Kafka <small>(recommended for on-prem, production installations)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#aws-sqs">
+                <div class="content-toggle-button-text">
+                    AWS SQS <small>(managed service from AWS)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#pubsub">
+                <div class="content-toggle-button-text">
+                    Google Pub/Sub <small>(managed service from Google)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#service-bus">
+                <div class="content-toggle-button-text">
+                    Azure Service Bus <small>(managed service from Azure)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#rabbitmq">
+                <div class="content-toggle-button-text">
+                    RabbitMQ <small>(for small on-prem installations)</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#confluent-cloud">
+                <div class="content-toggle-button-text">
+                    Confluent Cloud <small>(Event Streaming Platform based on Kafka)</small>
+                </div>
+            </a>
+    </div>
+    <div id="inmemory" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p><strong>ThingsBoard includes In Memory Queue service and use it by default without extra settings.</strong></p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “PUT_YOUR_LICENSE_SECRET_HERE” with your <strong>license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">in-memory</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="kafka" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p><a href="https://kafka.apache.org/">Apache Kafka</a> is an open-source stream-processing software platform.</p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “PUT_YOUR_LICENSE_SECRET_HERE” with your <strong>license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">zookeeper</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">zookeeper:3.5"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">2181:2181"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">ZOO_MY_ID</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">ZOO_SERVERS</span><span class="pi">:</span> <span class="s">server.1=zookeeper:2888:3888;zookeeper:2181</span>
+  <span class="na">kafka</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wurstmeister/kafka</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">zookeeper</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">9092:9092"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">KAFKA_ZOOKEEPER_CONNECT</span><span class="pi">:</span> <span class="s">zookeeper:2181</span>
+      <span class="na">KAFKA_LISTENERS</span><span class="pi">:</span> <span class="s">INSIDE://:9093,OUTSIDE://:9092</span>
+      <span class="na">KAFKA_ADVERTISED_LISTENERS</span><span class="pi">:</span> <span class="s">INSIDE://:9093,OUTSIDE://kafka:9092</span>
+      <span class="na">KAFKA_LISTENER_SECURITY_PROTOCOL_MAP</span><span class="pi">:</span> <span class="s">INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT</span>
+      <span class="na">KAFKA_INTER_BROKER_LISTENER_NAME</span><span class="pi">:</span> <span class="s">INSIDE</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/var/run/docker.sock:/var/run/docker.sock</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">kafka</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">kafka</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_KAFKA_SERVERS</span><span class="pi">:</span> <span class="s">kafka:9092</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="aws-sqs" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<h4 class="no_toc" id="aws-sqs-configuration">AWS SQS Configuration</h4>
+
+<p>To access AWS SQS service, you first need to create an <a href="https://aws.amazon.com/sqs/">AWS account</a>.</p>
+
+<p>To work with AWS SQS service you will need to create your next credentials using <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-setting-up.html">this instruction</a>:</p>
+<ul>
+  <li>Access key ID</li>
+  <li>Secret access key</li>
+</ul>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “YOUR_KEY”, “YOUR_SECRET” with your <strong>real AWS SQS IAM user credentials</strong> and “YOUR_REGION” with your <strong>real AWS SQS account region</strong>, and “PUT_YOUR_LICENSE_SECRET_HERE” with your <strong>license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">aws-sqs</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_QUEUE_AWS_SQS_ACCESS_KEY_ID</span><span class="pi">:</span> <span class="s">YOUR_KEY</span>
+      <span class="na">TB_QUEUE_AWS_SQS_SECRET_ACCESS_KEY</span><span class="pi">:</span> <span class="s">YOUR_SECRET</span>
+      <span class="na">TB_QUEUE_AWS_SQS_REGION</span><span class="pi">:</span> <span class="s">YOUR_REGION</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+
+      <span class="c1"># These params affect the number of requests per second from each partitions per each queue.</span>
+      <span class="c1"># Number of requests to particular Message Queue is calculated based on the formula:</span>
+      <span class="c1"># ((Number of Rule Engine and Core Queues) * (Number of partitions per Queue) + (Number of transport queues)</span>
+      <span class="c1">#  + (Number of microservices) + (Number of JS executors)) * 1000 / POLL_INTERVAL_MS</span>
+      <span class="c1"># For example, number of requests based on default parameters is:</span>
+      <span class="c1"># Rule Engine queues:</span>
+      <span class="c1"># Main 10 partitions + HighPriority 10 partitions + SequentialByOriginator 10 partitions = 30</span>
+      <span class="c1"># Core queue 10 partitions</span>
+      <span class="c1"># Transport request Queue + response Queue = 2</span>
+      <span class="c1"># Rule Engine Transport notifications Queue + Core Transport notifications Queue = 2</span>
+      <span class="c1"># Total = 44</span>
+      <span class="c1"># Number of requests per second = 44 * 1000 / 25 = 1760 requests</span>
+      <span class="c1"># </span>
+      <span class="c1"># Based on the use case, you can compromise latency and decrease number of partitions/requests to the queue, if the message load is low.</span>
+      <span class="c1"># Sample parameters to fit into 10 requests per second on a "monolith" deployment: </span>
+      <span class="na">TB_QUEUE_CORE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_CORE_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RULE_ENGINE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RE_HP_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_HP_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_RE_SQ_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_SQ_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_TRANSPORT_REQUEST_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_RESPONSE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_NOTIFICATIONS_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="pubsub" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<h4 class="no_toc" id="google-pubsub-configuration">Google Pub/Sub Configuration</h4>
+
+<p>To access Pub/Sub service, you first need to create an <a href="https://cloud.google.com/">Google cloud account</a>.</p>
+
+<p>To work with Pub/Sub service you will need to create a project using <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">this instruction</a>.</p>
+
+<p>Create service account credentials with the <strong>role “Editor” or “Admin”</strong> using <a href="https://cloud.google.com/pubsub/docs/quickstart-py-mac#create_service_account_credentials">this instruction</a>,
+and save json file with your service account credentials step 9 <a href="https://cloud.google.com/pubsub/docs/quickstart-py-mac#create_service_account_credentials">here</a>.</p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “YOUR_PROJECT_ID”, “YOUR_SERVICE_ACCOUNT” with your <strong>real Pub/Sub project id, and service account (it is whole data from json file), and “PUT_YOUR_LICENSE_SECRET_HERE” with your **license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">pubsub</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_QUEUE_PUBSUB_PROJECT_ID</span><span class="pi">:</span> <span class="s">YOUR_PROJECT_ID</span>
+      <span class="na">TB_QUEUE_PUBSUB_SERVICE_ACCOUNT</span><span class="pi">:</span> <span class="s">YOUR_SERVICE_ACCOUNT</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+
+      <span class="c1"># These params affect the number of requests per second from each partitions per each queue.</span>
+      <span class="c1"># Number of requests to particular Message Queue is calculated based on the formula:</span>
+      <span class="c1"># ((Number of Rule Engine and Core Queues) * (Number of partitions per Queue) + (Number of transport queues)</span>
+      <span class="c1">#  + (Number of microservices) + (Number of JS executors)) * 1000 / POLL_INTERVAL_MS</span>
+      <span class="c1"># For example, number of requests based on default parameters is:</span>
+      <span class="c1"># Rule Engine queues:</span>
+      <span class="c1"># Main 10 partitions + HighPriority 10 partitions + SequentialByOriginator 10 partitions = 30</span>
+      <span class="c1"># Core queue 10 partitions</span>
+      <span class="c1"># Transport request Queue + response Queue = 2</span>
+      <span class="c1"># Rule Engine Transport notifications Queue + Core Transport notifications Queue = 2</span>
+      <span class="c1"># Total = 44</span>
+      <span class="c1"># Number of requests per second = 44 * 1000 / 25 = 1760 requests</span>
+      <span class="c1"># </span>
+      <span class="c1"># Based on the use case, you can compromise latency and decrease number of partitions/requests to the queue, if the message load is low.</span>
+      <span class="c1"># Sample parameters to fit into 10 requests per second on a "monolith" deployment: </span>
+      <span class="na">TB_QUEUE_CORE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_CORE_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RULE_ENGINE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RE_HP_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_HP_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_RE_SQ_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_SQ_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_TRANSPORT_REQUEST_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_RESPONSE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_NOTIFICATIONS_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="service-bus" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<h4 class="no_toc" id="azure-service-bus-configuration">Azure Service Bus Configuration</h4>
+
+<p>To access Azure Service Bus, you first need to create an <a href="https://azure.microsoft.com/">Azure account</a>.</p>
+
+<p>To work with Service Bus service you will need to create a Service Bus Namespace using <a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-create-namespace-portal">this instruction</a>.</p>
+
+<p>Create Shared Access Signature using <a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-create-namespace-portal#get-the-connection-string">this instruction</a>.</p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “YOUR_NAMESPACE_NAME” with your <strong>real Service Bus namespace name</strong>, and “YOUR_SAS_KEY_NAME”, “YOUR_SAS_KEY” with your <strong>real Service Bus credentials. Note: “YOUR_SAS_KEY_NAME” it is “SAS Policy”, “YOUR_SAS_KEY” it is “SAS Policy Primary Key”</strong>, and “PUT_YOUR_LICENSE_SECRET_HERE” with your <strong>license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">service-bus</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_QUEUE_SERVICE_BUS_NAMESPACE_NAME</span><span class="pi">:</span> <span class="s">YOUR_NAMESPACE_NAME</span>
+      <span class="na">TB_QUEUE_SERVICE_BUS_SAS_KEY_NAME</span><span class="pi">:</span> <span class="s">YOUR_SAS_KEY_NAME</span>
+      <span class="na">TB_QUEUE_SERVICE_BUS_SAS_KEY</span><span class="pi">:</span> <span class="s">YOUR_SAS_KEY</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+
+      <span class="c1"># These params affect the number of requests per second from each partitions per each queue.</span>
+      <span class="c1"># Number of requests to particular Message Queue is calculated based on the formula:</span>
+      <span class="c1"># ((Number of Rule Engine and Core Queues) * (Number of partitions per Queue) + (Number of transport queues)</span>
+      <span class="c1">#  + (Number of microservices) + (Number of JS executors)) * 1000 / POLL_INTERVAL_MS</span>
+      <span class="c1"># For example, number of requests based on default parameters is:</span>
+      <span class="c1"># Rule Engine queues:</span>
+      <span class="c1"># Main 10 partitions + HighPriority 10 partitions + SequentialByOriginator 10 partitions = 30</span>
+      <span class="c1"># Core queue 10 partitions</span>
+      <span class="c1"># Transport request Queue + response Queue = 2</span>
+      <span class="c1"># Rule Engine Transport notifications Queue + Core Transport notifications Queue = 2</span>
+      <span class="c1"># Total = 44</span>
+      <span class="c1"># Number of requests per second = 44 * 1000 / 25 = 1760 requests</span>
+      <span class="c1"># </span>
+      <span class="c1"># Based on the use case, you can compromise latency and decrease number of partitions/requests to the queue, if the message load is low.</span>
+      <span class="c1"># Sample parameters to fit into 10 requests per second on a "monolith" deployment: </span>
+      <span class="na">TB_QUEUE_CORE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_CORE_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RULE_ENGINE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RE_HP_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_HP_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_RE_SQ_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_SQ_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_TRANSPORT_REQUEST_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_RESPONSE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_NOTIFICATIONS_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="rabbitmq" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>For installing RabbitMQ use this <a href="https://www.rabbitmq.com/install-debian.html">instruction</a>.</p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “YOUR_USERNAME” and “YOUR_PASSWORD” with your <strong>real user credentials</strong>, “localhost” and “5672” with your <strong>real RabbitMQ host and port</strong>, and “PUT_YOUR_LICENSE_SECRET_HERE” with your <strong>license secret obtained on the first step</strong>:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">rabbitmq</span>
+      <span class="na">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+      <span class="na">TB_QUEUE_RABBIT_MQ_USERNAME</span><span class="pi">:</span> <span class="s">YOUR_USERNAME</span>
+      <span class="na">TB_QUEUE_RABBIT_MQ_PASSWORD</span><span class="pi">:</span> <span class="s">YOUR_PASSWORD</span>
+      <span class="na">TB_QUEUE_RABBIT_MQ_HOST</span><span class="pi">:</span> <span class="s">localhost</span>
+      <span class="na">TB_QUEUE_RABBIT_MQ_PORT</span><span class="pi">:</span> <span class="m">5672</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">PUT_YOUR_LICENSE_SECRET_HERE</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="confluent-cloud" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<h4 class="no_toc" id="confluent-cloud-configuration">Confluent Cloud Configuration</h4>
+
+<p>To access <a href="https://docs.confluent.io/current/platform.html#what-is-cp">Confluent Cloud</a> 
+you should first create an <a href="https://confluent.cloud/login">account</a>, 
+then create a <a href="https://docs.confluent.io/current/quickstart/cloud-quickstart/index.html#step-1-create-a-ak-cluster-in-ccloud">Kafka cluster</a> 
+and get your <a href="https://docs.confluent.io/current/quickstart/cloud-quickstart/index.html#step-4-create-an-api-key">API Key</a>.</p>
+
+<p>Create docker compose file for ThingsBoard queue service:</p>
+
+<div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano docker-compose.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Add the following line to the yml file. Don’t forget to replace “CLUSTER_API_KEY”, “CLUSTER_API_SECRET” and “confluent.cloud:9092” with your real Confluent Cloud bootstrap servers:</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.3.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="s">TB_QUEUE_TYPE=kafka</span>
+      <span class="s">SPRING_DATASOURCE_URL</span><span class="pi">:</span> <span class="s">jdbc:postgresql://postgres:5432/thingsboard</span>
+    
+      <span class="s">TB_KAFKA_SERVERS:confluent.cloud:9092</span>
+      <span class="s">TB_QUEUE_KAFKA_REPLICATION_FACTOR:3</span>
+    
+      <span class="s">TB_QUEUE_KAFKA_USE_CONFLUENT_CLOUD:true</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_SSL_ALGORITHM:https</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_SASL_MECHANISM:PLAIN</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_SASL_JAAS_CONFIG:org.apache.kafka.common.security.plain.PlainLoginModule required username="CLUSTER_API_KEY" password="CLUSTER_API_SECRET";</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_SECURITY_PROTOCOL:SASL_SSL</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_USERNAME:CLUSTER_API_KEY</span>
+      <span class="s">TB_QUEUE_KAFKA_CONFLUENT_PASSWORD:CLUSTER_API_SECRET</span>
+    
+      <span class="s">TB_QUEUE_KAFKA_RE_TOPIC_PROPERTIES:retention.ms:604800000;segment.bytes:52428800;retention.bytes:1048576000</span>
+      <span class="s">TB_QUEUE_KAFKA_CORE_TOPIC_PROPERTIES:retention.ms:604800000;segment.bytes:52428800;retention.bytes:1048576000</span>
+      <span class="s">TB_QUEUE_KAFKA_TA_TOPIC_PROPERTIES:retention.ms:604800000;segment.bytes:52428800;retention.bytes:1048576000</span>
+      <span class="s">TB_QUEUE_KAFKA_NOTIFICATIONS_TOPIC_PROPERTIES:retention.ms:604800000;segment.bytes:52428800;retention.bytes:1048576000</span>
+      <span class="s">TB_QUEUE_KAFKA_JE_TOPIC_PROPERTIES:retention.ms:604800000;segment.bytes:52428800;retention.bytes:104857600</span>
+
+      <span class="c1"># These params affect the number of requests per second from each partitions per each queue.</span>
+      <span class="c1"># Number of requests to particular Message Queue is calculated based on the formula:</span>
+      <span class="c1"># ((Number of Rule Engine and Core Queues) * (Number of partitions per Queue) + (Number of transport queues)</span>
+      <span class="c1">#  + (Number of microservices) + (Number of JS executors)) * 1000 / POLL_INTERVAL_MS</span>
+      <span class="c1"># For example, number of requests based on default parameters is:</span>
+      <span class="c1"># Rule Engine queues:</span>
+      <span class="c1"># Main 10 partitions + HighPriority 10 partitions + SequentialByOriginator 10 partitions = 30</span>
+      <span class="c1"># Core queue 10 partitions</span>
+      <span class="c1"># Transport request Queue + response Queue = 2</span>
+      <span class="c1"># Rule Engine Transport notifications Queue + Core Transport notifications Queue = 2</span>
+      <span class="c1"># Total = 44</span>
+      <span class="c1"># Number of requests per second = 44 * 1000 / 25 = 1760 requests</span>
+      <span class="c1"># </span>
+      <span class="c1"># Based on the use case, you can compromise latency and decrease number of partitions/requests to the queue, if the message load is low.</span>
+      <span class="c1"># Sample parameters to fit into 10 requests per second on a "monolith" deployment: </span>
+      <span class="na">TB_QUEUE_CORE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_CORE_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RULE_ENGINE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_MAIN_PARTITIONS</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="na">TB_QUEUE_RE_HP_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_HP_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_RE_SQ_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_RE_SQ_PARTITIONS</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">TB_QUEUE_TRANSPORT_REQUEST_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_RESPONSE_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+      <span class="na">TB_QUEUE_TRANSPORT_NOTIFICATIONS_POLL_INTERVAL_MS</span><span class="pi">:</span> <span class="m">1000</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres:12"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">5432"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">POSTGRES_DB</span><span class="pi">:</span> <span class="s">thingsboard</span>
+      <span class="na">POSTGRES_PASSWORD</span><span class="pi">:</span> <span class="s">postgres</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data/db:/var/lib/postgresql/data</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    jqueryUiDefer(initContentToggleubuntuThingsboardQueue);
+    function initContentToggleubuntuThingsboardQueue() {
+        $(function(){
+
+            window.addEventListener('popstate', onPopStateubuntuThingsboardQueue);
+
+            onPopStateubuntuThingsboardQueue();
+
+            $('.tb-content-toggle#ubuntuThingsboardQueue a.content-toggle-button').click(function(event) {
+                event.preventDefault();
+                var id = $(this).attr("data-target").substring(1);
+                var param = 'ubuntuThingsboardQueue';
+                var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+                params[param] = id;
+
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + Qs.stringify(params);
+                if (window.location.hash) {
+                    newurl += window.location.hash;
+                }
+                window.history.pushState({ path: newurl }, '', newurl);
+                selectTargetubuntuThingsboardQueue(id);
+            });
+        });
+    }
+
+    function onPopStateubuntuThingsboardQueue() {
+        var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+        var targetId = params['ubuntuThingsboardQueue'];
+        if (!targetId) {
+            targetId = 'inmemory';
+        }
+        selectTargetubuntuThingsboardQueue(targetId);
+    }
+
+    function selectTargetubuntuThingsboardQueue(targetId) {
+        $(".tb-content-toggle#ubuntuThingsboardQueue a.content-toggle-button").removeClass("active");
+        $(".tb-content-toggle#ubuntuThingsboardQueue a.content-toggle-button[data-target='#"+targetId+"']").addClass("active");
+        $('.tb-content-toggle#ubuntuThingsboardQueue .panel-collapse').removeClass("show");
+        $('.tb-content-toggle#ubuntuThingsboardQueue .panel-collapse#'+targetId).addClass("show");
+    }
+
+</script>
+
+<p>Where:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PUT_YOUR_LICENSE_SECRET_HERE</code> - placeholder for your license secret obtained on the third step;</li>
+  <li><code class="language-plaintext highlighter-rouge">8080:8080</code>            - connect local port 8080 to exposed internal HTTP port 8080;</li>
+  <li><code class="language-plaintext highlighter-rouge">1883:1883</code>            - connect local port 1883 to exposed internal MQTT port 1883;</li>
+  <li><code class="language-plaintext highlighter-rouge">7070:7070</code>            - connect local port 7070 to exposed internal Edge RPC port 7070;</li>
+  <li><code class="language-plaintext highlighter-rouge">5683-5688:5683-5688/udp</code>            - connect local UDP ports 5683-5688 to exposed internal COAP and LwM2M ports;</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.mytbpe-data:/data</code>   - mounts the host’s dir <code class="language-plaintext highlighter-rouge">~/.mytbpe-data</code> to ThingsBoard data directory;</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.mytbpe-data/db:/var/lib/postgresql/data</code>   - mounts the host’s dir <code class="language-plaintext highlighter-rouge">~/.mytbpe-data/db</code> to Postgres data directory;</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.mytbpe-logs:/var/log/thingsboard</code>   - mounts the host’s dir <code class="language-plaintext highlighter-rouge">~/.mytbpe-logs</code> to ThingsBoard logs directory;</li>
+  <li><code class="language-plaintext highlighter-rouge">mytbpe</code>             - friendly local name of this machine;</li>
+  <li><code class="language-plaintext highlighter-rouge">restart: always</code>        - automatically start ThingsBoard in case of system reboot and restart in case of failure.;</li>
+  <li><code class="language-plaintext highlighter-rouge">store/thingsboard/tb-pe:3.3.1PE</code>          - docker image.</li>
+</ul>
+
+<h2 id="step-5-running">Step 5. Running</h2>
+
+<p>Before starting Docker container run following commands to create a directory for storing data and logs and then change its owner to docker container user,
+to be able to change user, <strong>chown</strong> command is used, which requires sudo permissions (command will request password for a sudo access):</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>mkdir -p ~/.mytbpe-data &amp;&amp; sudo chown -R 799:799 ~/.mytbpe-data
+mkdir -p ~/.mytbpe-logs &amp;&amp; sudo chown -R 799:799 ~/.mytbpe-logs
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>NOTE</strong>: replace directory <code class="language-plaintext highlighter-rouge">~/.mytbpe-data</code> and <code class="language-plaintext highlighter-rouge">~/.mytbpe-logs</code> with directories you’re planning to used in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code>.</p>
+
+<p>Execute the following command to up this docker compose directly:</p>
+
+<p><strong>NOTE</strong>: For running docker compose commands you have to be in a directory with docker-compose.yml file.</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker-compose up -d
+docker-compose logs -f mytbpe
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>After executing this command you can open <code class="language-plaintext highlighter-rouge">http://{your-host-ip}:8080</code> in you browser (for ex. <code class="language-plaintext highlighter-rouge">http://localhost:8080</code>). You should see ThingsBoard login page.
+Use the following default credentials:</p>
+
+<ul>
+  <li><strong>System Administrator</strong>: sysadmin@thingsboard.org / sysadmin</li>
+  <li><strong>Tenant Administrator</strong>: tenant@thingsboard.org / tenant</li>
+  <li><strong>Customer User</strong>: customer@thingsboard.org / customer</li>
+</ul>
+
+<p>You can always change passwords for each account in account profile page.</p>
+
+<h2 id="detaching-stop-and-start-commands">Detaching, stop and start commands</h2>
+
+<p>You can close logs <code class="language-plaintext highlighter-rouge">Ctrl-c</code> - the container will keep running in the background.</p>
+
+<p>In case of any issues you can examine service logs for errors.
+For example to see ThingsBoard node logs execute the following command:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose logs -f mytbpe
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To stop the container:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose stop
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To start the container:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose start
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="dns-issues">DNS issues</h3>
+
+<p><strong>Note</strong> If you observe errors related to DNS issues, for example</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>127.0.1.1:53: cannot unmarshal DNS message
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may configure your system to use Google public DNS servers. 
+See corresponding <a href="https://developers.google.com/speed/public-dns/docs/using#linux">Linux</a> and <a href="https://developers.google.com/speed/public-dns/docs/using#mac_os">Mac OS</a> instructions.</p>
+
+<h3 id="upgrading-from-old-postgresql-96-to-postgresql-11-and-thingsboard-301pe">Upgrading from old PostgreSQL 9.6 to PostgreSQL 11 and ThingsBoard 3.0.1PE</h3>
+
+<p>In this example we’ll show steps to upgrade ThingsBoard from 2.4.3PE to 3.0.1PE.</p>
+
+<p>Make a backup of your data:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>sudo cp -r ~/.mytbpe-data ./.mytbpe-data-2-4-3-backup
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Stop currently running docker container:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker stop [container_id]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Upgrade old postgres to the new one:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker run --rm -v ~/.mytbpe-data/db/:/var/lib/postgresql/9.6/data -v ~/.mytbpe-data-temp/db/:/var/lib/postgresql/11/data --env LANG=C.UTF-8 tianon/postgres-upgrade:9.6-to-11
+sudo rm -rf ~/.mytbpe-data/db
+sudo mv ~/.mytbpe-data-temp/db ~/.mytbpe-data/db
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Start the new version of TB with following command:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run -it -v ~/.mytbpe-data:/data --rm store/thingsboard/tb-pe:3.0.1PE bash
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Then please follow these steps:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>apt update
+apt install sudo
+chown -R postgres. /data/db/
+chmod 750 -R /data/db/
+sudo -i -u postgres
+cd /usr/lib/postgresql/11/
+./bin/pg_ctl -D /data/db start
+logout
+/usr/share/thingsboard/bin/install/upgrade.sh --fromVersion=2.4.1
+exit
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>After this create your docker-compose.yml and insert (we used in-memory queue as an example):</p>
+
+<div class="language-yml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mytbpe</span><span class="pi">:</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">store/thingsboard/tb-pe:3.0.1PE"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:9090"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">1883:1883"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">7070:7070"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5683-5688:5683-5688/udp"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">TB_QUEUE_TYPE</span><span class="pi">:</span> <span class="s">in-memory</span>
+      <span class="na">TB_LICENSE_SECRET</span><span class="pi">:</span> <span class="s">YOUR_SECRET_KEY</span>
+      <span class="na">TB_LICENSE_INSTANCE_DATA_FILE</span><span class="pi">:</span> <span class="s">/data/license.data</span>
+      <span class="na">INTEGRATIONS_RPC_PORT</span><span class="pi">:</span> <span class="m">50052</span>
+      <span class="na">PGDATA</span><span class="pi">:</span> <span class="s">/data/db</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-data:/data</span>
+      <span class="pi">-</span> <span class="s">~/.mytbpe-logs:/var/log/thingsboard</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Start ThingsBoard:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose up
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="upgrading-from-301pe-to-310pe">Upgrading from 3.0.1PE to 3.1.0PE</h3>
+
+<p>After 3.0.1PE PostgreSQL service was separated from ThingsBoard image and upgrading to 3.1.0PE version is not trivial.</p>
+
+<p>First of all you need to create a dump of your database:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose exec mytbpe sh -c "pg_dump -U postgres thingsboard &gt; /data/thingsboard_dump"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>Note</strong> You have to use your valid username for connecting to PostgreSQL</p>
+
+<p>Then you need to stop service, create a new directory for the database and set permissions:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>sudo cp -r ~/.mytbpe-data ./.mytbpe-data-backup
+docker-compose down
+sudo rm -rf ~/.mytbpe-data/db
+sudo chown -R 799:799 ~/.mytbpe-data
+sudo chown -R 799:799 ~/.mytbpe-logs
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>After this you need to update docker-compose.yml as in <a href="#step-4-choose-thingsboard-queue-service">Step 4</a> but with <strong>3.1.0PE</strong> instead of <strong>3.3.1PE</strong>:</p>
+
+<p>Start PostgreSQL:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose up postgres
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Restore backup:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>sudo cp ~/.mytbpe-data/thingsboard_dump ~/.mytbpe-data/db/thingsboard_dump
+docker-compose exec postgres sh -c "psql -U postgres thingsboard &lt; /var/lib/postgresql/data/thingsboard_dump"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Upgrade ThingsBoard:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose run mytbpe upgrade-tb.sh
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Start ThingsBoard:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose up mytbpe
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="upgrade-starting-from-310pe">Upgrade starting from 3.1.0PE</h3>
+
+<p>Please refer to the <a href="/docs/user-guide/install/pe/docker/#troubleshooting">troubleshooting</a> section in case you are upgrading from 3.0.0 or 3.0.1.</p>
+
+<p>Below is example on how to upgrade from 3.1.0 to 3.1.1</p>
+
+<ol>
+  <li>
+    <p>Stop mytbpe container</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose stop mytbpe
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create a dump of your database:</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose exec postgres sh -c "pg_dump -U postgres thingsboard &gt; /var/lib/postgresql/data/thingsboard_dump"
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>After this you need to update docker-compose.yml as in <a href="#step-4-choose-thingsboard-queue-service">Step 4</a> but with 3.1.1PE instead of 3.2.2PE:</p>
+  </li>
+  <li>
+    <p>Change upgradeversion version to your <strong>current</strong> ThingsBoard version.</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> sudo sh -c "echo '3.1.0' &gt; ~/.mytbpe-data/.upgradeversion"
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Then execute the following commands:
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose run mytbpe upgrade-tb.sh
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Start ThingsBoard:</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose up -d
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>To upgrade ThingsBoard to latest version those steps should be done <strong>for each intermediate version</strong>.</p>
+
+<p>Please note that upgrades are not cumulative.
+Refer to <a href="/docs/user-guide/install/pe/upgrade-instructions/">upgrade instruction</a> to know the right order of upgrades (f.e. if you are upgrading from 3.1.0 to 3.2.1, you need to do that in the following order: 3.1.0 -&gt; 3.1.1 -&gt; 3.2.0 -&gt; 3.2.1, e.g. current version -&gt; next release version -&gt; etc)</p>
+
+<p>In case you need to <strong>restore from the backup</strong>:</p>
+
+<ol>
+  <li>
+    <p>Stop mytbpe container</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose stop mytbpe
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Update docker-compose.yml to the initial version.</p>
+  </li>
+  <li>
+    <p>Execute</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre> docker-compose exec postgres sh -c "psql -U postgres -c 'drop database thingsboard'"
+ docker-compose exec postgres sh -c "psql -U postgres -c 'create database thingsboard'"
+ docker-compose exec postgres sh -c "psql -U postgres thingsboard &lt; /var/lib/postgresql/data/thingsboard_dump"
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Start ThingsBoard:</p>
+
+    <div class="language-text copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> docker-compose up -d
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>If you need to <strong>copy backup to local directory</strong> in case restoring it on another server:</p>
+
+<div class="language-plaintext copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker cp tb-docker_postgres_1:/var/lib/postgresql/data/thingsboard_dump .
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Note: You should paste the name for your postgres container.</p>
+
+<h2 id="next-steps">Next steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/guides#AnchorIDGettingStartedGuides">Getting started guides</a> - These guides provide quick overview of main ThingsBoard features. Designed to be completed in 15-30 minutes.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDConnectYourDevice">Connect your device</a> - Learn how to connect devices based on your connectivity technology or solution.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataVisualization">Data visualization</a> - These guides contain instructions how to configure complex ThingsBoard dashboards.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataProcessing">Data processing &amp; actions</a> - Learn how to use ThingsBoard Rule Engine.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataAnalytics">IoT Data analytics</a> - Learn how to use rule engine to perform basic analytics tasks.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDHardwareSamples">Hardware samples</a> - Learn how to connect various hardware platforms to ThingsBoard.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDAdvancedFeatures">Advanced features</a> - Learn about advanced ThingsBoard features.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDContribution">Contribution and Development</a> - Learn about contribution and development in ThingsBoard.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/pe/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

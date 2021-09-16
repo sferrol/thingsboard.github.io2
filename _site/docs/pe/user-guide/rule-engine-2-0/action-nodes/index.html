@@ -1,0 +1,3560 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard Professional Edition Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Action Nodes | ThingsBoard Professional Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Action Nodes" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Rule Engine 2.0 Action Nodes" />
+<meta property="og:description" content="Rule Engine 2.0 Action Nodes" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/pe/user-guide/rule-engine-2-0/action-nodes/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/pe/user-guide/rule-engine-2-0/action-nodes/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Action Nodes" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/pe/user-guide/rule-engine-2-0/action-nodes/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Rule Engine 2.0 Action Nodes","@type":"WebPage","headline":"Action Nodes","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Rule Engine 2.0 Action Nodes"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-p-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Professional Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/paas/user-guide/rule-engine-2-0/action-nodes/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/" class="product active">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/user-guide/rule-engine-2-0/action-nodes/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/pe/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+    
+        
+        
+        
+
+        
+            
+
+                         
+                            
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Rule engine</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Nodes</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Action Nodes</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Professional Edition" href="/docs/pe/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/pe/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/pe/getting-started-guides/connectivity/"></a>
+
+
+<div class="item item-new" data-title="Solution Templates">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/solution-templates/overview/"></a>
+
+
+<a class="item" data-title="Temperature & Humidity Sensors" href="/docs/pe/solution-templates/temperature-humidity-sensors/"></a>
+
+
+<a class="item" data-title="Smart office" href="/docs/pe/solution-templates/smart-office/"></a>
+
+
+<a class="item" data-title="Fleet tracking" href="/docs/pe/solution-templates/fleet-tracking/"></a>
+
+
+<a class="item" data-title="Water metering" href="/docs/pe/solution-templates/water-metering/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and Relations" href="/docs/pe/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/pe/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/pe/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/pe/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/pe/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/pe/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/pe/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/pe/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/pe/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/pe/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/pe/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/pe/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/pe/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/pe/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/pe/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/pe/user-guide/rule-engine-2-0/external-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/pe/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/pe/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/pe/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/pe/user-guide/claiming-devices/"></a>
+
+
+<a class="item" data-title="Device provisioning" href="/docs/pe/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/pe/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/pe/user-guide/api-limits/"></a>
+
+
+<a class="item" data-title="Bulk Provisioning" href="/docs/pe/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/pe/user-guide/audit-log/"></a>
+
+
+<a class="item" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item item-new" data-title="OAuth 2 Support" href="/docs/pe/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/pe/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/pe/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/pe/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/pe/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/pe/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/pe/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/pe/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/pe/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/pe/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/pe/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/pe/user-guide/ui/rule-chains/"></a>
+
+
+<a class="item" data-title="Dashboards" href="/docs/pe/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/pe/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/pe/user-guide/ui/mail-settings/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item" data-title="Chart Widgets" href="/docs/pe/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item" data-title="Entity Table Widget" href="/docs/pe/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation Widget" href="/docs/pe/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/pe/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/pe/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/pe/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/pe/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/pe/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/pe/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/pe/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/pe/reference/roadmap/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Professional Edition" href="/docs/pe/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/pe/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/pe/getting-started-guides/connectivity/"></a>
+
+
+<div class="item item-new" data-title="Solution Templates">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/solution-templates/overview/"></a>
+
+
+<a class="item" data-title="Temperature & Humidity Sensors" href="/docs/pe/solution-templates/temperature-humidity-sensors/"></a>
+
+
+<a class="item" data-title="Smart office" href="/docs/pe/solution-templates/smart-office/"></a>
+
+
+<a class="item" data-title="Fleet tracking" href="/docs/pe/solution-templates/fleet-tracking/"></a>
+
+
+<a class="item" data-title="Water metering" href="/docs/pe/solution-templates/water-metering/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and Relations" href="/docs/pe/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/pe/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/pe/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/pe/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/pe/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/pe/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/pe/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/pe/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/pe/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/pe/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/pe/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/pe/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/pe/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/pe/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/pe/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/pe/user-guide/rule-engine-2-0/external-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/pe/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/pe/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/pe/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/pe/user-guide/claiming-devices/"></a>
+
+
+<a class="item" data-title="Device provisioning" href="/docs/pe/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/pe/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/pe/user-guide/api-limits/"></a>
+
+
+<a class="item" data-title="Bulk Provisioning" href="/docs/pe/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/pe/user-guide/audit-log/"></a>
+
+
+<a class="item" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item item-new" data-title="OAuth 2 Support" href="/docs/pe/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/pe/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/pe/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/pe/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/pe/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/pe/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/pe/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/pe/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/pe/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/pe/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/pe/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/pe/user-guide/ui/rule-chains/"></a>
+
+
+<a class="item" data-title="Dashboards" href="/docs/pe/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/pe/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/pe/user-guide/ui/mail-settings/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item" data-title="Chart Widgets" href="/docs/pe/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item" data-title="Entity Table Widget" href="/docs/pe/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation Widget" href="/docs/pe/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/pe/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/pe/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/pe/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/pe/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/pe/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/pe/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/pe/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/pe/reference/roadmap/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Action Nodes</h1>
+      <div id="content">
+          
+<p>Action Nodes execute various actions based on incoming Message.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#create-alarm-node" id="markdown-toc-create-alarm-node">Create Alarm Node</a></li>
+  <li><a href="#clear-alarm-node" id="markdown-toc-clear-alarm-node">Clear Alarm Node</a></li>
+  <li><a href="#delay-node" id="markdown-toc-delay-node">Delay Node</a></li>
+  <li><a href="#generator-node" id="markdown-toc-generator-node">Generator Node</a></li>
+  <li><a href="#log-node" id="markdown-toc-log-node">Log Node</a></li>
+  <li><a href="#rpc-call-reply-node" id="markdown-toc-rpc-call-reply-node">RPC Call Reply Node</a></li>
+  <li><a href="#rpc-call-request-node" id="markdown-toc-rpc-call-request-node">RPC Call Request Node</a></li>
+  <li><a href="#save-attributes-node" id="markdown-toc-save-attributes-node">Save Attributes Node</a></li>
+  <li><a href="#save-timeseries-node" id="markdown-toc-save-timeseries-node">Save Timeseries Node</a></li>
+  <li><a href="#save-to-custom-table" id="markdown-toc-save-to-custom-table">Save to Custom Table</a></li>
+  <li><a href="#assign-to-customer-node" id="markdown-toc-assign-to-customer-node">Assign To Customer Node</a></li>
+  <li><a href="#unassign-from-customer-node" id="markdown-toc-unassign-from-customer-node">Unassign From Customer Node</a></li>
+  <li><a href="#create-relation-node" id="markdown-toc-create-relation-node">Create Relation Node</a></li>
+  <li><a href="#delete-relation-node" id="markdown-toc-delete-relation-node">Delete Relation Node</a></li>
+  <li><a href="#gps-geofencing-events-node" id="markdown-toc-gps-geofencing-events-node">GPS Geofencing Events Node</a>    <ul>
+      <li><a href="#fetch-perimeter-information-from-message-metadata" id="markdown-toc-fetch-perimeter-information-from-message-metadata">Fetch perimeter information from message metadata</a></li>
+      <li><a href="#fetch-perimeter-information-from-node-configuration" id="markdown-toc-fetch-perimeter-information-from-node-configuration">Fetch perimeter information from node configuration</a></li>
+      <li><a href="#event-types" id="markdown-toc-event-types">Event Types</a></li>
+    </ul>
+  </li>
+  <li><a href="#push-to-cloud" id="markdown-toc-push-to-cloud">Push to cloud</a></li>
+  <li><a href="#push-to-edge" id="markdown-toc-push-to-edge">Push to edge</a></li>
+  <li><a href="#add-to-group-node" id="markdown-toc-add-to-group-node">Add To Group Node</a></li>
+  <li><a href="#remove-from-group-node" id="markdown-toc-remove-from-group-node">Remove From Group Node</a></li>
+  <li><a href="#generate-report-node" id="markdown-toc-generate-report-node">Generate Report Node</a></li>
+  <li><a href="#integration-downlink-node" id="markdown-toc-integration-downlink-node">Integration Downlink Node</a></li>
+  <li><a href="#rest-call-reply-node" id="markdown-toc-rest-call-reply-node">REST Call Reply Node</a></li>
+  <li><a href="#change-owner-node" id="markdown-toc-change-owner-node">Change Owner Node</a></li>
+</ul>
+
+<h1 id="create-alarm-node">Create Alarm Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-alarm.png" alt="image" /></p>
+
+<p>This Node tries to load latest Alarm with configured <strong>Alarm Type</strong> for Message Originator.
+If <strong>Uncleared</strong> Alarm exist, then this Alarm will be updated, otherwise a new Alarm will be created.</p>
+
+<p>Node Configuration:</p>
+
+<ul>
+  <li><strong>Alarm Details Builder</strong> script</li>
+  <li><strong>Alarm Type</strong> - any string that represents Alarm Type</li>
+  <li><strong>Alarm Severity</strong> - {CRITICAL | MAJOR | MINOR | WARNING | INDETERMINATE}</li>
+  <li>is <strong>Propagate</strong> - whether Alarm should be propagated to all parent related entities.</li>
+</ul>
+
+<p>Note: Since TB Version 2.3.0 the rule node has the ability to:</p>
+
+<ul>
+  <li>
+    <p>read alarm config from message:</p>
+  </li>
+  <li>
+    <p>get alarm type using pattern with fields from message metadata:</p>
+
+    <p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-alarm-config-from-msg.png" alt="image" /></p>
+  </li>
+</ul>
+
+<p>Note: Since TB Version 2.4.3 the rule node has the ability to:</p>
+
+<ul>
+  <li>
+    <p>filter propagation to parent entities by relation types:</p>
+
+    <p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-alarm-propagate-list.png" alt="image" /></p>
+  </li>
+</ul>
+
+<p><strong>Alarm Details Builder</strong> script used for generating Alarm Details JsonNode. It is useful for storing additional parameters
+inside Alarm. For example you can save attribute name/value pair from Original Message payload or Metadata.</p>
+
+<p><strong>Alarm Details Builder</strong> script should return <strong>details</strong> object.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-alarm-config.png" alt="image" /></p>
+
+<ul>
+  <li>Message <em>payload</em> can be accessed via <code class="language-plaintext highlighter-rouge">msg</code> property. For example <code class="language-plaintext highlighter-rouge">msg.temperature</code><br /></li>
+  <li>Message <em>metadata</em> can be accessed via <code class="language-plaintext highlighter-rouge">metadata</code> property. For example <code class="language-plaintext highlighter-rouge">metadata.customerName</code><br /></li>
+  <li>Message <em>type</em> can be accessed via <code class="language-plaintext highlighter-rouge">msgType</code> property. For example <code class="language-plaintext highlighter-rouge">msgType</code><br /></li>
+</ul>
+
+<p><strong>Optional:</strong> previous Alarm Details can be accessed via <code class="language-plaintext highlighter-rouge">metadata.prevAlarmDetails</code>. 
+If previous Alarm does not exist, this field will not be present in Metadata. <strong>Note</strong> that  <code class="language-plaintext highlighter-rouge">metadata.prevAlarmDetails</code> 
+is a raw String field and it needs to be converted into object using this construction:</p>
+
+<figure class="highlight">
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">details</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">details</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p><strong>Alarm Details Builder</strong> script function can be verified using <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#test-javascript-functions">Test JavaScript function</a>.</p>
+
+<p><strong>Example of Details Builder Function</strong></p>
+
+<p>This function takes <code class="language-plaintext highlighter-rouge">count</code> property from previous Alarm and increment it. Also put <code class="language-plaintext highlighter-rouge">temperature</code>
+attribute from inbound Message payload into Alarm details.</p>
+
+<figure class="highlight">
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">details</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">temperature</span><span class="p">,</span> <span class="na">count</span><span class="p">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">prevDetails</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">prevDetails</span><span class="p">.</span><span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">details</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">prevDetails</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="nx">details</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p><strong>Alarm created/updated with those properties:</strong></p>
+
+<ul>
+  <li>Alarm details - object returned from <strong>Alarm Details Builder</strong> script</li>
+  <li>Alarm status - if <strong>new alarm</strong> -&gt; <em>ACTIVE_UNACK</em>. If <strong>existing Alarm</strong> -&gt; does not changed</li>
+  <li>Severity - value from Node Configuration</li>
+  <li>Propagation - value from Node Configuration</li>
+  <li>Alarm type - value from Node Configuration</li>
+  <li>Alarm start time - if <strong>new alarm</strong> -&gt; <em>current system time</em>. If <strong>existing Alarm</strong> -&gt; does not changed</li>
+  <li>Alarm end time - <em>current system time</em></li>
+</ul>
+
+<p><strong>Outbound message will have the following structure:</strong></p>
+
+<ul>
+  <li><strong>Message Type</strong> - <em>ALARM</em></li>
+  <li><strong>Originator</strong> - the same originator from inbound Message</li>
+  <li><strong>Payload</strong> - JSON representation of new Alarm that was created/updated</li>
+  <li><strong>Metadata</strong> - all fields from original Message Metadata</li>
+</ul>
+
+<p>After new Alarm <strong><em>created</em></strong>, Outbound message will contain additional property inside Metadata - <strong>isNewAlarm</strong> with <strong>true</strong> value.
+Message will be passed via <strong>Created</strong> chain.</p>
+
+<p>After existing Alarm <strong><em>updated</em></strong>, Outbound message will contain additional property inside Metadata - <strong>isExistingAlarm</strong> with <strong>true</strong> value.
+Message will be passed via <strong>Updated</strong> chain.</p>
+
+<p>Here is an example of Outbound Message <strong>payload</strong></p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"entityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TENANT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22cd8888-5dac-11e8-bbab-ad47060c9bbb"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High Temperature Alarm"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"originator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"entityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEVICE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11cd8777-5dac-11e8-bbab-ad55560c9ccc"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CRITICAL"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE_UNACK"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"startTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"endTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ackTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clearTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"temperature"</span><span class="p">:</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985696000</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"propagate"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33cd8999-5dac-11e8-bbab-ad47060c9431"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High Temperature Alarm"</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>More details about Alarms in the Thingsboard can be found in <a href="/docs/pe/user-guide/alarms/">this tutorial</a></p>
+
+<p>You can see the real life example, where this node is used, in the next tutorial:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/create-clear-alarms/">Create and Clear Alarms</a></li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="clear-alarm-node">Clear Alarm Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-clear-alarm.png" alt="image" /></p>
+
+<p>This Node loads the latest Alarm with configured <strong>Alarm Type</strong> for Message Originator and Clear the Alarm if it exist.</p>
+
+<p>Node Configuration:</p>
+
+<ul>
+  <li><strong>Alarm Details Builder</strong> script</li>
+  <li><strong>Alarm Type</strong> - any string that represents Alarm Type</li>
+</ul>
+
+<p>Note: Since TB Version 2.3.0 the rule node has the ability to get alarm type using pattern with fields from message metadata:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-clear-alarm-fetch-alarm-type-from-metadata.png" alt="image" /></p>
+
+<p><strong>Alarm Details Builder</strong> script used for updating Alarm Details JsonNode. It is useful for storing additional parameters
+inside Alarm. For example you can save attribute name/value pair from Original Message payload or Metadata.</p>
+
+<p><strong>Alarm Details Builder</strong> script should return <strong>details</strong> object.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-clear-alarm-config.png" alt="image" /></p>
+
+<ul>
+  <li>Message <em>payload</em> can be accessed via <code class="language-plaintext highlighter-rouge">msg</code> property. For example <code class="language-plaintext highlighter-rouge">msg.temperature</code><br /></li>
+  <li>Message <em>metadata</em> can be accessed via <code class="language-plaintext highlighter-rouge">metadata</code> property. For example <code class="language-plaintext highlighter-rouge">metadata.customerName</code><br /></li>
+  <li>Message <em>type</em> can be accessed via <code class="language-plaintext highlighter-rouge">msgType</code> property. For example <code class="language-plaintext highlighter-rouge">msgType</code><br /></li>
+  <li>Current Alarm Details can be accessed via <code class="language-plaintext highlighter-rouge">metadata.prevAlarmDetails</code>.</li>
+</ul>
+
+<p><strong>Note</strong> that  <code class="language-plaintext highlighter-rouge">metadata.prevAlarmDetails</code> 
+is a raw String field and it needs to be converted into object using this construction:</p>
+
+<figure class="highlight">
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">details</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">details</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p><strong>Alarm Details Builder</strong> script function can be verified using <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#test-javascript-functions">Test JavaScript function</a>.</p>
+
+<p><strong>Example of Details Builder Function</strong></p>
+
+<p>This function takes <code class="language-plaintext highlighter-rouge">count</code> property from previous Alarm and increment it. Also put <code class="language-plaintext highlighter-rouge">temperature</code>
+attribute from inbound Message payload into Alarm details.</p>
+
+<figure class="highlight">
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">details</span> <span class="o">=</span> <span class="p">{</span><span class="na">temperature</span><span class="p">:</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">temperature</span><span class="p">,</span> <span class="na">count</span><span class="p">:</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">prevDetails</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">prevAlarmDetails</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">prevDetails</span><span class="p">.</span><span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">details</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">prevDetails</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="nx">details</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>This Node updates Current Alarm:</p>
+
+<ul>
+  <li>change alarm <strong>status</strong> to <strong>CLEARED_ACK</strong> if it was already acknowledged, otherwise to <strong>CLEARED_UNACK</strong></li>
+  <li>set <strong>clear time</strong> to current system time</li>
+  <li>update Alarm details with new object returned from <strong>Alarm Details Builder</strong> script</li>
+</ul>
+
+<p>In case when Alarm does not exist or it is already <strong>Cleared</strong> Alarm, original Message will be passed to the next nodes via <strong>False</strong> chain.</p>
+
+<p>Otherwise new Message will be passed via <strong>Cleared</strong> chain.</p>
+
+<p><strong>Outbound message will have the following structure:</strong></p>
+
+<ul>
+  <li><strong>Message Type</strong> - <em>ALARM</em></li>
+  <li><strong>Originator</strong> - the same originator from inbound Message</li>
+  <li><strong>Payload</strong> - JSON representation of Alarm that was cleared</li>
+  <li><strong>Metadata</strong> - all fields from original Message Metadata. Also additional property inside Metadata will be added -&gt; <strong>isClearedAlarm</strong> with <strong>true</strong> value.</li>
+</ul>
+
+<p>Here is an example of Outbound Message <strong>payload</strong></p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"entityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TENANT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22cd8888-5dac-11e8-bbab-ad47060c9bbb"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High Temperature Alarm"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"originator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"entityType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEVICE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11cd8777-5dac-11e8-bbab-ad55560c9ccc"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CRITICAL"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLEARED_UNACK"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"startTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"endTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ackTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clearTs"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985712000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"temperature"</span><span class="p">:</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ts"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985696000</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"propagate"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33cd8999-5dac-11e8-bbab-ad47060c9431"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1526985698000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High Temperature Alarm"</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>More details about Alarms in the Thingsboard can be found in <a href="/docs/pe/user-guide/alarms/">this tutorial</a></p>
+
+<p>You can see the real life example, where this node is used, in the next tutorial:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/create-clear-alarms/">Create and Clear Alarms</a></li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="delay-node">Delay Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-delay.png" alt="image" /></p>
+
+<p>Delays incoming messages for configurable period.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-delay-config.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Period in seconds</strong> - specifies the value of the period during which incoming message should be suspended</li>
+  <li><strong>Maximum pending messages</strong> - specifies the amount of maximum allowed pending messages (queue of suspended messages)</li>
+</ul>
+
+<p>When delay period for particular incoming message will be reached it will be removed from pending queue and routed to the next nodes via <strong>Success</strong> chain.</p>
+
+<p>Each next message will be routed via <strong>Failure</strong> chain if the maximum pending messages limit will be reached.</p>
+
+<p><br /></p>
+
+<h1 id="generator-node">Generator Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-generator.png" alt="image" /></p>
+
+<p>Generates Messages with configurable period. JavaScript function is used for message generation.</p>
+
+<p>Node Configuration:</p>
+
+<ul>
+  <li>Message generation frequency in seconds</li>
+  <li>Message originator</li>
+  <li>JavaScript function that will generate the actual message.</li>
+</ul>
+
+<p>JavaScript function receive 3 input parameters:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">prevMsg</code> - is a previously generated Message payload.</li>
+  <li><code class="language-plaintext highlighter-rouge">prevMetadata</code> - is a previously generated Message metadata.</li>
+  <li><code class="language-plaintext highlighter-rouge">prevMsgType</code> - is a previously generated Message type.</li>
+</ul>
+
+<p>Script should return the following structure:</p>
+
+<figure class="highlight">
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="o">{</span>   
+    <span class="nl">msg:</span> <span class="k">new</span> <span class="n">payload</span><span class="o">,</span>
+    <span class="nl">metadata:</span> <span class="k">new</span> <span class="n">metadata</span><span class="o">,</span>
+    <span class="nl">msgType:</span> <span class="k">new</span> <span class="n">msgType</span> 
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-generator-config.png" alt="image" /></p>
+
+<p>All fields in resulting object are optional and will be taken from previously generated Message if not specified.</p>
+
+<p>Outbound Message from this Node will be new Message that was constructed using configured JavaScript function.</p>
+
+<p>JavaScript generator function can be verified using <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#test-javascript-functions">Test JavaScript function</a>.</p>
+
+<p>This node can be used for Rule Chain debugging purposes.</p>
+
+<p><br /></p>
+
+<h1 id="log-node">Log Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-log.png" alt="image" /></p>
+
+<p>Transform incoming Message with configured JavaScript function to String and log final value into the Thingsboard log file.</p>
+
+<p><strong>INFO</strong> log level is used for logging.</p>
+
+<p>JavaScript function receive 3 input parameters</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">metadata</code> - is a Message metadata.</li>
+  <li><code class="language-plaintext highlighter-rouge">msg</code> - is a Message payload.</li>
+  <li><code class="language-plaintext highlighter-rouge">msgType</code> - is a Message type.</li>
+</ul>
+
+<p>Script should return String value.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-log-config.png" alt="image" /></p>
+
+<p>JavaScript transform function can be verified using <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#test-javascript-functions">Test JavaScript function</a>.</p>
+
+<p>You can see the real life example, where this node is used, in the next tutorial:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/rpc-reply-tutorial#log-unknown-request">Reply to RPC Calls</a></li>
+</ul>
+
+<h1 id="rpc-call-reply-node">RPC Call Reply Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-rpc-call-reply.png" alt="image" /></p>
+
+<p>Sends response to the RPC Call originator. All incoming RPC requests are passed through Rule Chain as Messages.
+Also all RPC requests have request ID field. It is used for mapping requests and responses.
+Message Originator must be a <strong>Device</strong> entity because RPC response is initiated to the Message Originator.</p>
+
+<p>Node configuration has special request ID field mapping. If the mapping is not specified, <strong>requestId</strong> metadata field is used by default.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-rpc-call-reply-config.png" alt="image" /></p>
+
+<p>RPC request can be received via different transports:</p>
+
+<ul>
+  <li>MQTT</li>
+  <li>HTTP</li>
+  <li>CoAP</li>
+</ul>
+
+<p>Message payload example:</p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"setGpio"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>Inbound Message originator is not a <strong>Device</strong> entity</li>
+  <li>Request id is not present in the Message metadata</li>
+  <li>Inbound Message payload is empty</li>
+</ul>
+
+<p>For more details how RPC works in the Thingsboard, please read <a href="/docs/pe/user-guide/rpc/">RPC capabilities</a> Article.</p>
+
+<p>You can see the real life example, where this node is used, in the next tutorial:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/rpc-reply-tutorial">Reply to RPC Calls</a></li>
+</ul>
+
+<h1 id="rpc-call-request-node">RPC Call Request Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-rpc-call-request.png" alt="image" /></p>
+
+<p>Sends RPC requests to the Device and routing response to the next Rule nodes.
+Message Originator must be a <strong>Device</strong> entity as RPC request can be initiated only to device.</p>
+
+<p>Node configuration has <strong>Timeout</strong> field used to specify timeout waiting for response from device.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-rpc-call-request-config.png" alt="image" /></p>
+
+<p>Message payload must have correct format for RPC request. It must contains <strong>method</strong> and <strong>params</strong> fields.
+Example:</p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"setGpio"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>If Message Payload contains <strong>requestId</strong> field, its value used to identify RPC request to the Device. 
+Otherwise random requestId will be generated.</p>
+
+<p>Outbound Message will have same originator and metadata as in inbound Message. Response from the Device will be added into Message payload.</p>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>Inbound Message originator is not a <strong>Device</strong> entity</li>
+  <li>Inbound Message has missed <strong>method</strong> or <strong>params</strong> fields</li>
+  <li>If Node will not receive a response during configured timeout</li>
+</ul>
+
+<p>Otherwise Message will be routed via <strong>Success</strong> chain.</p>
+
+<p>For more details how RPC works in the Thingsboard, please read <a href="/docs/pe/user-guide/rpc/">RPC capabilities</a> article.</p>
+
+<p><br /></p>
+
+<h1 id="save-attributes-node">Save Attributes Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-attributes.png" alt="image" /></p>
+
+<p>Stores attributes from incoming Message payload to the database and associate them to the Entity, that is identified by the Message Originator. 
+Configured <strong>scope</strong> is used to identify attributes scope.</p>
+
+<p>Supported scope types:</p>
+
+<ul>
+  <li>Client attributes</li>
+  <li>Shared attributes</li>
+  <li>Server attributes</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-attributes-config.png" alt="image" /></p>
+
+<p>Expects messages with <strong>POST_ATTRIBUTES_REQUEST</strong> message type.
+If message Type is not <strong>POST_ATTRIBUTES_REQUEST</strong>, Message will be routed via <strong>Failure</strong> chain.</p>
+
+<p>When attributes are uploaded over existing API (HTTP / MQTT / CoAP / etc.) Message with correct payload and type will be passed into <strong>Input</strong> node of the <strong>Root Rule Chain</strong>.</p>
+
+<p>In cases when it is required to trigger attributes saving inside Rule Chain, the Rule Chain should be configured to transform Message payload 
+to the expected format and set message type to <strong>POST_ATTRIBUTES_REQUEST</strong>. It could be done using <a href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/#script-transformation-node"><strong>Script Transformation Node</strong></a>.</p>
+
+<p><strong>Expected Message Payload example:</strong></p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"firmware_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serial_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SN-001"</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>After successful attributes saving, original Message will be passed to the next nodes via <strong>Success</strong> chain, 
+otherwise <strong>Failure</strong> chain is used.</p>
+
+<p><br /></p>
+
+<h1 id="save-timeseries-node">Save Timeseries Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-timeseries.png" alt="image" /></p>
+
+<p>Stores Timeseries data from incoming Message payload to the database and associate them to the Entity, that is identified by the Message Originator. 
+Configured <strong>TTL</strong> seconds is used for timeseries data expiration. <strong>0</strong> value means that data will never expire.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-timeseries-config.png" alt="image" /></p>
+
+<p>Expects messages with <strong>POST_TELEMETRY_REQUEST</strong> message type. 
+If message Type is not <strong>POST_TELEMETRY_REQUEST</strong>, Message will be routed via <strong>Failure</strong> chain.</p>
+
+<p>When timeseries data is published over existing API (HTTP / MQTT / CoAP / etc.) Message with correct payload and type will be passed into <strong>Input</strong> node of the <strong>Root Rule Chain</strong>.</p>
+
+<p>In cases when it is required to trigger timeseries data saving inside Rule Chain, the Rule Chain should be configured to transform Message payload<br />
+to the expected format and set message type to <strong>POST_TELEMETRY_REQUEST</strong>. It could be done using <a href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/#script-transformation-node"><strong>Script Transformation Node</strong></a>.</p>
+
+<p>Message Metadata must contain <strong>ts</strong> field. This field identifies timestamp in milliseconds of published telemetry.</p>
+
+<p>Also, if Message Metadata contains <strong>TTL</strong> field, its value is used for timeseries data expiration, otherwise <strong>TTL</strong> 
+from Node Configuration is used.</p>
+
+<p><strong>Expected Message Payload example:</strong></p>
+
+<figure class="highlight">
+  <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">  
+  </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"key1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"key2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value2"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<p>After successful timeseries data saving, original Message will be passed to the next nodes via <strong>Success</strong> chain, 
+otherwise <strong>Failure</strong> chain is used.</p>
+
+<p><br /></p>
+
+<h1 id="save-to-custom-table">Save to Custom Table</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.3.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-to-custom-cassandra-table.png" alt="image" /></p>
+
+<p>Node stores data from incoming Message payload to the Cassandra database into the predefined custom table that should have <strong>cs_tb_</strong> prefix, to avoid the data insertion to the common TB tables.</p>
+
+<p>Please note, that rule node can be used only for <strong>Cassandra DB</strong>.</p>
+
+<p>Configuration:</p>
+
+<p>Administrator should set the custom table name without prefix: <strong>cs_tb_</strong>.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-to-custom-cassandra-table-name-config.png" alt="image" /></p>
+
+<p>Administrator can configure the mapping between the Message field names and Table columns name. If the mapping key is <strong>entityId</strong>, that is identified by the Message Originator, then to the appropriate column name(mapping value) will be write the message originator id.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-save-to-custom-cassandra-table-config.png" alt="image" /></p>
+
+<p>If specified message field does not exist or is not a JSON Primitive, the outbound message will be routed via <strong>Failure</strong> chain, otherwise, the message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="assign-to-customer-node">Assign To Customer Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.2</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-assign-to-customer-node.png" alt="image" /></p>
+
+<p>Assign Message Originator Entity to <a href="/docs/pe/user-guide/ui/customers/">Customer</a>.</p>
+
+<p>Following Message Originator types are allowed: <strong>Asset</strong>, <strong>Device</strong>, <strong>Entity View</strong>, <strong>Dashboard</strong>.</p>
+
+<p>Finds target Customer by customer name pattern and then assign Originator Entity to this customer.</p>
+
+<p>Will create new Customer if it doesn’t exists and <strong>Create new Customer if not exists</strong> is set to <strong>true</strong>.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-assign-to-customer-node-configuration.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Customer name pattern</strong> - can be set direct customer name or pattern can be used, that will be resolved to the real customer name using Message metadata.</li>
+  <li><strong>Create new customer if not exists</strong> - if checked will create new customer if it doesn’t exist.</li>
+  <li><strong>Customers cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found customers records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target customer doesn’t exist and <strong>Create customer if not exists</strong> is unchecked.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="unassign-from-customer-node">Unassign From Customer Node</h1>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.2</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-unassign-from-customer-node.png" alt="image" /></p>
+
+<p>Unassign Message Originator Entity from <a href="/docs/pe/user-guide/ui/customers/">Customer</a>.</p>
+
+<p>Following Message Originator types are allowed: <strong>Asset</strong>, <strong>Device</strong>, <strong>Entity View</strong>, <strong>Dashboard</strong>.</p>
+
+<p>Finds target Customer by customer name pattern and then unassign Originator Entity from this customer.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-unassign-from-customer-node-configuration.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Customer name pattern</strong> - can be set direct customer name or pattern can be used, that will be resolved to the real customer name using Message metadata.</li>
+  <li><strong>Customers cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found customers records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target customer doesn’t exist.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="create-relation-node">Create Relation Node</h1>
+
+<table style="min-width:12%; max-width: 20%">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.2.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-relation.png" alt="image" /></p>
+
+<p>Create the relation from the selected entity to originator of the message by type and direction.</p>
+
+<p>Following Message Originator types are allowed: <strong>Asset</strong>, <strong>Device</strong>, <strong>Entity View</strong>, <strong>Customer</strong>, <strong>Tenant</strong>, <strong>Dashboard</strong>.</p>
+
+<p>Finds target Entity by metadata key patterns and then create a relation between Originator Entity and the target entity.</p>
+
+<p>If selected entity type <strong>Asset</strong>, <strong>Device</strong> or <strong>Customer</strong>  rule node will create new Entity if it doesn’t exist and selected checkbox: <strong>Create new Entity if not exists</strong>.</p>
+
+<p><strong>Note:</strong> if selected entity type <strong>Asset</strong> or <strong>Device</strong> you need to set two patterns:</p>
+
+<ul>
+  <li>
+    <p>entity name pattern;</p>
+  </li>
+  <li>
+    <p>entity type pattern.</p>
+  </li>
+</ul>
+
+<p>Otherwise, only name pattern should be set.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-relation-node-configuration.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Direction</strong> - following types are allowed: <strong>From</strong>, <strong>To</strong>.</li>
+  <li><strong>Relation type</strong> - type of directed connections to message originator entity. Default types <strong>Contains</strong> and <strong>Manages</strong> can be selected from the drop-down list.</li>
+  <li><strong>Name pattern</strong> and <strong>Type pattern</strong> - can be set direct entity name/type or pattern can be used, that will be resolved to the real entity name/type using Message metadata.</li>
+  <li><strong>Entities cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found target entity records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target entity doesn’t exist.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><strong>Note:</strong> Since TB Version 2.3 the rule node has the ability to:</p>
+
+<ul>
+  <li>
+    <p>remove current relations from the originator of the incoming message based on direction and type:</p>
+
+    <p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-relation-node-remove-relations.png" alt="image" /></p>
+  </li>
+  <li>
+    <p>change the originator of the incoming message to the selected entity and process outboud messages as messages from another entity:</p>
+
+    <p><img src="/images/user-guide/rule-engine-2-0/nodes/action-create-relation-node-change-originator.png" alt="image" /></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="delete-relation-node">Delete Relation Node</h1>
+
+<table style="min-width:12%; max-width: 20%">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.2.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-delete-relation.png" alt="image" /></p>
+
+<p>Delete the relation from the selected entity to originator of the message by type and direction.</p>
+
+<p>Following Message Originator types are allowed: <strong>Asset</strong>, <strong>Device</strong>, <strong>Entity View</strong>, <strong>Customer</strong>, <strong>Tenant</strong>, <strong>Dashboard</strong>.</p>
+
+<p>Finds target Entity by entity name pattern and then delete a relation between Originator Entity and this entity.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-delete-relation-node-configuration.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Direction</strong> - following types are allowed: <strong>From</strong>, <strong>To</strong>.</li>
+  <li><strong>Relation type</strong> - type of directed connections to message originator entity. Default types <strong>Contains</strong> and <strong>Manages</strong> can be selected from the drop-down list.</li>
+  <li><strong>Name pattern</strong> - can be set direct entity name or pattern can be used, that will be resolved to the real entity name using Message metadata.</li>
+  <li><strong>Entities cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found target entity records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target entity doesn’t exist.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><strong>Note:</strong> Since TB Version 2.3 the rule node has the ability to deletes relation from the originator of the incoming message to the specified entity or to the list of entities based on direction and type by disabling the following checkbox in the rule node configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-delete-relation-node-new-functionality.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h1 id="gps-geofencing-events-node">GPS Geofencing Events Node</h1>
+
+<table style="width:15%">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.3.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-gps-geofencing-event-node.png" alt="image" /></p>
+
+<p>Produces incoming messages by GPS based parameters. Extracts latitude and longitude from incoming message data or metadata and returns different events based on configuration parameters (geo fence).</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/filter-gps-geofencing-default-config.png" alt="image" /></p>
+
+<p>The rule node fetches perimeter information from message metadata by default. If <strong>Fetch perimeter information from message metadata</strong> is unchecked, additional information should be configured.</p>
+
+<p><br /></p>
+
+<h6 id="fetch-perimeter-information-from-message-metadata">Fetch perimeter information from message metadata</h6>
+
+<p>There are two options of area definition based on the perimeter type:</p>
+
+<ul>
+  <li>
+    <p>Polygon</p>
+
+    <p>Metadata of the incoming message must include key with name <strong>perimeter</strong> and following data structure:</p>
+  </li>
+</ul>
+
+<figure class="highlight">
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">[[</span><span class="n">lat1</span><span class="o">,</span><span class="n">lon1</span><span class="o">],[</span><span class="n">lat2</span><span class="o">,</span><span class="n">lon2</span><span class="o">],</span> <span class="o">...</span> <span class="o">,[</span><span class="n">latN</span><span class="o">,</span><span class="n">lonN</span><span class="o">]]</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<ul>
+  <li>Circle</li>
+</ul>
+
+<figure class="highlight">
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="s">"centerLatitude"</span><span class="o">:</span> <span class="s">"value1"</span><span class="o">,</span> <span class="s">"centerLongitude"</span><span class="o">:</span> <span class="s">"value2"</span><span class="o">,</span> <span class="s">"range"</span><span class="o">:</span> <span class="s">"value3"</span>
+
+<span class="nc">All</span> <span class="n">values</span> <span class="k">for</span> <span class="n">these</span> <span class="n">keys</span> <span class="n">are</span> <span class="n">in</span> <span class="kt">double</span><span class="o">-</span><span class="n">precision</span> <span class="n">floating</span><span class="o">-</span><span class="n">point</span> <span class="n">data</span> <span class="n">type</span><span class="o">.</span>
+
+<span class="nc">The</span> <span class="s">"rangeUnit"</span> <span class="n">key</span> <span class="n">requires</span> <span class="n">specific</span> <span class="n">value</span> <span class="n">from</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="no">METER</span><span class="o">,</span> <span class="no">KILOMETER</span><span class="o">,</span> <span class="no">FOOT</span><span class="o">,</span> <span class="no">MILE</span><span class="o">,</span> <span class="no">NAUTICAL_MILE</span> <span class="o">(</span><span class="n">capital</span> <span class="n">letters</span> <span class="n">obligatory</span><span class="o">).</span>
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+</figure>
+
+<h6 id="fetch-perimeter-information-from-node-configuration">Fetch perimeter information from node configuration</h6>
+
+<p>There are two options of area definition based on the perimeter type:</p>
+
+<ul>
+  <li>Polygon</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/filter-gps-geofencing-polygon-config.png" alt="image" /></p>
+
+<ul>
+  <li>Circle</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/filter-gps-geofencing-circle-config.png" alt="image" /></p>
+
+<h6 id="event-types">Event Types</h6>
+<p>There are 4 types of events managed by geofencing rule node:</p>
+
+<ul>
+  <li><strong>Entered</strong> — is reporting whenever latitude and longitude from the incoming message to belong the required perimeter area for the first time;</li>
+  <li><strong>Left</strong> — is reporting whenever latitude and longitude from the incoming message not belong the required perimeter area for the first time;</li>
+  <li><strong>Inside</strong> and <strong>Outside</strong> events are used to report current status.</li>
+</ul>
+
+<p>Administrator can configure duration time threshold for reporting inside or outside event. For example, whenever minimal inside time is set to 1 minute the message originator is considered as being inside the perimeter 60 seconds after entering the area.
+Minimal outside time defines whenever message originator is considered as out of the perimeter as well.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/nodes/action-gps-geofencing-event-node-duration-config.png" alt="image" /></p>
+
+<p><strong>Failure</strong> chain will to be used when:</p>
+
+<ul>
+  <li>incoming message has no configured latitude or longitude key in data or metadata.</li>
+  <li>missing perimeter definition;</li>
+</ul>
+
+<h1 id="push-to-cloud">Push to cloud</h1>
+
+<table style="width:12%">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 3.3</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/edge/nodes/push-to-cloud.png" alt="image" /></p>
+
+<p>Push messages from edge to cloud. This node used only on edge to push messages from edge to cloud. Once message arrived into this node it’s going to be converted into cloud event and saved to the local database. Node doesn’t push messages directly to cloud, but stores event(s) in the cloud queue.
+Supports next originator types:</p>
+<ul>
+  <li>DEVICE</li>
+  <li>ASSET</li>
+  <li>ENTITY_VIEW</li>
+  <li>DASHBOARD</li>
+  <li>TENANT</li>
+  <li>CUSTOMER</li>
+  <li>EDGE</li>
+</ul>
+
+<p>As well node supports next message types:</p>
+<ul>
+  <li>POST_TELEMETRY_REQUEST</li>
+  <li>POST_ATTRIBUTES_REQUEST</li>
+  <li>ATTRIBUTES_UPDATED</li>
+  <li>ATTRIBUTES_DELETED</li>
+  <li>ALARM</li>
+</ul>
+
+<p>In case successful storage edge event to database message will be routed via <strong>Success</strong> route.</p>
+
+<p><img src="/images/edge/nodes/push-to-cloud-form.png" alt="image" /></p>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+<ul>
+  <li>Node was not able to save edge event to database</li>
+  <li>Unsupported originator type arrived</li>
+  <li>Unsupported message type arrived</li>
+</ul>
+
+<h1 id="push-to-edge">Push to edge</h1>
+
+<table style="width:12%">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 3.3</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/edge/nodes/push-to-edge.png" alt="image" /></p>
+
+<p>Push messages from cloud to edge. Message originator must be assigned to particular edge or message originator is <strong>EDGE</strong> entity itself. This node used only on cloud instances to push messages from cloud to edge. Once message arrived into this node it’s going to be converted into edge event and saved to the database. Node doesn’t push messages directly to edge, but stores event(s) in the edge queue.
+Supports next originator types:</p>
+<ul>
+  <li>DEVICE</li>
+  <li>ASSET</li>
+  <li>ENTITY_VIEW</li>
+  <li>DASHBOARD</li>
+  <li>TENANT</li>
+  <li>CUSTOMER</li>
+  <li>EDGE</li>
+</ul>
+
+<p>As well node supports next message types:</p>
+<ul>
+  <li>POST_TELEMETRY_REQUEST</li>
+  <li>POST_ATTRIBUTES_REQUEST</li>
+  <li>ATTRIBUTES_UPDATED</li>
+  <li>ATTRIBUTES_DELETED</li>
+  <li>ALARM</li>
+</ul>
+
+<p>In case successful storage edge event to database message will be routed via <strong>Success</strong> route.</p>
+
+<p><img src="/images/edge/nodes/push-to-edge-form.png" alt="image" /></p>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+<ul>
+  <li>Node was not able to save edge event to database</li>
+  <li>Unsupported originator type arrived</li>
+  <li>Unsupported message type arrived</li>
+</ul>
+
+<h1 id="add-to-group-node">Add To Group Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0.2</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-add-to-group.png" alt="image" /></p>
+
+<p>Adds Message Originator Entity to <a href="/docs/user-guide/groups/">Entity Group</a>.</p>
+
+<p>Following Message Originator types are allowed: <strong>Customer</strong>, <strong>Asset</strong>, <strong>Device</strong>.</p>
+
+<p>Finds target Entity Group by group name pattern and then adds Originator Entity to this group.
+Will create new Entity Group if it doesn’t exist and <strong>Create new group if not exists</strong> is set to true.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-add-to-group-config.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Group name pattern</strong> - can be set direct group name or pattern can be used, that will be resolved to the real group name using Message metadata.</li>
+  <li><strong>Create new group if not exists</strong> - if checked will create new entity group if it doesn’t exist.</li>
+  <li><strong>Groups cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found entity group records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target entity group doesn’t exist and <strong>Create new group if not exists</strong> is unchecked.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="remove-from-group-node">Remove From Group Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0.2</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-remove-from-group.png" alt="image" /></p>
+
+<p>Removes Message Originator Entity from <a href="/docs/user-guide/groups/">Entity Group</a>.</p>
+
+<p>Following Message Originator types are allowed: <strong>Customer</strong>, <strong>Asset</strong>, <strong>Device</strong>.</p>
+
+<p>Finds target Entity Group by group name pattern and then removes Originator Entity from this group.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-remove-from-group-config.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Group name pattern</strong> - can be set direct group name or pattern can be used, that will be resolved to the real group name using Message metadata.</li>
+  <li><strong>Groups cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found entity group records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When Originator entity type is not supported.</li>
+  <li>Target entity group doesn’t exist.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="generate-report-node">Generate Report Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-generate-report.png" alt="image" /></p>
+
+<p>Generates report files by capturing target dashboard with specific configuration.</p>
+
+<p>This node can be configured to use specific report configuration or take it from incoming message body.</p>
+
+<p>Mode when report configuration is taken from message body usually is used when message is generated by <a href="/docs/user-guide/scheduler/#generate-report"><strong>Generate Report</strong> Scheduler Event</a>.</p>
+
+<p>Generate Report node invokes <a href="/docs/user-guide/reporting/#reports-server">Reports Server</a> to generate report file using specified dashboard.</p>
+
+<p>Resulting report file is stored in DataBase using <a href="/docs/user-guide/file-storage/">File Storage</a> feature and reference to this file is stored in <strong>attachments</strong> field of output message metadata.</p>
+
+<p><strong>attachments</strong> metadata field can be used by other Rule Nodes to get actual file from DataBase.
+For instance <a href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/#to-email-node"><strong>To Email Node</strong></a> detects presence of this field and prepares email attachments
+used by <a href="/docs/pe/user-guide/rule-engine-2-0/external-nodes/#send-email-node"><strong>Send Email Node</strong></a> to send email with attachments.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-generate-report-config.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Use system reports server</strong> - if set, <a href="/docs/user-guide/reporting/#reports-server">Reports Server</a> endpoint URL will be taken from system configuration (<strong>thingsboard.yml</strong>).</li>
+  <li><strong>Reports server endpoint URL</strong> - endpoint URL of <a href="/docs/user-guide/reporting/#reports-server">Reports Server</a>.</li>
+  <li><strong>Use report config from message</strong> - if set, report generation configuration will be taken from incoming message body.</li>
+  <li><strong>Base URL</strong> - base URL of ThingsBoard UI that should be accessible by Report Server.</li>
+  <li><strong>Dashboard</strong> - dashboard that will be used for report generation.</li>
+  <li><strong>Dashboard state parameter value</strong> - used to specify target dashboard state for report generation. Can be set automatically by clicking on right most button of the field and invoking <strong>Select dashboard state</strong> dialog.</li>
+  <li><strong>Timezone</strong> - timezone in which target dashboard will be presented in report.</li>
+  <li><strong>Use dashboard timewindow</strong> - if set, timewindow configured in the target dashboard will be used during report generation.</li>
+  <li><strong>Timewindow</strong> - specific dashboard timewindow that will be used during report generation.</li>
+  <li><strong>Report name pattern</strong> - file name pattern of generated report, can contain date-time pattern in form of <code class="language-plaintext highlighter-rouge">%d{date-time pattern}</code>. See <a href="https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html">SimpleDateFormat</a> documentation for date-time pattern details.</li>
+  <li><strong>Report type</strong> - report file type, can be <em>PDF | PNG | JPEG</em>.</li>
+  <li><strong>Use current user credentials</strong> - if set, credentials of user created this report configuration will be used to open dashboard UI during report generation.</li>
+  <li><strong>Customer user credentials</strong> - target customer user whose credentials will be used to open dashboard UI during report generation.</li>
+</ul>
+
+<p><strong>Generate Test Report</strong> button is used for testing purposes. It invokes report generation process with provided configuration. Resulting report file will be automatically downloaded if the report generation will be successful.</p>
+
+<p>Message will be routed via <strong>Failure</strong> chain in the following cases:</p>
+
+<ul>
+  <li>When <strong>Use report config from message</strong> is set and incoming message does not contain valid report configuration JSON object.</li>
+  <li>When <a href="/docs/user-guide/reporting/#reports-server">Reports Server</a> is unavailable at the specified endpoint URL.</li>
+  <li>When <a href="/docs/user-guide/reporting/#reports-server">Reports Server</a> will fail generate report and return corresponding error message.</li>
+</ul>
+
+<p>In other cases Message will be routed via <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="integration-downlink-node">Integration Downlink Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.0.2</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-integration-downlink.png" alt="image" /></p>
+
+<p>Forwards Message to selected <a href="/docs/user-guide/integrations/">Integration</a> as downlink message.</p>
+
+<p>Message will be pushed to the selected integration downlink queue.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-integration-downlink-config.png" alt="image" /></p>
+
+<ul>
+  <li><strong>Integration</strong> - target Integration for downlink message processing.</li>
+</ul>
+
+<p><strong>Failure</strong> chain is used if Message push to Integration will fail, otherwise <strong>Success</strong> chain.</p>
+
+<p><br /></p>
+
+<h1 id="rest-call-reply-node">REST Call Reply Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-rest-call-reply.png" alt="image" /></p>
+
+<p>Sends reply to REST API call that was originally sent to rule engine.</p>
+
+<p>Expects messages with any message type. Forwards incoming message as a reply to REST API call sent to rule engine.</p>
+
+<p>Configuration:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-rest-call-reply-config.png" alt="image" /></p>
+
+<p><br /></p>
+
+<h1 id="change-owner-node">Change Owner Node</h1>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>PE Action Nodes</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<table style="width:250px;">
+   <thead>
+     <tr>
+	 <td style="text-align: center"><strong><em>Since TB Version 2.3.1</em></strong></td>
+     </tr>
+   </thead>
+</table>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-change-owner-node.png" alt="image" /></p>
+
+<p>Changes Owner of the Originator entity to the selected Owner by type:</p>
+
+<ul>
+  <li>Tenant</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-change-owner-node-tenent-config.png" alt="image" /></p>
+
+<ul>
+  <li>Customer</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/pe/nodes/action-change-owner-node-customer-config.png" alt="image" /></p>
+
+<p>Rule node finds target Owner by owner name pattern and then change the owner of the originator entity.</p>
+
+<ul>
+  <li><strong>Owner name pattern</strong> - can be set direct customer name or pattern can be used, that will be resolved to the real customer name using Message metadata.</li>
+  <li><strong>Create new owner if not exists</strong> - if checked will create new owner(customer) if it doesn’t exist.</li>
+  <li><strong>Owner cache expiration time</strong> - specifies maximum time interval is seconds allowed to store found owners(customers) records. 0 value means that records will never expire.</li>
+</ul>
+
+<p>If an entity already belongs to this owner or entity owner is successfully changed - Message sent via <strong>Success</strong> chain, otherwise, <strong>Failure</strong> chain will be used.</p>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/pe/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

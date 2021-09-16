@@ -1,0 +1,2032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>https://thingsboard.io/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url>
+<url>
+  <loc>https://thingsboard.io/docs/reference/1m-devices-test/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/20k-devices-test/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/elec-meter-lorawan/Electricity_Meter_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/gas-meter-lorawan/Gas_Meter_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/gas-valve-lorawan/Gas_Valve_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/leaks-detector-lorawan/Leaks_Detector_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/pulse-sensor-lorawan/Pulse_Sensor_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/access-token/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/access-token/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/access-token/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/action-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/action-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/action-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/add-devices-to-group/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/add-haproxy-rhel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/add-haproxy-ubuntu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/advanced-data-key-configuration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/advanced-data-key-configuration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/advanced-data-key-configuration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/advanced-filters/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/advanced-filters/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/advanced-filters/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/aggregate-incoming-data-stream/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/aggregate-latest-data/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/agriculture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/processors/alarm-deduplication-processor/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/alarms/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/alarms/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/alarms/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/aliases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/aliases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/aliases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/alibaba-cloud/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/alibaba-cloud/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/analytics-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/anomaly/anomaly-detection-overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/api-limits/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/api-limits/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/api-limits/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/architecture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/architecture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/architecture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/architecture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/assets/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/assets/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/assets/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/attributes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/attributes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/attributes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/audit-log/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/audit-log/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/audit-log/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster/aws-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/aws-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/aws-eks-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster/aws-eks-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/aws-iot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/aws-iot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/aws-kinesis/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/aws-kinesis/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/aws-marketplace-pe-upgrade-haproxy/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/aws-marketplace-pe-upgrade/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/aws-marketplace-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/aws-marketplace/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/aws-self-hosted-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/aws/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/aws/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/install/aws/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/aws/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/azure-event-hub/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/azure-event-hub/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/azure-iot-hub/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/azure-iot-hub/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/azure-marketplace-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/azure/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/azure/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/oauth/azure/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/bacnet/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/basic-mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/basic-mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/basic-mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/alarms/basic-rules/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/billing-info/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/billing-info/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/ble/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/building-from-source/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/bulk-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/bulk-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/bulk-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/calculated-fields/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/can/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/certificates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/certificates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/certificates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/chart-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/chart-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/check-relation-tutorial/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/claiming-devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/claiming-devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/claiming-devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/features/cloud-events/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/coap-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/coap-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/coap-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/pe/coming-soon/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/community/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/config/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/install/config/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/configuration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/connect-thingsboard/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/getting-started-guides/connectivity/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/getting-started-guides/connectivity/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/getting-started-guides/connectivity/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/services/consulting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/contact-us-thanks/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/contact-us/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/create-clear-alarms-with-details/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/create-clear-alarms/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/create-device/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/create-inactivity-alarm/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/cricket-wifi/cricket-wifi/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/csv-xls-data-export/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/csv-xls-data-export/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/custom-menu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/custom-menu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/custom-translation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/custom-translation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/custom/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/custom/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/custom/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/customers/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/customers/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/customers/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/customization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/customization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/customization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/dart-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/dart-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/use-cases/data-filtering-traffic-reduce-ce/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/use-cases/data-filtering-traffic-reduce-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/data-filtering/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/data-grouping-aggregation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/deb-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/deb-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/debug-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/decode/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/demo-account/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/filters/device-attributes-filter/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/device-connectivity-status/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/device-connectivity-status/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/device-connectivity-status/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/device-credentials/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/device-credentials/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/device-credentials/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/device-online-offline/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/device-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/device-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/device-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/device-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/device-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/device-provisioning/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/filters/device-telemetry-filter/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/digital-ocean/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/digital-ocean/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/docker-cassandra/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/docker-compose-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster/docker-compose-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/docker-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/docker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/docker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/docker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/docker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/domains/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/edge-architecture/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/features/edge-status/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/edges/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/embed-visuals/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/enable-edge/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/enrichment-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/enrichment-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/enrichment-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/entities-and-relations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/entities-and-relations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/entities-and-relations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/entity-table-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/entity-table-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/entity-table-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/entity-views/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/entity-views/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/entity-views/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/eula/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/external-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/external-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/external-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/monitoring/facilities-monitoring-poc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/faq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/faq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/faq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/features/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/feed.xml</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/file-storage/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/file-storage/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/filter-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/filter-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/filter-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/solution-templates/fleet-tracking/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/solution-templates/fleet-tracking/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/fleet-tracking/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/ftp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/function-based-on-telemetry-from-two-devices/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/gateway-mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/gateway-mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/gateway-mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster/gcp-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/gcp-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/gcp-marketplace/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/gcp-self-hosted-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/gcp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/gcp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/gcp2/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/rule-engine/general/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/get-weather-using-rest-api-call/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/getting-started/getting-started-ce/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/getting-started/getting-started-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/raspberry/gpio-android-things/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp32/gpio-control-pico-kit-dht22-sensor/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp8266/gpio/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/raspberry/gpio/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/linkit-one/gps/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/groups/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/groups/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/raspberry/grove/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/security/grpc-over-ssl/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/guides/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/guides/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/guides/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/getting-started-guides/helloworld-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/getting-started-guides/helloworld/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/getting-started-guides/helloworld/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-configure-gateway-using-configurator/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-connect-ble-sensor-using-gateway/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-connect-modbus-device/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-connect-opcua-server/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/contribution/how-to-contribute-your-device-integration-guide/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/contribution/how-to-contribute-your-device-integration-guide/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/contribution/how-to-contribute/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-enable-remote-logging/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-enable-remote-shell/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-use-gateway-rpc-methods/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/guides/how-to-use-rpc-modbus-connector/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/http-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/http-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/http-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/http/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/http/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/ibm-cloud/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/ibm-cloud/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/ibm-watson-iot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/ibm-watson-iot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/installations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/partners/hardware/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/careers/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/raspberry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/partners/hardware/apply/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/company/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp8266/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/arduino/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/nodemcu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/partners/hardware/program/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/trendz/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/mediakit/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/nettrartu+/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/tektelic/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp32/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/services/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/partners/distributors/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/linkit-one/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/pricing/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-edge/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/industry40/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/install-thanks/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-pe/install/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/installation-options/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/installation-options/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/installation-options/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/installation-options/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/instance/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/integration-with-telegram-bot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/iot-platform-deployment-scenarios/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/iot-platform-deployment-scenarios/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/iot-use-cases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-video-tutorials/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/kafka-plugin-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/analytics/kafka-streams/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/samples/analytics/kafka-streams/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/samples/analytics/kafka-streams/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/kafka/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/kernel/kernel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/kingpigeon/kingpigeon/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/linux/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/live-demo/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/loriot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/loriot/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/lwm2m-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/lwm2m-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/lwm2m-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/mail-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/mail-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/mail-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/mail/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/alarms/mail/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/use-cases/manage-alarms-rpc-requests-ce/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/use-cases/manage-alarms-rpc-requests-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/management/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/filters/message-type-filter/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/messaging/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/filters/method-name-filter/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/minikube-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/cluster/minikube-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/modbus/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/monolithic/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/monolithic/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/mqtt-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/mqtt-over-ssl/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/mqtt-over-ssl/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/mqtt-over-ssl/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/mqtt/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/msa/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/msa/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/msa/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/newsletter-thanks/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/oauth-2-support/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/oauth-2-support/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/oauth-2-support/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/oauth/oauth0/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/ocean-connect/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/ocean-connect/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/odbc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/oauth/okta/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/old-upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/old-upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/opc-ua/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/opc-ua/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/opc-ua/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/cluster/openshift-cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ota-updates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ota-updates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp32/ota/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/solution-templates/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/solution-templates/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/use-cases/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/pe-demo-getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/performance-aws-instances/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/performance-aws-instances/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/performance-tests/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/performance-tools/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/performance/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/perpetual/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/pip-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/prediction/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/privacy-policy/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/demo/privacy-policy/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/protocols/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/protocols/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/protocols/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-asset/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-customer/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-dashboard/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-device/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/provision-edge-on-server-ce/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/provision-edge-on-server-pe/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-entity-view/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/rule-engine/provision-rule-chains/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/config/ce/provision-user/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/rule-engine/push-data/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/python-client-sdk/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/python-client-sdk/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/python-rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/python-rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/python-rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-5/tutorials/queues-for-message-reprocessing/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-5/tutorials/queues-for-message-reprocessing/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-5/tutorials/queues-for-message-reprocessing/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-5/tutorials/queues-for-synchronization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-5/tutorials/queues-for-synchronization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-5/tutorials/queues-for-synchronization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/rabbitmq-plugin-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/rabbitmq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/ble/raspberry-esp32-xiaomi-sensor-htu21d/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rbac/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rbac/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/re-getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/re-getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/re-getting-started/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/releases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/releases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/releases/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/remote-integrations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/remote-integrations/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/reporting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/reporting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/thingsboard-edge/request-demo/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/request/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/rest-api-call-plugin-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/rest-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/rest-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/rest-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/reference/rest-client/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/rest/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/rest/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/rhel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/rhel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/rhel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/rhel/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/roadmap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/roadmap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/roadmap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/reference/roadmap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/roles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/roles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/roles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/rpc-plugin-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/rpc-reply-tutorial/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/rpc-request-tutorial/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rpc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rpc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rpc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/rpc/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/rpi/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/rpm-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/nettrartu+/rtu_temp_sensor/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/rule-engine/rule-chain-templates/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/rule-chains/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/rule-chains/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/rule-chains/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/contribution/rule-node-development/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/contribution/rule-node-development/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/sample/sample/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/scheduler/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/scheduler/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/gw/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/license/search/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/self-registration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/self-registration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/send-data-external-mqtt-brokers/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/send-email-to-customer/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/send-email/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/send-mail-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/sigfox-example/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/sigfox-example/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/sigfox/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/sigfox/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/arduino/sim808-htu21d/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/sitemap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/smart-buildings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/smart-city/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/smart-energy/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/smart-energy/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/smart-farming/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/smart-metering/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/solution-templates/smart-office/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/solution-templates/smart-office/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/sms-provider-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/sms-provider-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/sms-provider-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/snmp-api/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/config/snmp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/sns/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/sodaq-udp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/sodaq/sodaq-udp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/sodaq/sodaq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/sodaq/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/source-installation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/sqs/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/states/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/subscription/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/subscription/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/services/support/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/syrus/syrus/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/tcp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/tcp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/industries/telecom/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/telemetry-delta-validation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/actions/telemetry-plugin-action/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/solution-templates/temperature-humidity-sensors/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/solution-templates/temperature-humidity-sensors/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/raspberry/temperature/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/arduino/temperature/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/esp8266/temperature/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/nodemcu/temperature/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/tenant-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/tenant-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/tenant-profiles/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/tenants/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/tenants/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/tenants/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/terms-of-use/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/partners/hardware/apply/thanks/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/thingpark/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/thingpark/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/reference/plugins/time/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/abeeway/tracker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/services/trainings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/transform-incoming-telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/transform-telemetry-using-previous-record/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/rule-engine-2-0/transformation-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/transformation-nodes/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/trip-animation-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/trip-animation-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/trip-animation-widget/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/trendz/trndz-request-demo/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/trndz-upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/troubleshooting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/troubleshooting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/tti/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/tti/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/ttn/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/ttn/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/ubuntu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/ubuntu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/ubuntu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/integrations/udp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/integrations/udp/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/install/upgrade-instructions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/license-server/user/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/users/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/users/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/users/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/validate-incoming-telemetry/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/view-builder/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/view-settings/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/visualization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/visualization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/visualization/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-bar/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-card/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-heatmap/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-line/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-pie/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-scatter/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/visualizations-tables/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/samples/smartico/wm-bus-lorawan/wMBus_Reader_LoRaWAN/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/solution-templates/water-metering/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/solution-templates/water-metering/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/what-is-edge/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/iot-gateway/what-is-iot-gateway/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/products/paas/what-is-thingsboard-cloud/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/getting-started-guides/what-is-thingsboard/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/getting-started-guides/what-is-thingsboard/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/getting-started-guides/what-is-thingsboard/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/white-labeling/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/white-labeling/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/widget-actions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/widget-actions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/widget-actions/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/widget-library/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/widget-library/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/widget-library/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/contribution/widgets-development-before-3.0/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/contribution/widgets-development-before-3.0/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/contribution/widgets-development/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/contribution/widgets-development/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/contribution/widgets-development/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/trendz/install/windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/edge/install/windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/assets/css/style.css</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/pe/action-nodes</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/pe/analytics-nodes</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/install/cluster-setup/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/csv-xls-data-export/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/custom-menu/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/custom-translation/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/paas/user-guide/ui/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/device-online-offline/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/device-online-offline/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/tutorials/device-online-offline/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/device-profiles</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/device-profiles</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/device-profiles</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/install/docker-windows/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/install/docker/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/entity-views</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/entity-views</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/entity-views</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/file-storage/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/install/pe/gcp2/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/groups/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/getting-started-guides/helloworld/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/install/installation-options/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/pe/user-guide/ui/dashboards/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rbac/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/reporting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/reporting/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/scheduler/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/self-registration/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/ui/tenant-profiles</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/rule-engine-2-0/pe/transformation-nodes</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/overview/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/docs/user-guide/white-labeling/</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url><url>
+  <loc>https://thingsboard.io/redirects.json</loc>
+  <lastmod>2021-09-16T16:13:10+02:00</lastmod>
+</url>
+</urlset>

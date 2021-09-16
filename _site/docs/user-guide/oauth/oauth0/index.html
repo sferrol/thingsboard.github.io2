@@ -1,0 +1,1529 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>OAuth 2.0 Support | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="OAuth 2.0 Support" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OAuth 2.0 Support" />
+<meta property="og:description" content="OAuth 2.0 Support" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/user-guide/oauth/oauth0/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/user-guide/oauth/oauth0/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="OAuth 2.0 Support" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/user-guide/oauth/oauth0/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"OAuth 2.0 Support","@type":"WebPage","headline":"OAuth 2.0 Support","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="OAuth 2.0 Support"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/pe/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/user-guide/oauth/oauth0/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                <span class="item">OAuth 2.0 Support</span>
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>OAuth 2.0 Support</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#scenario-description" id="markdown-toc-scenario-description">Scenario description</a></li>
+  <li><a href="#login-with-oauth0" id="markdown-toc-login-with-oauth0">Login with OAuth0</a>    <ul>
+      <li><a href="#preparations" id="markdown-toc-preparations">Preparations</a></li>
+      <li><a href="#result" id="markdown-toc-result">Result</a></li>
+    </ul>
+  </li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next Steps</a></li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+<p>ThingsBoard allows you to provide Single Sign On functionality for your customers and automatically create tenants, customers or subcustomers using external user management platforms, that supports <strong>OAuth 2.0 protocol</strong>.<br />
+This guide is only for the <strong>OAuth0 OAuth</strong>.</p>
+<h2 id="scenario-description">Scenario description</h2>
+
+<p>In this guide we will configure the <strong>OAuth</strong> with the <a href="https://auth0.auth0.com/">OAuth0</a> for the authentication. 
+In this case User is going to be logged into the Tenant which name is going to be equal to user’s email domain name.<br />
+Additionally, for every user we are going to create a new Customer and Customer name is going to be user’s email</p>
+
+<p>To map those external user infos from Auth0 platform we are going to use built-in <a href="/docs/user-guide/oauth-2-support/#basic-mapper">basic mapper</a>.</p>
+
+<p>If <a href="/docs/user-guide/oauth-2-support/#basic-mapper">basic mapper</a> functionality will not fit your business needs, you can configure the <a href="/docs/user-guide/oauth-2-support/#custom-mapper">custom mapper</a>  so that you are able to add an implementation that fits under your specific needs.</p>
+
+<h2 id="login-with-oauth0">Login with OAuth0</h2>
+
+<h3 id="preparations">Preparations</h3>
+<p>To apply the configurations properly, we need to obtain the <strong>clientName</strong>,  <strong>clientId</strong> and <strong>clientSecret</strong> first.<br />
+For these reasons we first go for the <a href="https://auth0.auth0.com/">OAuth0 Management Console</a>.<br />
+First we need to create the application.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-to-create.png" alt="image" /></p>
+
+<p>Then we need to specify the application name and application type.<br />
+The application name equals the <strong>clientName</strong>. The Application type is a <strong>Regular Web Application</strong>.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-creation.png" alt="image" /></p>
+
+<p>Afters, you need to specify the technology being used. Please, specify the <strong>Java Spring Security</strong>.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-creation-specify-type.png" alt="image" /></p>
+
+<p>Then we are forwarded to the application information page. There we can found the <strong>clientName</strong>, <strong>clientId</strong> and the <strong>clientSecret</strong>.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-Details-1.png" alt="image" /></p>
+
+<p>For the allowed callback URLs we need to specify the redirect URI for the instance of ours. <br />
+The <strong>redirect URI</strong> needs to be specified in the next format:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>    http://domain:port/login/oauth2/code/
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Where under the domain, please, specify the current <strong>domain</strong> of yours and for the <strong>port</strong> please specify the port to have an HTTP access to the ThingsBoard instance of yours. <br />
+For the example reasons, the domain of my is the localhost, and the port is being the default ThingsBoard installation port 80.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-Details-2.png" alt="image" /></p>
+
+<p>So that we have received three values which are required to be inserted for the <strong>thingsboard.yml</strong> of ours.</p>
+
+<p>In the example of ours those equals:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nv">clientName</span><span class="o">=</span>ThingsBoard
+<span class="nv">clientId</span><span class="o">=</span>XXXXXXXX
+<span class="nv">clientSecret</span><span class="o">=</span>YYYYYYYY
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>So that now we need to insert those for the <strong>thingsboard.yml</strong>.</p>
+
+<p>We also need to acquire the list of the links for the next variables:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>SECURITY_OAUTH2_DEFAULT_ACCESS_TOKEN_URI
+SECURITY_OAUTH2_DEFAULT_AUTHORIZATION_URI
+SECURITY_OAUTH2_DEFAULT_JWK_SET_URI
+SECURITY_OAUTH2_DEFAULT_USER_INFO_URI
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Up to date list of those can be found on the bottom of application page.</p>
+
+<p><img src="/images/user-guide/oauth-2-support/oauth0/Application-Details-3.png" alt="image" /></p>
+
+<p>For the example of ours, we have set the Auth0 application domain to the tbsupport.eu.auth0.com, so that the next values are being used:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nv">SECURITY_OAUTH2_DEFAULT_ACCESS_TOKEN_URI</span><span class="o">=</span>https://tbsupport.eu.auth0.com/oauth/token
+<span class="nv">SECURITY_OAUTH2_DEFAULT_AUTHORIZATION_URI</span><span class="o">=</span>https://tbsupport.eu.auth0.com/authorize
+<span class="nv">SECURITY_OAUTH2_DEFAULT_JWK_SET_URI</span><span class="o">=</span>https://tbsupport.eu.auth0.com/.well-known/jwks.json
+<span class="nv">SECURITY_OAUTH2_DEFAULT_USER_INFO_URI</span><span class="o">=</span>https://tbsupport.eu.auth0.com/userinfo
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="result">Result</h3>
+
+<p>So that, the resulted <strong>thingsboard.yml</strong> equals the below one.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+</pre></td><td class="rouge-code"><pre>...
+<span class="c"># Security parameters</span>
+security:
+     ...
+     oauth2:
+         <span class="c"># Enable/disable OAuth 2 login functionality</span>
+         <span class="c"># For details please refer to https://thingsboard.io/docs/user-guide/oauth-2-support/</span>
+         enabled: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_ENABLED</span>:true<span class="k">}</span><span class="s2">"</span>
+         <span class="c"># Redirect URL where access code from external user management system will be processed</span>
+         loginProcessingUrl: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_LOGIN_PROCESSING_URL</span>:/login/oauth2/code/<span class="k">}</span><span class="s2">"</span>
+         <span class="c"># List of SSO clients</span>
+         clients:
+           auth0:
+             <span class="c"># Label that going to be show on login button - 'Login with {loginButtonLabel}'</span>
+             loginButtonLabel: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_LOGIN_BUTTON_LABEL</span>:Auth0<span class="k">}</span><span class="s2">"</span>
+             <span class="c"># Icon that going to be show on login button. Material design icon ID (https://material.angularjs.org/latest/api/directive/mdIcon)</span>
+             loginButtonIcon: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_LOGIN_BUTTON_ICON</span>:<span class="k">}</span><span class="s2">"</span>
+             clientName: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_CLIENT_NAME</span>:ThingsBoard<span class="k">}</span><span class="s2">"</span>
+             clientId: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_CLIENT_ID</span>:XXXXXXXX<span class="k">}</span><span class="s2">"</span>
+             clientSecret: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_CLIENT_SECRET</span>:YYYYYYYY<span class="k">}</span><span class="s2">"</span>
+             accessTokenUri: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_ACCESS_TOKEN_URI</span>:https://tbsupport.eu.auth0.com/oauth/token<span class="k">}</span><span class="s2">"</span>
+             authorizationUri: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_AUTHORIZATION_URI</span>:https://tbsupport.eu.auth0.com/authorize<span class="k">}</span><span class="s2">"</span>
+             scope: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_SCOPE</span>:openid,email,profile<span class="k">}</span><span class="s2">"</span>
+             <span class="c"># Redirect URL that must be in sync with 'security.oauth2.loginProcessingUrl', but domain name added</span>
+             redirectUriTemplate: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_REDIRECT_URI_TEMPLATE</span>:http://localhost:80/login/oauth2/code/<span class="k">}</span><span class="s2">"</span>
+             jwkSetUri: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_JWK_SET_URI</span>:https://tbsupport.eu.auth0.com/.well-known/jwks.json<span class="k">}</span><span class="s2">"</span>
+             <span class="c"># 'authorization_code', 'implicit', 'refresh_token' or 'client_credentials'</span>
+             authorizationGrantType: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_AUTHORIZATION_GRANT_TYPE</span>:authorization_code<span class="k">}</span><span class="s2">"</span>
+             clientAuthenticationMethod: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_CLIENT_AUTHENTICATION_METHOD</span>:post<span class="k">}</span><span class="s2">"</span> <span class="c"># basic or post</span>
+             userInfoUri: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_USER_INFO_URI</span>:https://tbsupport.eu.auth0.com/userinfo<span class="k">}</span><span class="s2">"</span>
+             userNameAttributeName: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_USER_NAME_ATTRIBUTE_NAME</span>:email<span class="k">}</span><span class="s2">"</span>
+             mapperConfig:
+               <span class="c"># Allows to create user if it not exists</span>
+               allowUserCreation: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_ALLOW_USER_CREATION</span>:true<span class="k">}</span><span class="s2">"</span>
+               <span class="c"># Allows user to setup ThingsBoard internal password and login over default Login window</span>
+               activateUser: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_ACTIVATE_USER</span>:false<span class="k">}</span><span class="s2">"</span>
+               <span class="c"># Mapper type of converter from external user into internal - 'basic' or 'custom'</span>
+               <span class="nb">type</span>: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_TYPE</span>:basic<span class="k">}</span><span class="s2">"</span>
+               basic:
+                 <span class="c"># Key from attributes of external user object to use as email</span>
+                 emailAttributeKey: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_EMAIL_ATTRIBUTE_KEY</span>:email<span class="k">}</span><span class="s2">"</span>
+                 firstNameAttributeKey: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_FIRST_NAME_ATTRIBUTE_KEY</span>:<span class="k">}</span><span class="s2">"</span>
+                 lastNameAttributeKey: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_LAST_NAME_ATTRIBUTE_KEY</span>:<span class="k">}</span><span class="s2">"</span>
+                 <span class="c"># Strategy for generating Tenant from external user object - 'domain', 'email' or 'custom'</span>
+                 <span class="c"># 'domain' - name of the Tenant will be extracted as domain from the email of the user</span>
+                 <span class="c"># 'email' - name of the Tenant will email of the user</span>
+                 <span class="c"># 'custom' - please configure 'tenantNamePattern' for custom mapping</span>
+                 tenantNameStrategy: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_TENANT_NAME_STRATEGY</span>:domain<span class="k">}</span><span class="s2">"</span>
+                 <span class="c"># %{attribute_key} as placeholder for attribute value of attributes of external user object</span>
+                 tenantNamePattern: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_TENANT_NAME_PATTERN</span>:<span class="k">}</span><span class="s2">"</span>
+                 <span class="c"># If this field is not empty, user will be created as a user under defined Customer</span>
+                 <span class="c"># %{attribute_key} as placeholder for attribute value of attributes of external user object</span>
+                 customerNamePattern: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_CUSTOMER_NAME_PATTERN</span>:<span class="p"> %{email</span><span class="k">}</span><span class="s2">}"</span>
+                 parentCustomerNamePattern: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_PARENT_CUSTOMER_NAME_PATTERN</span>:<span class="k">}</span><span class="s2">"</span> <span class="c"># %{attribute_key} as placeholder for attributes value by key</span>
+                 userGroupsNamePattern: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_BASIC_USER_GROUPS_NAME_PATTERN</span>:<span class="p"> Customer Users</span><span class="k">}</span><span class="s2">"</span> <span class="c"># list of comma separated user group names, %{attribute_key} as placeholder for attributes value by key</span>
+               custom:
+                 url: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_CUSTOM_URL</span>:<span class="k">}</span><span class="s2">"</span>
+                 username: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_CUSTOM_USERNAME</span>:<span class="k">}</span><span class="s2">"</span>
+                 password: <span class="s2">"</span><span class="k">${</span><span class="nv">SECURITY_OAUTH2_DEFAULT_MAPPER_CUSTOM_PASSWORD</span>:<span class="k">}</span><span class="s2">"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>After all the changes being applied, please, make sure to have the ThingsBoard restart.
+The ThingsBoard restart can be invoked with the next command on the Linux Server:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span><span class="nb">sudo </span>service thingsboard restart
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>After that, proceed to the User Interface of yours, to make sure there are no troubles, press the <strong>Login With OAuth0</strong>.</p>
+
+<p>In case of the troubleshooting with those, please, contact us <a href="/docs/contact-us/">using the contact us form</a>.</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/guides#AnchorIDGettingStartedGuides">Getting started guides</a> - These guides provide quick overview of main ThingsBoard features. Designed to be completed in 15-30 minutes.</p>
+  </li>
+  <li>
+    <p><a href="/docs/user-guide/install/installation-options/">Installation guides</a> - Learn how to setup ThingsBoard on various available operating systems.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDConnectYourDevice">Connect your device</a> - Learn how to connect devices based on your connectivity technology or solution.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataVisualization">Data visualization</a> - These guides contain instructions how to configure complex ThingsBoard dashboards.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataProcessing">Data processing &amp; actions</a> - Learn how to use ThingsBoard Rule Engine.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDDataAnalytics">IoT Data analytics</a> - Learn how to use rule engine to perform basic analytics tasks.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDHardwareSamples">Hardware samples</a> - Learn how to connect various hardware platforms to ThingsBoard.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDAdvancedFeatures">Advanced features</a> - Learn about advanced ThingsBoard features.</p>
+  </li>
+  <li>
+    <p><a href="/docs/guides#AnchorIDContribution">Contribution and Development</a> - Learn about contribution and development in ThingsBoard.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

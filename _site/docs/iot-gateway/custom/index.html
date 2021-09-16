@@ -1,0 +1,2322 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="IoT Gateway Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Custom IoT Gateway Connector | ThingsBoard IoT Gateway</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Custom IoT Gateway Connector" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/iot-gateway/custom/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/iot-gateway/custom/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Custom IoT Gateway Connector" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/iot-gateway/custom/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"@type":"WebPage","headline":"Custom IoT Gateway Connector","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/gateway-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            IoT Gateway
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+
+
+        <a href="/docs/pe/" class="product">Professional Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product active">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/gw/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/getting-started/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/installation/" >Installation</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                  
+                      
+                        
+                        
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Customization guide</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/iot-gateway/getting-started/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="ThingsBoard IoT Gateway" href="/docs/iot-gateway/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard IoT Gateway?" href="/docs/iot-gateway/what-is-iot-gateway/"></a>
+
+
+<a class="item" data-title="Getting Started" href="/docs/iot-gateway/getting-started/"></a>
+
+
+<div class="item" data-title="Configuration guides">
+  <div class="container">
+
+
+<a class="item" data-title="General configuration" href="/docs/iot-gateway/configuration/"></a>
+
+
+<a class="item" data-title="MQTT Connector" href="/docs/iot-gateway/config/mqtt/"></a>
+
+
+<a class="item" data-title="Modbus Connector" href="/docs/iot-gateway/config/modbus/"></a>
+
+
+<a class="item" data-title="OPC-UA Connector" href="/docs/iot-gateway/config/opc-ua/"></a>
+
+
+<a class="item" data-title="BLE Connector" href="/docs/iot-gateway/config/ble/"></a>
+
+
+<a class="item" data-title="Request Connector" href="/docs/iot-gateway/config/request/"></a>
+
+
+<a class="item" data-title="CAN Connector" href="/docs/iot-gateway/config/can/"></a>
+
+
+<a class="item" data-title="BACnet Connector" href="/docs/iot-gateway/config/bacnet/"></a>
+
+
+<a class="item" data-title="ODBC Connector" href="/docs/iot-gateway/config/odbc/"></a>
+
+
+<a class="item" data-title="REST Connector" href="/docs/iot-gateway/config/rest/"></a>
+
+
+<a class="item" data-title="SNMP Connector" href="/docs/iot-gateway/config/snmp/"></a>
+
+
+<a class="item" data-title="FTP Connector" href="/docs/iot-gateway/config/ftp/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="IoT Gateway features">
+  <div class="container">
+
+
+<a class="item" data-title="Remote logging" href="/docs/iot-gateway/guides/how-to-enable-remote-logging/"></a>
+
+
+<a class="item" data-title="Service RPC methods" href="/docs/iot-gateway/guides/how-to-use-gateway-rpc-methods/"></a>
+
+
+<a class="item" data-title="Remote shell" href="/docs/iot-gateway/guides/how-to-enable-remote-shell/"></a>
+
+
+<a class="item" data-title="Gateway Configurator" href="/docs/iot-gateway/guides/how-to-configure-gateway-using-configurator/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="IoT Gateway Roadmap" href="/docs/iot-gateway/roadmap/"></a>
+
+
+<a class="item" data-title="Customization guide" href="/docs/iot-gateway/custom/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/iot-gateway/installation/" >Installation</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="ThingsBoard IoT Gateway" href="/docs/iot-gateway/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard IoT Gateway?" href="/docs/iot-gateway/what-is-iot-gateway/"></a>
+
+
+<a class="item" data-title="Getting Started" href="/docs/iot-gateway/getting-started/"></a>
+
+
+<div class="item" data-title="Configuration guides">
+  <div class="container">
+
+
+<a class="item" data-title="General configuration" href="/docs/iot-gateway/configuration/"></a>
+
+
+<a class="item" data-title="MQTT Connector" href="/docs/iot-gateway/config/mqtt/"></a>
+
+
+<a class="item" data-title="Modbus Connector" href="/docs/iot-gateway/config/modbus/"></a>
+
+
+<a class="item" data-title="OPC-UA Connector" href="/docs/iot-gateway/config/opc-ua/"></a>
+
+
+<a class="item" data-title="BLE Connector" href="/docs/iot-gateway/config/ble/"></a>
+
+
+<a class="item" data-title="Request Connector" href="/docs/iot-gateway/config/request/"></a>
+
+
+<a class="item" data-title="CAN Connector" href="/docs/iot-gateway/config/can/"></a>
+
+
+<a class="item" data-title="BACnet Connector" href="/docs/iot-gateway/config/bacnet/"></a>
+
+
+<a class="item" data-title="ODBC Connector" href="/docs/iot-gateway/config/odbc/"></a>
+
+
+<a class="item" data-title="REST Connector" href="/docs/iot-gateway/config/rest/"></a>
+
+
+<a class="item" data-title="SNMP Connector" href="/docs/iot-gateway/config/snmp/"></a>
+
+
+<a class="item" data-title="FTP Connector" href="/docs/iot-gateway/config/ftp/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="IoT Gateway features">
+  <div class="container">
+
+
+<a class="item" data-title="Remote logging" href="/docs/iot-gateway/guides/how-to-enable-remote-logging/"></a>
+
+
+<a class="item" data-title="Service RPC methods" href="/docs/iot-gateway/guides/how-to-use-gateway-rpc-methods/"></a>
+
+
+<a class="item" data-title="Remote shell" href="/docs/iot-gateway/guides/how-to-enable-remote-shell/"></a>
+
+
+<a class="item" data-title="Gateway Configurator" href="/docs/iot-gateway/guides/how-to-configure-gateway-using-configurator/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="IoT Gateway Roadmap" href="/docs/iot-gateway/roadmap/"></a>
+
+
+<a class="item" data-title="Customization guide" href="/docs/iot-gateway/custom/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Custom IoT Gateway Connector</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#custom-connector-implementation" id="markdown-toc-custom-connector-implementation">Custom connector implementation</a>    <ul>
+      <li><a href="#step-1-define-serialconnector-configuration" id="markdown-toc-step-1-define-serialconnector-configuration">Step 1. Define SerialConnector configuration</a></li>
+      <li><a href="#step-2-locate-extensions-folder" id="markdown-toc-step-2-locate-extensions-folder">Step 2. Locate extensions folder</a></li>
+      <li><a href="#step-3-define-connector-implementation" id="markdown-toc-step-3-define-connector-implementation">Step 3. Define Connector Implementation</a></li>
+      <li><a href="#step-4-define-converter-implementation" id="markdown-toc-step-4-define-converter-implementation">Step 4. Define Converter Implementation</a></li>
+      <li><a href="#step-5-include-connector-into-main-gateway-configuration-file" id="markdown-toc-step-5-include-connector-into-main-gateway-configuration-file">Step 5. Include Connector into main Gateway configuration file</a></li>
+      <li><a href="#step-6-run-the-iot-gateway" id="markdown-toc-step-6-run-the-iot-gateway">Step 6. Run the IoT gateway</a></li>
+      <li><a href="#step-6-check-a-result-in-the-thingsboard-instance" id="markdown-toc-step-6-check-a-result-in-the-thingsboard-instance">Step 6. Check a result in the ThingsBoard instance</a></li>
+    </ul>
+  </li>
+  <li><a href="#custom-connector-methods-reference" id="markdown-toc-custom-connector-methods-reference">Custom connector methods reference</a>    <ul>
+      <li><a href="#__init__-method" id="markdown-toc-__init__-method">__init__ method</a></li>
+      <li><a href="#__connect_to_devices-method" id="markdown-toc-__connect_to_devices-method">__connect_to_devices method</a></li>
+      <li><a href="#get_name-method" id="markdown-toc-get_name-method">get_name method</a></li>
+      <li><a href="#is_connected-method" id="markdown-toc-is_connected-method">is_connected method</a></li>
+      <li><a href="#load_converters-method" id="markdown-toc-load_converters-method">load_converters method</a></li>
+      <li><a href="#run-method" id="markdown-toc-run-method">run method</a></li>
+      <li><a href="#close-method" id="markdown-toc-close-method">close method</a></li>
+      <li><a href="#on_attributes_update-method" id="markdown-toc-on_attributes_update-method">on_attributes_update method</a></li>
+      <li><a href="#server_side_rpc_handler" id="markdown-toc-server_side_rpc_handler">server_side_rpc_handler</a></li>
+    </ul>
+  </li>
+  <li><a href="#custom-converter-methods-reference" id="markdown-toc-custom-converter-methods-reference">Custom converter methods reference</a>    <ul>
+      <li><a href="#__init__-method-1" id="markdown-toc-__init__-method-1">__init__ method</a></li>
+      <li><a href="#convert-method" id="markdown-toc-convert-method">convert method</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="custom-connector-implementation">Custom connector implementation</h2>
+
+<p>Connectors are Gateway components that connect to external system or directly to devices. Gateway has many built-in connectors (e.g. MQTT, OPC-UA server, Modbus, BLE, etc).
+Once connected, connector is either poll data from those systems or subscribe to updates. Poll vs subscribe depends on the protocol capabilities.</p>
+
+<p>Main goal of the custom connector is opportunity to connect to any device with any protocol. Connectors are written in Python language.</p>
+
+<p>We will demonstrate how to create custom connector by example. Let’s assume we want our connector to connect to serial port on your device and read the data. 
+Connector will be able to push data to device over serial. We will call this connector SerialConnector.<br />
+Please see step-by-step guide how we have added SerialConnector to the Gateway.<br />
+You can create your custom connector, based on this example.</p>
+
+<p><strong>Notate: The gateway already contains this connector, you can find it in the extensions folder</strong></p>
+
+<p>Let’s assume our serial devices push UTF-8 encoded strings like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>48\r2430947595\n
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>where 48 is humidity, \r is delimiter between values 2430947595 is device serial number and messages are separated by \n symbol.</p>
+
+<h3 id="step-1-define-serialconnector-configuration">Step 1. Define SerialConnector configuration</h3>
+
+<p>At first, we need create configuration file for our serial connector. Let’s create file in the config folder (In the folder with tb_gateway.yaml file.)</p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">touch </span>custom_serial.json
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>After this we need add some configuration for this connector in file.</p>
+
+<p><br /></p>
+<details>
+   <summary>
+ Example of custom connector configuration file. Press to expand. 
+  </summary>
+   <figure class="highlight">
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Custom serial connector"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"devices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CustomSerialDevice1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"port"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/dev/ttyUSB0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"baudrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">9600</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CustomSerialUplinkConverter"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"telemetry"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"byte"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humidity"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"untilDelimiter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\r</span><span class="s2">"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SerialNumber"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"fromByte"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"toByte"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"attributeUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"attributeOnThingsBoard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"attr1"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"stringToDevice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value = ${attr1}</span><span class="se">\n</span><span class="s2">"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+<p><br /></p>
+
+<p>In this file we write the configuration that we will use in the connector code.</p>
+
+<p>Parameters in the configuration:</p>
+
+<ol>
+  <li>“name” - connector name, it should be like a connector name in the tb_gateway.yaml file. Uses by the gateway to find correct connector for saved devices.</li>
+  <li>“devices” - array with devices configuration (We can provide more that one device.)</li>
+</ol>
+
+<p>In the “devices” array configuration file has devices json objects with configuration parameters for this device.</p>
+
+<p>Parameters in device object:</p>
+<ol>
+  <li>“name” - name of the device for ThingsBoard instance.</li>
+  <li>“port” - port for the device.</li>
+  <li>“baudrate” - port baudrate for connection to device.<br />
+<strong>Notate: You can also use parameters from a configuration for serial port such as parity, stop bits, etc. <br />
+You can read more about serial port parameters <a href="https://pythonhosted.org/pyserial/pyserial_api.html#classes">here.</a></strong></li>
+  <li>“converter” - class name of converter that we will use for the serial connector.</li>
+  <li>“telemetry” - objects array, with a configuration for processing data from device, data processed with configuration in this section will be interpreted as device telemetries.</li>
+  <li>“attributes” - objects array, with a configuration for processing data from device, data processed with configuration in this section will be interpreted as device attributes.</li>
+  <li>“attributesUpdates” - objects array with a configuration for processing attribute update request from ThingsBoard.</li>
+</ol>
+
+<h3 id="step-2-locate-extensions-folder">Step 2. Locate extensions folder</h3>
+
+<p>Connector file should being placed in extensions folder that depends on type of installation:</p>
+
+<p><strong>If you install the gateway as daemon:</strong></p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>/var/lib/thingsboard_gateway/extensions
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>For installation using pip:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Installation command</strong></th>
+      <th><strong>Path</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>sudo pip3 install thingsboard-gateway</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">/usr/lib/python3/site-packages/thingsboard_gateway/extensions</code></td>
+      <td>Package installed on system layer, for every user.</td>
+    </tr>
+    <tr>
+      <td><strong>pip3 install thingsboard-gateway</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">/usr/local/lib/python3/dist-packages/thingsboard-gateway</code></td>
+      <td>Package installed only for current user.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="step-3-define-connector-implementation">Step 3. Define Connector Implementation</h3>
+
+<p>We need create a folder and file for our connector class.<br />
+We have a folder “<strong>serial</strong>” in extensions folder and file “<strong>custom_serial_connector.py</strong>”.
+After this, we write connector class in the connector file and override some methods of parent class. <a href="#custom-connector-methods-reference">List of methods.</a></p>
+
+<p><br /></p>
+<details>
+   <summary>
+ <strong>Example of custom connector file. Press to expand.</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+</pre></td><td class="rouge-code"><pre><span class="s">"""Import libraries"""</span>
+
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">ascii_lowercase</span>
+<span class="kn">from</span> <span class="nn">thingsboard_gateway.connectors.connector</span> <span class="kn">import</span> <span class="n">Connector</span><span class="p">,</span> <span class="n">log</span>    <span class="c1"># Import base class for connector and logger
+</span><span class="kn">from</span> <span class="nn">thingsboard_gateway.tb_utility.tb_utility</span> <span class="kn">import</span> <span class="n">TBUtility</span>
+
+
+<span class="k">class</span> <span class="nc">CustomSerialConnector</span><span class="p">(</span><span class="n">Thread</span><span class="p">,</span> <span class="n">Connector</span><span class="p">):</span>    <span class="c1"># Define a connector class, it should inherit from "Connector" class.
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span>  <span class="n">config</span><span class="p">,</span> <span class="n">connector_type</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>    <span class="c1"># Initialize parents classes
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">statistics</span> <span class="o">=</span> <span class="p">{</span><span class="s">'MessagesReceived'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="s">'MessagesSent'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>    <span class="c1"># Dictionary, will save information about count received and sent messages.
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__config</span> <span class="o">=</span> <span class="n">config</span>    <span class="c1"># Save configuration from the configuration file.
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__gateway</span> <span class="o">=</span> <span class="n">gateway</span>    <span class="c1"># Save gateway object, we will use some gateway methods for adding devices and saving data from them.
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__connector_type</span> <span class="o">=</span> <span class="n">connector_type</span>    <span class="c1"># Saving type for connector, need for loading converter
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span>
+                                       <span class="s">"Custom %s connector "</span> <span class="o">%</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">choice</span><span class="p">(</span><span class="n">ascii_lowercase</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))))</span>    <span class="c1"># get from the configuration or create name for logs.
+</span>        <span class="n">log</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Starting Custom %s connector"</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">())</span>    <span class="c1"># Send message to logger
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>    <span class="c1"># Set self thread as daemon
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">stopped</span> <span class="o">=</span> <span class="bp">True</span>    <span class="c1"># Service variable for check state
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">False</span>    <span class="c1"># Service variable for check connection to device
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>    <span class="c1"># Dictionary with devices, will contain devices configurations, converters for devices and serial port objects
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">load_converters</span><span class="p">()</span>    <span class="c1"># Call function to load converters and save it into devices dictionary
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__connect_to_devices</span><span class="p">()</span>    <span class="c1"># Call function for connect to devices
+</span>        <span class="n">log</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Custom connector %s initialization success.'</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">())</span>    <span class="c1"># Message to logger
+</span>        <span class="n">log</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Devices in configuration file found: %s "</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">device</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">))</span>    <span class="c1"># Message to logger
+</span>
+    <span class="k">def</span> <span class="nf">__connect_to_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function for opening connection and connecting to devices
+</span>        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>    <span class="c1"># Start error handler
+</span>                <span class="n">connection_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">].</span><span class="n">get</span><span class="p">(</span><span class="s">"serial"</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span> \
+                        <span class="ow">or</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> \
+                        <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">].</span><span class="n">isOpen</span><span class="p">():</span>    <span class="c1"># Connect only if serial not available earlier or it is closed.
+</span>                    <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="k">while</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">].</span><span class="n">isOpen</span><span class="p">():</span>    <span class="c1"># Try connect
+</span>                        <span class="s">'''connection to serial port with parameters from configuration file or default'''</span>
+                        <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">]</span> <span class="o">=</span> <span class="n">serial</span><span class="p">.</span><span class="n">Serial</span><span class="p">(</span>
+                                 <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'port'</span><span class="p">,</span> <span class="s">'/dev/ttyUSB0'</span><span class="p">),</span>
+                                 <span class="n">baudrate</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'baudrate'</span><span class="p">,</span> <span class="mi">9600</span><span class="p">),</span>
+                                 <span class="n">bytesize</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'bytesize'</span><span class="p">,</span> <span class="n">serial</span><span class="p">.</span><span class="n">EIGHTBITS</span><span class="p">),</span>
+                                 <span class="n">parity</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'parity'</span><span class="p">,</span> <span class="n">serial</span><span class="p">.</span><span class="n">PARITY_NONE</span><span class="p">),</span>
+                                 <span class="n">stopbits</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'stopbits'</span><span class="p">,</span> <span class="n">serial</span><span class="p">.</span><span class="n">STOPBITS_ONE</span><span class="p">),</span>
+                                 <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'timeout'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                 <span class="n">xonxoff</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'xonxoff'</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span>
+                                 <span class="n">rtscts</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'rtscts'</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span>
+                                 <span class="n">write_timeout</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'write_timeout'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+                                 <span class="n">dsrdtr</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'dsrdtr'</span><span class="p">,</span> <span class="bp">False</span><span class="p">),</span>
+                                 <span class="n">inter_byte_timeout</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'inter_byte_timeout'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+                                 <span class="n">exclusive</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'exclusive'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(.</span><span class="mi">1</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">connection_start</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>    <span class="c1"># Break connection try if it setting up for 10 seconds
+</span>                            <span class="n">log</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s">"Connection refused per timeout for device %s"</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"device_config"</span><span class="p">].</span><span class="n">get</span><span class="p">(</span><span class="s">"name"</span><span class="p">))</span>
+                            <span class="k">break</span>
+            <span class="k">except</span> <span class="n">serial</span><span class="p">.</span><span class="n">serialutil</span><span class="p">.</span><span class="n">SerialException</span><span class="p">:</span>
+                <span class="n">log</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s">"Port %s for device %s - not found"</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'port'</span><span class="p">,</span> <span class="s">'/dev/ttyUSB0'</span><span class="p">),</span> <span class="n">device</span><span class="p">)</span>
+                <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>    <span class="c1"># if no exception handled - add device and change connection state
+</span>                <span class="bp">self</span><span class="p">.</span><span class="n">__gateway</span><span class="p">.</span><span class="n">add_device</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"device_config"</span><span class="p">][</span><span class="s">"name"</span><span class="p">],</span> <span class="p">{</span><span class="s">"connector"</span><span class="p">:</span> <span class="bp">self</span><span class="p">})</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function called by gateway on start
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">stopped</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function used for logging, sending data and statistic
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function for checking connection state
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">connected</span>
+
+    <span class="k">def</span> <span class="nf">load_converters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function for search a converter and save it.
+</span>        <span class="n">devices_config</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'devices'</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">devices_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">device_config</span> <span class="ow">in</span> <span class="n">devices_config</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">device_config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'converter'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">converter</span> <span class="o">=</span> <span class="n">TBUtility</span><span class="p">.</span><span class="n">check_and_import</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__connector_type</span><span class="p">,</span> <span class="n">device_config</span><span class="p">[</span><span class="s">'converter'</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device_config</span><span class="p">[</span><span class="s">'name'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s">'converter'</span><span class="p">:</span> <span class="n">converter</span><span class="p">(</span><span class="n">device_config</span><span class="p">),</span>
+                                                               <span class="s">'device_config'</span><span class="p">:</span> <span class="n">device_config</span><span class="p">}</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">log</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s">'Converter configuration for the custom connector %s -- not found, please check your configuration file.'</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="s">'Section "devices" in the configuration not found. A custom connector %s has being stopped.'</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">())</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Main loop of thread
+</span>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">:</span>
+                    <span class="n">serial</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">"serial"</span><span class="p">]</span>
+                    <span class="n">ch</span> <span class="o">=</span> <span class="sa">b</span><span class="s">''</span>
+                    <span class="n">data_from_device</span> <span class="o">=</span> <span class="sa">b</span><span class="s">''</span>
+                    <span class="k">while</span> <span class="n">ch</span> <span class="o">!=</span> <span class="sa">b</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">ch</span> <span class="o">=</span> <span class="n">serial</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># Reading data from serial
+</span>                            <span class="k">except</span> <span class="nb">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">serial</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                                    <span class="bp">self</span><span class="p">.</span><span class="n">__connect_to_devices</span><span class="p">()</span>    <span class="c1"># if port not found - try to connect to it
+</span>                                    <span class="k">raise</span> <span class="n">e</span>
+                            <span class="n">data_from_device</span> <span class="o">=</span> <span class="n">data_from_device</span> <span class="o">+</span> <span class="n">ch</span>
+                        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                            <span class="k">break</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">converted_data</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">'converter'</span><span class="p">].</span><span class="n">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">'device_config'</span><span class="p">],</span> <span class="n">data_from_device</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="p">.</span><span class="n">__gateway</span><span class="p">.</span><span class="n">send_to_storage</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">get_name</span><span class="p">(),</span> <span class="n">converted_data</span><span class="p">)</span>
+                        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(.</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+                        <span class="k">raise</span> <span class="n">e</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">connected</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Close connect function, usually used if exception handled in gateway main loop or in connector main loop
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">stopped</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__gateway</span><span class="p">.</span><span class="n">del_device</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">'serial'</span><span class="p">].</span><span class="n">isOpen</span><span class="p">():</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">device</span><span class="p">][</span><span class="s">'serial'</span><span class="p">].</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_attributes_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>    <span class="c1"># Function used for processing attribute update requests from ThingsBoard
+</span>        <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="s">"device"</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># checking - is device in configuration?
+</span>            <span class="n">device_config</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">content</span><span class="p">[</span><span class="s">"device"</span><span class="p">]].</span><span class="n">get</span><span class="p">(</span><span class="s">"device_config"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">device_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">device_config</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">device_config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"attributeUpdates"</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">requests</span> <span class="o">=</span> <span class="n">device_config</span><span class="p">[</span><span class="s">"attributeUpdates"</span><span class="p">]</span>    <span class="c1"># getting configuration for attribute requests
+</span>                    <span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
+                        <span class="n">attribute</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"attributeOnThingsBoard"</span><span class="p">)</span>
+                        <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">content</span><span class="p">[</span><span class="s">"data"</span><span class="p">]:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="s">"data"</span><span class="p">][</span><span class="n">attribute</span><span class="p">]</span>    <span class="c1"># get value from content
+</span>                                <span class="n">str_to_send</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">[</span><span class="s">"stringToDevice"</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">"${"</span> <span class="o">+</span> <span class="n">attribute</span> <span class="o">+</span> <span class="s">"}"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))).</span><span class="n">encode</span><span class="p">(</span><span class="s">"UTF-8"</span><span class="p">)</span>    <span class="c1"># form a string to send to device
+</span>                                <span class="bp">self</span><span class="p">.</span><span class="n">devices</span><span class="p">[</span><span class="n">content</span><span class="p">[</span><span class="s">"device"</span><span class="p">]][</span><span class="s">"serial"</span><span class="p">].</span><span class="n">write</span><span class="p">(</span><span class="n">str_to_send</span><span class="p">)</span>    <span class="c1"># send string to device
+</span>                                <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"Attribute update request to device %s : %s"</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="s">"device"</span><span class="p">],</span> <span class="n">str_to_send</span><span class="p">)</span>
+                                <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(.</span><span class="mi">01</span><span class="p">)</span>
+                            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                <span class="n">log</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">server_side_rpc_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+<p><br /></p>
+
+<h3 id="step-4-define-converter-implementation">Step 4. Define Converter Implementation</h3>
+
+<p>The purpose of the converter is to convert data from devices to the ThingsBoard format.
+Converters written in Python language.
+We should create a custom converter file “custom_serial_converter.py” in the extension folder, you can find extension folder location in <a href="#step-2-locate-extensions-folder">Step 2</a></p>
+
+<p><br /></p>
+<details>
+   <summary>
+ <strong>Example of custom converter file. Press to expand.</strong> 
+  </summary>
+   <figure class="highlight">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">thingsboard_gateway.connectors.converter</span> <span class="kn">import</span> <span class="n">Converter</span><span class="p">,</span> <span class="n">log</span>    <span class="c1"># Import base class for the converter and log ("converter.log" in logs directory).
+</span>
+
+<span class="k">class</span> <span class="nc">CustomSerialUplinkConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>    <span class="c1"># Definition of class.
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>    <span class="c1"># Initialization method
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">__config</span> <span class="o">=</span> <span class="n">config</span>    <span class="c1"># Saving configuration to object variable
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">'deviceName'</span><span class="p">:</span> <span class="n">config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="s">'CustomSerialDevice'</span><span class="p">),</span>
+            <span class="s">'deviceType'</span><span class="p">:</span> <span class="n">config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'deviceType'</span><span class="p">,</span> <span class="s">'default'</span><span class="p">),</span>
+            <span class="s">'attributes'</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s">'telemetry'</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>    <span class="c1"># template for a result dictionary.
+</span>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>    <span class="c1"># Method for conversion data from device format to ThingsBoard format.
+</span>        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">'attributes'</span><span class="p">,</span> <span class="s">'telemetry'</span><span class="p">]</span>    <span class="c1"># Array used for looking data for data processing.
+</span>        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>    <span class="c1"># Data processing loop for parameters in keys array.
+</span>            <span class="bp">self</span><span class="p">.</span><span class="n">result_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># Clean old data.
+</span>            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># Checking the parameter from the keys in the config.
+</span>                <span class="k">for</span> <span class="n">config_object</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">__config</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>    <span class="c1"># The loop for checking whether there is data that interests us.
+</span>                    <span class="n">data_to_convert</span> <span class="o">=</span> <span class="n">data</span>    <span class="c1"># data for conversion.
+</span>                    <span class="k">if</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'untilDelimiter'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># Checking some parameter from configuration file.
+</span>                        <span class="n">data_to_convert</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'untilDelimiter'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>    <span class="c1"># if "utilDelimiter" parameter in configuration file - get data from incoming data to delimiter position in received string.
+</span>                    <span class="k">if</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fromDelimiter'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># Checking some parameter from configuration file.
+</span>                        <span class="n">data_to_convert</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fromDelimiter'</span><span class="p">).</span><span class="n">encode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># if "fromDelimiter" parameter in configuration file - get data from incoming data from delimiter position in received string.
+</span>                    <span class="k">if</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'toByte'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># Checking some parameter from configuration file.
+</span>                        <span class="n">to_byte</span> <span class="o">=</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'toByte'</span><span class="p">)</span>    <span class="c1">#     # if "toByte" parameter in configuration file - get data from incoming data to byte number from a parameter "toByte" in configuration file.
+</span>                        <span class="k">if</span> <span class="n">to_byte</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>    <span class="c1"># Checking some parameter from configuration file.
+</span>                            <span class="n">to_byte</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>    <span class="c1"># If parameter == -1 - we will take data to the end.
+</span>                        <span class="n">data_to_convert</span> <span class="o">=</span> <span class="n">data_to_convert</span><span class="p">[:</span><span class="n">to_byte</span><span class="p">]</span>    <span class="c1"># saving data to variable for sending
+</span>                    <span class="k">if</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fromByte'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>    <span class="c1"># Checking some parameter from configuration file
+</span>                        <span class="n">from_byte</span> <span class="o">=</span> <span class="n">config_object</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fromByte'</span><span class="p">)</span>    <span class="c1"># if "fromByte" parameter in configuration file - get data from incoming data from byte number from a parameter "fromByte" in configuration file.
+</span>                        <span class="n">data_to_convert</span> <span class="o">=</span> <span class="n">data_to_convert</span><span class="p">[</span><span class="n">from_byte</span><span class="p">:]</span>    <span class="c1"># saving data to variable for sending.
+</span>                    <span class="n">converted_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">config_object</span><span class="p">[</span><span class="s">'key'</span><span class="p">]:</span> <span class="n">data_to_convert</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'UTF-8'</span><span class="p">)}</span>    <span class="c1"># Adding data from temporary variable to result string.
+</span>                    <span class="bp">self</span><span class="p">.</span><span class="n">result_dict</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">converted_data</span><span class="p">)</span>    <span class="c1"># Append result string to result dictionary.
+</span>        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">result_dict</span>    <span class="c1"># returning result dictionary after all iterations.</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+<p><br /></p>
+
+<p>After processing <strong>48\r2430947595\n</strong>  we receive following dictionary:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="p">{</span>
+    <span class="s">"deviceName"</span><span class="p">:</span> <span class="s">"CustomSerialDevice1"</span><span class="p">,</span>
+    <span class="s">"deviceType"</span><span class="p">:</span> <span class="s">"default"</span><span class="p">,</span>
+    <span class="s">"attributes"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"SerialNumber"</span><span class="p">:</span> <span class="s">"2430947595"</span><span class="p">}],</span>
+    <span class="s">"telemetry"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"humidity"</span><span class="p">:</span><span class="mi">48</span><span class="p">}]</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This dictionary will be converted into json and gateway will send it to ThingsBoard instance.</p>
+
+<h3 id="step-5-include-connector-into-main-gateway-configuration-file">Step 5. Include Connector into main Gateway configuration file</h3>
+
+<p>To add the serial connector to the gateway, we need add following lines into section connectors tb_gateway.yaml file.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>  <span class="pi">-</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Custom Serial Connector</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">serial</span>
+    <span class="na">configuration</span><span class="pi">:</span> <span class="s">custom_serial.json</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s">CustomSerialConnector</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>where:
+<em>name</em> - connector name
+<em>type</em> - folder name in extensions, with connector file
+<em>configuration</em> - connector configuration file in folder with tb_gateway.yaml file
+<em>class</em> - connector class name in connector file in extensions</p>
+
+<h3 id="step-6-run-the-iot-gateway">Step 6. Run the IoT gateway</h3>
+
+<p>To run the gateway you should execute following command, it depends on type of installation:</p>
+
+<ul>
+  <li>If you install the IoT gateway as daemon, you should restart it with following command to apply changes to the configuration:</li>
+</ul>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>systemctl restart thingsboard-gateway
+</pre></td></tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>If you install the IoT gateway as Python module, you should run it from the folder with tb_gateway.yaml (or change path to the tb_gateway.yaml file) with the following command to apply changes to the configuration:</li>
+</ul>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>python3 <span class="nt">-c</span> <span class="s1">'from thingsboard_gateway.gateway.tb_gateway_service import TBGatewayService; TBGatewayService("./tb_gateway.yaml")'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You can check a status of the IoT Gateway by watch the logs in a folder that you provide in logs.conf file.<br />
+Default location of logs folder for the daemon - “/var/log/thingsboard-gateway/”<br />
+Default location of logs folder for Python module - “./logs/”</p>
+
+<h3 id="step-6-check-a-result-in-the-thingsboard-instance">Step 6. Check a result in the ThingsBoard instance</h3>
+
+<p>To check the result, you should connect device, and go to the ThingsBoard UI into “Devices” tab.<br />
+If device connected correctly and has sent some data, you will see device with a name - “CustomSerialDevice1”.<br />
+To check the data - open device and go to the telemetry tab.
+You should see the telemetry from config (humidity) with some value 48 (Value from example, your value can be different).</p>
+
+<h2 id="custom-connector-methods-reference">Custom connector methods reference</h2>
+
+<p>You should implement following methods:<br />
+<strong>__init__</strong> – called on creating object (In example used for loading converters, saving data from configs to object variables and creating serial ports objects).<br />
+<strong>open</strong> – called on start connection to device with connector.<br />
+<strong>get_name</strong> – called to recieve name of connector.<br />
+<strong>is_connected</strong> – called to check the connection to devices.<br />
+<strong>run</strong> – Main method of thread, must contain an infinite loop and all calls to data receiving/processing functions.<br />
+<strong>close</strong> – method, that has being called when gateway stops and should contain processing of closing connection/ports etc.<br />
+<strong>on_attributes_update</strong> – gateway call it when receives AttributeUpdates request from ThingsBoard server to device with this connector.<br />
+<strong>server_side_rpc</strong> – gateway call it when receives ServerRpcRequest from ThingsBoard server.</p>
+
+<h5 id="__init__-method">__init__ method</h5>
+
+<p><strong>Parameters:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">connector_type</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object<br />
+<em>gateway</em> – gateway object (will being used for saving data) <br />
+<em>config</em> – dictionary with data from connector configuration file <br />
+<em>connector_type</em> – type of connector(Need for load converters for this connector type, from tb_gateway.yaml)</p>
+
+<p>In example above, we used this method to initialize data with which we will work.</p>
+
+<h5 id="__connect_to_devices-method">__connect_to_devices method</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">__connect_to_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object</p>
+
+<p>Service method, used for connection to devices.</p>
+
+<h5 id="get_name-method">get_name method</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function used for logging, sending data and statistic
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object</p>
+
+<p>Method to get connector name.</p>
+
+<h5 id="is_connected-method">is_connected method</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function for checking connection state
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object</p>
+
+<p>Method for check current connection state.</p>
+
+<h5 id="load_converters-method">load_converters method</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">load_converters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>    <span class="c1"># Function for search a converter and save it.
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object</p>
+
+<p>Method for loading converters for devices.</p>
+
+<h5 id="run-method">run method</h5>
+
+<p>Method from threading module, that being called after initializing of gateway.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>self</em> – current object.</p>
+
+<p>In example above we use this method for connection to devices, read data from them and run converter</p>
+
+<h5 id="close-method">close method</h5>
+
+<p>Method is being called when gateway stopping or catch a fatal exception in a main loop of gateway.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>self</em> – current object.</p>
+
+<h5 id="on_attributes_update-method">on_attributes_update method</h5>
+
+<p>Method is being called when gateway receive AttributeUpdates request from ThingsBoard.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">on_attributes_update_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>self</em> – current object.<br />
+<em>content</em> – dictionary with data from ThingsBoard server.</p>
+
+<p>Example of content:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="s">"device"</span><span class="p">:</span> <span class="s">"CustomSerialDevice1"</span><span class="p">,</span> <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span><span class="s">"attr1"</span><span class="p">:</span> <span class="mi">25</span><span class="p">}}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If configuration in section attributesUpdates like following, connector will send string “value = 25\n” to device.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="w">      </span><span class="nl">"attributeUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"attributeOnThingsBoard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"attr1"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"stringToDevice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value = ${attr1}</span><span class="se">\n</span><span class="s2">"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h5 id="server_side_rpc_handler">server_side_rpc_handler</h5>
+
+<p>Method is being called when gateway receive AttributeUpdates request from ThingsBoard.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">server_side_rpc_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>self</em> – current object.<br />
+<em>content</em> – dictionary with data from ThingsBoard server.</p>
+
+<p>Example of content:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="s">"device"</span><span class="p">:</span> <span class="s">"CustomSerialDevice1"</span><span class="p">,</span> <span class="s">"data"</span><span class="p">:</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"method"</span><span class="p">:</span> <span class="s">"toggle_gpio"</span><span class="p">,</span> <span class="s">"params"</span><span class="p">:</span> <span class="p">{</span><span class="s">"pin"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>There are 2 types of rpc requests processing available - with response and without it.</p>
+
+<p>After processing request you should just use following gateway method:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="bp">self</span><span class="p">.</span><span class="n">__gateway</span><span class="p">.</span><span class="n">send_rpc_reply</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">req_id</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Where:<br />
+<em>device</em> - String with device name.<br />
+<em>req_id</em> - Id of RPC request from ThingsBoard<br />
+<em>content</em> - depends on type of rpc:</p>
+<ul>
+  <li>If without response:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">"success"</span><span class="p">:</span> <span class="bp">True</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>If with response in content should be any dictionary with content that you want send to ThingsBoard as response.</li>
+</ul>
+
+<h2 id="custom-converter-methods-reference">Custom converter methods reference</h2>
+
+<p>You should implement following methods:<br />
+<strong>__init__</strong> – called on creating object.<br />
+<strong>convert</strong> – Method for conversion data from device format to ThingsBoard data format.</p>
+
+<h5 id="__init__-method-1">__init__ method</h5>
+
+<p><strong>Parameters:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>self</em> – current object.<br />
+<em>config</em> – dictionary with data from connector configuration file.</p>
+
+<p>In the example used to save the converter configuration and create a template for the result’s dictionary with ThingsBoard data format</p>
+
+<h5 id="convert-method">convert method</h5>
+
+<p>Method for conversion data from device format to ThingsBoard data format.</p>
+
+<p><strong>Parameters:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><em>self</em> – current object.<br />
+<em>config</em> – configuration section for this device from connector configuration file.<br />
+<em>data</em> – data from a device.</p>
+
+<p>This function should return dictionary in format like following:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="p">{</span>
+    <span class="s">"deviceName"</span><span class="p">:</span> <span class="s">"DEVICE_NAME"</span><span class="p">,</span>
+    <span class="s">"deviceType"</span><span class="p">:</span> <span class="s">"DEVICE_TYPE"</span><span class="p">,</span>
+    <span class="s">"attributes"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s">"SOME_ATTRIBUTE_KEY"</span><span class="p">:</span><span class="s">"SOME_ATTRIBUTE_VALUE"</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">"SOME_ATTRIBUTE_KEY1"</span><span class="p">:</span><span class="s">"SOME_ATTRIBUTE_VALUE1"</span><span class="p">}</span>
+                  <span class="p">],</span>
+    <span class="s">"telemetry"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s">"SOME_TELEMETRY_KEY"</span><span class="p">:</span> <span class="s">"SOME_TELEMETRY_VALUE"</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">"SOME_TELEMETRY_KEY1"</span><span class="p">:</span> <span class="s">"SOME_TELEMETRY_VALUE1"</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">"SOME_TELEMETRY_KEY2"</span><span class="p">:</span> <span class="s">"SOME_TELEMETRY_VALUE2"</span><span class="p">}</span>
+                  <span class="p">]</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Gateway will convert this data into json and send it to the ThingsBoard instance.</p>
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/gw/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

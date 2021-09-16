@@ -1,0 +1,1796 @@
+<!Doctype html>
+<html id="pricing">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Pricing | ThingsBoard</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Pricing" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ThingsBoard Products Pricing" />
+<meta property="og:description" content="ThingsBoard Products Pricing" />
+<link rel="canonical" href="http://0.0.0.0:4002/pricing/" />
+<meta property="og:url" content="http://0.0.0.0:4002/pricing/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Pricing" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/pricing/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"ThingsBoard Products Pricing","@type":"WebPage","headline":"Pricing","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="ThingsBoard Products Pricing"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="logo-burger">
+        
+            <a href="/" class="logo"></a>
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-developers" data-submenu-id="nav-developers">
+                <a onclick="listburg('nav-developers')">Developers</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+                
+                
+                
+
+                <div id="nav-developers" class="centered-sub">
+                    <ul class="sub-menu developers">
+                        <a href="/docs/">
+                            <img src="/images/doc-icon.svg">
+                            <div class="sub-text">
+                                <h1>Documentation</h1>
+                                <p>Detailed information about the ThingsBoard IoT platform</p>
+                            </div>
+                        </a>
+                        
+                            <a href="/docs/guides/">
+                                <img src="/images/guides-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Guides</h1>
+                                    <p>Step-by-step instructions</p>
+                                </div>
+                            </a>
+                        
+                        
+                            <a href="/docs/getting-started-guides/helloworld/">
+                                <img src="/images/start-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Get Started</h1>
+                                    <p>Tutorial of the most popular features</p>
+                                </div>
+                            </a>
+                        
+                    </ul>
+                </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<section id="hero" class="light-text">
+</section>
+
+<section id="encyclopedia">
+    <div id="pricingContent" class="noToc">
+        <div class="container">
+  <div class="pricing-header">
+    <div class="pricing-hero">
+      <div class="pricing-hero-content">
+        <h1 id="thingsboard-pricing">ThingsBoard Pricing</h1>
+      </div>
+    </div>
+    <nav id="inner-navigation" class="inner-navigation">
+      <ul id="menu-pricing-navigation-1" class="menu">
+        <li id="menu-item-thingsboard-ce" class="menu-item tb-logo"><a href="javascript:void(0);" onclick="activatePricingSection('thingsboard-ce')">Community Edition</a></li>
+        <li id="menu-item-thingsboard-pe-options" class="menu-item tb-logo"><a href="javascript:void(0);" onclick="activatePricingSection('thingsboard-pe-options', true)">Professional Edition</a></li>
+        <li id="menu-item-trendz" class="menu-item trendz-logo"><a href="javascript:void(0);" onclick="activatePricingSection('trendz')">Trendz Analytics</a></li>
+        <li id="menu-item-thingsboard-edge" class="menu-item tb-edge-logo"><a href="javascript:void(0);" onclick="activatePricingSection('thingsboard-edge')">Edge</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div id="thingsboard-pe-options" class="select-product-content justify-content-center align-items-center" style="display: none;">
+    <div class="product-selector">
+      <div class="solution thingsboard-cloud active defaultselection" onclick="activateProductSection('thingsboard-cloud')">
+        <h3 data-faq-id="what-is-cloud" data-faq-link-size="70%" id="cloud">Cloud</h3>
+      </div>
+      <div class="solution thingsboard-pe" onclick="activateProductSection('thingsboard-pe')">
+        <h3 data-faq-id="difference" data-faq-link-size="70%" id="self-managed">Self-managed</h3>
+      </div>
+    </div>
+  </div>
+  <div class="pricing-header-divider"></div>
+</div>
+
+<div id="thingsboard-cloud" class="pricing-content" style="display: none;">
+  <div class="container">
+    <div class="pricing-content-header row">
+      <div class="pricing-content-description pricing-cloud active col-lg">
+        <h2 id="subscription-plans">Subscription plans</h2>
+        <div class="pricing-content-details">
+All subscription plans include <strong>hosting</strong>, <strong>sms</strong> and <strong>email</strong> costs. Focus on your solution while we manage the servers for you.
+        </div>
+      </div>
+    </div>
+    <div class="pricing-div">
+      <div class="pricing-section pricing-cloud active">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="maker">Maker</h2>
+              <div class="pricing-square-description">
+                <p>Become familiar with ThingsBoard features</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month-"> $10 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="https://thingsboard.cloud/signup"> Start Free </a>
+              </div>
+              <div class="pricing-square-item">
+Up to 30 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 30 Assets
+              </div>
+              <div class="pricing-square-item">
+10 million <span data-faq-id="data-points">data points</span><br /> per month
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="prototype">Prototype</h2>
+              <div class="pricing-square-description">
+                <p>For PoCs and MVPs</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--1"> $149 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="https://thingsboard.cloud/signup"> Get Started </a>
+              </div>
+              <div class="pricing-square-item">
+Up to 100 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 100 Assets
+              </div>
+              <div class="pricing-square-item">
+100 million <span data-faq-id="data-points">data points</span><br /> per month
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+              <div class="pricing-square-item" data-faq-id="white-labeling">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="startup">Startup</h2>
+              <div class="pricing-square-description">
+                <p>For upcoming IoT Unicorns</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--2"> $399 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="https://thingsboard.cloud/signup"> Get Started </a>
+              </div>
+              <div class="pricing-square-item">
+Up to 500 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 500 Assets
+              </div>
+              <div class="pricing-square-item">
+500 million <span data-faq-id="data-points">data points</span><br /> per month
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support
+              </div>
+              <div class="pricing-square-item" data-faq-id="white-labeling">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="enterprise">Enterprise</h2>
+              <div class="pricing-square-description">
+                <p>Consider yourself a Fortune 500 company in the field?</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="custom--"> Custom <span data-faq-id="calculate" data-faq-link-size="70%"></span> </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="/docs/contact-us/"> Contact Us </a>
+              </div>
+              <div class="pricing-square-item">
+Dedicated server instances
+              </div>
+              <div class="pricing-square-item">
+Unlimited Devices and Assets
+              </div>
+              <div class="pricing-square-item">
+Unlimited <span data-faq-id="data-points">data points</span><br /> per month
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Custom <strong>SLA</strong>
+              </div>
+              <div class="pricing-square-item" data-faq-id="white-labeling">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="thingsboard-ce" class="pricing-content" style="display: none;">
+  <div class="pricing-div">
+    <div class="container">
+      <div class="pricing-section pricing-community active" id="community">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 col-xl-4 mb-4">
+            <div class="pricing-square">
+              <h2 id="community-edition">Community Edition</h2>
+              <div class="pricing-square-description">
+                <p>100% Open source</p>
+              </div>
+              <h4 class="pricing-square-price no-sign mb-0" id="yes-its-free-"> YES, IT'S FREE </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="/docs/user-guide/install/installation-options/"> Install </a>
+              </div>
+              <div class="pricing-square-item">
+Unlimited Devices and Assets
+              </div>
+              <div class="pricing-square-item">
+Unlimited software updates
+              </div>
+              <div class="pricing-square-item">
+Ability to contribute
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="thingsboard-pe" class="pricing-content">
+  <div class="container">
+    <div class="pricing-content-header row">
+      <div id="payAsYouGoHeader" class="pricing-content-description col-lg-6">
+        <h2 id="subscription-plans-1">Subscription plans</h2>
+        <div class="pricing-content-details">
+All subscription plans include <strong>unlimited</strong> customers, dashboards, integrations, api calls, data points &amp; messages.
+        </div>
+      </div>
+      <div id="perpetualHeader" class="pricing-content-description col-lg-6">
+        <h2 id="license-packages">License packages</h2>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <div class="solution-selector">
+          <div class="solution pay-as-you-go active defaultselection" data-toggle="#payAsYouGo" data-description-toggle="#payAsYouGoHeader">
+            <h3 data-faq-id="what-is-pay-as-you-go" data-faq-link-size="70%" id="pay-as-you-go">Pay-as-you-go</h3>
+          </div>
+          <div class="solution perpetual" data-toggle="#perpetual" data-description-toggle="#perpetualHeader">
+            <h3 data-faq-id="what-is-perpetual" data-faq-link-size="70%" id="perpetual">Perpetual</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-div">
+      <div class="pricing-section pricing-pay-as-you-go active" id="payAsYouGo">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="maker-1">Maker</h2>
+              <div class="pricing-square-description">
+                <p>To become familiar with ThingsBoard PE features</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--3"> $10 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                '20be6f50-a18e-11e9-8e16-03828ff5271c',
+                                '7ef31a80-a18e-11e9-8e16-03828ff5271c',
+                                'Maker', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 10 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 10 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="prototype-1">Prototype</h2>
+              <div class="pricing-square-description">
+                <p>The subscription is designed for PoCs and prototyping</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--4"> $99 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                '20be6f50-a18e-11e9-8e16-03828ff5271c',
+                                '0e236dc0-a196-11e9-8e16-03828ff5271c',
+                                'Prototype', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 100 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 100 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+              <div class="pricing-square-item">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="startup-1">Startup</h2>
+              <div class="pricing-square-description">
+                <p>For upcoming IoT Unicorns</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--5"> $199 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                '20be6f50-a18e-11e9-8e16-03828ff5271c',
+                                '8ac6d190-a197-11e9-8e16-03828ff5271c',
+                                'Startup', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 500 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 500 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support within <strong>36 hours</strong>
+              </div>
+              <div class="pricing-square-item">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="enterprise-1">Enterprise</h2>
+              <div class="pricing-square-description">
+                <p>Consider yourself a Fortune 500 company in the field? Subscribe this plan</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--6"> $500 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                '20be6f50-a18e-11e9-8e16-03828ff5271c',
+                                '34530df0-a198-11e9-8e16-03828ff5271c',
+                                'Enterprise', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Unlimited number of Devices
+              </div>
+              <div class="pricing-square-item">
+Unlimited number of Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support within <strong>12 hours</strong>
+              </div>
+              <div class="pricing-square-item">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-section pricing-perpetual" id="perpetual">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 col-xl-4 mb-4">
+            <div class="pricing-square">
+              <h2 id="perpetual-fallback-license">Perpetual Fallback License</h2>
+              <div class="pricing-square-description" style="min-height: 50px;">
+                <p>Use your ThingsBoard instance forever</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="section"> $2999 </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                true,
+                                '90b6c9b0-a198-11e9-8e16-03828ff5271c',
+                                '4c711b60-a199-11e9-8e16-03828ff5271c',
+                                'Perpetual', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+1 year of software updates
+              </div>
+              <div class="pricing-square-item">
+Unlimited Devices and Assets
+              </div>
+              <div class="pricing-square-item">
+Integrations feature
+              </div>
+              <div class="pricing-square-item">
+Unlimited datapoints and messages
+              </div>
+              <div class="pricing-square-item">
+Unlimited API calls
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support within <strong>24 hours</strong>
+              </div>
+              <div class="pricing-square-item">
+<strong>White-labeling</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="trendz" class="pricing-content">
+  <div class="container">
+    <div class="pricing-content-header row">
+      <div id="trendzPayAsYouGoHeader" class="pricing-content-description col-lg-6">
+        <h2 id="subscription-plans-2">Subscription plans</h2>
+      </div>
+      <div id="trendzPerpetualHeader" class="pricing-content-description col-lg-6">
+        <h2 id="license-packages-1">License packages</h2>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <div class="solution-selector">
+          <div class="solution pay-as-you-go active defaultselection" data-toggle="#trendzPayAsYouGo" data-description-toggle="#trendzPayAsYouGoHeader">
+            <h3 data-faq-id="what-is-pay-as-you-go" data-faq-link-size="70%" id="pay-as-you-go-1">Pay-as-you-go</h3>
+          </div>
+          <div class="solution perpetual" data-toggle="#trendzPerpetual" data-description-toggle="#trendzPerpetualHeader">
+            <h3 data-faq-id="what-is-perpetual" data-faq-link-size="70%" id="perpetual-1">Perpetual</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-div">
+      <div class="pricing-section pricing-pay-as-you-go active" id="trendzPayAsYouGo">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-4 col-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="prototype-2">Prototype</h2>
+              <div class="pricing-square-description" style="min-height: 50px;">
+                <p>Up to 200 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--7"> $175 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                    false,
+                                    '31307df0-11f6-11ea-951e-b77b877a367b',
+                                    '2985f1a0-7afd-11ea-951e-b77b877a367b',
+                                    'Trendz Analytics Prototype', 'XRNUGX2NAJ', false)"> Try 30 days for free </button>
+              </div>
+              <div class="pricing-square-item">
+Anomalies detection
+              </div>
+              <div class="pricing-square-item">
+Predictive Analytics
+              </div>
+              <div class="pricing-square-item">
+Calculated Fields
+              </div>
+              <div class="pricing-square-item">
+Self-service Interface
+              </div>
+              <div class="pricing-square-item">
+Advanced Visualizations
+              </div>
+              <div class="pricing-square-item" data-faq-id="community-support">
+Community support
+              </div>
+ <br />               <div>
+<a href="/products/trendz/"><span class="a-full-green">Learn More</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 col-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="startup-2">Startup</h2>
+              <div class="pricing-square-description" style="min-height: 50px;">
+                <p>Up to 500 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--8"> $200 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                    false,
+                                    '31307df0-11f6-11ea-951e-b77b877a367b',
+                                    '018b7520-7afe-11ea-951e-b77b877a367b',
+                                    'Trendz Analytics StartUp', 'XRNUGX2NAJ', false)"> Try 30 days for free </button>
+              </div>
+              <div class="pricing-square-item">
+Anomalies detection
+              </div>
+              <div class="pricing-square-item">
+Predictive Analytics
+              </div>
+              <div class="pricing-square-item">
+Calculated Fields
+              </div>
+              <div class="pricing-square-item">
+Self-service Interface
+              </div>
+              <div class="pricing-square-item">
+Advanced Visualizations
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support within <strong>36 hours</strong>
+              </div>
+ <br />               <div>
+<a href="/products/trendz/"><span class="a-full-green">Learn More</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 col-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="business">Business</h2>
+              <div class="pricing-square-description" style="min-height: 50px;">
+                <p>Up to 1000 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--9"> $350 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                    false,
+                                    '31307df0-11f6-11ea-951e-b77b877a367b',
+                                    '6e3bb4f0-7afe-11ea-951e-b77b877a367b',
+                                    'Trendz Analytics Business', 'XRNUGX2NAJ', false)"> Try 30 days for free </button>
+              </div>
+              <div class="pricing-square-item">
+Anomalies detection
+              </div>
+              <div class="pricing-square-item">
+Predictive Analytics
+              </div>
+              <div class="pricing-square-item">
+Calculated Fields
+              </div>
+              <div class="pricing-square-item">
+Self-service Interface
+              </div>
+              <div class="pricing-square-item">
+Advanced Visualizations
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Email support within <strong>24 hours</strong>
+              </div>
+ <br />               <div>
+<a href="/products/trendz/"><span class="a-full-green">Learn More</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-section pricing-perpetual" id="trendzPerpetual">
+        <div class="col-lg-8 offset-lg-2 mb-4">
+          <h4 class="text-center pt-2 pb-2" style="width: 100%" id="trendz-analytics-perpetual-fallback-license">Trendz Analytics Perpetual Fallback License</h4>
+          <div style="display: flex;">
+            <div style="width: 50%; margin: 30px 10px 0;">
+              <div class="pricing-square-description">
+                <p>Create interactive visual analytics and discover trends, patterns and insight from your data:</p>
+              </div>
+              <ul>
+                <li class="pricing-square-item">Anomalies detection</li>
+                <li class="pricing-square-item">One-click integration with ThingsBoard</li>
+                <li class="pricing-square-item">Self-service analytics</li>
+                <li class="pricing-square-item">Data clear and filtering</li>
+                <li class="pricing-square-item">Advanced visualizations</li>
+                <li class="pricing-square-item">Share and collaborate visualization</li>
+                <li class="pricing-square-item">Keep your data secure</li>
+              </ul>
+            </div>
+            <div style="width: 50%; margin: 0 10px 0;">
+              <div class="ml-form-embed" data-account="1017142:w0j5m5g7f5" data-form="1575980:e2f1u0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="thingsboard-edge" class="pricing-content">
+  <div class="container">
+    <div class="pricing-content-header row">
+      <div id="payAsYouGoHeader" class="pricing-content-description col-lg-6">
+        <h2 id="subscription-plans-3">Subscription plans</h2>
+        <div class="pricing-content-details">
+All subscription plans include <strong>unlimited</strong> dashboards, api calls, data points &amp; messages
+        </div>
+      </div>
+      <div id="perpetualHeader" class="pricing-content-description col-lg-6">
+        <h2 id="license-packages-2">License packages</h2>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <div class="solution-selector">
+          <div class="solution pay-as-you-go active defaultselection" data-toggle="#payAsYouGo" data-description-toggle="#payAsYouGoHeader">
+            <h3 data-faq-id="what-is-pay-as-you-go" data-faq-link-size="70%" id="pay-as-you-go-2">Pay-as-you-go</h3>
+          </div>
+          <div class="solution perpetual" data-toggle="#perpetual" data-description-toggle="#perpetualHeader">
+            <h3 data-faq-id="what-is-perpetual" data-faq-link-size="70%" id="perpetual-2">Perpetual</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-div">
+      <div class="pricing-section pricing-pay-as-you-go active" id="payAsYouGo">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="nano">Nano</h2>
+              <div class="pricing-square-description">
+                <p>Up to 50 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--10"> $19 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                'd3b7d030-fe4c-11ea-951e-b77b877a367b',
+                                '302e3420-fe4e-11ea-951e-b77b877a367b',
+                                'Edge Nano', 'PU5RJSMQW5', false)"> Try 30 days for free </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 50 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 50 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="optional-support">
+Optional support
+              </div>
+              <div class="pricing-square-item" data-faq-id="thingsboard-edge-discount">
+Tired discounts
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="micro">Micro</h2>
+              <div class="pricing-square-description">
+                <p>Up to 250 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--11"> $29 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                'd3b7d030-fe4c-11ea-951e-b77b877a367b',
+                                '6e6c58c0-fe4e-11ea-951e-b77b877a367b',
+                                'Edge Micro', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 250 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 250 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="optional-support">
+Optional support
+              </div>
+              <div class="pricing-square-item" data-faq-id="thingsboard-edge-discount">
+Tired discounts
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-4 col-gt-xl mb-4">
+            <div class="pricing-square">
+              <h2 id="macro">Macro</h2>
+              <div class="pricing-square-description">
+                <p>Up to 1000 Devices and Assets</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="month--12"> $39 <span>/ month</span> </h4>
+              <div class="row justify-content-center">
+<button class="btn-blue btn-pricing" onclick="getLicense(event,
+                                false,
+                                'd3b7d030-fe4c-11ea-951e-b77b877a367b',
+                                'a0e02610-fe4e-11ea-951e-b77b877a367b',
+                                'Edge Macro', null, false)"> Get your license </button>
+              </div>
+              <div class="pricing-square-item">
+Up to 1000 Devices
+              </div>
+              <div class="pricing-square-item">
+Up to 1000 Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="optional-support">
+Optional support
+              </div>
+              <div class="pricing-square-item" data-faq-id="thingsboard-edge-discount">
+Tired discounts
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-section pricing-perpetual" id="perpetual">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 col-xl-4 mb-4">
+            <div class="pricing-square">
+              <h2 id="edge-perpetual-fallback-license">Edge Perpetual Fallback License</h2>
+              <div class="pricing-square-description" style="min-height: 50px;">
+                <p>Use your ThingsBoard Edge instance forever</p>
+              </div>
+              <h4 class="pricing-square-price mb-0" id="custom-"> Custom </h4>
+              <div class="row justify-content-center">
+<a class="btn-blue btn-pricing" href="/docs/contact-us/"> Contact Us </a>
+              </div>
+              <div class="pricing-square-item">
+1 year of software updates
+              </div>
+              <div class="pricing-square-item">
+Unlimited number of Devices
+              </div>
+              <div class="pricing-square-item">
+Unlimited number of Assets
+              </div>
+              <div class="pricing-square-item" data-faq-id="subscription-support">
+Custom <strong>SLA</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container faq-content">
+  <h2 id="faq" class="text-center">Frequently asked questions</h2>
+  <div class="pi-accordion">
+    <h3 id="licensing">Licensing</h3>
+    <div class="item" data-tag="h4" data-item-id="what-is-pay-as-you-go" data-title="What is &quot;Pay-as-you-go&quot; license?">
+      <div class="container">
+        <p>Pay-as-you-go license is based on different subscription plans and represents a typical SaaS model. Each plan is usually limited by the number of devices or assets that ThingsBoard instance will manage. The billing is being provided either monthly or yearly. Your credit card will be charged once per billing period, at the beginning of the corresponding period.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="what-is-perpetual" data-title="What is &quot;Perpetual&quot; license?">
+      <div class="container">
+        <p>Perpetual fallback license is a license that allows you to use specific version of software, without an active subscription to it. Whenever you purchase a perpetual fallback license you get one year of software updates included. You can purchase additional updates if required. Typical price for one year update package is within 40% of inital license cost. <br /><br /><strong>Example 1</strong>: Let's assume you purchased one license for ThingsBoard v2.4 in June 2019 and received an update to ThingsBoard v3.0 in May 2020. This means you can continue using this ThingsBoard v3.0 instance forever. You can also migrate to different hardware without issues. <br /><br /><strong>Example 2</strong>: Let's assume you purchased one license for ThingsBoard v2.4 in June 2019 and received an update to ThingsBoard v3.0 in May 2020. This means you can continue using this ThingsBoard v3.0 instance forever. Later, in August 2020 we released v3.1. In order to get the v3.1 update, you will need to purchase an additional year of software updates for ThingsBoard PE which will cost 1199 USD. However, you can continue using v3.0 without updates.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="can-i-migrate" data-title="Can I migrate from one subscription to another?">
+      <div class="container">
+        <p>Yes. One of the greatest features of <a href="/products/license-server/">ThingsBoard License Server</a> is the ability to change subscription plans. Now it is as simple as that. The flow is: Subscription details — Update subscription — Choose a plan. Also there is an Update subscription button in the action icons tray.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="migrate-between-servers" data-title="Can I migrate from cloud to on-premise server using the same license?">
+      <div class="container">
+        <p>Yes, definitely! For that purpose we made a possibility to Activate/Deactivate instance. In order to migrate between servers customer must deactivate its instance, install the software on new server and then use already existing license secret. Backup of all data from previos instance is necessary if customer wants to continue utilizing same environment after migration. Notice: license check mechanism won't allow using ThingsBoard Professional Edition on two or more servers simultaneously (unless you purchase two instances of the same subscription plan).</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="migrate-plan-to-perpetual" data-title="Is it possible to jump from subscription to perpetual?">
+      <div class="container">
+        <p>Customer may cancel the subscription and purchase a perpetual license. The remain costs from terminated subscription plan (if remain) will be deducted from Total cost for the perpetual license. Keep in mind: perpetual license is non-cancelable. So, customer can not stop using perpetual license and rely on total price for any subscription plan to be decreased.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="thingsboard-edge-discount" data-title="Can we have a discounted price for ThingsBoard Edges in case of bulk purchase?">
+      <div class="container">
+        <p>We do understand that you may need multiple edge computing services. Price reduction starts from 10 licenses. Discount tiers are as follows: 10–50 Edges — 10%, 51–100 Edges — 12%, above 100 Edges — 15% off the license cost regardless the plan.</p>
+      </div>
+    </div>
+    <h3 id="section2">Billing</h3>
+    <div class="item" data-tag="h4" data-item-id="trial-enable" data-title="How can I enable free trial?">
+      <div class="container">
+        <p>Customer may <a href="https://thingsboard.cloud/signup" target="blank">signup on ThingsBoard Professional Edition Cloud</a> and get 30 days of free trial on Maker plan. 30 days of seamless experience and the newest features, except white-labeling!</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="trial-enable" data-title="Are there any saving options?">
+      <div class="container">
+        <p>As customers may see from the Purchase form, using of special coupons for discount is possible. Time after time we grant coupons to our regular customers (read newsletters), provide promo codes during events and distribute coupons to our partners.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="trial-enable" data-title="If I want to be a re-seller of ThingsBoard, shall I have a discount?">
+      <div class="container">
+        <p>We have clear and transparent conditions for partners. Send us a request via <a href="/docs/contact-us/" target="blank">contact us</a> and we will discuss with you all benefits of cooperation with ThingsBoard Inc.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="cancel-subscription" data-title="When I cancel the subscription, I loose my credits?">
+      <div class="container">
+        <p>Customers may manage their subscription plans: update or cancel them. Once the subscription is deleted before expiration, Stripe will keep the balance. After a certain time period (about an hour) positive Amount due with the remain credits will appear in Billing section of License portal. This sum is deducted from Total fee whenever particular customer purchase a new plan or a perpetual license.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="trendz-free-subscription" data-title="Can we get a trial license for Trendz Analytics?">
+      <div class="container">
+        <p>As part of evaluation process, we can give you 30 days of free trial. Please, send us your request on <a href="/docs/contact-us/?subject=ThingsBoard%20Products">Contact us</a>.</p>
+      </div>
+    </div>
+    <h3 id="section3">ThingsBoard Cloud</h3>
+    <div class="item" data-tag="h4" data-item-id="what-is-cloud" data-title="What is ThingsBoard Cloud?">
+      <div class="container">
+        <p>ThingsBoard Cloud is a fully managed, scalable, and fault-tolerant platform for your IoT applications with combined subscription plans based on a monthly fee which already includes hosting costs.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="difference" data-title="What the difference between Pay-as-you-go option and ThingsBoard Cloud?">
+      <div class="container">
+        <p>Pay-as-you-go subscription plans include license fees only with no hosing services, which means that you have to deploy ThingsBoard on an external cloud (AWS, Azure, GCP, etc), or on the local server (On-premise). This means you have to pay separately for the infrastructure and manage ThingsBoard PE server. ThingsBoard Cloud allows you to use ThingsBoard Professional Edition platform as a service on ThingsBoard enviroment.<br /><br /> Example: Pay as you go Prototype subscription fee is $99 comparing to Prototype subscription on ThingsBoard cloud which is $149. ThingsBoard Cloud Prototype subscription price differs from the Prototype plan for the self-managed license by hosting fee which included in the Cloud subscription price</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="calculate" data-title="How we calculate Enterprise plan price?">
+      <div class="container">
+        <p>The Enterprise subscription plan consists of the fixed platform cost and price per device. <br /><br />The <strong>platform cost</strong> includes:           <ul>
+            <li>White-labeling;</li>
+            <li>Dedicated server instances that will scale with the number of your devices;</li>
+            <li>Priority support;</li>
+            <li>On-demand training and email consulting;</li>
+          </ul>
+ The price <strong>per-device</strong> starts from <strong>USD 0.01</strong> per month and is determined based on the data points each device generates. <a href="https://thingsboard.io/docs/contact-us/">Contact us</a> to get a precise quote for the custom Enterprise subscription.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="api-limits" data-title="Is there any API Limits?">
+      <div class="container">
+        <p>Yes, ThingsBoard Cloud subscriptions have Entity, API and Rate limits. See subscription <a href="/products/paas/subscription/" target="blank">documentation</a> for more details.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="data-points" data-title="What is a data point?">
+      <div class="container">
+        <p>Data point is a key-value pair that your device telemetry messages contain. For example, the message <em>{"temperature":42, "humidity": 60}</em> contains two data points. Each ThingsBoard Cloud subscription plan has a maximum number of data points that can be sent from all your devices per month. There are other <a href="/products/paas/subscription/" target="blank">important parameters</a> of the subscription.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="white-labeling" data-title="What is a white-labeling?">
+      <div class="container">
+        <p>ThingsBoard web interface allows you to configure your company or product logo and color scheme in 2 minutes with zero coding efforts and no service restart required. See feature <a href="/docs/user-guide/white-labeling/" target="blank">documentation</a> for more details. ThingsBoard Cloud extends white-labeling feature with ability to configure own domain name easily. But currently it is not possible to connect third-party SMTP servers, notifications will be sent from our system. We plan to add this ability in future releases. See <a href="/products/paas/domains/" target="blank">managing domain</a> for more details.</p>
+      </div>
+    </div>
+    <h3 id="section3">Support</h3>
+    <div class="item" data-tag="h4" data-item-id="community-support" data-title="What does community support mean?">
+      <div class="container">
+        <p>Community support is free-of-charge option. It is a volonteering initiative, provided by our team and other ThingsBoard contributors. Please, be aware that support services is one of ThingsBoard Inc. business fields. Although our engineers successfully handle community support requests in their free time, this doesn't mean any obligation for ThingsBoard Inc. We encourage you to <a href="/docs/">read documentation</a>, subscribe to our <a href="https://www.youtube.com/c/thingsboard" target="blank">YouTube channel</a> where we host <a href="https://www.youtube.com/watch?v=M0CaascgDmg&amp;list=PLYEKB_XwLCZJ6T8RPLTjRwMw0eoabpEKO" target="blank">the free Education course</a> and most demanded tutorials, samples and guides.</p>
+        <p>Customer may also rely on answers from ThingsBoard <a href="https://github.com/thingsboard/thingsboard/issues" target="blank">community on GitHub</a> (issues page), send their queries to <a href="https://groups.google.com/forum/#!forum/thingsboard" target="blank">Q&amp;A forum</a> and start <a href="http://stackoverflow.com/questions/tagged/thingsboard" target="blank">Stack Overflow</a> themes.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="professional-support" data-title="What support plans do you have?">
+      <div class="container">
+        <p>We provide support bundles which contain server issues and application development tips. Please review ThingsBoard professional <a href="/docs/services/support/" target="blank">support plans</a>. Also we will add ability to buy support plan from <a href="https://license.thingsboard.io/">License portal</a>.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="optional-support" data-title="What does this optional support for ThingsBoard Edge mean?">
+      <div class="container">
+        <p>It means, that Edge support is not bundled to the license. For now we provide basic support for customers with more than 25 edge licenses of any type.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="subscription-support" data-title="What issues included in email support?">
+      <div class="container">
+        <p>For StartUp, Business and Enterprise licensees as well as Perpetual licensees we provide email response on any issue within certain amount of time, if separate support agreement is not signed. Solution time depends on issue severity and may require a meeting with out team member.</p>
+      </div>
+    </div>
+    <div class="item" data-tag="h4" data-item-id="policies" data-title="Refund and Delivery Policy">
+      <div class="container">
+        <p><strong>Refund Policy</strong></p>
+        <p>The License fee is non-refundable, regardless of any circumstances. Customers may manage their subscription plans: update or cancel them. Once the subscription is deleted before expiration, Stripe will keep the balance. After a certain time period (about an hour) positive Amount due with the remain credits will appear in Billing section of License portal. This sum is deducted from Total fee whenever particular customer purchase a new plan or a perpetual license.</p>
+        <p><strong>Delivery Policy</strong></p>
+        <p>The software is available for download and installation from our website. See <a href="https://thingsboard.io/docs/user-guide/install/pe/installation-options/">Installation Guides</a> for more details. In order to activate the software you will need to obtain the license key. Instruction how to obtain and use the license key is provided in the installation guide. See <a href="https://www.youtube.com/watch?v=dK-QDFGxWek">How-to get pay-as-you-go subscription</a> or <a href="https://www.youtube.com/watch?v=GPe0lHolWek">How-to get perpetual license</a> for more details. Please <a href="https://thingsboard.io/docs/contact-us/">contact us</a> if you have any questions or require support.</p>
+        <p></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+</section>
+
+<footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+
+<script type="text/javascript">
+    (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;function f(){
+        var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
+        f.q=f.q||[];m[e]=m[e]||f.bind(f.q);m[e].q=m[e].q||f.q;r=a.createElement(i);
+        var _=a.getElementsByTagName(i)[0];r.async=1;r.src=l+'?v'+(~~(new Date().getTime()/1000000));
+        _.parentNode.insertBefore(r,_);})(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
+
+    var ml_account = ml('accounts', '1017142', 'w0j5m5g7f5', 'load');
+
+    inViewportDefer(function() {
+        $("#pe-aws-pricing table th:not(:first-child), " +
+            "#pe-aws-pricing table td:not(:first-child)").inViewport(function(px){
+            if(px >= 20) {
+                $(this).addClass("animated flipInY");
+                return true;
+            }
+        });
+    });
+
+    jqueryDefer(function () {
+        $('.solution-selector .solution').click(function(event) {
+            event.preventDefault();
+            var id = $(this).attr("data-toggle");
+            var headerId = $(this).attr("data-description-toggle");
+            $('.solution-selector .solution').removeClass("active");
+            $(this).addClass("active");
+            $('.pricing-div .pricing-section:not(.pricing-community):not(.pricing-cloud)').removeClass("active");
+            $('.pricing-div .pricing-section'+id).addClass("active");
+            $('.pricing-content-header .pricing-content-description:not(.pricing-cloud)').removeClass("active");
+            $('.pricing-content-header .pricing-content-description'+headerId).addClass("active");
+        });
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results ? results[1] : null;
+        };
+
+        var activeTab = $.urlParam('active');
+        if (activeTab && activeTab === 'trendz') {
+            activatePricingSection('trendz');
+        } else if (activeTab && activeTab === 'thingsboard-edge') {
+            activatePricingSection('thingsboard-edge');
+        } else {
+            activatePricingSection('thingsboard-pe-options', true);
+        }
+    });
+
+    function activatePricingSection(sectionId, activateSelectProduct) {
+        $("li.menu-item").removeClass("active");
+        $("li.menu-item#menu-item-"+sectionId).addClass("active");
+        $("div.pricing-content").css("display", "none");
+        if (activateSelectProduct) {
+            $("div.select-product-content#" + sectionId).css("display", "flex");
+            $('div.pricing-header-divider').addClass("no-margin");
+            $('#' + sectionId + ' .product-selector .solution.defaultselection').click();
+        } else {
+            $("div.select-product-content").css("display", "none");
+            $('div.pricing-header-divider').removeClass("no-margin");
+            $("div.pricing-content#" + sectionId).css("display", "block");
+            $('#' + sectionId + ' .solution-selector .solution.defaultselection').click();
+        }
+
+        if(sectionId) {
+            reportPriceOpen(sectionId);
+        }
+    }
+
+    function activateProductSection(sectionId) {
+        $('.product-selector .solution').removeClass("active");
+        $('.product-selector .solution.'+sectionId).addClass("active");
+
+        $("div.pricing-content").css("display", "none");
+        $("div.pricing-content#"+sectionId).css("display", "block");
+
+        $('#' + sectionId + ' .solution-selector .solution.defaultselection').click();
+        if(sectionId) {
+            reportPriceOpen(sectionId);
+        }
+    }
+
+    function getLicense(event, isPerpetual, productId, planId, productName, coupon, showConfirmDialog) {
+        event.preventDefault();
+        var e = $(event.target);
+        var url = "https://license.thingsboard.io/signup?createSubscription=true&perpetual=";
+        if (isPerpetual) {
+            url += "true";
+        } else {
+            url += "false";
+        }
+        url += "&productId="+productId;
+        url += "&planId="+planId;
+        if (coupon) {
+            url += "&coupon="+coupon;
+        }
+
+        if(showConfirmDialog) {
+            openTrendzConfirmDialog(url, productName + '/' + productId);
+        } else {
+            reportPriceLink(url, productName + '/' + productId);
+            window.open(url, "_blank");
+        }
+    }
+
+    function openTrendzConfirmDialog(url, product) {
+        var dialogTemplate = "<ul class='trndz_dialog_list'>\n" +
+            "<li>You won't be charged until after your free month.</li>\n" +
+            "<li>We'll remind you three days before your trial ends.</li>\n" +
+            "<li>Cancel anytime.</li>\n" +
+            "</ul>";
+
+        swal({
+            title: "Set up your Trendz License",
+            html: true,
+            text: dialogTemplate,
+            allowOutsideClick: true,
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            confirmButtonText: "Proceed to License Portal",
+            confirmButtonColor: '#506dad',
+            customClass: 'trndz-swal-license'
+        }, function(isConfirm) {
+            if (isConfirm) {
+                reportPriceLink(url, product);
+                window.open(url, "_blank");
+            }
+        });
+    }
+
+    function reportPriceLink(link, product) {
+        if (!ga.hasOwnProperty("loaded") || ga.loaded !== true || !link || !product) {
+            return;
+        }
+        ga("send", "event", "PriceLink", product, link);
+    }
+
+    function reportPriceOpen(solutionId) {
+        if (!ga.hasOwnProperty("loaded") || ga.loaded !== true || !solutionId) {
+            return;
+        }
+        ga("send", "event", "PriceOpen", solutionId);
+    }
+
+</script>
+
+</body>
+</html>

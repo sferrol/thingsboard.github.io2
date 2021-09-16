@@ -1,0 +1,2380 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard API reference">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Dart API Client | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Dart API Client" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ThingsBoard API client library for Dart developers" />
+<meta property="og:description" content="ThingsBoard API client library for Dart developers" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/reference/dart-client/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/reference/dart-client/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Dart API Client" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/reference/dart-client/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"ThingsBoard API client library for Dart developers","@type":"WebPage","headline":"Dart API Client","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="ThingsBoard API client library for Dart developers"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/reference/dart-client/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/reference/dart-client/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" class="YAH">API</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">API</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">REST APIs and clients</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Dart API Client</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/reference/" >Architecture</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="ThingsBoard API reference" href="/docs/api/"></a>
+
+
+<a class="item" data-title="Device Connectivity Protocols" href="/docs/reference/protocols/"></a>
+
+
+<div class="item" data-title="Device Connectivity APIs">
+  <div class="container">
+
+
+<a class="item" data-title="MQTT Device API" href="/docs/reference/mqtt-api/"></a>
+
+
+<a class="item" data-title="MQTT Gateway API Reference" href="/docs/reference/gateway-mqtt-api/"></a>
+
+
+<a class="item" data-title="CoAP Device API" href="/docs/reference/coap-api/"></a>
+
+
+<a class="item" data-title="HTTP Device API" href="/docs/reference/http-api/"></a>
+
+
+<a class="item item-new" data-title="LWM2M Device API" href="/docs/reference/lwm2m-api/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="REST APIs and clients">
+  <div class="container">
+
+
+<a class="item" data-title="Administration REST API" href="/docs/reference/rest-api/"></a>
+
+
+<a class="item" data-title="Java REST Client" href="/docs/reference/rest-client/"></a>
+
+
+<a class="item" data-title="Python REST Client" href="/docs/reference/python-rest-client/"></a>
+
+
+<a class="item" data-title="Dart API Client" href="/docs/reference/dart-client/"></a>
+  </div>
+</div>
+
+
+<div class="item item-new" data-title="Software development kits">
+  <div class="container">
+
+
+<a class="item" data-title="Python Client SDK" href="/docs/reference/python-client-sdk/"></a>
+  </div>
+</div>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="ThingsBoard API reference" href="/docs/api/"></a>
+
+
+<a class="item" data-title="Device Connectivity Protocols" href="/docs/reference/protocols/"></a>
+
+
+<div class="item" data-title="Device Connectivity APIs">
+  <div class="container">
+
+
+<a class="item" data-title="MQTT Device API" href="/docs/reference/mqtt-api/"></a>
+
+
+<a class="item" data-title="MQTT Gateway API Reference" href="/docs/reference/gateway-mqtt-api/"></a>
+
+
+<a class="item" data-title="CoAP Device API" href="/docs/reference/coap-api/"></a>
+
+
+<a class="item" data-title="HTTP Device API" href="/docs/reference/http-api/"></a>
+
+
+<a class="item item-new" data-title="LWM2M Device API" href="/docs/reference/lwm2m-api/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="REST APIs and clients">
+  <div class="container">
+
+
+<a class="item" data-title="Administration REST API" href="/docs/reference/rest-api/"></a>
+
+
+<a class="item" data-title="Java REST Client" href="/docs/reference/rest-client/"></a>
+
+
+<a class="item" data-title="Python REST Client" href="/docs/reference/python-rest-client/"></a>
+
+
+<a class="item" data-title="Dart API Client" href="/docs/reference/dart-client/"></a>
+  </div>
+</div>
+
+
+<div class="item item-new" data-title="Software development kits">
+  <div class="container">
+
+
+<a class="item" data-title="Python Client SDK" href="/docs/reference/python-client-sdk/"></a>
+  </div>
+</div>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Dart API Client</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#installing-dart-thingsboard-api-client-community-edition" id="markdown-toc-installing-dart-thingsboard-api-client-community-edition">Installing Dart ThingsBoard API Client (Community Edition)</a>    <ul>
+      <li><a href="#basic-usage" id="markdown-toc-basic-usage">Basic Usage</a></li>
+      <li><a href="#examples" id="markdown-toc-examples">Examples</a>        <ul>
+          <li><a href="#fetch-tenant-devices" id="markdown-toc-fetch-tenant-devices">Fetch tenant devices</a></li>
+          <li><a href="#fetch-tenant-dashboards" id="markdown-toc-fetch-tenant-dashboards">Fetch tenant dashboards</a></li>
+          <li><a href="#fetch-customer-devices" id="markdown-toc-fetch-customer-devices">Fetch customer devices</a></li>
+          <li><a href="#count-entities-using-entity-data-query-api" id="markdown-toc-count-entities-using-entity-data-query-api">Count entities using Entity Data Query API</a></li>
+          <li><a href="#query-entities-using-entity-data-query-api" id="markdown-toc-query-entities-using-entity-data-query-api">Query entities using Entity Data Query API</a></li>
+          <li><a href="#manage-device-example" id="markdown-toc-manage-device-example">Manage Device example</a></li>
+          <li><a href="#websocket-api-example" id="markdown-toc-websocket-api-example">WebSocket API example</a></li>
+          <li><a href="#more-examples" id="markdown-toc-more-examples">More examples</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<p><a href="https://pub.dev/packages/thingsboard_client">Dart ThingsBoard API Client</a> package is a <a href="https://dart.dev/">Dart</a> library
+providing model objects and services to communicate with ThingsBoard platform using <a href="/docs/reference/rest-api/">RESTful APIs</a> and WebSocket protocol.
+With Dart Client you can programmatically access ThingsBoard API to manage <a href="/docs/user-guide/entities-and-relations/">entities</a>,
+query <a href="/docs/user-guide/telemetry/">telemetry data</a> and get real-time updates via <a href="/docs/user-guide/telemetry/#websocket-api">WebSocket API</a>.
+The Dart ThingsBoard API Client is also a part of ThingsBoard Mobile Application.</p>
+
+<p>The version of the Dart ThingsBoard API Client depends on the version of the platform that you are using.</p>
+
+<h2 id="installing-dart-thingsboard-api-client-community-edition">Installing Dart ThingsBoard API Client (Community Edition)</h2>
+
+<p>To use Dart ThingsBoard API Client package in your Dart/Flutter project run this command:</p>
+
+<p>With Dart:</p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>dart pub add thingsboard_client
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>With Flutter:</p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>flutter pub add thingsboard_client
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This will add a line like this to your package’s pubspec.yaml (and run an implicit <code class="language-plaintext highlighter-rouge">dart pub get</code>):</p>
+
+<div class="language-yaml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">thingsboard_client</span><span class="pi">:</span> <span class="s">^1.0.1</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Alternatively, your editor might support <code class="language-plaintext highlighter-rouge">dart pub get</code> or <code class="language-plaintext highlighter-rouge">flutter pub get</code>. Check the docs for your editor to learn more.</p>
+
+<p>Now in your Dart code, you can use:</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="basic-usage">Basic Usage</h3>
+
+<p>The next sample code shows how to instantiate ThingsBoard Client, perform login and get user details of current logged in user.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="n">print</span><span class="o">(</span><span class="s">'isAuthenticated=</span><span class="si">${tbClient.isAuthenticated()}</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="n">print</span><span class="o">(</span><span class="s">'authUser: </span><span class="si">${tbClient.getAuthUser()}</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Get user details of current logged in user</span>
+    <span class="kd">var</span> <span class="n">currentUserDetails</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getUserService</span><span class="o">().</span><span class="na">getUser</span><span class="o">();</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'currentUserDetails: </span><span class="si">$currentUserDetails</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="fetch-tenant-devices">Fetch tenant devices</h4>
+
+<p>The following sample code shows how to fetch tenant devices via page link.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="kd">var</span> <span class="n">pageLink</span> <span class="o">=</span> <span class="n">PageLink</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="n">PageData</span><span class="o">&lt;</span><span class="n">DeviceInfo</span><span class="o">&gt;</span> <span class="n">devices</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">// Fetch tenant devices using current page link</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">getTenantDeviceInfos</span><span class="o">(</span><span class="n">pageLink</span><span class="o">);</span>
+        <span class="n">print</span><span class="o">(</span><span class="s">'devices: </span><span class="si">$devices</span><span class="s">'</span><span class="o">);</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="n">pageLink</span><span class="o">.</span><span class="na">nextPageLink</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">devices</span><span class="o">.</span><span class="na">hasNext</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="fetch-tenant-dashboards">Fetch tenant dashboards</h4>
+
+<p>The following sample code shows how to fetch tenant dashboards via page link.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="kd">var</span> <span class="n">pageLink</span> <span class="o">=</span> <span class="n">PageLink</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="n">PageData</span><span class="o">&lt;</span><span class="n">DashboardInfo</span><span class="o">&gt;</span> <span class="n">dashboards</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">// Fetch tenant dashboards using current page link</span>
+        <span class="n">dashboards</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDashboardService</span><span class="o">().</span><span class="na">getTenantDashboards</span><span class="o">(</span><span class="n">pageLink</span><span class="o">);</span>
+        <span class="n">print</span><span class="o">(</span><span class="s">'dashboards: </span><span class="si">$dashboards</span><span class="s">'</span><span class="o">);</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="n">pageLink</span><span class="o">.</span><span class="na">nextPageLink</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">devices</span><span class="o">.</span><span class="na">hasNext</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="fetch-customer-devices">Fetch customer devices</h4>
+
+<p>The following sample code shows how to fetch customer devices via page link.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Customer User credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'customer@thingsboard.org'</span><span class="o">,</span> <span class="s">'customer'</span><span class="o">));</span>
+
+    <span class="kd">var</span> <span class="n">pageLink</span> <span class="o">=</span> <span class="n">PageLink</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="n">PageData</span><span class="o">&lt;</span><span class="n">DeviceInfo</span><span class="o">&gt;</span> <span class="n">devices</span><span class="o">;</span>
+    <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">// Fetch customer devices using current page link</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span>
+                <span class="o">.</span><span class="na">getDeviceService</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">getCustomerDeviceInfos</span><span class="o">(</span><span class="n">tbClient</span><span class="o">.</span><span class="na">getAuthUser</span><span class="o">()!.</span><span class="na">customerId</span><span class="o">,</span> <span class="n">pageLink</span><span class="o">);</span>
+        <span class="n">print</span><span class="o">(</span><span class="s">'devices: </span><span class="si">$devices</span><span class="s">'</span><span class="o">);</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="n">pageLink</span><span class="o">.</span><span class="na">nextPageLink</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">devices</span><span class="o">.</span><span class="na">hasNext</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="count-entities-using-entity-data-query-api">Count entities using Entity Data Query API</h4>
+
+<p>The following sample code shows how to use Entity Data Query API to count total devices, total active devices and total inactive devices.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="c1">// Create entity filter to get all devices</span>
+    <span class="kd">var</span> <span class="n">entityFilter</span> <span class="o">=</span> <span class="n">EntityTypeFilter</span><span class="o">(</span><span class="nl">entityType:</span> <span class="n">EntityType</span><span class="o">.</span><span class="na">DEVICE</span><span class="o">);</span>
+
+    <span class="c1">// Create entity count query with provided filter</span>
+    <span class="kd">var</span> <span class="n">devicesQuery</span> <span class="o">=</span> <span class="n">EntityCountQuery</span><span class="o">(</span><span class="nl">entityFilter:</span> <span class="n">entityFilter</span><span class="o">);</span>
+
+    <span class="c1">// Execute entity count query and get total devices count</span>
+    <span class="kd">var</span> <span class="n">totalDevicesCount</span> <span class="o">=</span>
+        <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getEntityQueryService</span><span class="o">().</span><span class="na">countEntitiesByQuery</span><span class="o">(</span><span class="n">devicesQuery</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Total devices: </span><span class="si">$totalDevicesCount</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Set key filter to existing query to get only active devices</span>
+    <span class="kd">var</span> <span class="n">activeDeviceKeyFilter</span> <span class="o">=</span> <span class="n">KeyFilter</span><span class="o">(</span>
+      <span class="nl">key:</span> <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ATTRIBUTE</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'active'</span><span class="o">),</span>
+      <span class="nl">valueType:</span> <span class="n">EntityKeyValueType</span><span class="o">.</span><span class="na">BOOLEAN</span><span class="o">,</span>
+      <span class="nl">predicate:</span> <span class="n">BooleanFilterPredicate</span><span class="o">(</span>
+          <span class="nl">operation:</span> <span class="n">BooleanOperation</span><span class="o">.</span><span class="na">EQUAL</span><span class="o">,</span>
+          <span class="nl">value:</span> <span class="n">FilterPredicateValue</span><span class="o">(</span><span class="kc">true</span><span class="o">)));</span>
+    <span class="n">devicesQuery</span><span class="o">.</span><span class="na">keyFilters</span> <span class="o">=</span> <span class="o">[</span><span class="n">activeDeviceKeyFilter</span><span class="o">];</span>
+
+    <span class="c1">// Execute entity count query and get total active devices count</span>
+    <span class="kd">var</span> <span class="n">activeDevicesCount</span> <span class="o">=</span>
+      <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getEntityQueryService</span><span class="o">().</span><span class="na">countEntitiesByQuery</span><span class="o">(</span><span class="n">devicesQuery</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Active devices: </span><span class="si">$activeDevicesCount</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Set key filter to existing query to get only inactive devices</span>
+    <span class="kd">var</span> <span class="n">inactiveDeviceKeyFilter</span> <span class="o">=</span> <span class="n">KeyFilter</span><span class="o">(</span>
+      <span class="nl">key:</span> <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ATTRIBUTE</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'active'</span><span class="o">),</span>
+      <span class="nl">valueType:</span> <span class="n">EntityKeyValueType</span><span class="o">.</span><span class="na">BOOLEAN</span><span class="o">,</span>
+      <span class="nl">predicate:</span> <span class="n">BooleanFilterPredicate</span><span class="o">(</span>
+          <span class="nl">operation:</span> <span class="n">BooleanOperation</span><span class="o">.</span><span class="na">EQUAL</span><span class="o">,</span>
+          <span class="nl">value:</span> <span class="n">FilterPredicateValue</span><span class="o">(</span><span class="kc">false</span><span class="o">)));</span>
+    <span class="n">devicesQuery</span><span class="o">.</span><span class="na">keyFilters</span> <span class="o">=</span> <span class="o">[</span><span class="n">inactiveDeviceKeyFilter</span><span class="o">];</span>
+
+    <span class="c1">// Execute entity count query and get total inactive devices count</span>
+    <span class="kd">var</span> <span class="n">inactiveDevicesCount</span> <span class="o">=</span>
+      <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getEntityQueryService</span><span class="o">().</span><span class="na">countEntitiesByQuery</span><span class="o">(</span><span class="n">devicesQuery</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Inactive devices: </span><span class="si">$inactiveDevicesCount</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="query-entities-using-entity-data-query-api">Query entities using Entity Data Query API</h4>
+
+<p>The following sample code shows how to use Entity Data Query API to get all active devices.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="c1">// Create entity filter to get only devices</span>
+    <span class="kd">var</span> <span class="n">entityFilter</span> <span class="o">=</span> <span class="n">EntityTypeFilter</span><span class="o">(</span><span class="nl">entityType:</span> <span class="n">EntityType</span><span class="o">.</span><span class="na">DEVICE</span><span class="o">);</span>
+
+    <span class="c1">// Create key filter to query only active devices</span>
+    <span class="kd">var</span> <span class="n">activeDeviceKeyFilter</span> <span class="o">=</span> <span class="n">KeyFilter</span><span class="o">(</span>
+        <span class="nl">key:</span> <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ATTRIBUTE</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'active'</span><span class="o">),</span>
+        <span class="nl">valueType:</span> <span class="n">EntityKeyValueType</span><span class="o">.</span><span class="na">BOOLEAN</span><span class="o">,</span>
+        <span class="nl">predicate:</span> <span class="n">BooleanFilterPredicate</span><span class="o">(</span>
+            <span class="nl">operation:</span> <span class="n">BooleanOperation</span><span class="o">.</span><span class="na">EQUAL</span><span class="o">,</span>
+            <span class="nl">value:</span> <span class="n">FilterPredicateValue</span><span class="o">(</span><span class="kc">true</span><span class="o">)));</span>
+
+    <span class="c1">// Prepare list of queried device fields</span>
+    <span class="kd">var</span> <span class="n">deviceFields</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">EntityKey</span><span class="o">&gt;[</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'name'</span><span class="o">),</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'type'</span><span class="o">),</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'createdTime'</span><span class="o">)</span>
+    <span class="o">];</span>
+
+    <span class="c1">// Prepare list of queried device attributes</span>
+    <span class="kd">var</span> <span class="n">deviceAttributes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">EntityKey</span><span class="o">&gt;[</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ATTRIBUTE</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'active'</span><span class="o">)</span>
+    <span class="o">];</span>
+
+    <span class="c1">// Create entity query with provided entity filter, key filter, queried fields and page link</span>
+    <span class="kd">var</span> <span class="n">devicesQuery</span> <span class="o">=</span> <span class="n">EntityDataQuery</span><span class="o">(</span>
+        <span class="nl">entityFilter:</span> <span class="n">entityFilter</span><span class="o">,</span>
+        <span class="nl">keyFilters:</span> <span class="o">[</span><span class="n">inactiveDeviceKeyFilter</span><span class="o">],</span>
+        <span class="nl">entityFields:</span> <span class="n">deviceFields</span><span class="o">,</span>
+        <span class="nl">latestValues:</span> <span class="n">deviceAttributes</span><span class="o">,</span>
+        <span class="nl">pageLink:</span> <span class="n">EntityDataPageLink</span><span class="o">(</span>
+            <span class="nl">pageSize:</span> <span class="mi">10</span><span class="o">,</span>
+            <span class="nl">sortOrder:</span> <span class="n">EntityDataSortOrder</span><span class="o">(</span>
+                <span class="nl">key:</span> <span class="n">EntityKey</span><span class="o">(</span>
+                    <span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'createdTime'</span><span class="o">),</span>
+                <span class="nl">direction:</span> <span class="n">EntityDataSortOrderDirection</span><span class="o">.</span><span class="na">DESC</span><span class="o">)));</span>
+
+      <span class="n">PageData</span><span class="o">&lt;</span><span class="n">EntityData</span><span class="o">&gt;</span> <span class="n">devices</span><span class="o">;</span>
+      <span class="k">do</span> <span class="o">{</span>
+        <span class="c1">// Fetch active devices using entities query with current page link</span>
+        <span class="n">devices</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span>
+            <span class="o">.</span><span class="na">getEntityQueryService</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">findEntityDataByQuery</span><span class="o">(</span><span class="n">devicesQuery</span><span class="o">);</span>
+        <span class="n">print</span><span class="o">(</span><span class="s">'Active devices entities data:'</span><span class="o">);</span>
+        <span class="n">devices</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">forEach</span><span class="o">((</span><span class="n">device</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">print</span><span class="o">(</span>
+              <span class="s">'id: </span><span class="si">${device.entityId.id}</span><span class="s">, createdTime: </span><span class="si">${device.createdTime}</span><span class="s">, name: </span><span class="si">${device.field('name')!}</span><span class="s">, type: </span><span class="si">${device.field('type')!}</span><span class="s">, active: </span><span class="si">${device.attribute('active')}</span><span class="s">'</span><span class="o">);</span>
+        <span class="o">});</span>
+        <span class="n">devicesQuery</span> <span class="o">=</span> <span class="n">devicesQuery</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+      <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">devices</span><span class="o">.</span><span class="na">hasNext</span><span class="o">);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="manage-device-example">Manage Device example</h4>
+
+<p>The following sample code demonstrates basic concepts of device management API (add/get/delete device, get/save device attributes).</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="kd">var</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="s">'My test device'</span><span class="o">;</span>
+
+    <span class="c1">// Construct device object</span>
+    <span class="kd">var</span> <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">(</span><span class="n">deviceName</span><span class="o">,</span> <span class="s">'default'</span><span class="o">);</span>
+    <span class="n">device</span><span class="o">.</span><span class="na">additionalInfo</span> <span class="o">=</span> <span class="o">{</span><span class="s">'description'</span><span class="o">:</span> <span class="s">'My test device!'</span><span class="o">};</span>
+
+    <span class="c1">// Add device</span>
+    <span class="kd">var</span> <span class="n">savedDevice</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">saveDevice</span><span class="o">(</span><span class="n">device</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'savedDevice: </span><span class="si">$savedDevice</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Find device by device id</span>
+    <span class="kd">var</span> <span class="n">foundDevice</span> <span class="o">=</span>
+       <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">getDeviceInfo</span><span class="o">(</span><span class="n">savedDevice</span><span class="o">.</span><span class="na">id</span><span class="o">!.</span><span class="na">id</span><span class="o">!);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'foundDevice: </span><span class="si">$foundDevice</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Save device shared attributes</span>
+    <span class="kd">var</span> <span class="n">res</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getAttributeService</span><span class="o">().</span><span class="na">saveEntityAttributesV2</span><span class="o">(</span>
+      <span class="n">foundDevice</span><span class="o">!.</span><span class="na">id</span><span class="o">!,</span>
+      <span class="n">AttributeScope</span><span class="o">.</span><span class="na">SHARED_SCOPE</span><span class="o">.</span><span class="na">toShortString</span><span class="o">(),</span>
+      <span class="o">{</span><span class="s">'targetTemperature'</span><span class="o">:</span> <span class="mf">22.4</span><span class="o">,</span> <span class="s">'targetHumidity'</span><span class="o">:</span> <span class="mf">57.8</span><span class="o">});</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Save attributes result: </span><span class="si">$res</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Get device shared attributes</span>
+    <span class="kd">var</span> <span class="n">attributes</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getAttributeService</span><span class="o">().</span><span class="na">getAttributesByScope</span><span class="o">(</span>
+      <span class="n">foundDevice</span><span class="o">.</span><span class="na">id</span><span class="o">!,</span>
+      <span class="n">AttributeScope</span><span class="o">.</span><span class="na">SHARED_SCOPE</span><span class="o">.</span><span class="na">toShortString</span><span class="o">(),</span>
+      <span class="o">[</span><span class="s">'targetTemperature'</span><span class="o">,</span> <span class="s">'targetHumidity'</span><span class="o">]);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Found device attributes: </span><span class="si">$attributes</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Delete the device</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">deleteDevice</span><span class="o">(</span><span class="n">savedDevice</span><span class="o">.</span><span class="na">id</span><span class="o">!.</span><span class="na">id</span><span class="o">!);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="websocket-api-example">WebSocket API example</h4>
+
+<p>The following sample code demonstrates basic concepts of WebSocket API. In this code we are going to create new device,
+create subscription to get device data and telemetry updates using Entity Data Query API over WebSocket API.
+Finally post sample telemetry and get data updates by listening data stream of subscription.</p>
+
+<div class="language-dart copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="s">'dart:math'</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="s">'package:thingsboard_client/thingsboard_client.dart'</span><span class="o">;</span>
+
+<span class="c1">// ThingsBoard REST API URL</span>
+<span class="kd">const</span> <span class="n">thingsBoardApiEndpoint</span> <span class="o">=</span> <span class="s">'http://localhost:8080'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+
+    <span class="c1">// Create instance of ThingsBoard API Client</span>
+    <span class="kd">var</span> <span class="n">tbClient</span> <span class="o">=</span> <span class="n">ThingsboardClient</span><span class="o">(</span><span class="n">thingsBoardApiEndpoint</span><span class="o">);</span>
+
+    <span class="c1">// Perform login with default Tenant Administrator credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">LoginRequest</span><span class="o">(</span><span class="s">'tenant@thingsboard.org'</span><span class="o">,</span> <span class="s">'tenant'</span><span class="o">));</span>
+
+    <span class="kd">var</span> <span class="n">deviceName</span> <span class="o">=</span> <span class="s">'My test device'</span><span class="o">;</span>
+
+    <span class="c1">// Construct device object</span>
+    <span class="kd">var</span> <span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="o">(</span><span class="n">deviceName</span><span class="o">,</span> <span class="s">'default'</span><span class="o">);</span>
+    <span class="n">device</span><span class="o">.</span><span class="na">additionalInfo</span> <span class="o">=</span> <span class="o">{</span><span class="s">'description'</span><span class="o">:</span> <span class="s">'My test device!'</span><span class="o">};</span>
+
+    <span class="c1">// Add device</span>
+    <span class="kd">var</span> <span class="n">savedDevice</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">saveDevice</span><span class="o">(</span><span class="n">device</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'savedDevice: </span><span class="si">$savedDevice</span><span class="s">'</span><span class="o">);</span>
+
+    <span class="c1">// Create entity filter to get device by its name</span>
+    <span class="kd">var</span> <span class="n">entityFilter</span> <span class="o">=</span> <span class="n">EntityNameFilter</span><span class="o">(</span>
+        <span class="nl">entityType:</span> <span class="n">EntityType</span><span class="o">.</span><span class="na">DEVICE</span><span class="o">,</span> <span class="nl">entityNameFilter:</span> <span class="n">deviceName</span><span class="o">);</span>
+
+    <span class="c1">// Prepare list of queried device fields</span>
+    <span class="kd">var</span> <span class="n">deviceFields</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">EntityKey</span><span class="o">&gt;[</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'name'</span><span class="o">),</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'type'</span><span class="o">),</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'createdTime'</span><span class="o">)</span>
+    <span class="o">];</span>
+
+    <span class="c1">// Prepare list of queried device timeseries</span>
+    <span class="kd">var</span> <span class="n">deviceTelemetry</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">EntityKey</span><span class="o">&gt;[</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">TIME_SERIES</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'temperature'</span><span class="o">),</span>
+      <span class="n">EntityKey</span><span class="o">(</span><span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">TIME_SERIES</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'humidity'</span><span class="o">)</span>
+    <span class="o">];</span>
+
+    <span class="c1">// Create entity query with provided entity filter, queried fields and page link</span>
+    <span class="kd">var</span> <span class="n">devicesQuery</span> <span class="o">=</span> <span class="n">EntityDataQuery</span><span class="o">(</span>
+        <span class="nl">entityFilter:</span> <span class="n">entityFilter</span><span class="o">,</span>
+        <span class="nl">entityFields:</span> <span class="n">deviceFields</span><span class="o">,</span>
+        <span class="nl">latestValues:</span> <span class="n">deviceTelemetry</span><span class="o">,</span>
+        <span class="nl">pageLink:</span> <span class="n">EntityDataPageLink</span><span class="o">(</span>
+            <span class="nl">pageSize:</span> <span class="mi">10</span><span class="o">,</span>
+            <span class="nl">sortOrder:</span> <span class="n">EntityDataSortOrder</span><span class="o">(</span>
+                <span class="nl">key:</span> <span class="n">EntityKey</span><span class="o">(</span>
+                    <span class="nl">type:</span> <span class="n">EntityKeyType</span><span class="o">.</span><span class="na">ENTITY_FIELD</span><span class="o">,</span> <span class="nl">key:</span> <span class="s">'createdTime'</span><span class="o">),</span>
+                <span class="nl">direction:</span> <span class="n">EntityDataSortOrderDirection</span><span class="o">.</span><span class="na">DESC</span><span class="o">)));</span>
+
+    <span class="c1">// Create timeseries subscription command to get data for 'temperature' and 'humidity' keys for last hour with realtime updates</span>
+    <span class="kd">var</span> <span class="n">currentTime</span> <span class="o">=</span> <span class="n">DateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">millisecondsSinceEpoch</span><span class="o">;</span>
+    <span class="kd">var</span> <span class="n">timeWindow</span> <span class="o">=</span> <span class="n">Duration</span><span class="o">(</span><span class="nl">hours:</span> <span class="mi">1</span><span class="o">).</span><span class="na">inMilliseconds</span><span class="o">;</span>
+
+    <span class="kd">var</span> <span class="n">tsCmd</span> <span class="o">=</span> <span class="n">TimeSeriesCmd</span><span class="o">(</span>
+        <span class="nl">keys:</span> <span class="o">[</span><span class="s">'temperature'</span><span class="o">,</span> <span class="s">'humidity'</span><span class="o">],</span>
+        <span class="nl">startTs:</span> <span class="n">currentTime</span> <span class="o">-</span> <span class="n">timeWindow</span><span class="o">,</span>
+        <span class="nl">timeWindow:</span> <span class="n">timeWindow</span><span class="o">);</span>
+
+    <span class="c1">// Create subscription command with entities query and timeseries subscription</span>
+    <span class="kd">var</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">EntityDataCmd</span><span class="o">(</span><span class="nl">query:</span> <span class="n">devicesQuery</span><span class="o">,</span> <span class="nl">tsCmd:</span> <span class="n">tsCmd</span><span class="o">);</span>
+
+    <span class="c1">// Create subscription with provided subscription command</span>
+    <span class="kd">var</span> <span class="n">telemetryService</span> <span class="o">=</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getTelemetryService</span><span class="o">();</span>
+    <span class="kd">var</span> <span class="n">subscription</span> <span class="o">=</span> <span class="n">TelemetrySubscriber</span><span class="o">(</span><span class="n">telemetryService</span><span class="o">,</span> <span class="o">[</span><span class="n">cmd</span><span class="o">]);</span>
+
+    <span class="c1">// Create listener to get data updates from WebSocket</span>
+    <span class="n">subscription</span><span class="o">.</span><span class="na">entityDataStream</span><span class="o">.</span><span class="na">listen</span><span class="o">((</span><span class="n">entityDataUpdate</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">print</span><span class="o">(</span><span class="s">'Received entity data update: </span><span class="si">$entityDataUpdate</span><span class="s">'</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="c1">// Perform subscribe (send subscription command via WebSocket API and listen for responses)</span>
+    <span class="n">subscription</span><span class="o">.</span><span class="na">subscribe</span><span class="o">();</span>
+
+    <span class="c1">// Post sample telemetry</span>
+    <span class="kd">var</span> <span class="n">rng</span> <span class="o">=</span> <span class="n">Random</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">await</span> <span class="n">Future</span><span class="o">.</span><span class="na">delayed</span><span class="o">(</span><span class="n">Duration</span><span class="o">(</span><span class="nl">seconds:</span> <span class="mi">1</span><span class="o">));</span>
+      <span class="kd">var</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+      <span class="kd">var</span> <span class="n">humidity</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">+</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="na">nextDouble</span><span class="o">();</span>
+      <span class="kd">var</span> <span class="n">telemetryRequest</span> <span class="o">=</span> <span class="o">{</span><span class="s">'temperature'</span><span class="o">:</span> <span class="n">temperature</span><span class="o">,</span> <span class="s">'humidity'</span><span class="o">:</span> <span class="n">humidity</span><span class="o">};</span>
+      <span class="n">print</span><span class="o">(</span><span class="s">'Save telemetry request: </span><span class="si">$telemetryRequest</span><span class="s">'</span><span class="o">);</span>
+      <span class="kd">var</span> <span class="n">res</span> <span class="o">=</span> <span class="n">await</span> <span class="n">tbClient</span>
+        <span class="o">.</span><span class="na">getAttributeService</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">saveEntityTelemetry</span><span class="o">(</span><span class="n">savedDevice</span><span class="o">.</span><span class="na">id</span><span class="o">!,</span> <span class="s">'TELEMETRY'</span><span class="o">,</span> <span class="n">telemetryRequest</span><span class="o">);</span>
+      <span class="n">print</span><span class="o">(</span><span class="s">'Save telemetry result: </span><span class="si">$res</span><span class="s">'</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Wait few seconds to show data updates are received by subscription listener</span>
+    <span class="n">await</span> <span class="n">Future</span><span class="o">.</span><span class="na">delayed</span><span class="o">(</span><span class="n">Duration</span><span class="o">(</span><span class="nl">seconds:</span> <span class="mi">2</span><span class="o">));</span>
+
+    <span class="c1">// Finally unsubscribe to release subscription</span>
+    <span class="n">subscription</span><span class="o">.</span><span class="na">unsubscribe</span><span class="o">();</span>
+
+    <span class="c1">// Delete the device</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">deleteDevice</span><span class="o">(</span><span class="n">savedDevice</span><span class="o">.</span><span class="na">id</span><span class="o">!.</span><span class="na">id</span><span class="o">!);</span>
+
+    <span class="c1">// Finally perform logout to clear credentials</span>
+    <span class="n">await</span> <span class="n">tbClient</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Error: </span><span class="si">$e</span><span class="s">'</span><span class="o">);</span>
+    <span class="n">print</span><span class="o">(</span><span class="s">'Stack: </span><span class="si">$s</span><span class="s">'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="more-examples">More examples</h4>
+
+<p>You can find more examples to learn how to use Dart ThingsBoard API Client <strong><a href="https://github.com/thingsboard/dart_thingsboard_client/tree/master/example">here</a></strong>.</p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

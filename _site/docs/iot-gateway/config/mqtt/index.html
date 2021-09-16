@@ -1,0 +1,2683 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="IoT Gateway Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>MQTT Connector Configuration | ThingsBoard IoT Gateway</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="MQTT Connector Configuration" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MQTT protocol support for ThingsBoard IoT Gateway" />
+<meta property="og:description" content="MQTT protocol support for ThingsBoard IoT Gateway" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/iot-gateway/config/mqtt/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/iot-gateway/config/mqtt/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="MQTT Connector Configuration" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/iot-gateway/config/mqtt/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"MQTT protocol support for ThingsBoard IoT Gateway","@type":"WebPage","headline":"MQTT Connector Configuration","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="MQTT protocol support for ThingsBoard IoT Gateway"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/gateway-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            IoT Gateway
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+
+
+        <a href="/docs/pe/" class="product">Professional Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product active">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/gw/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/getting-started/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/iot-gateway/installation/" >Installation</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Configuration guides</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">MQTT Connector</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/iot-gateway/getting-started/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="ThingsBoard IoT Gateway" href="/docs/iot-gateway/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard IoT Gateway?" href="/docs/iot-gateway/what-is-iot-gateway/"></a>
+
+
+<a class="item" data-title="Getting Started" href="/docs/iot-gateway/getting-started/"></a>
+
+
+<div class="item" data-title="Configuration guides">
+  <div class="container">
+
+
+<a class="item" data-title="General configuration" href="/docs/iot-gateway/configuration/"></a>
+
+
+<a class="item" data-title="MQTT Connector" href="/docs/iot-gateway/config/mqtt/"></a>
+
+
+<a class="item" data-title="Modbus Connector" href="/docs/iot-gateway/config/modbus/"></a>
+
+
+<a class="item" data-title="OPC-UA Connector" href="/docs/iot-gateway/config/opc-ua/"></a>
+
+
+<a class="item" data-title="BLE Connector" href="/docs/iot-gateway/config/ble/"></a>
+
+
+<a class="item" data-title="Request Connector" href="/docs/iot-gateway/config/request/"></a>
+
+
+<a class="item" data-title="CAN Connector" href="/docs/iot-gateway/config/can/"></a>
+
+
+<a class="item" data-title="BACnet Connector" href="/docs/iot-gateway/config/bacnet/"></a>
+
+
+<a class="item" data-title="ODBC Connector" href="/docs/iot-gateway/config/odbc/"></a>
+
+
+<a class="item" data-title="REST Connector" href="/docs/iot-gateway/config/rest/"></a>
+
+
+<a class="item" data-title="SNMP Connector" href="/docs/iot-gateway/config/snmp/"></a>
+
+
+<a class="item" data-title="FTP Connector" href="/docs/iot-gateway/config/ftp/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="IoT Gateway features">
+  <div class="container">
+
+
+<a class="item" data-title="Remote logging" href="/docs/iot-gateway/guides/how-to-enable-remote-logging/"></a>
+
+
+<a class="item" data-title="Service RPC methods" href="/docs/iot-gateway/guides/how-to-use-gateway-rpc-methods/"></a>
+
+
+<a class="item" data-title="Remote shell" href="/docs/iot-gateway/guides/how-to-enable-remote-shell/"></a>
+
+
+<a class="item" data-title="Gateway Configurator" href="/docs/iot-gateway/guides/how-to-configure-gateway-using-configurator/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="IoT Gateway Roadmap" href="/docs/iot-gateway/roadmap/"></a>
+
+
+<a class="item" data-title="Customization guide" href="/docs/iot-gateway/custom/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/iot-gateway/installation/" >Installation</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="ThingsBoard IoT Gateway" href="/docs/iot-gateway/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard IoT Gateway?" href="/docs/iot-gateway/what-is-iot-gateway/"></a>
+
+
+<a class="item" data-title="Getting Started" href="/docs/iot-gateway/getting-started/"></a>
+
+
+<div class="item" data-title="Configuration guides">
+  <div class="container">
+
+
+<a class="item" data-title="General configuration" href="/docs/iot-gateway/configuration/"></a>
+
+
+<a class="item" data-title="MQTT Connector" href="/docs/iot-gateway/config/mqtt/"></a>
+
+
+<a class="item" data-title="Modbus Connector" href="/docs/iot-gateway/config/modbus/"></a>
+
+
+<a class="item" data-title="OPC-UA Connector" href="/docs/iot-gateway/config/opc-ua/"></a>
+
+
+<a class="item" data-title="BLE Connector" href="/docs/iot-gateway/config/ble/"></a>
+
+
+<a class="item" data-title="Request Connector" href="/docs/iot-gateway/config/request/"></a>
+
+
+<a class="item" data-title="CAN Connector" href="/docs/iot-gateway/config/can/"></a>
+
+
+<a class="item" data-title="BACnet Connector" href="/docs/iot-gateway/config/bacnet/"></a>
+
+
+<a class="item" data-title="ODBC Connector" href="/docs/iot-gateway/config/odbc/"></a>
+
+
+<a class="item" data-title="REST Connector" href="/docs/iot-gateway/config/rest/"></a>
+
+
+<a class="item" data-title="SNMP Connector" href="/docs/iot-gateway/config/snmp/"></a>
+
+
+<a class="item" data-title="FTP Connector" href="/docs/iot-gateway/config/ftp/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="IoT Gateway features">
+  <div class="container">
+
+
+<a class="item" data-title="Remote logging" href="/docs/iot-gateway/guides/how-to-enable-remote-logging/"></a>
+
+
+<a class="item" data-title="Service RPC methods" href="/docs/iot-gateway/guides/how-to-use-gateway-rpc-methods/"></a>
+
+
+<a class="item" data-title="Remote shell" href="/docs/iot-gateway/guides/how-to-enable-remote-shell/"></a>
+
+
+<a class="item" data-title="Gateway Configurator" href="/docs/iot-gateway/guides/how-to-configure-gateway-using-configurator/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="IoT Gateway Roadmap" href="/docs/iot-gateway/roadmap/"></a>
+
+
+<a class="item" data-title="Customization guide" href="/docs/iot-gateway/custom/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>MQTT Connector Configuration</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#connector-configuration-mqttjson" id="markdown-toc-connector-configuration-mqttjson">Connector configuration: mqtt.json</a>    <ul>
+      <li><a href="#section-broker" id="markdown-toc-section-broker">Section “broker”</a>        <ul>
+          <li><a href="#subsection-security" id="markdown-toc-subsection-security">Subsection “security”</a></li>
+        </ul>
+      </li>
+      <li><a href="#section-mapping" id="markdown-toc-section-mapping">Section “mapping”</a>        <ul>
+          <li><a href="#subsection-converter" id="markdown-toc-subsection-converter">Subsection “converter”</a></li>
+        </ul>
+      </li>
+      <li><a href="#section-connectrequests" id="markdown-toc-section-connectrequests">Section “connectRequests”</a></li>
+      <li><a href="#section-disconnectrequest" id="markdown-toc-section-disconnectrequest">Section “disconnectRequest”</a></li>
+      <li><a href="#section-attributeupdates" id="markdown-toc-section-attributeupdates">Section “attributeUpdates”</a>        <ul>
+          <li><a href="#server-side-rpc-commands" id="markdown-toc-server-side-rpc-commands">Server side RPC commands</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next steps</a></li>
+</ul>
+
+<p>This guide will help you to get familiar with MQTT Connector configuration for ThingsBoard IoT Gateway.
+Use <a href="/docs/iot-gateway/configuration/">general configuration</a> to enable this Connector. 
+The purpose of this Connector is to connect to external MQTT broker and subscribe to data feed from devices. 
+Connector is also able to push data to MQTT brokers based on the updates/commands from ThingsBoard.</p>
+
+<p>This Connector is useful when you have local MQTT broker in your facility or corporate network and you would like to push data from this broker to ThingsBoard.</p>
+
+<p>We will describe connector configuration file below.</p>
+
+<h2 id="connector-configuration-mqttjson">Connector configuration: mqtt.json</h2>
+
+<p>Connector configuration is a JSON file that contains information about how to connect to external MQTT broker, 
+what topics to use when subscribing to data feed and how to process the data. 
+Let’s review the format of the configuration file using example below.</p>
+
+<p><br /></p>
+<details>
+   <summary>
+ <strong>Example of MQTT Connector config file. Press to expand.</strong> 
+  </summary>
+ Example listed below will connect to MQTT broker in a local network deployed on server with IP 192.168.1.100. Connector will use basic MQTT auth using username and password. Then, connector will subscribe to a list of topics using topic filters from mapping section. See more info in a description below.   <figure class="highlight">
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"broker"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Default Local Broker"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"host"</span><span class="p">:</span><span class="s2">"192.168.1.100"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"port"</span><span class="p">:</span><span class="mi">1883</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"security"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"basic"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"mapping"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/sensor/data"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${serialNumber}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceTypeJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorType}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorModel}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"timeseries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"temperature"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${temp}"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humidity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${hum}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/sensor/+/data"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">data)"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceTypeTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermometer"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorModel}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"timeseries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"temperature"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${temp}"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humidity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${hum}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/custom/sensors/+"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extension"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CustomMqttUplinkConverter"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extension-config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"temperatureBytes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"humidityBytes"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"batteryLevelBytes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"connectRequests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/connect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${SerialNumber}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/+/connect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">connect)"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"disconnectRequests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/disconnect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${SerialNumber}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/+/disconnect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">disconnect)"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"attributeUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SmartMeter.*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributeFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uploadFrequency"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"topicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/${attributeKey}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">${attributeKey}</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">${attributeValue}</span><span class="se">\"</span><span class="s2">}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"serverSideRpc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/request/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"responseTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/response/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"responseTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${params}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no-reply"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/request/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${params}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </figure>
+ 
+</details>
+
+<h3 id="section-broker">Section “broker”</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">name</td>
+      <td style="text-align: left"><strong>Default Broker</strong></td>
+      <td>Broker name for logs and saving to persistent devices.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">host</td>
+      <td style="text-align: left"><strong>localhost</strong></td>
+      <td>Mqtt broker hostname or ip address.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">port</td>
+      <td style="text-align: left"><strong>1883</strong></td>
+      <td>Mqtt port on the broker.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="subsection-security">Subsection “security”</h4>
+
+<p>Subsection “security” provides configuration for client authorization at Mqtt Broker.</p>
+
+<div class="tb-content-toggle" id="mqttConnectorCredentialsConfig">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+<a class="content-toggle-button" data-target="#accessToken">
+                <div class="content-toggle-button-text">
+                    Basic<small>Recommended</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#anonymous">
+                <div class="content-toggle-button-text">
+                    Anonymous<small>No security</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#tls">
+                <div class="content-toggle-button-text">
+                    Certificates<small>For advanced security</small>
+                </div>
+            </a>
+    </div>
+    <div id="accessToken" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>One type of security configuration is basic, 
+For authorization will be used combination of username/password, provided in this section in config.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left"><strong>basic</strong></td>
+      <td>Type of authorization.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">username</td>
+      <td style="text-align: left"><strong>username</strong></td>
+      <td>Username for authorization.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">password</td>
+      <td style="text-align: left"><strong>password</strong></td>
+      <td>Password for authorization.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Security subsection in configuration file will look like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>    <span class="s2">"</span><span class="s">security"</span><span class="pi">:</span> <span class="pi">{</span>
+      <span class="s2">"</span><span class="s">type"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">basic"</span><span class="pi">,</span>
+      <span class="s2">"</span><span class="s">username"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">username"</span><span class="pi">,</span>
+      <span class="s2">"</span><span class="s">password"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">password"</span>
+    <span class="pi">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="anonymous" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>Anonymous auth is the most simple option. It is useful for testing on public MQTT brokers, like test.mosquitto.org.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left"><strong>anonymous</strong></td>
+      <td>Type of authorization.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Security subsection in configuration file will look like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>    <span class="s2">"</span><span class="s">security"</span><span class="pi">:</span> <span class="pi">{</span>
+      <span class="s2">"</span><span class="s">type"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">anonymous"</span>
+    <span class="pi">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="tls" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>In table below described parameters to configure authorization on mqtt broker .</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">caCert</td>
+      <td style="text-align: left"><strong>/etc/thingsboard-gateway/ca.pem</strong></td>
+      <td>Path to CA file.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">privateKey</td>
+      <td style="text-align: left"><strong>/etc/thingsboard-gateway/privateKey.pem</strong></td>
+      <td>Path to private key file.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cert</td>
+      <td style="text-align: left"><strong>/etc/thingsboard-gateway/certificate.pem</strong></td>
+      <td>Path to certificate file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Security subsection in configuration file will look like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="nl">"security"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"caCert"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/etc/thingsboard-gateway/ca.pem"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"privateKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/etc/thingsboard-gateway/privateKey.pem"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cert"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/etc/thingsboard-gateway/certificate.pem"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    jqueryUiDefer(initContentTogglemqttConnectorCredentialsConfig);
+    function initContentTogglemqttConnectorCredentialsConfig() {
+        $(function(){
+
+            window.addEventListener('popstate', onPopStatemqttConnectorCredentialsConfig);
+
+            onPopStatemqttConnectorCredentialsConfig();
+
+            $('.tb-content-toggle#mqttConnectorCredentialsConfig a.content-toggle-button').click(function(event) {
+                event.preventDefault();
+                var id = $(this).attr("data-target").substring(1);
+                var param = 'mqttConnectorCredentialsConfig';
+                var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+                params[param] = id;
+
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + Qs.stringify(params);
+                if (window.location.hash) {
+                    newurl += window.location.hash;
+                }
+                window.history.pushState({ path: newurl }, '', newurl);
+                selectTargetmqttConnectorCredentialsConfig(id);
+            });
+        });
+    }
+
+    function onPopStatemqttConnectorCredentialsConfig() {
+        var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+        var targetId = params['mqttConnectorCredentialsConfig'];
+        if (!targetId) {
+            targetId = 'accessToken';
+        }
+        selectTargetmqttConnectorCredentialsConfig(targetId);
+    }
+
+    function selectTargetmqttConnectorCredentialsConfig(targetId) {
+        $(".tb-content-toggle#mqttConnectorCredentialsConfig a.content-toggle-button").removeClass("active");
+        $(".tb-content-toggle#mqttConnectorCredentialsConfig a.content-toggle-button[data-target='#"+targetId+"']").addClass("active");
+        $('.tb-content-toggle#mqttConnectorCredentialsConfig .panel-collapse').removeClass("show");
+        $('.tb-content-toggle#mqttConnectorCredentialsConfig .panel-collapse#'+targetId).addClass("show");
+    }
+
+</script>
+
+<h3 id="section-mapping">Section “mapping”</h3>
+
+<p>This configuration section contains array of topics that the gateway will subscribe to after connecting to the broker and settings about processing incoming messages (converter).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">topicFilter</td>
+      <td style="text-align: left"><strong>/sensor/data</strong></td>
+      <td>Topic address for subscribing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>topicFilter</strong> supports special symbols: ‘#’ and ‘+’ to allow to subscribe to multiple topics.</p>
+
+<p>Let’s assume we would like to subscribe and process following data from Thermometer devices:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Example Name</strong></th>
+      <th style="text-align: left"><strong>Topic</strong></th>
+      <th style="text-align: left"><strong>Topic Filter</strong></th>
+      <th><strong>Payload</strong></th>
+      <th><strong>Comments</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Example 1</td>
+      <td style="text-align: left">/sensor/data</td>
+      <td style="text-align: left">/sensor/data</td>
+      <td>{“serialNumber”: “SN-001”, “sensorType”: “Thermometer”, “sensorModel”: “T1000”, “temp”:  42, “hum”: 58}</td>
+      <td>Device Name is part of the payload</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Example 2</td>
+      <td style="text-align: left">/sensor/SN-001/data</td>
+      <td style="text-align: left">/sensor/+/data</td>
+      <td>{ “sensorType”: “Thermometer”, “sensorModel”: “T1000”, “temp”:  42, “hum”: 58}</td>
+      <td>Device Name is part of the topic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now let’s review how we can configure JSON converter to parse this data</p>
+
+<h4 id="subsection-converter">Subsection “converter”</h4>
+<p>This subsection contains configuration for processing incoming messages.</p>
+
+<p>Types of mqtt converters:</p>
+<ol>
+  <li>json – Default converter</li>
+  <li>custom – Custom converter (You can write it by yourself, and it will use to convert incoming data from the broker.)</li>
+</ol>
+
+<div class="tb-content-toggle" id="MqttConverterTypeConfig">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+<a class="content-toggle-button" data-target="#json">
+                <div class="content-toggle-button-text">
+                    json<small>Recommended if json will be received in response</small>
+                </div>
+            </a> <a class="content-toggle-button" data-target="#custom">
+                <div class="content-toggle-button-text">
+                    custom<small>Recommended if bytes or anything else will be received in response</small>
+                </div>
+            </a>
+    </div>
+    <div id="json" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>Json converter is default converter, it looks for deviceName, deviceType, attributes and telemetry in the incoming message from the broker, with rules, described in this subsection:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left"><strong>json</strong></td>
+      <td>Provides information to connector that default converter will be uses for converting data from topic.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceNameJsonExpression</td>
+      <td style="text-align: left"><strong>${serialNumber}</strong></td>
+      <td>Simple JSON expression, uses for looking device name in the incoming message (parameter “serialNumber” will be used as device name).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceTypeJsonExpression</td>
+      <td style="text-align: left"><strong>${sensorType}</strong></td>
+      <td>Simple JSON expression, uses for looking device type in the incoming message (parameter “sensorType” will be used as device type).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">timeout</td>
+      <td style="text-align: left"><strong>60000</strong></td>
+      <td>Timeout for triggering “Device Disconnected” event</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">attributes</td>
+      <td style="text-align: left"> </td>
+      <td>This subsection contains parameters of the incoming message, that will be interpreted as attributes for the device.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… type</td>
+      <td style="text-align: left"><strong>string</strong></td>
+      <td>Type of incoming data for a current attribute.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… key</td>
+      <td style="text-align: left"><strong>model</strong></td>
+      <td>Attribute name, that will sends to ThingsBoard instance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… value</td>
+      <td style="text-align: left"><strong>${sensorModel}</strong></td>
+      <td>Simple JSON expression, uses for looking value in the incoming message, that will send to ThingsBoard instance as value of key parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">timeseries</td>
+      <td style="text-align: left"> </td>
+      <td>This subsection contains parameters of the incoming message, that will be interpreted as telemetry for the device.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… type</td>
+      <td style="text-align: left"><strong>double</strong></td>
+      <td>Type of incoming data for a current telemetry.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… key</td>
+      <td style="text-align: left"><strong>temperature</strong></td>
+      <td>Telemetry name, that will sends to ThingsBoard instance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">… value</td>
+      <td style="text-align: left"><strong>${temp}</strong></td>
+      <td>Simple JSON expression, uses for looking value in the incoming message, that will send to ThingsBoard instance as value of key parameter.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <p><strong>Parameters in attributes and telemetry section may differ from those presented above, but will have the same structure.</strong></p>
+  </div>
+</div>
+
+<p>Mapping subsection for Example 1 will look like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="w">    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/sensor/data"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${serialNumber}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceTypeJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorType}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorModel}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"timeseries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"temperature"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${temp}"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humidity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${hum}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Mapping for Example 2 will look like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="w">    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/sensor/+/data"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">data)"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deviceTypeTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thermometer"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"model"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${sensorModel}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"timeseries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"temperature"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${temp}"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"humidity"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${hum}"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+    <div id="custom" class="panel-collapse collapse">
+      <div class="panel-body">
+        <table><tr><td>
+<p>A custom converter is converter written for some device:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">type</td>
+      <td style="text-align: left"><strong>custom</strong></td>
+      <td>Provides information to connector that custom converter will be uses for converting data from topic.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">extension</td>
+      <td style="text-align: left"><strong>CustomMqttUplinkConverter</strong></td>
+      <td>Name of custom converter class.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">extension-config</td>
+      <td style="text-align: left"> </td>
+      <td>This subsection is a configuration for the custom converter. In default example it contains number of bytes and keys for telemetry.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">temperatureBytes</td>
+      <td style="text-align: left"><strong>2</strong></td>
+      <td>In default example first 2 bytes from received message will be interpreted as <strong>temperature</strong> key of telemetry (Substring “Bytes” will remove if exists).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">humidityBytes</td>
+      <td style="text-align: left"><strong>2</strong></td>
+      <td>In default example the second and third byte from received message will be interpreted as <strong>humidity</strong> key of telemetry (Substring “Bytes” will remove if exists).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">batteryLevelBytes</td>
+      <td style="text-align: left"><strong>1</strong></td>
+      <td>In default example the fifth byte from received message will be interpreted as <strong>batteryLevel</strong> key of telemetry (Substring “Bytes” will removed if exists).</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <p><strong>All parameters from this subsection and topic will be transferred as dictionary during initialization to the converter object.</strong></p>
+  </div>
+</div>
+
+<p>Converter subsection in the configuration will look like:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="w">      </span><span class="nl">"converter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extension"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CustomMqttUplinkConverter"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extension-config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"temperatureBytes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"humidityBytes"</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"batteryLevelBytes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+</td></tr></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    jqueryUiDefer(initContentToggleMqttConverterTypeConfig);
+    function initContentToggleMqttConverterTypeConfig() {
+        $(function(){
+
+            window.addEventListener('popstate', onPopStateMqttConverterTypeConfig);
+
+            onPopStateMqttConverterTypeConfig();
+
+            $('.tb-content-toggle#MqttConverterTypeConfig a.content-toggle-button').click(function(event) {
+                event.preventDefault();
+                var id = $(this).attr("data-target").substring(1);
+                var param = 'MqttConverterTypeConfig';
+                var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+                params[param] = id;
+
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + Qs.stringify(params);
+                if (window.location.hash) {
+                    newurl += window.location.hash;
+                }
+                window.history.pushState({ path: newurl }, '', newurl);
+                selectTargetMqttConverterTypeConfig(id);
+            });
+        });
+    }
+
+    function onPopStateMqttConverterTypeConfig() {
+        var params = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+        var targetId = params['MqttConverterTypeConfig'];
+        if (!targetId) {
+            targetId = 'json';
+        }
+        selectTargetMqttConverterTypeConfig(targetId);
+    }
+
+    function selectTargetMqttConverterTypeConfig(targetId) {
+        $(".tb-content-toggle#MqttConverterTypeConfig a.content-toggle-button").removeClass("active");
+        $(".tb-content-toggle#MqttConverterTypeConfig a.content-toggle-button[data-target='#"+targetId+"']").addClass("active");
+        $('.tb-content-toggle#MqttConverterTypeConfig .panel-collapse').removeClass("show");
+        $('.tb-content-toggle#MqttConverterTypeConfig .panel-collapse#'+targetId).addClass("show");
+    }
+
+</script>
+
+<p><strong>Note</strong>: You can specify multiple mapping objects inside the array.</p>
+
+<p>Mapping process subscribes to the MQTT topics using <strong>topicFilter</strong> parameter of the mapping object. 
+Each message that is published to this topic by other devices or applications is analyzed to extract device name, type and data (attributes and/or timeseries values).
+By default, gateway uses Json converter, but it is possible to provide custom converter. See examples in the source code.</p>
+
+<h3 id="section-connectrequests">Section “connectRequests”</h3>
+
+<p>ThingsBoard allows sending RPC commands and notifications about device attribute updates to the device.
+But in order to send them, the platform needs to know if the target device is connected and what gateway or session is used to connect the device at the moment.
+If your device is constantly sending telemetry data - ThingsBoard already knows how to push notifications.
+If your device just connects to MQTT broker and waits for commands/updates, you need to send a message to the Gateway and inform that device is connected to the broker.</p>
+
+<p><strong>1. Name in a message from broker:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">topicFilter</td>
+      <td style="text-align: left"><strong>sensors/connect</strong></td>
+      <td>Topic address on the broker, where the broker sends information about new connected devices.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceNameJsonExpression</td>
+      <td style="text-align: left"><strong>${SerialNumber}</strong></td>
+      <td>JSON-path expression, for looking the new device name.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>2. Name in topic address:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">topicFilter</td>
+      <td style="text-align: left"><strong>sensors/+/connect</strong></td>
+      <td>Topic address on the broker, where the broker sends information about new connected devices.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceNameTopicExpression</td>
+      <td style="text-align: left"><strong>(?&lt;=sensor\/)(.*?)(?=\/connect)</strong></td>
+      <td>Regular expression for looking the device name in topic path.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This section in configuration looks like:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="nl">"connectRequests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensors/connect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${$.SerialNumber}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/+/connect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">connect)"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In this case following messages are valid:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>mosquitto_pub <span class="nt">-h</span> YOUR_MQTT_BROKER_HOST <span class="nt">-p</span> YOUR_MQTT_BROKER_PORT <span class="nt">-t</span> <span class="s2">"sensors/connect"</span> <span class="nt">-m</span> <span class="s1">'{"serialNumber":"SN-001"}'</span>
+mosquitto_pub <span class="nt">-h</span> YOUR_MQTT_BROKER_HOST <span class="nt">-p</span> YOUR_MQTT_BROKER_PORT <span class="nt">-t</span> <span class="s2">"sensor/SN-001/connect"</span> <span class="nt">-m</span> <span class="s1">''</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="section-disconnectrequest">Section “disconnectRequest”</h3>
+
+<p>This configuration section is optional.<br />
+Configuration, provided in this section will be used to get information from the broker about disconnecting device.<br />
+If your device just disconnects from MQTT broker and waits for commands/updates, you need to send a message to the Gateway and inform that device is disconnected from the broker.</p>
+
+<p><strong>1. Name in a message from broker:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">topicFilter</td>
+      <td style="text-align: left"><strong>sensors/disconnect</strong></td>
+      <td>Topic address on the broker, where the broker sends information about disconnected devices.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceNameJsonExpression</td>
+      <td style="text-align: left"><strong>${SerialNumber}</strong></td>
+      <td>JSON-path expression, for looking the new device name.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>2. Name in topic address:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">topicFilter</td>
+      <td style="text-align: left"><strong>sensors/+/disconnect</strong></td>
+      <td>Topic address on the broker, where the broker sends information about disconnected devices.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">deviceNameTopicExpression</td>
+      <td style="text-align: left"><strong>(?&lt;=sensor\/)(.*?)(?=\/connect)</strong></td>
+      <td>Regular expression for looking the device name in topic path.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This section in configuration file looks like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="nl">"disconnectRequests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensors/disconnect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameJsonExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${SerialNumber}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"topicFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/+/disconnect"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceNameTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(?&lt;=sensor</span><span class="se">\/</span><span class="s2">)(.*?)(?=</span><span class="se">\/</span><span class="s2">disconnect)"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In this case following messages are valid:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>mosquitto_pub <span class="nt">-h</span> YOUR_MQTT_BROKER_HOST <span class="nt">-p</span> YOUR_MQTT_BROKER_PORT <span class="nt">-t</span> <span class="s2">"sensors/disconnect"</span> <span class="nt">-m</span> <span class="s1">'{"serialNumber":"SN-001"}'</span>
+mosquitto_pub <span class="nt">-h</span> YOUR_MQTT_BROKER_HOST <span class="nt">-p</span> YOUR_MQTT_BROKER_PORT <span class="nt">-t</span> <span class="s2">"sensor/SN-001/disconnect"</span> <span class="nt">-m</span> <span class="s1">''</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="section-attributeupdates">Section “attributeUpdates”</h3>
+
+<p>This configuration section is optional.<br />
+ThingsBoard allows to provision device attributes and fetch some of them from the device application.
+You can treat this as a remote configuration for devices. Your devices are able to request shared attributes from ThingsBoard.
+See <a href="/docs/user-guide/attributes/">user guide</a> for more details.</p>
+
+<p>The “<strong>attributeRequests</strong>” configuration allows configuring the format of the corresponding attribute request and response messages.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">deviceNameFilter</td>
+      <td style="text-align: left"><strong>SmartMeter.*</strong></td>
+      <td>Regular expression device name filter, uses to determine, which function to execute.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">attributeFilter</td>
+      <td style="text-align: left"><strong>uploadFrequency</strong></td>
+      <td>Regular expression attribute name filter, uses to determine, which function to execute.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">topicExpression</td>
+      <td style="text-align: left"><strong>sensor/${deviceName}/${attributeKey}</strong></td>
+      <td>JSON-path expression uses for creating topic address to send a message.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">valueExpression</td>
+      <td style="text-align: left"><strong>{\”${attributeKey}\”:\”${attributeValue}\”}</strong></td>
+      <td>JSON-path expression uses for creating the message data that will send to topic.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This section in configuration file looks like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="nl">"attributeUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SmartMeter.*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributeFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uploadFrequency"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"topicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/${attributeKey}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">${attributeKey}</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">${attributeValue}</span><span class="se">\"</span><span class="s2">}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h5 id="server-side-rpc-commands">Server side RPC commands</h5>
+
+<p>ThingsBoard allows sending <a href="/docs/user-guide/rpc/">RPC commands</a> to the device that is connected to ThingsBoard directly or via Gateway.</p>
+
+<p>Configuration, provided in this section uses for sending RPC requests from ThingsBoard to device.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Parameter</strong></th>
+      <th style="text-align: left"><strong>Default value</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">deviceNameFilter</td>
+      <td style="text-align: left"><strong>SmartMeter.*</strong></td>
+      <td>Regular expression device name filter, uses to determine, which function to execute.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">methodFilter</td>
+      <td style="text-align: left"><strong>echo</strong></td>
+      <td>Regular expression method name filter, uses to determine, which function to execute.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">requestTopicExpression</td>
+      <td style="text-align: left"><strong>sensor/${deviceName}/request/${methodName}/${requestId}</strong></td>
+      <td>JSON-path expression, uses for creating topic address to send RPC request.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">responseTopicExpression</td>
+      <td style="text-align: left"><strong>sensor/${deviceName}/response/${methodName}/${requestId}</strong></td>
+      <td>JSON-path expression, uses for creating topic address to subscribe for response message.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">responseTimeout</td>
+      <td style="text-align: left"><strong>10000</strong></td>
+      <td>Value in milliseconds, if no response in this period after sending request, gateway will unsubscribe from response topic.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">valueExpression</td>
+      <td style="text-align: left"><strong>${params}</strong></td>
+      <td>JSON-path expression, uses for creating data for sending to broker.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <p>There are 2 options for RPC request:</p>
+    <ol>
+      <li><strong>With response</strong> – If in the configuration exists responseTopicExpression, gateway will try to subscribe on it and wait for response.</li>
+      <li><strong>Without response</strong> – If in the configuration not exists responseTopicExpression, gateway have just send message and won’t wait for response.</li>
+    </ol>
+  </div>
+</div>
+
+<p>This section in configuration file looks like:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="w">  </span><span class="nl">"serverSideRpc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/request/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"responseTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/response/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"responseTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${params}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"deviceNameFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodFilter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no-reply"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"requestTopicExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sensor/${deviceName}/request/${methodName}/${requestId}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"valueExpression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${params}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>As you can use <strong>deviceNameFilter</strong> and <strong>methodFilter</strong> to apply different mapping rules for different devices/methods.
+Once Gateway receives RPC request from the server to the device, it will publish the corresponding message based on <strong>requestTopicExpression</strong> and <strong>valueExpression</strong>.
+In case you expect the reply to the request from device, you should also specify <strong>responseTopicExpression</strong> and <strong>responseTimeout</strong>. 
+The Gateway will subscribe to the “response” topic and wait for device reply until “responseTimeout” is detected (in milliseconds).</p>
+
+<p>Example of RPC request (rpc-request.json) that need to be sent from the server:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="next-steps">Next steps</h2>
+
+<p>Explore guides related to main ThingsBoard features:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/visualization/">Data Visualization</a> - how to visualize collected data.</li>
+  <li><a href="/docs/user-guide/attributes/">Device attributes</a> - how to use device attributes.</li>
+  <li><a href="/docs/user-guide/telemetry/">Telemetry data collection</a> - how to collect telemetry data.</li>
+  <li><a href="/docs/user-guide/rpc/">Using RPC capabilities</a> - how to send commands to/from devices.</li>
+  <li><a href="/docs/user-guide/rule-engine/">Rule Engine</a> - how to use rule engine to analyze data from devices.</li>
+</ul>
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/gw/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

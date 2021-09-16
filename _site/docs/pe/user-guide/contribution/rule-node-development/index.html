@@ -1,0 +1,3262 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard Professional Edition Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rule Node Development Guide | ThingsBoard Professional Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Rule Node Development Guide" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Create custom Rule nodes" />
+<meta property="og:description" content="Create custom Rule nodes" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/pe/user-guide/contribution/rule-node-development/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/pe/user-guide/contribution/rule-node-development/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Rule Node Development Guide" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/pe/user-guide/contribution/rule-node-development/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Create custom Rule nodes","@type":"WebPage","headline":"Rule Node Development Guide","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Create custom Rule nodes"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-p-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Professional Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/user-guide/contribution/rule-node-development/" class="product active">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/user-guide/contribution/rule-node-development/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/pe/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+        
+            
+        
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+    
+
+
+        
+            
+        
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Contribution Guide</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Rule Node development</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Professional Edition" href="/docs/pe/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/pe/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/pe/getting-started-guides/connectivity/"></a>
+
+
+<div class="item item-new" data-title="Solution Templates">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/solution-templates/overview/"></a>
+
+
+<a class="item" data-title="Temperature & Humidity Sensors" href="/docs/pe/solution-templates/temperature-humidity-sensors/"></a>
+
+
+<a class="item" data-title="Smart office" href="/docs/pe/solution-templates/smart-office/"></a>
+
+
+<a class="item" data-title="Fleet tracking" href="/docs/pe/solution-templates/fleet-tracking/"></a>
+
+
+<a class="item" data-title="Water metering" href="/docs/pe/solution-templates/water-metering/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and Relations" href="/docs/pe/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/pe/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/pe/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/pe/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/pe/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/pe/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/pe/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/pe/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/pe/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/pe/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/pe/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/pe/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/pe/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/pe/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/pe/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/pe/user-guide/rule-engine-2-0/external-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/pe/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/pe/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/pe/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/pe/user-guide/claiming-devices/"></a>
+
+
+<a class="item" data-title="Device provisioning" href="/docs/pe/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/pe/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/pe/user-guide/api-limits/"></a>
+
+
+<a class="item" data-title="Bulk Provisioning" href="/docs/pe/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/pe/user-guide/audit-log/"></a>
+
+
+<a class="item" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item item-new" data-title="OAuth 2 Support" href="/docs/pe/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/pe/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/pe/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/pe/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/pe/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/pe/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/pe/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/pe/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/pe/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/pe/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/pe/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/pe/user-guide/ui/rule-chains/"></a>
+
+
+<a class="item" data-title="Dashboards" href="/docs/pe/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/pe/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/pe/user-guide/ui/mail-settings/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item" data-title="Chart Widgets" href="/docs/pe/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item" data-title="Entity Table Widget" href="/docs/pe/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation Widget" href="/docs/pe/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/pe/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/pe/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/pe/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/pe/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/pe/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/pe/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/pe/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/pe/reference/roadmap/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Professional Edition" href="/docs/pe/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/pe/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/pe/getting-started-guides/connectivity/"></a>
+
+
+<div class="item item-new" data-title="Solution Templates">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/solution-templates/overview/"></a>
+
+
+<a class="item" data-title="Temperature & Humidity Sensors" href="/docs/pe/solution-templates/temperature-humidity-sensors/"></a>
+
+
+<a class="item" data-title="Smart office" href="/docs/pe/solution-templates/smart-office/"></a>
+
+
+<a class="item" data-title="Fleet tracking" href="/docs/pe/solution-templates/fleet-tracking/"></a>
+
+
+<a class="item" data-title="Water metering" href="/docs/pe/solution-templates/water-metering/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and Relations" href="/docs/pe/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/pe/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/pe/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/pe/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/pe/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/pe/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/pe/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/pe/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/pe/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/pe/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/pe/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/pe/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/pe/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/pe/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/pe/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/pe/user-guide/rule-engine-2-0/external-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/pe/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/pe/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/pe/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/pe/user-guide/claiming-devices/"></a>
+
+
+<a class="item" data-title="Device provisioning" href="/docs/pe/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/pe/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/pe/user-guide/api-limits/"></a>
+
+
+<a class="item" data-title="Bulk Provisioning" href="/docs/pe/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/pe/user-guide/audit-log/"></a>
+
+
+<a class="item" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item item-new" data-title="OAuth 2 Support" href="/docs/pe/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/pe/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/pe/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/pe/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/pe/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/pe/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/pe/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/pe/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/pe/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/pe/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/pe/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/pe/user-guide/ui/rule-chains/"></a>
+
+
+<a class="item" data-title="Dashboards" href="/docs/pe/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/pe/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/pe/user-guide/ui/mail-settings/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item" data-title="Chart Widgets" href="/docs/pe/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item" data-title="Entity Table Widget" href="/docs/pe/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation Widget" href="/docs/pe/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/pe/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/pe/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/pe/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/pe/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/pe/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/pe/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/pe/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/pe/reference/roadmap/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Rule Node Development Guide</h1>
+      <div id="content">
+          
+<ul id="markdown-toc">
+  <li><a href="#overview" id="markdown-toc-overview">Overview</a></li>
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a></li>
+  <li><a href="#step-1-download-and-build-sample-project" id="markdown-toc-step-1-download-and-build-sample-project">Step 1. Download and build sample project</a></li>
+  <li><a href="#step-2-import-project-to-the-ide" id="markdown-toc-step-2-import-project-to-the-ide">Step 2. Import project to the IDE</a></li>
+  <li><a href="#step-3-create-your-rule-node" id="markdown-toc-step-3-create-your-rule-node">Step 3. Create your rule node</a>    <ul>
+      <li><a href="#the-rulenode-annotation" id="markdown-toc-the-rulenode-annotation">The @RuleNode annotation</a></li>
+      <li><a href="#rule-node-lifecycle" id="markdown-toc-rule-node-lifecycle">Rule Node lifecycle</a></li>
+      <li><a href="#processing-of-the-incoming-messages" id="markdown-toc-processing-of-the-incoming-messages">Processing of the incoming messages</a></li>
+      <li><a href="#using-thingsboard-services" id="markdown-toc-using-thingsboard-services">Using ThingsBoard services</a></li>
+      <li><a href="#creating-new-messages-from-the-rule-node" id="markdown-toc-creating-new-messages-from-the-rule-node">Creating new messages from the rule node</a></li>
+      <li><a href="#multithreading" id="markdown-toc-multithreading">Multithreading</a></li>
+      <li><a href="#clustering-mode" id="markdown-toc-clustering-mode">Clustering mode</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-4-import-custom-rule-nodes-to-your-thingsboard-instance" id="markdown-toc-step-4-import-custom-rule-nodes-to-your-thingsboard-instance">Step 4. Import custom rule nodes to your ThingsBoard instance</a></li>
+  <li><a href="#step-5-add-your-custom-package-name-to-thingsboardyml" id="markdown-toc-step-5-add-your-custom-package-name-to-thingsboardyml">Step 5. Add your custom package name to thingsboard.yml</a></li>
+  <li><a href="#step-6-troubleshoot-your-rule-node" id="markdown-toc-step-6-troubleshoot-your-rule-node">Step 6. Troubleshoot your rule node</a></li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next steps</a></li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<p>In this tutorial, you will learn how to create custom rule nodes and add them to your ThingsBoard server instance. 
+We will review rule nodes of three different types: Filter, Enrichment and Transformation.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>We assume you have completed the following guides and   reviewed the articles listed below:</p>
+
+<ul>
+  <li><a href="/docs/pe/getting-started-guides/helloworld/">Getting Started</a> guide.</li>
+  <li><a href="/docs/pe/user-guide/rule-engine-2-0/overview/">Rule Engine Overview</a> article.</li>
+  <li><a href="/docs/pe/user-guide/rule-engine-2-0/architecture/">Rule Engine Architecture</a> article.</li>
+</ul>
+
+<p>We also assume you have the following third-party installed:</p>
+
+<ul>
+  <li><a href="https://openjdk.java.net/install/">OpenJDK 11</a></li>
+  <li><a href="https://maven.apache.org/install.html">Maven 3.6.0+</a></li>
+  <li>Any modern Java IDE, although we recommend <a href="https://www.jetbrains.com/idea/download">IntelliJ IDEA</a></li>
+  <li>[Optional] Install <a href="https://projectlombok.org/">Lombok</a> plugin to your favorite IDE.</li>
+</ul>
+
+<h2 id="step-1-download-and-build-sample-project">Step 1. Download and build sample project</h2>
+
+<p>Clone the repository and navigate to the repo folder:</p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>git clone https://github.com/thingsboard/rule-node-examples
+<span class="nb">cd </span>rule-node-examples
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>By default, sample project is configured to use APIs of the ThingsBoard Community Edition. 
+This makes your rule nodes compatible with both Community and Professional editions of the platform.</p>
+
+<p>In case you would like to use some of the exclusive Professional Edition APIs (like working with Entity Groups, etc), 
+you should change the “thingsboard.version” parameter in thingsboard.yml:</p>
+
+<div class="language-bash copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>nano pom.xml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>For example, the property below is set to 3.3.1PE Professional Edition:</p>
+
+<div class="language-xml copy-code highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>...
+    <span class="nt">&lt;properties&gt;</span>
+        ...
+        <span class="nt">&lt;thingsboard.version&gt;</span>3.3.1PE<span class="nt">&lt;/thingsboard.version&gt;</span>
+        ...
+    <span class="nt">&lt;/properties&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Finally, build the project:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>mvn clean <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Expected output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.431 s
+[INFO] Finished at: 2020-08-18T11:01:40+03:00
+[INFO] ------------------------------------------------------------------------
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="step-2-import-project-to-the-ide">Step 2. Import project to the IDE</h2>
+
+<p>Make sure the <a href="https://projectlombok.org/">Lombok</a> plugin is installed to your favorite IDE. Import project to your favorite IDE as a Maven project.</p>
+
+<h2 id="step-3-create-your-rule-node">Step 3. Create your rule node</h2>
+
+<p>In order to create new rule node, you should implement the 
+<a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbNode.java">TbNode</a> interface and annotate it with the
+<a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/RuleNode.java">RuleNode</a> annotation.</p>
+
+<p>As an example, you may review a very simple Rule Node that filters incoming message based on the existence of the key in the message payload. 
+This rule node is part of the project you have downloaded on the previous step.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+</pre></td><td class="rouge-code"><pre><span class="nd">@RuleNode</span><span class="o">(</span>
+        <span class="n">type</span> <span class="o">=</span> <span class="nc">ComponentType</span><span class="o">.</span><span class="na">FILTER</span><span class="o">,</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s">"check key"</span><span class="o">,</span>
+        <span class="n">relationTypes</span> <span class="o">=</span> <span class="o">{</span><span class="s">"True"</span><span class="o">,</span> <span class="s">"False"</span><span class="o">},</span>
+        <span class="n">configClazz</span> <span class="o">=</span> <span class="nc">TbKeyFilterNodeConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">nodeDescription</span> <span class="o">=</span> <span class="s">"Checks the existence of the selected key in the message payload."</span><span class="o">,</span>
+        <span class="n">nodeDetails</span> <span class="o">=</span> <span class="s">"If the selected key exists - send Message via &lt;b&gt;True&lt;/b&gt; chain, otherwise &lt;b&gt;False&lt;/b&gt; chain is used."</span><span class="o">,</span>
+        <span class="n">uiResources</span> <span class="o">=</span> <span class="o">{</span><span class="s">"static/rulenode/custom-nodes-config.js"</span><span class="o">},</span>
+        <span class="n">configDirective</span> <span class="o">=</span> <span class="s">"tbFilterNodeCheckKeyConfig"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TbKeyFilterNode</span> <span class="kd">implements</span> <span class="nc">TbNode</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="nc">TbKeyFilterNodeConfiguration</span> <span class="n">config</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">key</span><span class="o">;</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">tbContext</span><span class="o">,</span> <span class="nc">TbNodeConfiguration</span> <span class="n">configuration</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">TbNodeException</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">config</span> <span class="o">=</span> <span class="nc">TbNodeUtils</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="n">configuration</span><span class="o">,</span> <span class="nc">TbKeyFilterNodeConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMsg</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="na">tellNext</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">mapper</span><span class="o">.</span><span class="na">readTree</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">()).</span><span class="na">has</span><span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">?</span> <span class="s">"True"</span> <span class="o">:</span> <span class="s">"False"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="na">tellFailure</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Few things to notice in the source code listed above:</p>
+
+<h3 id="the-rulenode-annotation">The @RuleNode annotation</h3>
+
+<p>The @RuleNode annotation defines node type, name, description, UI form and outbound [relations].</p>
+
+<p>Let’s walk through available parameters:</p>
+
+<ul>
+  <li><em>type</em> is one of the available <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#rule-node-types">Rule Node Types</a>. This parameter affects which section of the Rule Chain Editor will contain your Rule Node;</li>
+  <li><em>name</em> - any reasonable name of your rule node that will be used for Rule Chain Editor and debug messages;</li>
+  <li><em>nodeDescription</em> - short description of your node. Visible in the Rule Chain Editor;</li>
+  <li><em>nodeDetails</em> - full description of your node with html tags support. Visible in the Rule Chain Editor;</li>
+  <li><em>configClazz</em> - full class name of the class that describes the configuration json.</li>
+  <li><em>relationTypes</em> - array of strings with pre-defined <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#rule-node-relation">relation types</a>;
+This values should correspond to the ones that are used in <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java#L76">TbContext.tellNext</a> method;</li>
+  <li><em>customRelations</em> - boolean value that indicates you are going to use any custom relations in <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java#L76">TbContext.tellNext</a> method;</li>
+  <li><em>configDirective</em> - name of the Angular based UI directive that will allow user to edit the configuration of the rule node. This is optional and may be empty. In such case, the user will see raw JSON editor;</li>
+  <li><em>uiResources</em> - path to your Angular UI file that contains the configuration directive. This is optional and may be empty. In such case, the user will see raw JSON editor;</li>
+  <li><em>icon</em> - icon name from the angular material package;</li>
+  <li><em>iconUrl</em> - full URL to the icon that will be used to display the rule node in the list of nodes located in the Rule Chain Editor;</li>
+  <li><em>docUrl</em> - link to the documentation page of the current rule node that will be available in the Rule Chain Editor.</li>
+</ul>
+
+<h3 id="rule-node-lifecycle">Rule Node lifecycle</h3>
+
+<p>The <strong>“init”</strong> method is called by the rule engine when the new rule node is created. 
+This may happen if someone adds the rule node to the rule chain or system is stopped.
+This method is mostly used to parse the configuration which is a JSON object or to obtain a local copy of <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java">TbContext</a>.
+The “TbNodeUtils.convert” is parsing the raw configuration to the java object of a specified class.</p>
+
+<p>The <strong>“destroy”</strong> method is called by the rule engine when the rule node is destroyed. 
+This may happen if someone removes the rule node from the rule chain or system is stopped.</p>
+
+<p>When the user decides to change the configuration of the existing rule node, the rule engine will call <strong>“destroy”</strong> and <strong>“init”</strong> methods sequentially.</p>
+
+<h3 id="processing-of-the-incoming-messages">Processing of the incoming messages</h3>
+
+<p>The Rule Node implementation <strong>must</strong> use one of the following methods to inform the Rule Engine that the message is successfully processed:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre>
+<span class="cm">/**
+ * Indicates that message was successfully processed by the rule node.
+ * Sends message to all Rule Nodes in the Rule Chain
+ * that are connected to the current Rule Node using "Success" relationType.
+ *
+ * @param msg
+ */</span>
+<span class="kt">void</span> <span class="nf">tellSuccess</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">);</span>
+
+<span class="cm">/**
+ * Sends message to all Rule Nodes in the Rule Chain
+ * that are connected to the current Rule Node using specified relationType.
+ *
+ * @param msg
+ * @param relationType
+ */</span>
+<span class="kt">void</span> <span class="nf">tellNext</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">,</span> <span class="nc">String</span> <span class="n">relationType</span><span class="o">);</span>
+
+<span class="cm">/**
+ * Sends message to all Rule Nodes in the Rule Chain
+ * that are connected to the current Rule Node using one of specified relationTypes.
+ *
+ * @param msg
+ * @param relationTypes
+ */</span>
+<span class="kt">void</span> <span class="nf">tellNext</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">,</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">relationTypes</span><span class="o">);</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If the message processing fails, the Rule Node implementation <strong>must</strong> call the “tellFailure” method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>
+<span class="cm">/**
+ * Notifies Rule Engine about failure to process current message.
+ *
+ * @param msg - message
+ * @param th  - exception
+ */</span>
+<span class="kt">void</span> <span class="nf">tellFailure</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">th</span><span class="o">);</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If the Rule Node implementation will not call any of the methods listed above, the Rule Engine will wait for a configurable timeout and <strong>block</strong> processing of the other messages 
+and eventually mark current message as failed.</p>
+
+<h3 id="using-thingsboard-services">Using ThingsBoard services</h3>
+
+<p>The <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java">TbContext</a> contains “getters” for a lot of useful services. 
+Please don’t forget to press “Download Sources” in your favorite IDE to simplify browsing of the interfaces of those services;
+A short list of available services getters is listed below:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+</pre></td><td class="rouge-code"><pre><span class="c1">// Allows to work with entity attributes: get and save them;</span>
+<span class="nc">AttributesService</span> <span class="nf">getAttributesService</span><span class="o">();</span>
+
+<span class="c1">// Allows CRUD (Create, Read, Updat, Delete) operations over the customer entities;  </span>
+<span class="nc">CustomerService</span> <span class="nf">getCustomerService</span><span class="o">();</span>
+
+<span class="c1">// Allows CRUD operations over users;</span>
+<span class="nc">UserService</span> <span class="nf">getUserService</span><span class="o">();</span>
+
+<span class="c1">// Allows CRUD operations over assets;</span>
+<span class="nc">AssetService</span> <span class="nf">getAssetService</span><span class="o">();</span>
+
+<span class="c1">// Allows CRUD operations over devices;</span>
+<span class="nc">DeviceService</span> <span class="nf">getDeviceService</span><span class="o">();</span>
+
+<span class="c1">// Allows CRUD operations over entity views;</span>
+<span class="nc">EntityViewService</span> <span class="nf">getEntityViewService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically create and manage dashboards;</span>
+<span class="nc">DashboardService</span> <span class="nf">getDashboardService</span><span class="o">();</span>
+
+<span class="c1">// Allows to create and clear alarms;</span>
+<span class="nc">RuleEngineAlarmService</span> <span class="nf">getAlarmService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically create and manage rule chains;</span>
+<span class="nc">RuleChainService</span> <span class="nf">getRuleChainService</span><span class="o">();</span>
+
+<span class="c1">// Allows to send RPC commands to devices;</span>
+<span class="nc">RuleEngineRpcService</span> <span class="nf">getRpcService</span><span class="o">();</span>
+
+<span class="c1">// Allows to store telemetry to the database and push notifications to the dashbaords via WebSockets;</span>
+<span class="nc">RuleEngineTelemetryService</span> <span class="nf">getTelemetryService</span><span class="o">();</span>
+
+<span class="c1">// Allows to find telemetry and save it to the database without notifications to the dashboards;</span>
+<span class="nc">TimeseriesService</span> <span class="nf">getTimeseriesService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically query and manage entity relations;</span>
+<span class="nc">RelationService</span> <span class="nf">getRelationService</span><span class="o">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>ThingsBoard PE users may get access to additional services using <em>TbContext.getPeContext()</em> method. TbPeContext provides access to the following services:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+</pre></td><td class="rouge-code"><pre><span class="c1">// Allows to programmatically create and manage integrations;</span>
+<span class="nc">IntegrationService</span> <span class="nf">getIntegrationService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically create and manage entity groups;</span>
+<span class="nc">EntityGroupService</span> <span class="nf">getEntityGroupService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically create reports;</span>
+<span class="nc">ReportService</span> <span class="nf">getReportService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically manage blob entities;</span>
+<span class="nc">BlobEntityService</span> <span class="nf">getBlobEntityService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically manage group permissions;</span>
+<span class="nc">GroupPermissionService</span> <span class="nf">getGroupPermissionService</span><span class="o">();</span>
+
+<span class="c1">// Allows to programmatically manage roles;</span>
+<span class="nc">RoleService</span> <span class="nf">getRoleService</span><span class="o">();</span>
+
+<span class="c1">// Get entity owner (TenantId or CustomerId)</span>
+<span class="nc">EntityId</span> <span class="nf">getOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">entityId</span><span class="o">);</span>
+
+<span class="c1">// Clear entity owners cache</span>
+<span class="kt">void</span> <span class="nf">clearOwners</span><span class="o">(</span><span class="nc">EntityId</span> <span class="n">entityId</span><span class="o">);</span>
+
+<span class="c1">// Get all sub-customers of the current entity</span>
+<span class="nc">Set</span><span class="o">&lt;</span><span class="nc">EntityId</span><span class="o">&gt;</span> <span class="nf">getChildOwners</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">parentOwnerId</span><span class="o">);</span>
+
+<span class="c1">// Allows to change entity owner. Expects TenantId or CustomerId as targetOwnerId</span>
+<span class="kt">void</span> <span class="nf">changeDashboardOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">Dashboard</span> <span class="n">dashboard</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeUserOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeCustomerOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeEntityViewOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">EntityView</span> <span class="n">entityView</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeAssetOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">Asset</span> <span class="n">asset</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeDeviceOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">Device</span> <span class="n">device</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">changeEntityOwner</span><span class="o">(</span><span class="nc">TenantId</span> <span class="n">tenantId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">targetOwnerId</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">entityId</span><span class="o">,</span> <span class="nc">EntityType</span> <span class="n">entityType</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ThingsboardException</span><span class="o">;</span>
+
+<span class="c1">// Allows to push custom downlink message to the integration</span>
+<span class="kt">void</span> <span class="nf">pushToIntegration</span><span class="o">(</span><span class="nc">IntegrationId</span> <span class="n">integrationId</span><span class="o">,</span> <span class="nc">TbMsg</span> <span class="n">tbMsg</span><span class="o">,</span> <span class="nc">FutureCallback</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="creating-new-messages-from-the-rule-node">Creating new messages from the rule node</h3>
+
+<p>It might be necessary to create and push messages that are derived from the current message to the Rule Engine. 
+For example, let’s write a custom rule node that duplicates message from the current customer to all customer devices:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMsg</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">EntityId</span> <span class="n">msgOriginator</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="na">getOriginator</span><span class="o">();</span>
+    <span class="c1">// Checking that the message originator is a Customer;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="nc">EntityType</span><span class="o">.</span><span class="na">CUSTOMER</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">msgOriginator</span><span class="o">.</span><span class="na">getEntityType</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="nc">CustomerId</span> <span class="n">customerId</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomerId</span><span class="o">(</span><span class="n">msgOriginator</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+        <span class="kt">boolean</span> <span class="n">hasNext</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="c1">// Creating the page link to iterate through the devices;</span>
+        <span class="nc">PageLink</span> <span class="n">pageLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PageLink</span><span class="o">(</span><span class="mi">1024</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">hasNext</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// Using the Device Service to get devices from the database;</span>
+            <span class="nc">PageData</span><span class="o">&lt;</span><span class="nc">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getDeviceService</span><span class="o">().</span><span class="na">findDevicesByTenantIdAndCustomerId</span><span class="o">(</span><span class="n">ctx</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">(),</span> <span class="n">customerId</span><span class="o">,</span> <span class="n">pageLink</span><span class="o">);</span>
+            <span class="n">hasNext</span> <span class="o">=</span> <span class="n">devices</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span>
+            <span class="n">pageLink</span> <span class="o">=</span> <span class="n">pageLink</span><span class="o">.</span><span class="na">nextPageLink</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="nc">Device</span> <span class="n">device</span> <span class="o">:</span> <span class="n">devices</span><span class="o">.</span><span class="na">getData</span><span class="o">())</span> <span class="o">{</span>
+                <span class="c1">// Creating new message with different originator</span>
+                <span class="nc">TbMsg</span> <span class="n">newMsg</span> <span class="o">=</span> <span class="nc">TbMsg</span><span class="o">.</span><span class="na">newMsg</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">getQueueName</span><span class="o">(),</span> <span class="n">msg</span><span class="o">.</span><span class="na">getType</span><span class="o">(),</span> <span class="n">device</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">msg</span><span class="o">.</span><span class="na">getMetaData</span><span class="o">(),</span> <span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">());</span>
+                <span class="c1">// Pushing new message to the queue instead of tellNext to make sure that the message will be persisted;</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="na">enqueueForTellNext</span><span class="o">(</span><span class="n">newMsg</span><span class="o">,</span> <span class="s">"Success"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">// Don't forget to acknowledge original message or use ctx.tellSuccess(msg);</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="na">ack</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="na">tellFailure</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"Msg originator is not Customer!"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may notice that we have used <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java#L119">TbContext.enqueueForTellNext</a> method to push new message to the Rule Engine.
+The message will be pushed to the related rule nodes, based on the relation type. The alternative option is to put the message to the beginning of the processing, basically to the root rule chain.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>
+<span class="kt">void</span> <span class="nf">enqueue</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">,</span> <span class="nc">String</span> <span class="n">queueName</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">onSuccess</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">Throwable</span><span class="o">&gt;</span> <span class="n">onFailure</span><span class="o">);</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Also, you may use slightly different method that also allows you to receive confirmation that the new message is successfully pushed to the queue:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>
+<span class="kt">void</span> <span class="nf">enqueueForTellNext</span><span class="o">(</span><span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">,</span> <span class="nc">String</span> <span class="n">queueName</span><span class="o">,</span> <span class="nc">String</span> <span class="n">relationType</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">onSuccess</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">Throwable</span><span class="o">&gt;</span> <span class="n">onFailure</span><span class="o">);</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="multithreading">Multithreading</h3>
+
+<p>The Rule Engine is an implementation of an <a href="https://en.wikipedia.org/wiki/Actor_model">actor model</a> which invokes 
+<a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbNode.java#L30">TbNode.onMsg</a> method sequentially
+for every new message in the rule node mailbox. Thus, if you process the message in the same thread, your implementation is thread safe.</p>
+
+<p>However, for performance reasons, most of the API calls are executed in a separate threads. 
+For example, let’s review how one should save the telemetry from the incoming message:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMsg</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="c1">// Parsing the incoming message;</span>
+        <span class="nc">ObjectNode</span> <span class="n">json</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ObjectNode</span><span class="o">)</span> <span class="n">mapper</span><span class="o">.</span><span class="na">readTree</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">());</span>
+        <span class="c1">// Converting temperature from °F to °C</span>
+        <span class="kt">double</span> <span class="n">temperatureF</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"temperature"</span><span class="o">).</span><span class="na">asDouble</span><span class="o">();</span>
+        <span class="kt">double</span> <span class="n">temperatureC</span> <span class="o">=</span> <span class="o">(</span><span class="n">temperatureF</span> <span class="o">-</span> <span class="mi">32</span><span class="o">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">9</span><span class="o">;</span>
+        <span class="c1">// Creating the telemetry data point</span>
+        <span class="nc">TsKvEntry</span> <span class="n">tsKvEntry</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BasicTsKvEntry</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">DoubleDataEntry</span><span class="o">(</span><span class="s">"temperature"</span><span class="o">,</span> <span class="n">temperatureC</span><span class="o">));</span>
+        <span class="c1">// Using async API call to save telemetry with the callback</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="na">getTelemetryService</span><span class="o">().</span><span class="na">saveAndNotify</span><span class="o">(</span><span class="n">ctx</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">(),</span> <span class="n">msg</span><span class="o">.</span><span class="na">getOriginator</span><span class="o">(),</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="n">tsKvEntry</span><span class="o">),</span> <span class="k">new</span> <span class="nc">FutureCallback</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Void</span> <span class="n">aVoid</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Telemetry is saved, now we can acknowledge the message; </span>
+                <span class="n">ctx</span><span class="o">.</span><span class="na">tellSuccess</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailure</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">throwable</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Telemetry is not saved, we need rule engine to reprocess the message;</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="na">tellFailure</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">throwable</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JsonProcessingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="na">tellFailure</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may notice that we “acknowledge” or “forward” the message via TbContext.tellSuccess in the callback thread and not in the main thread.</p>
+
+<h3 id="clustering-mode">Clustering mode</h3>
+
+<p>Single instance of the rule node is launched for each rule-engine microservice. For example, if you have three rule engine instances, each of them will launch one instance of the RuleNode.
+The Rule Engine <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#rule-engine-message">messages</a> are partitioned based on the originator id of the message (device or asset id).
+So, messages from one device will always go to the same rule node instance on a specific rule engine microservice. 
+The only corner case is when the rule nodes are added or removed. In such a case, the “repartition” event occur.</p>
+
+<p>As a rule node developer, you may override default method <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbNode.java#L34">TbNode.onPartitionChangeMsg</a>
+to react on the changes of cluster topology. This is useful for stateful nodes that decide to cache information based on the originator (device/asset) id of the message.
+In order to determine that the current entity id belongs to current list of assigned partitions, one may use <a href="https://github.com/thingsboard/thingsboard/blob/release-3.3/rule-engine/rule-engine-api/src/main/java/org/thingsboard/rule/engine/api/TbContext.java#L152">TbContext.isLocalEntity</a>.
+See complete example below:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">org.thingsboard.rule.engine.node.filter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.core.JsonProcessingException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.node.ObjectNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.slf4j.Slf4j</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.EmptyNodeConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.RuleNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.TbContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.TbNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.TbNodeConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.rule.engine.api.TbNodeException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.data.DataConstants</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.data.id.EntityId</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.data.kv.AttributeKvEntry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.data.plugin.ComponentType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.msg.TbMsg</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.thingsboard.server.common.msg.queue.PartitionChangeMsg</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.ConcurrentHashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.ConcurrentMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.ExecutionException</span><span class="o">;</span>
+
+
+<span class="nd">@Slf4j</span>
+<span class="nd">@RuleNode</span><span class="o">(</span>
+        <span class="n">type</span> <span class="o">=</span> <span class="nc">ComponentType</span><span class="o">.</span><span class="na">FILTER</span><span class="o">,</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s">"Cache example"</span><span class="o">,</span>
+        <span class="n">relationTypes</span> <span class="o">=</span> <span class="o">{</span><span class="s">"True"</span><span class="o">,</span> <span class="s">"False"</span><span class="o">},</span>
+        <span class="n">configClazz</span> <span class="o">=</span> <span class="nc">EmptyNodeConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">nodeDescription</span> <span class="o">=</span> <span class="s">"Checks that the incoming value exceeds certain threshold"</span><span class="o">,</span>
+        <span class="n">nodeDetails</span> <span class="o">=</span> <span class="s">"If temperature is too high - send Message via &lt;b&gt;True&lt;/b&gt; chain, otherwise &lt;b&gt;False&lt;/b&gt; chain is used."</span><span class="o">,</span>
+        <span class="n">uiResources</span> <span class="o">=</span> <span class="o">{</span><span class="s">"static/rulenode/rulenode-core-config.js"</span><span class="o">},</span>
+        <span class="n">configDirective</span> <span class="o">=</span> <span class="s">"tbNodeEmptyConfig"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TbCacheExampleNode</span> <span class="kd">implements</span> <span class="nc">TbNode</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="nc">ConcurrentMap</span><span class="o">&lt;</span><span class="nc">EntityId</span><span class="o">,</span> <span class="nc">Double</span><span class="o">&gt;</span> <span class="n">cache</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">tbContext</span><span class="o">,</span> <span class="nc">TbNodeConfiguration</span> <span class="n">configuration</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">TbNodeException</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">cache</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMsg</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">TbMsg</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// Parsing the incoming message;</span>
+            <span class="nc">ObjectNode</span> <span class="n">json</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ObjectNode</span><span class="o">)</span> <span class="n">mapper</span><span class="o">.</span><span class="na">readTree</span><span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">());</span>
+            <span class="kt">double</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"temperature"</span><span class="o">).</span><span class="na">asDouble</span><span class="o">();</span>
+            <span class="c1">// Fetching temperatureThreshold attribute from cache or from the database</span>
+            <span class="nc">Double</span> <span class="n">temperatureThreshold</span> <span class="o">=</span> <span class="n">getCacheValue</span><span class="o">(</span><span class="n">ctx</span><span class="o">,</span> <span class="n">msg</span><span class="o">.</span><span class="na">getOriginator</span><span class="o">(),</span> <span class="s">"temperatureThreshold"</span><span class="o">,</span> <span class="mi">42</span><span class="o">);</span>
+            <span class="c1">// Compare and do something with the result of comparison;</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="na">tellNext</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">temperature</span> <span class="o">&gt;</span> <span class="n">temperatureThreshold</span> <span class="o">?</span> <span class="s">"True"</span> <span class="o">:</span> <span class="s">"False"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">JsonProcessingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="na">tellFailure</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPartitionChangeMsg</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">PartitionChangeMsg</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Cleanup the cache for all entities that are no longer assigned to current server partitions</span>
+        <span class="n">cache</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">removeIf</span><span class="o">(</span><span class="n">entry</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">ctx</span><span class="o">.</span><span class="na">isLocalEntity</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()));</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">double</span> <span class="nf">getCacheValue</span><span class="o">(</span><span class="nc">TbContext</span> <span class="n">ctx</span><span class="o">,</span> <span class="nc">EntityId</span> <span class="n">entityId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">attributeKey</span><span class="o">,</span> <span class="kt">double</span> <span class="n">defaultValue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Get value from cache or from the database.</span>
+        <span class="k">return</span> <span class="n">cache</span><span class="o">.</span><span class="na">computeIfAbsent</span><span class="o">(</span><span class="n">entityId</span><span class="o">,</span> <span class="n">id</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">AttributeKvEntry</span><span class="o">&gt;</span> <span class="n">attr</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getAttributesService</span><span class="o">().</span><span class="na">find</span><span class="o">(</span><span class="n">ctx</span><span class="o">.</span><span class="na">getTenantId</span><span class="o">(),</span> <span class="n">entityId</span><span class="o">,</span> <span class="nc">DataConstants</span><span class="o">.</span><span class="na">SERVER_SCOPE</span><span class="o">,</span> <span class="n">attributeKey</span><span class="o">).</span><span class="na">get</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">attr</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="n">attr</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">getDoubleValue</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="n">defaultValue</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="n">defaultValue</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="o">|</span> <span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// In case you have changed the configuration, it is good idea to clear the entire cache.</span>
+        <span class="n">cache</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="step-4-import-custom-rule-nodes-to-your-thingsboard-instance">Step 4. Import custom rule nodes to your ThingsBoard instance</h2>
+
+<p>Once you have finished coding of the rule node, execute the build command again:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>mvn clean <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Then, locate the jar-file to your ThingsBoard project as dependency library. The result of the build is located here:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>target/rule-engine-1.0.0-custom-nodes.jar
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Now you are ready to add the jar-file with your rule nodes to your ThingsBoard instance:</p>
+
+<ul>
+  <li>first, you need to execute the following command to copy jar-file to ThingsBoard extensions:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo cp </span>rule-engine-1.0.0-custom-nodes.jar /usr/share/thingsboard/extensions/
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>next, execute the following to change the owner to ThingsBoard:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo chown </span>thingsboard:thingsboard /usr/share/thingsboard/extensions/<span class="k">*</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Restart Thingsboard service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>service thingsboard restart
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>Once ThingsBoard was restarted you need to clear browser cache and refresh the web page to reload UI of Rule Nodes</strong></p>
+
+<h2 id="step-5-add-your-custom-package-name-to-thingsboardyml">Step 5. Add your custom package name to thingsboard.yml</h2>
+
+<p><strong>NOTE</strong> if you have changed the package name from <strong>org.thingsboard.rule.engine</strong> to your company package name, e.g. <strong>com.example.rule.engine</strong>, 
+you need also to add your package name in <strong>thingsboard.yml</strong> file in plugins section:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Plugins configuration parameters</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="c1"># Comma separated package list used during classpath scanning for plugins</span>
+  <span class="na">scan_packages</span><span class="pi">:</span> <span class="s2">"</span><span class="s">${PLUGINS_SCAN_PACKAGES:org.thingsboard.server.extensions,org.thingsboard.rule.engine,com.example.rule.engine}"</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="step-6-troubleshoot-your-rule-node">Step 6. Troubleshoot your rule node</h2>
+
+<p>The easiest way to validate your custom rule node is to create a <a href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/#generator-node">generator</a> rule node 
+and connect it to your custom rule node. This will generate configurable stream of incoming messages. 
+Once this is done, you should enable <a href="/docs/pe/user-guide/rule-engine-2-0/overview/#debugging">debug</a> for your custom rule node to validate node output and check them for errors.</p>
+
+<h2 id="next-steps">Next steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDGettingStartedGuides">Getting started guides</a> - These guides provide quick overview of main ThingsBoard features. Designed to be completed in 15-30 minutes.</p>
+  </li>
+  <li>
+    <p><a href="/docs/user-guide/install/pe/installation-options/">Installation guides</a> - Learn how to setup ThingsBoard on various available operating systems.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDConnectYourDevice">Connect your device</a> - Learn how to connect devices based on your connectivity technology or solution.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataVisualization">Data visualization</a> - These guides contain instructions how to configure complex ThingsBoard dashboards.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataProcessing">Data processing &amp; actions</a> - Learn how to use ThingsBoard Rule Engine.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataAnalytics">IoT Data analytics</a> - Learn how to use rule engine to perform basic analytics tasks.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDHardwareSamples">Hardware samples</a> - Learn how to connect various hardware platforms to ThingsBoard.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDAdvancedFeatures">Advanced features</a> - Learn about advanced ThingsBoard features.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/pe/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

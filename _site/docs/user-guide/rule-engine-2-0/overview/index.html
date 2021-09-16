@@ -1,0 +1,3134 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rule Engine Overview | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Rule Engine Overview" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Rule Engine Overview" />
+<meta property="og:description" content="Rule Engine Overview" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/user-guide/rule-engine-2-0/overview/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/user-guide/rule-engine-2-0/overview/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Rule Engine Overview" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/user-guide/rule-engine-2-0/overview/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Rule Engine Overview","@type":"WebPage","headline":"Rule Engine Overview","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Rule Engine Overview"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/paas/user-guide/rule-engine-2-0/overview/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/user-guide/rule-engine-2-0/overview/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/user-guide/rule-engine-2-0/overview/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Rule engine</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Overview</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Community Edition" href="/docs/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/getting-started-guides/connectivity/"></a>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and relations" href="/docs/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/user-guide/rule-engine-2-0/external-nodes/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="PE Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/user-guide/claiming-devices/"></a>
+
+
+<a class="item item-new" data-title="Device provisioning" href="/docs/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/user-guide/api-limits/"></a>
+
+
+<a class="item item-new" data-title="Bulk Provisioning" href="/docs/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item item-pe" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item item-pe" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item item-pe" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item item-pe" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item item-pe" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/user-guide/audit-log/"></a>
+
+
+<a class="item item-pe" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item" data-title="OAuth 2 Support" href="/docs/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/user-guide/ui/rule-chains/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item item-new" data-title="Chart widgets" href="/docs/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item item-new" data-title="Entity Table widget" href="/docs/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation widget" href="/docs/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Dashboards" href="/docs/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/user-guide/ui/mail-settings/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute" href="/docs/user-guide/contribution/how-to-contribute/"></a>
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/reference/roadmap/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Community Edition" href="/docs/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/getting-started-guides/connectivity/"></a>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and relations" href="/docs/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/user-guide/rule-engine-2-0/external-nodes/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="PE Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/user-guide/claiming-devices/"></a>
+
+
+<a class="item item-new" data-title="Device provisioning" href="/docs/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/user-guide/api-limits/"></a>
+
+
+<a class="item item-new" data-title="Bulk Provisioning" href="/docs/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item item-pe" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item item-pe" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item item-pe" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item item-pe" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item item-pe" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/user-guide/audit-log/"></a>
+
+
+<a class="item item-pe" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item" data-title="OAuth 2 Support" href="/docs/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/user-guide/ui/rule-chains/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item item-new" data-title="Chart widgets" href="/docs/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item item-new" data-title="Entity Table widget" href="/docs/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation widget" href="/docs/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Dashboards" href="/docs/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/user-guide/ui/mail-settings/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute" href="/docs/user-guide/contribution/how-to-contribute/"></a>
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/reference/roadmap/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Rule Engine Overview</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#key-concepts" id="markdown-toc-key-concepts">Key Concepts</a>    <ul>
+      <li><a href="#rule-engine-message" id="markdown-toc-rule-engine-message">Rule Engine Message</a></li>
+      <li><a href="#rule-node" id="markdown-toc-rule-node">Rule Node</a></li>
+      <li><a href="#rule-node-relation" id="markdown-toc-rule-node-relation">Rule Node Relation</a></li>
+      <li><a href="#rule-chain" id="markdown-toc-rule-chain">Rule Chain</a></li>
+      <li><a href="#message-processing-result" id="markdown-toc-message-processing-result">Message Processing Result</a></li>
+      <li><a href="#rule-engine-queue" id="markdown-toc-rule-engine-queue">Rule Engine Queue</a>        <ul>
+          <li><a href="#queue-submit-strategy" id="markdown-toc-queue-submit-strategy">Queue submit strategy</a></li>
+          <li><a href="#queue-processing-strategy" id="markdown-toc-queue-processing-strategy">Queue processing strategy</a></li>
+          <li><a href="#default-queues" id="markdown-toc-default-queues">Default queues</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#predefined-message-types" id="markdown-toc-predefined-message-types">Predefined Message Types</a></li>
+  <li><a href="#rule-node-types" id="markdown-toc-rule-node-types">Rule Node Types</a></li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
+      <li><a href="#test-javascript-functions" id="markdown-toc-test-javascript-functions">Test JavaScript functions</a></li>
+    </ul>
+  </li>
+  <li><a href="#rule-engine-statistics" id="markdown-toc-rule-engine-statistics">Rule Engine Statistics</a></li>
+  <li><a href="#debugging" id="markdown-toc-debugging">Debugging</a></li>
+  <li><a href="#importexport" id="markdown-toc-importexport">Import/Export</a></li>
+  <li><a href="#architecture" id="markdown-toc-architecture">Architecture</a></li>
+  <li><a href="#custom-rest-api-calls-to-rule-engine" id="markdown-toc-custom-rest-api-calls-to-rule-engine">Custom REST API calls to Rule Engine</a></li>
+  <li><a href="#tutorials" id="markdown-toc-tutorials">Tutorials</a></li>
+  <li><a href="#troubleshooting" id="markdown-toc-troubleshooting">Troubleshooting</a></li>
+</ul>
+
+<p>ThingsBoard Rule Engine is a highly customizable and configurable system for complex event processing. 
+With rule engine you are able to filter, enrich and transform incoming messages originated by IoT devices and related assets. 
+You are also able to trigger various actions, for example, notifications or communication with external systems.</p>
+
+<h2 id="key-concepts">Key Concepts</h2>
+
+<h4 id="rule-engine-message">Rule Engine Message</h4>
+
+<p>Rule Engine Message is a serializable, immutable data structure that represent various messages in the system. For example:</p>
+
+<ul>
+  <li>Incoming <a href="/docs/user-guide/telemetry/">telemetry</a>, <a href="/docs/user-guide/attributes/">attribute update</a> or <a href="/docs/user-guide/rpc/">RPC call</a> from device;</li>
+  <li>Entity life-cycle event: created, updated, deleted, assigned, unassigned, attributes updated;</li>
+  <li>Device status event: connected, disconnected, active, inactive, etc;</li>
+  <li>Other system events.</li>
+</ul>
+
+<p>Rule Engine Message contains the following information:</p>
+
+<ul>
+  <li>Message ID: time based, universally unique identifier;</li>
+  <li>Originator of the message: Device, Asset or other <a href="/docs/user-guide/entities-and-relations/">Entity</a> identifier;</li>
+  <li>Type of the message: “Post telemetry” or “Inactivity Event”, etc;</li>
+  <li>Payload of the message: JSON body with actual message payload;</li>
+  <li>Metadata: List of key-value pairs with additional data about the message.</li>
+</ul>
+
+<h4 id="rule-node">Rule Node</h4>
+
+<p>Rule Node is a basic component of Rule Engine that process single incoming message at a time and produce one or more outgoing messages. 
+Rule Node is a main logical unit of the Rule Engine. Rule Node can filter, enrich, transform incoming messages, perform action or communicate with external systems.</p>
+
+<h4 id="rule-node-relation">Rule Node Relation</h4>
+
+<p>Rule Nodes may be related to other rule nodes. Each relation has relation type, a label used to identify logical meaning of the relation. 
+When rule node produces the outgoing message it always specifies the relation type which is used to route message to next nodes.</p>
+
+<p>Typical rule node relations are “Success” and “Failure”. 
+Rule nodes that represent logical operations may use “True” or “False”. 
+Some specific rule nodes may use completely different relation types, for example: “Post Telemetry”, “Attributes Updated”, “Entity Created”, etc.</p>
+
+<h4 id="rule-chain">Rule Chain</h4>
+
+<p>Rule Chain is a logical group of rule nodes and their relations. For example, the rule chain below will:</p>
+
+<ul>
+  <li>save all telemetry messages to the database;</li>
+  <li>raise “High Temperature Alarm” if temperature field in the message will be higher then 50 degrees;</li>
+  <li>raise “Low Temperature Alarm” if temperature field in the message will be lower then -40 degrees;</li>
+  <li>log failure to execute the temperature check scripts to console in case of logical or syntax error in the script.</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-node-relations.png" alt="image" /></p>
+
+<p>Tenant administrator is able to define one <strong>Root Rule Chain</strong> and optionally multiple other rule chains. 
+Root rule chain handles all incoming messages and may forward them to other rule chains for additional processing.
+Other rule chains may also forward messages to different rule chains.</p>
+
+<p>For example, the rule chain below will:</p>
+
+<ul>
+  <li>raise “High Temperature Alarm” if temperature field in the message will be higher then 50 degrees;</li>
+  <li>clear “High Temperature Alarm” if temperature field in the message will be less then 50 degrees;</li>
+  <li>forward events about “Created” and “Cleared” alarms to external rule chain that handles notifications to corresponding users.</li>
+</ul>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-chain-references.png" alt="image" /></p>
+
+<h4 id="message-processing-result">Message Processing Result</h4>
+
+<p>There are three possible results of message processing: Success, Failure and Timeout.
+The message processing attempt is marked as “Success” when the last rule node in the processing chain successfully process the message.
+The message processing attempt is marked as “Failure” if one of the rule nodes produce “Failure” of message processing, 
+and there is no rule nodes to handle that failure. 
+The message processing attempt is marked as “Timeout” when overall time of processing exceed configurable threshold.</p>
+
+<p>See diagram below and let’s review the possible scenarios:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/not-a-failure.png" alt="image" /></p>
+
+<p>If the “Transformation” script fails, the message is not marked as “Failed”, because there is a “Save to DB” node connected with “Failure” relation.
+If the “Transformation” script is successful, it will be pushed to “External System” with the REST API call.
+If the external system is overloaded, the REST API call may “hang” for some time. 
+Let’s assume the overall timeout for message pack processing is 20 seconds. Let’s ignore Transformation script execution time because it is &lt; 1ms.
+So, if the “External System” will reply within 20 seconds, the message will be successfully processed. 
+Similar, if “Save to DB” call will succeed, the message will be successfully processed. 
+However, if the external system will not reply within 20 seconds, the message processing attempt will be marked as “timed-out”.
+Similar, if “Save to DB” call will fail, the message will be marked as failed.</p>
+
+<h4 id="rule-engine-queue">Rule Engine Queue</h4>
+
+<p>Rule Engine subscribe to queues on startup and polls for new messages. 
+There is always “Main” topic that is used as a main entry point for new incoming messages. 
+You may configure multiple queues using thingsboard.yml or environment variables.
+Once configured, you may put message to the other topic using “Checkpoint” node. 
+This automatically acknowledges corresponding message in the current topic.</p>
+
+<p>The definition of the queue consists of the following parameters:</p>
+
+<ul>
+  <li>name - used for statistics and logging;</li>
+  <li>topic - used by Queue implementations to produce and consume messages;</li>
+  <li>poll-interval - duration in milliseconds between polling of the messages if no new messages arrive;</li>
+  <li>partitions - number of partitions to associate with this queue. Used for scaling the number of messages that can be processed in parallel;</li>
+  <li>pack-processing-timeout - interval in milliseconds for processing of the particular pack of messages returned by consumer;</li>
+  <li>submit-strategy - defines logic and order of submitting messages to rule engine. See separate paragraph below.</li>
+  <li>processing-strategy - defines logic of acknowledgement of the messages. See separate paragraph below.</li>
+</ul>
+
+<h5 id="queue-submit-strategy">Queue submit strategy</h5>
+
+<p>Rule Engine service constantly polls messages for specific topic and once the Consumer returns a list of messages it creates the TbMsgPackProcessingContext object.
+Queue submit strategy controls how messages from TbMsgPackProcessingContext are submitted to rule chains. There are 5 available strategies:</p>
+
+<ul>
+  <li>BURST - all messages are submitted to the rule chains in the order they arrive.</li>
+  <li>BATCH - messages are grouped to batches using “queue.rule-engine.queues[queue index].batch-size” configuration parameter. 
+ New batch is not submitted until previous batch is acknowledged.</li>
+  <li>SEQUENTIAL_BY_ORIGINATOR - messages are submitted sequentially within particular entity (originator of the message). 
+ New message for e.g. device A is not submitted until previous message for device A is acknowledged.</li>
+  <li>SEQUENTIAL_BY_TENANT - messages are submitted sequentially within tenant (owner of the originator of the message). 
+ New message for e.g tenant A is not submitted until previous message for tenant A is acknowledged.</li>
+  <li>SEQUENTIAL  - messages are submitted sequentially. New message is not submitted until previous message is acknowledged. This makes processing quite slow.</li>
+</ul>
+
+<p>See this <a href="/docs/user-guide/rule-engine-2-5/tutorials/queues-for-synchronization/">guide</a> for an example of submit strategy use case.</p>
+
+<h5 id="queue-processing-strategy">Queue processing strategy</h5>
+
+<p>Processing Strategy controls how failed or timed out messages are re-processed. There are 5 available strategies:</p>
+
+<ul>
+  <li>SKIP_ALL_FAILURES - simply ignore all failures and timeouts. Will cause messages to be “lost”. 
+ For example, if DB is down, the messages will not be persisted but will be still marked as “acknowledged” and deleted from queue.
+ This strategy is created mostly for backward-compatibility with previous releases and development/demo environments.</li>
+  <li>RETRY_ALL - retry all messages from processing pack. 
+ If 1 out of 100 messages will fail, strategy will still reprocess (resubmit to Rule Engine) 100 messages.</li>
+  <li>RETRY_FAILED - retry all failed messages from processing pack. 
+ If 1 out of 100 messages will fail, strategy will reprocess(resubmit to Rule Engine) only 1 message. 
+ Timed-out messages will not be reprocessed.</li>
+  <li>RETRY_TIMED_OUT - retry all timed-out messages from processing pack. 
+ If 1 out of 100 messages will timeout, strategy will reprocess(resubmit to Rule Engine) only 1 message.
+ Failed messages will not be reprocessed.</li>
+  <li>RETRY_FAILED_AND_TIMED_OUT - retry all failed and timed-out messages from processing pack.</li>
+</ul>
+
+<p>All “RETRY*” strategies support important configuration parameters:</p>
+
+<ul>
+  <li>retries - Number of retries, 0 is unlimited</li>
+  <li>failure-percentage - Skip retry if failures or timeouts are less then X percentage of messages;</li>
+  <li>pause-between-retries - Time in seconds to wait in consumer thread before retries;</li>
+</ul>
+
+<p>See this <a href="/docs/user-guide/rule-engine-2-5/tutorials/queues-for-message-reprocessing/">guide</a> for an example of processing strategy use case.</p>
+
+<h5 id="default-queues">Default queues</h5>
+
+<p>There are three default queues configured: Main, HighPriority and SequentialByOriginator.
+They differ based on submit and processing strategy.
+Basically, rule engine process messages from Main topic and may optionally put them to other topics using “Checkpoint” rule node. 
+Main topic simply ignores failed messages by default. This is done for backward compatibility with previous releases. 
+However, you may reconfigure this at your own risk. 
+Note that if one message is not processed due to some failure in your rule node script, it may prevent next messages from being processed.
+We have designed specific <a href="/docs/user-guide/rule-engine-2-0/overview/#rule-engine-statistics">dashboard</a> to monitor Rule Engine processing and failures.</p>
+
+<p>The HighPriority topic may be used for delivery of alarms or other critical processing steps. 
+The messages in HighPriority topic are constantly reprocessed in case of failure until the message processing succeeds. 
+This is useful if you have an outage of the SMTP server or external system. The Rule Engine will retry sending the message until it is processed.</p>
+
+<p>The SequentialByOriginator topic is important if you would like to make sure that messages are processed in correct order.
+Messages from the same entity will be processed with the order they arrive to the queue. 
+Rule Engine will not submit new message to the rule chain until the previous message for the same entity id is acknowledged.</p>
+
+<h2 id="predefined-message-types">Predefined Message Types</h2>
+
+<p>List of the predefined Message Types is presented in the following table:</p>
+
+<table>
+  <thead>
+      <tr>
+          <td><b>Message Type</b></td><td><b>Display Name</b></td><td><b>Description</b></td><td><b>Message metadata</b></td><td><b>Message payload</b></td>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>POST_ATTRIBUTES_REQUEST</td>
+          <td><b>Post attributes</b></td>
+          <td>Request from device to publish <a href="/docs/user-guide/attributes/#attribute-types">client side</a> attributes (see <a href="/docs/reference/mqtt-api/#publish-attribute-update-to-the-server">attributes api</a> for reference)</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type</td>
+          <td>key/value json: <br /> <code style="font-size: 12px;">{ <br />   "currentState": "IDLE" <br /> }</code></td>
+      </tr>
+      <tr>
+          <td>POST_TELEMETRY_REQUEST</td>
+          <td><b>Post telemetry</b></td>
+          <td>Request from device to publish telemetry (see <a href="/docs/reference/mqtt-api/#telemetry-upload-api">telemetry upload api</a> for reference)</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type,<br /><b>ts</b> - timestamp (milliseconds)</td>
+          <td>key/value json: <br /> <code style="font-size: 12px;">{ <br />   "temperature": 22.7 <br /> }</code></td>
+      </tr>
+      <tr>
+          <td>TO_SERVER_RPC_REQUEST</td>
+          <td><b>RPC Request from Device</b></td>
+          <td>RPC request from device (see <a href="/docs/reference/mqtt-api/#client-side-rpc">client side rpc</a> for reference)</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type,<br /><b>requestId</b> - RPC request Id provided by client</td>
+          <td>json containing <b>method</b> and <b>params</b>: <br /> <code style="font-size: 12px;">{ <br />   "method": "getTime", <br />  "params": { "param1": "val1" } <br /> }</code></td>
+      </tr>
+      <tr>
+          <td>RPC_CALL_FROM_SERVER_TO_DEVICE</td>
+          <td><b>RPC Request to Device</b></td>
+          <td>RPC request from server to device (see <a href="/docs/user-guide/rpc/#server-side-rpc-api">server side rpc api</a> for reference)</td>
+          <td><b>requestUUID</b> - internal request id used by sustem to identify reply target,<br /><b>expirationTime</b> - time when request will be expired,<br /><b>oneway</b> - specifies request type: <i>true</i> - without response, <i>false</i> - with response</td>
+          <td>json containing <b>method</b> and <b>params</b>: <br /> <code style="font-size: 12px;">{ <br />   "method": "getGpioStatus", <br />  "params": { "param1": "val1" } <br /> }</code></td>
+      </tr>
+      <tr>
+          <td>ACTIVITY_EVENT</td>
+          <td><b>Activity Event</b></td>
+          <td>Event indicating that device becomes active</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type</td>
+          <td>json containing device activity information: <br /> <code style="font-size: 12px;">{<br />   "active": true,<br />   "lastConnectTime": 1526979083267,<br />   "lastActivityTime": 1526979083270,<br />   "lastDisconnectTime": 1526978493963,<br />   "lastInactivityAlarmTime": 1526978512339,<br />   "inactivityTimeout": 10000<br />}</code></td>
+      </tr>code
+      <tr>
+          <td>INACTIVITY_EVENT</td>
+          <td><b>Inactivity Event</b></td>
+          <td>Event indicating that device becomes inactive</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type</td>
+          <td>json containing device activity information, see <b>Activity Event</b> payload</td>
+      </tr>
+      <tr>
+          <td>CONNECT_EVENT</td>
+          <td><b>Connect Event</b></td>
+          <td>Event produced when device is connected</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type</td>
+          <td>json containing device activity information, see <b>Activity Event</b> payload</td>
+      </tr>
+      <tr>
+          <td>DISCONNECT_EVENT</td>
+          <td><b>Disconnect Event</b></td>
+          <td>Event produced when device is disconnected</td>
+          <td><b>deviceName</b> - originator device name,<br /><b>deviceType</b> - originator device type</td>
+          <td>json containing device activity information, see <b>Activity Event</b> payload</td>
+      </tr>
+      <tr>
+          <td>ENTITY_CREATED</td>
+          <td><b>Entity Created</b></td>
+          <td>Event produced when new entity was created in system</td>
+          <td><b>userName</b> - name of the user who created the entity,<br /><b>userId</b> - the user Id</td>
+          <td>json containing created entity details: <br /> <code style="font-size: 12px;">{<br />   "id": {<br />     "entityType": "DEVICE",<br />     "id": "efc4b9e0-5d0f-11e8-8559-37a7f8cdca74"<br />   },<br />   "createdTime": 1526918366334,<br />   ...<br />   "name": "my-device",<br />   "type": "temp-sensor"<br />}</code></td>
+      </tr>
+      <tr>
+          <td>ENTITY_UPDATED</td>
+          <td><b>Entity Updated</b></td>
+          <td>Event produced when existing entity was updated</td>
+          <td><b>userName</b> - name of the user who updated the entity,<br /><b>userId</b> - the user Id</td>
+          <td>json containing updated entity details, see <b>Entity Created</b> payload</td>
+      </tr>
+      <tr>
+          <td>ENTITY_DELETED</td>
+          <td><b>Entity Deleted</b></td>
+          <td>Event produced when existing entity was deleted</td>
+          <td><b>userName</b> - name of the user who deleted the entity,<br /><b>userId</b> - the user Id</td>
+          <td>json containing deleted entity details, see <b>Entity Created</b> payload</td>
+      </tr>
+      <tr>
+          <td>ENTITY_ASSIGNED</td>
+          <td><b>Entity Assigned</b></td>
+          <td>Event produced when existing entity was assigned to customer</td>
+          <td><b>userName</b> - name of the user who performed assignment operation,<br /><b>userId</b> - the user Id,<br /><b>assignedCustomerName</b> - assigned customer name,<br /><b>assignedCustomerId</b> - Id of assigned customer</td>
+          <td>json containing assigned entity details, see <b>Entity Created</b> payload</td>
+      </tr>
+      <tr>
+          <td>ENTITY_UNASSIGNED</td>
+          <td><b>Entity Unassigned</b></td>
+          <td>Event produced when existing entity was unassigned from customer</td>
+          <td><b>userName</b> - name of the user who performed unassignment operation,<br /><b>userId</b> - the user Id,<br /><b>unassignedCustomerName</b> - unassigned customer name,<br /><b>unassignedCustomerId</b> - Id of unassigned customer</td>
+          <td>json containing unassigned entity details, see <b>Entity Created</b> payload</td>
+      </tr>
+      <tr>
+          <td>ADDED_TO_ENTITY_GROUP</td>
+          <td><b>Added to Group</b></td>
+          <td>Event produced when entity was added to <a href="/docs/user-guide/groups/">Entity Group</a>. This Message Type is specific to <a href="/products/thingsboard-pe/">ThingsBoard PE</a>.</td>
+          <td><b>userName</b> - name of the user who performed assignment operation,<br /><b>userId</b> - the user Id,<br /><b>addedToEntityGroupName</b> - entity group name,<br /><b>addedToEntityGroupId</b> - Id of entity group</td>
+          <td>empty json payload</td>
+      </tr>
+      <tr>
+          <td>REMOVED_FROM_ENTITY_GROUP</td>
+          <td><b>Removed from Group</b></td>
+          <td>Event produced when entity was removed from <a href="/docs/user-guide/groups/">Entity Group</a>. This Message Type is specific to <a href="/products/thingsboard-pe/">ThingsBoard PE</a>.</td>
+          <td><b>userName</b> - name of the user who performed unassignment operation,<br /><b>userId</b> - the user Id,<br /><b>removedFromEntityGroupName</b> - entity group name,<br /><b>removedFromEntityGroupId</b> - Id of entity group</td>
+          <td>empty json payload</td>
+      </tr>
+      <tr>
+          <td>ATTRIBUTES_UPDATED</td>
+          <td><b>Attributes Updated</b></td>
+          <td>Event produced when entity attributes update was performed</td>
+          <td><b>userName</b> - name of the user who performed attributes update,<br /><b>userId</b> - the user Id,<br /><b>scope</b> - updated attributes scope (can be either <b>SERVER_SCOPE</b> or <b>SHARED_SCOPE</b>)</td>
+          <td>key/value json with updated attributes: <br /> <code style="font-size: 12px;">{ <br />   "softwareVersion": "1.2.3" <br /> }</code></td>
+      </tr>
+      <tr>
+          <td>ATTRIBUTES_DELETED</td>
+          <td><b>Attributes Deleted</b></td>
+          <td>Event produced when some of entity attributes were deleted</td>
+          <td><b>userName</b> - name of the user who deleted attributes,<br /><b>userId</b> - the user Id,<br /><b>scope</b> - deleted attributes scope (can be either <b>SERVER_SCOPE</b> or <b>SHARED_SCOPE</b>)</td>
+          <td>json with <b>attributes</b> field containing list of deleted attributes keys: <br /> <code style="font-size: 12px;">{ <br />   "attributes": ["modelNumber", "serial"] <br /> }</code></td>
+      </tr>
+      <tr>
+        <td>ALARM</td>
+        <td><b>Alarm event</b></td>
+        <td>Event produced when an alarm was created, updated or deleted</td>
+        <td> 
+            All fields from original Message Metadata
+            <br /><b>isNewAlarm</b> - true if a new alram was just created
+            <br /><b>isExistingAlarm</b> - true if an alarm is existing already
+            <br /><b>isClearedAlarm</b> - true if an alarm was cleared
+        </td>
+        <td>json containing created alarm details: <br /><code style="font-size: 12px;">
+        {
+          <br />   "tenantId": {
+            <br />      ...
+          <br />   },
+          <br />   "type": "High Temperature Alarm",
+          <br />   "originator": {
+            <br />      ...
+          <br />   },
+          <br />   "severity": "CRITICAL",
+          <br />   "status": "CLEARED_UNACK",
+          <br />   "startTs": 1526985698000,
+          <br />   "endTs": 1526985698000,
+          <br />   "ackTs": 0,
+          <br />   "clearTs": 1526985712000,
+          <br />   "details": {
+            <br />     "temperature": 70,
+            <br />     "ts": 1526985696000
+          <br />   },
+          <br />   "propagate": true,
+          <br />   "id": "33cd8999-5dac-11e8-bbab-ad47060c9431",
+          <br />   "createdTime": 1526985698000,
+          <br />   "name": "High Temperature Alarm"
+        <br />}
+        </code>
+        </td>
+      </tr>
+      <tr>
+          <td>REST_API_REQUEST</td>
+          <td><b>REST API Request to Rule Engine</b></td>
+          <td>Event produced when user executes REST API call</td>
+          <td><b>requestUUID</b> - the unique request id,<br /><b>expirationTime</b> - the expiration time of the request</td>
+          <td>json with request payload</td>
+      </tr>
+   </tbody>
+</table>
+
+<h2 id="rule-node-types">Rule Node Types</h2>
+
+<p>All available rule nodes are grouped in correspondence with their nature:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/filter-nodes/"><strong>Filter Nodes</strong></a> are used for message filtering and routing;</li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/"><strong>Enrichment Nodes</strong></a> are used to update meta-data of the incoming Message;</li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/transformation-nodes/"><strong>Transformation Nodes</strong></a> are used for changing incoming Message fields like Originator, Type, Payload, Metadata;</li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/action-nodes/"><strong>Action Nodes</strong></a> execute various actions based on incoming Message;</li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/external-nodes/"><strong>External Nodes</strong></a> are used to interact with external systems.</li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Each Rule Node may have specific configuration parameters that depend on the Rule Node Implementation. 
+For example, “Filter - script” rule node is configurable via custom JS function that process incoming data. 
+“External - send email” node configuration allows to specify mail server connection parameters.</p>
+
+<p>Rule Node configuration window may be opened by double-clicking on the node in the Rule Chain editor:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-node-configuration.png" alt="image" /></p>
+
+<h3 id="test-javascript-functions">Test JavaScript functions</h3>
+
+<p>Some rule nodes have specific UI feature that allow users to test JS functions. 
+Once you click on the <strong>Test Filter Function</strong> you will see the JS Editor that allows you to substitute input parameters and verify the output of the function.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-node-test-function.png" alt="image" /></p>
+
+<p>You can define:</p>
+
+<ul>
+  <li><strong>Message Type</strong> in the top left field.</li>
+  <li><strong>Message payload</strong> in the left Message section.</li>
+  <li><strong>Metadata</strong> in right Metadata section.</li>
+  <li>Actual <strong>JS script</strong> in Filter section.</li>
+</ul>
+
+<p>After pressing <strong>Test</strong> output will be returned in right <strong>Output</strong> section.</p>
+
+<h2 id="rule-engine-statistics">Rule Engine Statistics</h2>
+
+<p>ThingsBoard Team have prepared the “default” dashboard for Rule Engine statistics. 
+This dashboard is automatically loaded for each tenant. 
+You may access it by navigating to “Api Usage”-&gt;”View statistics” (see screen below).</p>
+
+<div id="0">
+  <div itemscope="" itemtype="http://schema.org/ImageGallery" class="images-gallery" style="justify-content: start;">
+    <figure itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject" style="max-width: min(225px, 100%);
+                    max-height: min(225px, 100%);">
+<a href="/images/user-guide/rule-engine-2-0/view-statistics-ce.png" onclick="return false;" itemprop="contentUrl"> <img src="/images/user-guide/rule-engine-2-0/view-statistics-ce-preview.png" itemprop="thumbnail" alt="image" style="max-width: min(225px, 100%);
+                                max-height: min(225px, 100%);" /> </a>       <figcaption itemprop="caption description" style="display: none"></figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        window.removeEventListener("load", arguments.callee, false);
+
+        if(!document.getElementsByClassName('pswp').length){
+            document.body.insertAdjacentHTML('beforeend',
+                '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                '        <div class="pswp__bg"></div>\n' +
+                '        <div class="pswp__scroll-wrap">\n' +
+                '            <div class="pswp__container">\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="pswp__ui pswp__ui--hidden">\n' +
+                '\n' +
+                '                <div class="pswp__top-bar">\n' +
+                '                    <div class="pswp__counter"></div>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--share" title="Share"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>\n' +
+                '\n' +
+                '                    <div class="pswp__preloader">\n' +
+                '                        <div class="pswp__preloader__icn">\n' +
+                '                            <div class="pswp__preloader__cut">\n' +
+                '                                <div class="pswp__preloader__donut"></div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">\n' +
+                '                    <div class="pswp__share-tooltip"></div>\n' +
+                '                </div>\n' +
+                '                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">\n' +
+                '                </button>\n' +
+                '                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">\n' +
+                '                </button>\n' +
+                '                <div class="pswp__caption">\n' +
+                '                    <div class="pswp__caption__center"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>'
+            );
+        }
+
+        var container = document.getElementById('0');
+
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for(var i = 0; i < numNodes; i++) {
+
+                    figureEl = thumbElements[i];
+                    if(figureEl.nodeType !== 1) {
+                        continue;
+                    }
+                    linkEl = figureEl.children[0];
+                    size = linkEl.children[0];
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: 2500,
+                        h: 0,
+                        sizeLoaded: false
+                    };
+
+                    if(figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+                    if(linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+                    if(item.msrc === item.src){
+                        item.w = parseInt(size.naturalWidth, 10);
+                        item.h = parseInt(size.naturalHeight, 10);
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if(!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if(childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if(childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if(index >= 0) {
+                    openPhotoSwipe( index, clickedGallery );
+                }
+                return false;
+            };
+
+            var photoswipeParseHash = function() {
+                var hash = window.location.hash.substring(1),
+                    params = {};
+
+                if(hash.length < 5) {
+                    return params;
+                }
+
+                var vars = hash.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    if(!vars[i]) {
+                        continue;
+                    }
+                    var pair = vars[i].split('=');
+                    if(pair.length < 2) {
+                        continue;
+                    }
+                    params[pair[0]] = pair[1];
+                }
+
+                if(params.gid) {
+                    params.gid = parseInt(params.gid, 10);
+                }
+
+                return params;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+                        return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                    },
+                    bgOpacity: 0.8,
+                    closeOnScroll: false,
+                    shareEl: false,
+                    fullscreenEl: false,
+                    zoomEl: true,
+                    history: false,
+                    loop: false
+                };
+
+                if(fromURL) {
+                    if(options.galleryPIDs) {
+                        for(var j = 0; j < items.length; j++) {
+                            if(items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if( isNaN(options.index) ) {
+                    return;
+                }
+
+                if(disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+
+                gallery.listen('gettingData', function(index, item) {
+                    if (!item.sizeLoaded) {
+                        item.sizeLoaded = true;
+                        var img = new Image();
+                        img.onload = function() {
+                            item.w = this.width;
+                            item.h = this.height;
+                            gallery.updateSize(true);
+                        }
+                        img.src = item.src;
+                    }
+                });
+
+                gallery.init();
+
+                var buttonLeft = pswpElement.getElementsByClassName('pswp__button--arrow--left')[0];
+                var buttonRight = pswpElement.getElementsByClassName('pswp__button--arrow--right')[0];
+
+                buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+
+                gallery.listen('beforeChange', function() {
+                        buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                        buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+                    }
+                );
+            };
+
+            var galleryElements = container.querySelectorAll( gallerySelector );
+
+            for(var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i+1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+
+            var hashData = photoswipeParseHash();
+            if(hashData.pid && hashData.gid) {
+                openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+            }
+        };
+
+        initPhotoSwipeFromDOM('.images-gallery');
+    }, false)
+</script>
+
+<p>The statistics collection is enabled by default and is controlled via configuration properties.</p>
+
+<p>You may notice insights about errors in processing and what causes them on the dashbaord below:</p>
+
+<div id="0">
+  <div itemscope="" itemtype="http://schema.org/ImageGallery" class="images-gallery" style="justify-content: start;">
+    <figure itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject" style="max-width: min(225px, 100%);
+                    max-height: min(225px, 100%);">
+<a href="/images/user-guide/rule-engine-2-0/rule-engine-stats-dashboard.png" onclick="return false;" itemprop="contentUrl"> <img src="/images/user-guide/rule-engine-2-0/rule-engine-stats-dashboard-preview.png" itemprop="thumbnail" alt="image" style="max-width: min(225px, 100%);
+                                max-height: min(225px, 100%);" /> </a>       <figcaption itemprop="caption description" style="display: none"></figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+    window.addEventListener("load", function() {
+        window.removeEventListener("load", arguments.callee, false);
+
+        if(!document.getElementsByClassName('pswp').length){
+            document.body.insertAdjacentHTML('beforeend',
+                '<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                '        <div class="pswp__bg"></div>\n' +
+                '        <div class="pswp__scroll-wrap">\n' +
+                '            <div class="pswp__container">\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '                <div class="pswp__item"></div>\n' +
+                '            </div>\n' +
+                '\n' +
+                '            <div class="pswp__ui pswp__ui--hidden">\n' +
+                '\n' +
+                '                <div class="pswp__top-bar">\n' +
+                '                    <div class="pswp__counter"></div>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--share" title="Share"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>\n' +
+                '\n' +
+                '                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>\n' +
+                '\n' +
+                '                    <div class="pswp__preloader">\n' +
+                '                        <div class="pswp__preloader__icn">\n' +
+                '                            <div class="pswp__preloader__cut">\n' +
+                '                                <div class="pswp__preloader__donut"></div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">\n' +
+                '                    <div class="pswp__share-tooltip"></div>\n' +
+                '                </div>\n' +
+                '                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">\n' +
+                '                </button>\n' +
+                '                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">\n' +
+                '                </button>\n' +
+                '                <div class="pswp__caption">\n' +
+                '                    <div class="pswp__caption__center"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>'
+            );
+        }
+
+        var container = document.getElementById('0');
+
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for(var i = 0; i < numNodes; i++) {
+
+                    figureEl = thumbElements[i];
+                    if(figureEl.nodeType !== 1) {
+                        continue;
+                    }
+                    linkEl = figureEl.children[0];
+                    size = linkEl.children[0];
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: 2500,
+                        h: 0,
+                        sizeLoaded: false
+                    };
+
+                    if(figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+                    if(linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+                    if(item.msrc === item.src){
+                        item.w = parseInt(size.naturalWidth, 10);
+                        item.h = parseInt(size.naturalHeight, 10);
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if(!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if(childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if(childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if(index >= 0) {
+                    openPhotoSwipe( index, clickedGallery );
+                }
+                return false;
+            };
+
+            var photoswipeParseHash = function() {
+                var hash = window.location.hash.substring(1),
+                    params = {};
+
+                if(hash.length < 5) {
+                    return params;
+                }
+
+                var vars = hash.split('&');
+                for (var i = 0; i < vars.length; i++) {
+                    if(!vars[i]) {
+                        continue;
+                    }
+                    var pair = vars[i].split('=');
+                    if(pair.length < 2) {
+                        continue;
+                    }
+                    params[pair[0]] = pair[1];
+                }
+
+                if(params.gid) {
+                    params.gid = parseInt(params.gid, 10);
+                }
+
+                return params;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+                        return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+                    },
+                    bgOpacity: 0.8,
+                    closeOnScroll: false,
+                    shareEl: false,
+                    fullscreenEl: false,
+                    zoomEl: true,
+                    history: false,
+                    loop: false
+                };
+
+                if(fromURL) {
+                    if(options.galleryPIDs) {
+                        for(var j = 0; j < items.length; j++) {
+                            if(items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if( isNaN(options.index) ) {
+                    return;
+                }
+
+                if(disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+
+                gallery.listen('gettingData', function(index, item) {
+                    if (!item.sizeLoaded) {
+                        item.sizeLoaded = true;
+                        var img = new Image();
+                        img.onload = function() {
+                            item.w = this.width;
+                            item.h = this.height;
+                            gallery.updateSize(true);
+                        }
+                        img.src = item.src;
+                    }
+                });
+
+                gallery.init();
+
+                var buttonLeft = pswpElement.getElementsByClassName('pswp__button--arrow--left')[0];
+                var buttonRight = pswpElement.getElementsByClassName('pswp__button--arrow--right')[0];
+
+                buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+
+                gallery.listen('beforeChange', function() {
+                        buttonLeft.hidden = gallery.getCurrentIndex() === 0;
+                        buttonRight.hidden = gallery.getCurrentIndex() + 1 === gallery.items.length;
+                    }
+                );
+            };
+
+            var galleryElements = container.querySelectorAll( gallerySelector );
+
+            for(var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i+1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+
+            var hashData = photoswipeParseHash();
+            if(hashData.pid && hashData.gid) {
+                openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+            }
+        };
+
+        initPhotoSwipeFromDOM('.images-gallery');
+    }, false)
+</script>
+
+<h2 id="debugging">Debugging</h2>
+
+<p>ThingsBoard provides ability to review incoming and outgoing messages for each Rule Node.
+To enable debug, user need to ensure that “Debug mode” checkbox is selected in the main configuration window 
+(see first image in the <a href="/docs/user-guide/rule-engine-2-0/overview/#configuration">Configuration</a> section).</p>
+
+<p>Once debug is enabled, user is able to see incoming and outgoing messages info as long as corresponding relation types.
+See image below for a sample debug messages view:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-node-debug.png" alt="image" /></p>
+
+<h2 id="importexport">Import/Export</h2>
+
+<p>You are able to export your rule chain to JSON format and import it to the same or another ThingsBoard instance.</p>
+
+<p>In order to export rule chain, you should navigate to the <strong>Rule Chains</strong> page and click on the export button located on the particular rule chain card.</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rule-chain-export.png" alt="image" /></p>
+
+<p>Similar, to import the rule chain you should navigate to the <strong>Rules Chains</strong> page and click on the big “+” button in the bottom-right part of the screen and then click on the import button.</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p>To learn more about internals of the rule engine, see <a href="/docs/user-guide/rule-engine-2-0/architecture/">architecture</a> page.</p>
+
+<h2 id="custom-rest-api-calls-to-rule-engine">Custom REST API calls to Rule Engine</h2>
+
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>Custom Rule Engine REST API calls</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<p>ThingsBoard provides API to send custom REST API calls to the rule engine, process the payload of the request and return result of the processing in response body. 
+This is useful for a number of use cases. For example:</p>
+
+<ul>
+  <li>extend existing REST API of the platform with custom API calls;</li>
+  <li>enrich REST API call with the attributes of device/asset/customer and forward to external system for complex processing;</li>
+  <li>provide custom API for your custom widgets.</li>
+</ul>
+
+<p>To execute the REST API call, you may use rule-engine-controller <a href="/docs/reference/rest-api/">REST APIs</a>:</p>
+
+<p><img src="/images/user-guide/rule-engine-2-0/rest-api.png" alt="image" /></p>
+
+<p>Note: the entity id you have specified in the call will be the originator of Rule Engine message. If you do not specify the entity id parameters, your user entity will become an originator of the message.</p>
+
+<h2 id="tutorials">Tutorials</h2>
+
+<p>ThingsBoard authors have prepared several tutorials to help you get started with designing rule chains by example:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/transform-incoming-telemetry/"><strong>Transform incoming messages from device</strong></a></li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/transform-telemetry-using-previous-record/"><strong>Transform incoming messages using previous messages from device</strong></a></li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/create-clear-alarms/"><strong>Create and clear alarms on incoming device messages</strong></a></li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/send-email/"><strong>Send emails to customer on device alarm</strong></a></li>
+  <li><a href="/docs/user-guide/rule-engine-2-0/tutorials/rpc-reply-tutorial/"><strong>Send messages between related devices</strong></a></li>
+</ul>
+
+<p>See more tutorials <a href="/docs/guides/">here</a>.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>If you are using Kafka queue for processing messages, ThingsBoard provides the ability to monitor if the rate of pushing messages to the Kafka is faster than rate of consuming and processing them (in such case you will have a growing latency for message processing).
+To enable this functionality, you need to ensure that Kafka consumer-stats are enabled (see <strong>queue.kafka.consumer-stats</strong> section of the <a href="/docs/user-guide/install/config/#thingsboard-core-settings">Configuration properties</a>)</p>
+
+<p>Once Kafka consumer-stats are enabled, you will see logs (see <a href="/docs/user-guide/troubleshooting/#logs">Troubleshooting</a>) about offset lag for consumer groups (there are consumer-group logs for tb-core, tb-rule-engine and all transport services).</p>
+
+<p>Here’s an example of the log message:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>2021-03-19 15:01:59,794 <span class="o">[</span>kafka-consumer-stats-11-thread-1] INFO  o.t.s.q.k.TbKafkaConsumerStatsService - <span class="o">[</span>re-Main-consumer] Topic partitions with lag: <span class="o">[[</span><span class="nv">topic</span><span class="o">=[</span>tb_rule_engine.main.0], <span class="nv">partition</span><span class="o">=[</span>0], <span class="nv">committedOffset</span><span class="o">=[</span>5413], <span class="nv">endOffset</span><span class="o">=[</span>5418], <span class="nv">lag</span><span class="o">=[</span>5]]].
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>From this message we can see that there are 5 (5418 - 5413 = 5) messages pushed to the <strong>Main</strong> queue (<strong>tb_rule_engine.main.0</strong> Kafka topic) but not yet processed.</p>
+
+<p>In general the logs have the following structure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>TIME <span class="o">[</span>STATS_PRINTING_THREAD_NAME] INFO  o.t.s.q.k.TbKafkaConsumerStatsService - <span class="o">[</span>CONSUMER_GROUP_NAME] Topic partitions with lag: <span class="o">[[</span><span class="nv">topic</span><span class="o">=[</span>KAFKA_TOPIC], <span class="nv">partition</span><span class="o">=[</span>KAFKA_TOPIC_PARTITION], <span class="nv">committedOffset</span><span class="o">=[</span>LAST_PROCESSED_MESSAGE_OFFSET], <span class="nv">endOffset</span><span class="o">=[</span>LAST_QUEUED_MESSAGE_OFFSET], <span class="nv">lag</span><span class="o">=[</span>LAG]],[topic<span class="o">=[</span>ANOTHER_TOPIC], <span class="nv">partition</span><span class="o">=[]</span>, <span class="nv">committedOffset</span><span class="o">=[]</span>, <span class="nv">endOffset</span><span class="o">=[]</span>, <span class="nv">lag</span><span class="o">=[]]</span>,...].
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Where:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CONSUMER_GROUP_NAME</code> - name of the consumer group which is processing messages (could be any of the rule-engine queues, core queue etc)</li>
+  <li><code class="language-plaintext highlighter-rouge">KAFKA_TOPIC</code> - name of the exact Kafka topic</li>
+  <li><code class="language-plaintext highlighter-rouge">KAFKA_TOPIC_PARTITION</code> - number of the topic’s partition</li>
+  <li><code class="language-plaintext highlighter-rouge">LAST_PROCESSED_MESSAGE_OFFSET</code> - the sequence number of the last message which was processed by the consumer (last acknowledged message in the Rule Engine etc)</li>
+  <li><code class="language-plaintext highlighter-rouge">LAST_QUEUED_MESSAGE_OFFSET</code> - the sequence number of the last message that was successfully pushed to the Kafka topic</li>
+  <li><code class="language-plaintext highlighter-rouge">LAG</code> - the amount of unprocessed messages</li>
+</ul>
+
+<p><strong>NOTE:</strong> Logs about consumer lag are printed only if there is a lag for this consumer group.</p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

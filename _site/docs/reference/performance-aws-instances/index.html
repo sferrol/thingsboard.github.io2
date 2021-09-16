@@ -1,0 +1,2461 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="Architecture">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ThingsBoard Performance on different AWS instances | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="ThingsBoard Performance on different AWS instances" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ThingsBoard Performance on different AWS instances results" />
+<meta property="og:description" content="ThingsBoard Performance on different AWS instances results" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/reference/performance-aws-instances/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/reference/performance-aws-instances/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="ThingsBoard Performance on different AWS instances" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/reference/performance-aws-instances/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"ThingsBoard Performance on different AWS instances results","@type":"WebPage","headline":"ThingsBoard Performance on different AWS instances","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="ThingsBoard Performance on different AWS instances results"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/reference/performance-aws-instances/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/reference/performance-aws-instances/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" class="YAH">Architecture</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+        
+        
+        
+
+                         
+                            
+                  
+                    <span class="item">Architecture</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">ThingsBoard Performance</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Single instance performance on different AWS instances</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Architecture Overview" href="/docs/reference/"></a>
+
+
+<a class="item" data-title="Monolithic architecture" href="/docs/reference/monolithic/"></a>
+
+
+<a class="item" data-title="Microservices architecture" href="/docs/reference/msa/"></a>
+
+
+<a class="item" data-title="Deployment scenarios" href="/docs/reference/iot-platform-deployment-scenarios/"></a>
+
+
+<div class="item" data-title="ThingsBoard Performance">
+  <div class="container">
+
+
+<a class="item" data-title="Data Collection Performance" href="/docs/reference/performance/"></a>
+
+
+<a class="item" data-title="Single instance performance on different AWS instances" href="/docs/reference/performance-aws-instances/"></a>
+  </div>
+</div>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Architecture Overview" href="/docs/reference/"></a>
+
+
+<a class="item" data-title="Monolithic architecture" href="/docs/reference/monolithic/"></a>
+
+
+<a class="item" data-title="Microservices architecture" href="/docs/reference/msa/"></a>
+
+
+<a class="item" data-title="Deployment scenarios" href="/docs/reference/iot-platform-deployment-scenarios/"></a>
+
+
+<div class="item" data-title="ThingsBoard Performance">
+  <div class="container">
+
+
+<a class="item" data-title="Data Collection Performance" href="/docs/reference/performance/"></a>
+
+
+<a class="item" data-title="Single instance performance on different AWS instances" href="/docs/reference/performance-aws-instances/"></a>
+  </div>
+</div>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>ThingsBoard Performance on different AWS instances</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#data-flow-and-test-tools" id="markdown-toc-data-flow-and-test-tools">Data flow and test tools</a></li>
+  <li><a href="#how-to-repeat-the-tests" id="markdown-toc-how-to-repeat-the-tests">How to repeat the tests</a></li>
+  <li><a href="#performance-by-aws-instance-type" id="markdown-toc-performance-by-aws-instance-type">Performance by AWS Instance Type</a></li>
+  <li><a href="#t2micro" id="markdown-toc-t2micro">t2.micro</a>    <ul>
+      <li><a href="#test-run-1" id="markdown-toc-test-run-1">Test Run #1</a></li>
+      <li><a href="#test-run-2" id="markdown-toc-test-run-2">Test Run #2</a></li>
+    </ul>
+  </li>
+  <li><a href="#t2medium" id="markdown-toc-t2medium">t2.medium</a>    <ul>
+      <li><a href="#test-run-1-1" id="markdown-toc-test-run-1-1">Test Run #1</a></li>
+      <li><a href="#test-run-2-1" id="markdown-toc-test-run-2-1">Test Run #2</a></li>
+      <li><a href="#test-run-3" id="markdown-toc-test-run-3">Test Run #3</a></li>
+    </ul>
+  </li>
+  <li><a href="#c5large" id="markdown-toc-c5large">c5.large</a>    <ul>
+      <li><a href="#test-run-1-2" id="markdown-toc-test-run-1-2">Test Run #1</a></li>
+      <li><a href="#test-run-2-2" id="markdown-toc-test-run-2-2">Test Run #2</a></li>
+    </ul>
+  </li>
+  <li><a href="#m5xlarge" id="markdown-toc-m5xlarge">m5.xlarge</a>    <ul>
+      <li><a href="#test-run-1-3" id="markdown-toc-test-run-1-3">Test Run #1</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>One of the key features of ThingsBoard open-source IoT Platform is data collection and this is a crucial feature that must work reliably under a heavy long-running messages upload.</p>
+
+<p>In this article, we are going to execute long-running data collection tests of ThingsBoard on different AWS instances.
+We are going to check how many messages per second each instance can handle and will provide the CPU and memory load stats.</p>
+
+<p>Considering test results and your project requirements you will be able to identify what type of the instance is the most suitable for your project.</p>
+
+<h2 id="data-flow-and-test-tools">Data flow and test tools</h2>
+
+<p>IoT devices connect to ThingsBoard server via MQTT or HTTP Device API and send sample test data (<em>single telemetry of long type</em>) to the platform. 
+ThingsBoard server processes MQTT or HTTP messages and stores them to Cassandra/PostgreSQL asynchronously.</p>
+
+<p>As a test tool we have used updated version of <a href="https://github.com/thingsboard/performance-tests">Performance Test Project</a> that is able to send messages over MQTT/HTTP Device API in an asynchronous way quite efficiently.</p>
+
+<p>Considering microservice architecture of the ThingsBoard platform and to measure performance in an accurate way, we have created an additional Rule Chain Node that is able to calculate a number of messages that this Node has been received per 1 second (this is a configurable parameter that could be changed) and stores this value as telemetry on a tenant level.</p>
+
+<p>This additional Rule Chain Node is located after the ‘Save telemetry’ Node of the Root Chain and calculates how many messages ThingsBoard instance processed during the performance testing. This data is stored on a tenant level as telemetry with predefined key prefix.</p>
+
+<p><img src="/images/reference/performance-aws-instances/modified-rule-chain.png" alt="image" /></p>
+
+<p>Performance Test Tool, after test completion, take this telemetry value from the platform and provides result in the console of the test:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>12:20:03.772 <span class="o">[</span>main] INFO  o.t.t.s.stats.StatisticsCollector - <span class="o">============</span> Node <span class="o">[</span>692dc903cf52] AVG is 500.0 per 1 second <span class="o">============</span>
+12:20:03.772 <span class="o">[</span>main] INFO  o.t.t.s.stats.StatisticsCollector - <span class="o">============</span> Total AVG is 500.0 per 1 second <span class="o">============</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This telemetry value could be shown as well as general telemetry on the ThingsBoard Dashboard.</p>
+
+<p><strong>NOTE:</strong> If you have multiple ThingsBoard nodes in the cluster, additional Rule Chain Node will save statistics under different telemetry keys on tenant level, but Performance Test Tool in the result will aggregate these values into a single result.</p>
+
+<h2 id="how-to-repeat-the-tests">How to repeat the tests</h2>
+
+<p>Please use documentation of the <a href="https://github.com/thingsboard/performance-tests/">Performance Test Project</a> for more details.</p>
+
+<h2 id="performance-by-aws-instance-type">Performance by AWS Instance Type</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages</th>
+      <th>Maximum number of messages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#t2micro">t2.micro</a></td>
+      <td>1 vCPUs for a 2h 24m burst, 1GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>500</td>
+      <td>1000 ms</td>
+      <td><strong>~450/sec</strong></td>
+    </tr>
+    <tr>
+      <td><a href="#t2medium">t2.medium</a></td>
+      <td>2 vCPUs for a 4h 48m burst, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>900</td>
+      <td>1000 ms</td>
+      <td><strong>~780/sec</strong></td>
+    </tr>
+    <tr>
+      <td><a href="#c5large">c5.large</a></td>
+      <td>2 vCPUs , 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>1100</td>
+      <td>1000 ms</td>
+      <td><strong>~1020/sec</strong></td>
+    </tr>
+    <tr>
+      <td>t2.xlarge</td>
+      <td>4 vCPUs for a 5h 24m burst, 16GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>1800</td>
+      <td>1000 ms</td>
+      <td><strong>~1700/sec</strong></td>
+    </tr>
+    <tr>
+      <td>t2.xlarge</td>
+      <td>4 vCPUs for a 5h 24m burst, 16GB</td>
+      <td>Cassandra</td>
+      <td>MQTT</td>
+      <td>3000</td>
+      <td>1000 ms</td>
+      <td><strong>~3000/sec</strong></td>
+    </tr>
+    <tr>
+      <td><a href="#m5xlarge">m5.xlarge</a></td>
+      <td>4 vCPUs, 16GB, 150GB SSD mounted</td>
+      <td>Cassandra</td>
+      <td>MQTT</td>
+      <td>3500</td>
+      <td>1000 ms</td>
+      <td><strong>~3500/sec</strong></td>
+    </tr>
+    <tr>
+      <td><a href="#m5xlarge">m5.xlarge</a></td>
+      <td>4 vCPUs, 16GB, 150GB SSD mounted</td>
+      <td>Cassandra</td>
+      <td>HTTP</td>
+      <td>2000</td>
+      <td>1000 ms</td>
+      <td><strong>~950/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="t2micro">t2.micro</h2>
+
+<p><strong>Performance Results</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages</th>
+      <th>Maximum number of messages</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.micro</td>
+      <td>1 vCPUs for a 2h 24m burst, 1GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>500</td>
+      <td>1000 ms</td>
+      <td><strong>~450/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>500
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>300
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="test-run-1">Test Run #1</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.micro</td>
+      <td>1 vCPUs for a 2h 24m burst, 1GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>50</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>50
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>18</td>
+      <td>8.9</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>96</td>
+      <td>81</td>
+      <td>97.36</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>940</td>
+      <td>797</td>
+      <td>958</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-50msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-50msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-50msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-50msgs-tb.png" alt="image" /></p>
+
+<h3 id="test-run-2">Test Run #2</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.micro</td>
+      <td>1 vCPUs for a 2h 24m burst, 1GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>100</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>100
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>32</td>
+      <td>8.1</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>97</td>
+      <td>81.3</td>
+      <td>98.37</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>952</td>
+      <td>800</td>
+      <td>968</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-100msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-100msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-100msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-micro/postgresql-100msgs-tb.png" alt="image" /></p>
+
+<h2 id="t2medium">t2.medium</h2>
+
+<p><strong>Performance Results</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Maximum number of messages per second</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.medium</td>
+      <td>2 vCPUs for a 4h 48m burst, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>900</td>
+      <td>1000 ms</td>
+      <td><strong>~780/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>900
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>300
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="test-run-1-1">Test Run #1</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.medium</td>
+      <td>2 vCPUs for a 4h 48m burst, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>150</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>150
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>19</td>
+      <td>1.5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>25</td>
+      <td>3.54</td>
+      <td>28.3</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>1014</td>
+      <td>551</td>
+      <td>1116</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-150msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-150msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-150msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-150msgs-tb.png" alt="image" /></p>
+
+<h3 id="test-run-2-1">Test Run #2</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.medium</td>
+      <td>2 vCPUs for a 4h 48m burst, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>200</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>200
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<p>Result shows that <strong>t2.medium</strong> AWS Instance Type is not able to handle more than 200 requests per second, because of the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html">AWS CPU Credit Balance</a>.</p>
+
+<p>Here is the Credit Balance chart line for the <strong>t2.medium</strong> during publishing 200 messages per second.</p>
+
+<p>The line goes down and after some period instance will be dramatically decreased by CPU (20% of total).</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-200msgs-failing-cpu-credit.png" alt="image" /></p>
+
+<h3 id="test-run-3">Test Run #3</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>t2.medium</td>
+      <td>2 vCPUs for a 4h 48m burst, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>300</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>300
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<p>The same results as previous run, but CPU Credit Balance chart line goes down more faster.</p>
+
+<p><img src="/images/reference/performance-aws-instances/t2-medium/postgresql-300msgs-failed-cpu-credit.png" alt="image" /></p>
+
+<h2 id="c5large">c5.large</h2>
+
+<p><strong>Performance Results</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Maximum number of messages per second</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>c5.large</td>
+      <td>2 vCPUs , 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>1100</td>
+      <td>1000 ms</td>
+      <td><strong>~1020/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>1100
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>300
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="test-run-1-2">Test Run #1</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>c5.large</td>
+      <td>2 vCPUs, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>500</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>500
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<p><strong>c5.large</strong> AWS instance does not have CPU burst that why CPU Credit Balance is not applicable to verify in this case.</p>
+
+<p>But to be able to support 500 requests per seconds correct volume must be provisioned - with enough <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-io-characteristics.html">IOPS</a> limits.</p>
+
+<p>For the PostgreSQL database, 500 requests per seconds are equal to ~500 IOPS.</p>
+
+<p>So AWS volume for this test must be provisioned with at least 600 IOPS.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>48</td>
+      <td>3</td>
+      <td>57.4</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>34</td>
+      <td>32.79</td>
+      <td>37.76</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>1254</td>
+      <td>1215</td>
+      <td>1399</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-tb.png" alt="image" /></p>
+
+<p>AWS write IOPS for the volume</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-iops.png" alt="image" /></p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-500msgs-iops-1.png" alt="image" /></p>
+
+<h3 id="test-run-2-2">Test Run #2</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>c5.large</td>
+      <td>2 vCPUs, 4GB</td>
+      <td>PostgreSQL</td>
+      <td>MQTT</td>
+      <td>700</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>700
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/Memory Load</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>70</td>
+      <td>66.8</td>
+      <td>76.1</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>33</td>
+      <td>33.39</td>
+      <td>33.85</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>1241</td>
+      <td>1237</td>
+      <td>1254</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-tb.png" alt="image" /></p>
+
+<p>AWS write IOPS for the volume</p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-iops.png" alt="image" /></p>
+
+<p><img src="/images/reference/performance-aws-instances/c5-large/postgresql-700msgs-iops-1.png" alt="image" /></p>
+
+<h2 id="m5xlarge">m5.xlarge</h2>
+
+<p><strong>Performance Results</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Maximum number of messages per second</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>m5.xlarge</td>
+      <td>4 vCPUs, 16GB, 150GB SSD mounted</td>
+      <td>Cassandra</td>
+      <td>MQTT</td>
+      <td>3500</td>
+      <td>1000 ms</td>
+      <td><strong>~3500/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>3500
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>300
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Maximum number of messages per second</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>m5.xlarge</td>
+      <td>4 vCPUs, 16GB, 150GB SSD mounted</td>
+      <td>Cassandra</td>
+      <td>HTTP</td>
+      <td>2000</td>
+      <td>1000 ms</td>
+      <td><strong>~950/sec</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Test run configuration:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>HTTP
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>2000
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>300
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="test-run-1-3">Test Run #1</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instance Type</th>
+      <th>Instance details</th>
+      <th>Database Type</th>
+      <th>Device API</th>
+      <th>Number of devices</th>
+      <th>Delay between messages in millis</th>
+      <th>Count of test run hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>m5.xlarge</td>
+      <td>4 vCPUs, 16GB</td>
+      <td>Cassandra</td>
+      <td>MQTT</td>
+      <td>2100</td>
+      <td>1000 ms</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Test Configuration</strong></p>
+
+<p>Test run configuration (see <a href="https://github.com/thingsboard/performance-tests/#running">Performance Test Project</a> for more details):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>...
+<span class="nv">DEVICE_API</span><span class="o">=</span>MQTT
+<span class="nv">DEVICE_START_IDX</span><span class="o">=</span>0
+<span class="nv">DEVICE_END_IDX</span><span class="o">=</span>2100
+
+<span class="nv">PUBLISH_COUNT</span><span class="o">=</span>36000
+<span class="nv">PUBLISH_PAUSE</span><span class="o">=</span>1000
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>CPU/memory load</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Avg</th>
+      <th>Min</th>
+      <th>Max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU Utilization (%)</td>
+      <td>36</td>
+      <td>8.3</td>
+      <td>61.2</td>
+    </tr>
+    <tr>
+      <td>Memory Utilization (%)</td>
+      <td>40</td>
+      <td>39.83</td>
+      <td>40.14</td>
+    </tr>
+    <tr>
+      <td>Used Physical Memory (MB)</td>
+      <td>6235</td>
+      <td>6205</td>
+      <td>6252</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>CPU Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/m5-xlarge/cassandra-2100msgs-cpu.png" alt="image" /></p>
+
+<p>Memory Utilization (%)</p>
+
+<p><img src="/images/reference/performance-aws-instances/m5-xlarge/cassandra-2100msgs-memory.png" alt="image" /></p>
+
+<p>Used Physical Memory (MB)</p>
+
+<p><img src="/images/reference/performance-aws-instances/m5-xlarge/cassandra-2100msgs-memory-1.png" alt="image" /></p>
+
+<p>TB dashboard</p>
+
+<p><img src="/images/reference/performance-aws-instances/m5-xlarge/cassandra-2100msgs-tb.png" alt="image" /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

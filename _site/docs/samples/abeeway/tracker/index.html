@@ -1,0 +1,2428 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload | ThingsBoard Professional Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Abeeway Micro Tracker and Abeeway Industrial Tracker upload" />
+<meta property="og:description" content="Abeeway Micro Tracker and Abeeway Industrial Tracker upload" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/samples/abeeway/tracker/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/samples/abeeway/tracker/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/samples/abeeway/tracker/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"Abeeway Micro Tracker and Abeeway Industrial Tracker upload","@type":"WebPage","headline":"Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="Abeeway Micro Tracker and Abeeway Industrial Tracker upload"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-p-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Professional Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/pe/" class="product active">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/" class="product">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/pe/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/" >Documentation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/pe/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                <span class="item">Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload</span>
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld-pe/" >Getting Started</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/" >Documentation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/pe/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/pe/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsContent" class="noToc hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>Abeeway Micro Tracker and Abeeway Industrial Tracker telemetry upload</h1>
+      <div id="content">
+          
+<div class="info-banner">
+<img src="/images/doc-info-icon.svg" />   <div>
+    <div class="info-title">
+ThingsBoard PE Feature
+    </div>
+    <p>Only <a href="/products/thingsboard-pe/"><strong>Professional Edition</strong></a> supports <strong>Platform Integrations</strong> feature.<br /> Use <a href="https://thingsboard.cloud/signup"><strong>ThingsBoard Cloud</strong></a> or <a href="/docs/user-guide/install/pe/installation-options/"><strong>install</strong></a> your own platform instance.</p>
+  </div>
+</div>
+
+<p>This guide provides step-by-step instructions for connecting the Abeeway Micro Tracker and Abeeway Industrial Tracker to ThingsBoard Professional Edition (PE).
+The connection is through the IoT network in the new global standard LoRaWAN and ThingPark Wireless OSS intelligent logger (Actility).
+In this guide, we will use the free ThingsBoard PE demo server <a href="https://thingsboard.cloud/signup">thingsboard.cloud</a> in this guide. 
+This guide will be useful to anyone who wants to connect their trackers manufactured by Abeeway or another industrial IoT application to the LoRaWAN network.</p>
+
+<p><img src="/images/samples/abeeway/actility_dashboard_example.png" alt="image" /></p>
+
+<ul id="markdown-toc">
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a></li>
+  <li><a href="#integration-overview" id="markdown-toc-integration-overview">Integration overview</a></li>
+  <li><a href="#step-1-checking-the-registration-for-the-platform-thingpark-wireless-company-actility" id="markdown-toc-step-1-checking-the-registration-for-the-platform-thingpark-wireless-company-actility">Step 1. Checking the registration for the platform ThingPark Wireless company Actility</a></li>
+  <li><a href="#step-2-creation-uplink-and-downlink-data-converters" id="markdown-toc-step-2-creation-uplink-and-downlink-data-converters">Step 2. Creation UpLink and DownLink DATA Converters</a></li>
+  <li><a href="#step-3-uplink-data-converter-configuration" id="markdown-toc-step-3-uplink-data-converter-configuration">Step 3. Uplink Data Converter configuration</a></li>
+  <li><a href="#step-4-downlink-data-converter-configuration" id="markdown-toc-step-4-downlink-data-converter-configuration">Step 4. Downlink Data Converter configuration</a></li>
+  <li><a href="#step-5-integration-configuration" id="markdown-toc-step-5-integration-configuration">Step 5. Integration configuration</a></li>
+  <li><a href="#step-6-verifying-devices-connectivity-after-the-creation-and-configuration-of-the-integration" id="markdown-toc-step-6-verifying-devices-connectivity-after-the-creation-and-configuration-of-the-integration">Step 6. Verifying devices connectivity after the creation and configuration of the Integration.</a></li>
+  <li><a href="#step-7-creation--and--configuration-of-the-dashboard" id="markdown-toc-step-7-creation--and--configuration-of-the-dashboard">Step 7. Creation  and  configuration of the Dashboard</a></li>
+  <li><a href="#step-8-post-telemetry-and-verify-the-integration-configuration" id="markdown-toc-step-8-post-telemetry-and-verify-the-integration-configuration">Step 8: Post telemetry and verify the Integration configuration</a></li>
+  <li><a href="#step-9-configuration-the-root-rule-chain-root" id="markdown-toc-step-9-configuration-the-root-rule-chain-root">Step 9: Configuration the Root Rule Chain (Root)</a></li>
+  <li><a href="#step-10-create-and-sent-downlink-messages" id="markdown-toc-step-10-create-and-sent-downlink-messages">Step 10: Create and Sent Downlink messages</a></li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next steps</a></li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>We assume:</p>
+<ul>
+  <li>You are registered on the Actility <a href="https://www.actility.com/">website</a>.</li>
+  <li>You have at least one Abeeway Micro Tracker or Abeeway Industrial Tracker that is already connected  with ACTILITY THINGPARK IoT NETWORK and is active.</li>
+  <li>We also assume you already have a ThingsBoard PE server or free demo account. 
+Otherwise, you can register for a 30-days free demo account here: <a href="https://thingsboard.cloud/signup">thingsboard.cloud</a>.
+We expect you to have at least a basic knowledge about ThingsBoard, so we do recommend to complete the <a href="/docs/getting-started-guides/helloworld">Getting Started</a> guide.</li>
+</ul>
+
+<h2 id="integration-overview">Integration overview</h2>
+
+<p>ThingsBoard Platform Integrations feature allows to push data from various platforms and connectivity solutions to ThingsBoard. 
+We will use platform ThingPark Wireless company Actility to consume data from LoRaWAN networks and automatically register devices in ThingsBoard.
+Besides configuring the integration, we will also set ThingsBoard up to decode incoming data, store it in the database, visualize on the dashboard and generate alarms based on configurable thresholds.</p>
+
+<h2 id="step-1-checking-the-registration-for-the-platform-thingpark-wireless-company-actility">Step 1. Checking the registration for the platform ThingPark Wireless company Actility</h2>
+
+<ul>
+  <li>Registration and condition of devices</li>
+</ul>
+
+<p>Few things to notice:</p>
+
+<p>The <strong>DevEUI</strong> from the incoming message will become the Device <strong>Name</strong> in ThingsBoard;</p>
+
+<p>ThingsBoard will automatically create device with type “tracker” and name equal to <strong>DevEUI</strong>;</p>
+
+<p>Therefore, when creating a new device, in the <strong>Name</strong> field, enter the value <strong>DevEUI</strong>: from the Device Information (ThingPark Wireless OSS intelligent logger (Actility)) section</p>
+
+<details>
+   <summary>
+     <font color="#006400"><em><strong>An example of a device registered to the platform ThingPark Wireless company Actility</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+   <ul>
+    <p>      <font color="#00008b"><b>The device must be <font color="#32cd32">active!!!</font> </b>In the example, DevUi = </font>
+      <font color="red">"20635F010800105C"</font>
+</p>
+    <p>      <font color="#00008b"><strong>The device must be attached to the application.</strong>In our example: to Application </font>
+      <font color="red">"NoAS21"</font>
+</p>
+    <details>
+       <summary>
+         <font color="#228b22"><strong>Photo of the example of a device registered to the platform ThingPark Wireless company Actility</strong></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/actility_device.png" /> 
+    </details>
+  </ul>
+ 
+</details>
+
+<h2 id="step-2-creation-uplink-and-downlink-data-converters">Step 2. Creation UpLink and DownLink DATA Converters</h2>
+<p>In order to create an <a href="/docs/user-guide/integrations">Integration</a>, we should create the <a href="/docs/user-guide/integrations/#uplink-data-converter">Uplink Data Converter</a> and the <a href="/docs/user-guide/integrations/#downlink-data-converter">Downlink Data Converter</a> first. 
+The converters will decode incoming telemetry payload data from global standard LoRaWAN that contains in encoded hex string to human readable, simplified ThingsBoard data format.</p>
+
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of how to create Uplink converter</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/add_uplink_decoder.png" /> 
+</details>
+
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of how to create Downlink converter</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/add_downlink_decoder.png" /> 
+</details>
+
+<h2 id="step-3-uplink-data-converter-configuration">Step 3. Uplink Data Converter configuration</h2>
+
+<p>When creating an Uplink Converter, a default decoder is added to the Decoder section.</p>
+
+<p>After creating the Uplink Converter to the Decoder section, you need to update the Decoder code to <a href="/images/samples/abeeway/upLinkDecoder.txt">the following code</a>.</p>
+
+<p><strong>It is necessary to edit the Uplink decoder</strong></p>
+
+<p></p>
+<p></p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Open Uplink Converter, editor mode, click "test decoder function" and replace the default code with a new code:</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+  </summary>
+   <ul>
+    <details>
+       <summary>
+         <font color="#228b22"><strong>Screenshot of editing the UpLink decoder</strong></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/uplink_decoder.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><strong>Input data from ThingPark Wireless OSS intelligent logger (Actility) Platform looks like this:</strong></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+       <ul>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>JSON: input data from ThingPark Wireless OSS intelligent logger (Actility) Platform looks like this:</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+          </summary>
+           <figure class="highlight">
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+</pre></td><td class="rouge-code"><pre>                 <span class="o">{</span>
+                     <span class="s2">"DevEUI_uplink"</span>: <span class="o">{</span>
+                         <span class="s2">"Time"</span>: <span class="s2">"2019-11-06T09:54:46.342+01:00"</span>,
+                         <span class="s2">"DevEUI"</span>: <span class="s2">"20635F00C5000660"</span>,
+                         <span class="s2">"FPort"</span>: 17,
+                         <span class="s2">"FCntUp"</span>: 1796,
+                         <span class="s2">"ADRbit"</span>: 1,
+                         <span class="s2">"MType"</span>: 2,
+                         <span class="s2">"FCntDn"</span>: 94,
+                         <span class="s2">"payload_hex"</span>: <span class="s2">"0500997d3040"</span>,
+                         <span class="s2">"mic_hex"</span>: <span class="s2">"304d48f9"</span>,
+                         <span class="s2">"Lrcid"</span>: <span class="s2">"00000211"</span>,
+                         <span class="s2">"LrrRSSI"</span>: <span class="nt">-63</span>.0,
+                         <span class="s2">"LrrSNR"</span>: 7.5,
+                         <span class="s2">"SpFact"</span>: 7,
+                         <span class="s2">"SubBand"</span>: <span class="s2">"G1"</span>,
+                         <span class="s2">"Channel"</span>: <span class="s2">"LC2"</span>,
+                         <span class="s2">"DevLrrCnt"</span>: 1,
+                         <span class="s2">"Lrrid"</span>: <span class="s2">"10000329"</span>,
+                         <span class="s2">"Late"</span>: 0,
+                         <span class="s2">"Lrrs"</span>: <span class="o">{</span>
+                             <span class="s2">"Lrr"</span>: <span class="o">[{</span>
+                                 <span class="s2">"Lrrid"</span>: <span class="s2">"10000329"</span>,
+                                 <span class="s2">"Chain"</span>: 0,
+                                 <span class="s2">"LrrRSSI"</span>: <span class="nt">-63</span>.0,
+                                 <span class="s2">"LrrSNR"</span>: 7.5,
+                                 <span class="s2">"LrrESP"</span>: <span class="nt">-63</span>.710819
+                             <span class="o">}]</span>
+                         <span class="o">}</span>,
+                         <span class="s2">"CustomerID"</span>: <span class="s2">"100038328"</span>,
+                         <span class="s2">"CustomerData"</span>: <span class="o">{</span>
+                             <span class="s2">"alr"</span>: <span class="o">{</span>
+                                 <span class="s2">"pro"</span>: <span class="s2">"ABEE/APY"</span>,
+                                 <span class="s2">"ver"</span>: <span class="s2">"1"</span>
+                             <span class="o">}</span>
+                         <span class="o">}</span>,
+                         <span class="s2">"ModelCfg"</span>: <span class="s2">"0"</span>,
+                         <span class="s2">"InstantPER"</span>: 0.0,
+                         <span class="s2">"MeanPER"</span>: 0.001706,
+                         <span class="s2">"DevAddr"</span>: <span class="s2">"05C1704A"</span>,
+                         <span class="s2">"TxPower"</span>: 9.5,
+                         <span class="s2">"NbTrans"</span>: 1
+                     <span class="o">}</span>
+                 <span class="o">}</span>
+                 
+</pre></td></tr></tbody></table></code></pre></div>            </div>
+          </figure>
+ 
+        </details>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>Screenshot of the input data from ThingPark Wireless OSS intelligent logger (Actility) Platform looks like this:</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+          </summary>
+ <img src="/images/samples/abeeway/uplink_decoder_input.png" /> 
+        </details>
+      </ul>
+ 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><strong>Output data after decoding will look like this:</strong></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+       <ul>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>JSON: output data from ThingPark Wireless OSS intelligent logger (Actility) Platform looks like this:</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+          </summary>
+           <figure class="highlight">
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre>                    <span class="o">{</span>
+                     <span class="s2">"deviceName"</span>: <span class="s2">"20635F00C5000660"</span>,
+                     <span class="s2">"deviceType"</span>: <span class="s2">"Abeeway Micro/Industrial Tracker"</span>,
+                     <span class="s2">"telemetry"</span>: <span class="o">{</span>
+                         <span class="s2">"ts"</span>: 1573030486342,
+                         <span class="s2">"values"</span>: <span class="o">{</span>
+                             <span class="s2">"batteryVoltage"</span>: 8.388,
+                             <span class="s2">"temperature"</span>: 18.5,
+                             <span class="s2">"ph_type"</span>: <span class="s2">"Heartbeat message"</span>,
+                             <span class="s2">"ph_status"</span>: <span class="s2">"Standby"</span>,
+                             <span class="s2">"ph_alert_SOS_bit4"</span>: 0,
+                             <span class="s2">"ph_tracking/idle_state_bit3"</span>: 0,
+                             <span class="s2">"ph_tracker_is_moving_bit2"</span>: 0,
+                             <span class="s2">"ph_periodic_position_message_bit1"</span>: 0,
+                             <span class="s2">"ph_POD_message_bit0"</span>: 0,
+                             <span class="s2">"m_type"</span>: <span class="s2">"Unconfirmed Data Up"</span>,
+                             <span class="s2">"m_port"</span>: 17,
+                             <span class="s2">"m_customerID"</span>: <span class="s2">"100038328"</span>,
+                             <span class="s2">"m_LrrRSSI"</span>: <span class="nt">-63</span>,
+                             <span class="s2">"m_LrrSNR"</span>: 7.5,
+                             <span class="s2">"m_Lrrid"</span>: <span class="s2">"10000329"</span>,
+                             <span class="s2">"ack"</span>: 3
+                         <span class="o">}</span>,
+                         <span class="s2">"last_reset_cause"</span>: 64
+                     <span class="o">}</span>
+                    <span class="o">}</span>
+                    
+</pre></td></tr></tbody></table></code></pre></div>            </div>
+          </figure>
+ 
+        </details>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>Screenshot: output data from ThingPark Wireless OSS intelligent logger (Actility) Platform looks like this:</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+          </summary>
+ <img src="/images/samples/abeeway/uplink_decoder_output.png" /> 
+        </details>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>Payload_hex: example to decoder</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+          </summary>
+ <strong>Common message header</strong>           <table style="width: 75%">
+                    <thead>
+                        <tr>
+                            <td><b>Byte 0</b></td>
+                            <td><b>Byte 1</b></td>
+                            <td><b>Byte 2</b></td>
+                            <td><b>Byte 3</b></td>
+                            <td><b>Byte 4</b></td>
+                            <td><b>Data Variable</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Type</td>
+                            <td>Status</td>
+                            <td>Battery</td>
+                            <td>Temperature</td>
+                            <td>Ack/opt</td>
+                            <td>Data</td>
+                        </tr>
+                     </tbody>
+                    </table>
+ <em>"payload_hex":             <font color="#cd5c5c"><strong>"0500997d3040"</strong></font>
+</em>           <table style="width: 75%">
+                    <thead>
+                        <tr>
+                            <td><b>Field</b></td>
+                            <td><b>First Byte</b></td>
+                            <td><b>Byte length</b></td>
+                            <td><b>Value</b></td>
+                            <td><b>Description</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Type</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0x05</td>
+                            <td>Heartbeat message</td>
+                        </tr>
+                         <tr>
+                            <td>Status</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0x00</td>
+                            <td>Standby</td>
+                         </tr>
+                         <tr>
+                            <td>Battery</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>0x99</td>
+                            <td>8.388</td>
+                         </tr>
+                         <tr>
+                            <td>Temperature</td>
+                            <td>3</td>
+                            <td>1</td>
+                            <td>0x7d</td>
+                            <td>18.5</td>
+                         </tr>
+                         <tr>
+                            <td>Ack/opt</td>
+                            <td>4</td>
+                            <td>1</td>
+                            <td>0x30</td>
+                            <td>3/Optional data (depending on message type. Currently used only for position messages)</td>
+                         </tr>
+                         <tr>
+                            <td>Data</td>
+                            <td>5</td>
+                            <td>1-22</td>
+                            <td>0x40</td>
+                            <td>last_reset_cause</td>
+                        </tr>
+                     </tbody>
+                    </table>
+ 
+        </details>
+        <details>
+           <summary>
+             <font color="#32cd32"><strong>Info: The tracker supports different types of uplink messages, that are described in following sections:</strong></font>
+ 
+          </summary>
+           <ul>
+            <li>This section describes the payload messages supported by the tracke</li>
+            <li>Unless otherwise specified, all values are transmitted in network byte order (MSB first).</li>
+            <li>Each message is composed by:               <ul>
+                <li>A common header</li>
+                <li>A specific data part</li>
+              </ul>
+            </li>
+          </ul>
+           <table style="width: 75%">
+                           <thead>
+                               <tr>
+                                   <td><b>Message type</b></td>
+                                   <td><b>Id</b></td>
+                                   <td><b>Content</b></td>
+                                </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                  <td>Frame pending</td>
+                                  <td>0x00</td>
+                                  <td>This uplink message is sent to trigger the sending. (and speed up the configuration of the tracker) if downlink messages are available on gateway and no other uplink message is on the queue</td>
+                              </tr>
+                              <tr>
+                                  <td>Position message</td>
+                                  <td>0x03</td>
+                                  <td>GPS, low power GPS, WIFI or BLE position data</td>
+                              </tr>
+                              <tr>
+                                  <td>Energy status message</td>
+                                  <td>0x04</td>
+                                  <td>Used by the server to estimate the battery level. Contain information related to the power consumption</td>
+                              </tr>
+                              <tr>
+                                  <td>Heartbeat message</td>
+                                  <td>0x05</td>
+                                  <td>Notify the server the tracker is operational and under LoRa coverage</td>
+                              </tr>
+                              <tr>
+                                  <td>Activity Status message (1)</td>
+                                  <td>0x07</td>
+                                  <td>Reports the activity counter. Used only by the activity tracking operating mode</td>
+                              </tr>
+                              <tr>
+                                  <td>Configuration message (1)</td>
+                                  <td>0x07</td>
+                                  <td>Reports the partial or whole configuration of the trackers</td>
+                              </tr>
+                              <tr>
+                                  <td>Shutdown message </td>
+                                  <td>0x09</td>
+                                  <td>Sent when the tracker is set off</td>
+                              </tr>
+                              <tr>
+                                  <td>Geolocation start message (2)</td>
+                                  <td>0x0A</td>
+                                  <td>Sent when the tracker starts a geolocation</td>
+                              </tr>
+                              <tr>
+                                  <td>Debug message</td>
+                                  <td>0xFF</td>
+                                  <td>Internal use only</td>
+                              </tr>
+                            </tbody>
+                        </table>
+ Note:           <ul>
+            <li>(1) Activity status message and configuration message share the same identifier. They are differentiated by another field.</li>
+            <li>(2) Only available on FW 1.7-3. Configurable via the config_flag parameter</li>
+          </ul>
+ 
+        </details>
+      </ul>
+ 
+    </details>
+  </ul>
+ 
+</details>
+
+<p>Alternatively, you can import it from this <a href="/docs/user-guide/resources/actility/uplink_actility_converter.json">file</a></p>
+<details>
+   <summary>
+     <font color="#006400"><i><b>the following way: Go to Data Converters -&gt; Add new Data Converter -&gt; Import Converter </b></i></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/user-guide/rule-engine-2-0/tutorials/mqtt-downlink/import_new_converter.png" /> 
+</details>
+
+<h2 id="step-4-downlink-data-converter-configuration">Step 4. Downlink Data Converter configuration</h2>
+<p>When creating an Downlink Converter, a default decoder is added to the Decoder section.<br />
+After creating the Downlink Converter to the Decoder section, you need to update the Decoder code to <a href="/images/samples/abeeway/downlinkDecoder.txt">the following code</a>. <br /></p>
+
+<p><strong>It is necessary to edit the Downlink decoder</strong></p>
+
+<p>Open Downlink Converter, editor mode, click “test decoder function” and replace the default code with a new code:</p>
+
+<ul>
+  <details>
+     <summary>
+       <font color="#228b22"><strong>Screenshot edit the DownLink decoder</strong></font>
+ (<strong>click to open expanded view</strong>) 
+    </summary>
+ <img src="/images/samples/abeeway/downlink_decoder.png" /> 
+  </details>
+  <details>
+     <summary>
+       <font color="#228b22"><strong>JSON: output data after DownLink Data Converter looks like this:</strong></font>
+ <br />(<strong>click to open expanded view</strong>) 
+    </summary>
+     <figure class="highlight">
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre>             <span class="o">{</span>
+                 <span class="o">{</span>
+                    /<span class="k">**</span> Encoder <span class="k">**</span>/                    
+                    var data <span class="o">=</span> <span class="o">{}</span><span class="p">;</span>                    
+                    // Process data from incoming message and metadata                    
+                    data.payload <span class="o">=</span> msg.sentPayloadHex<span class="p">;</span>
+                    data.DevEUI <span class="o">=</span> metadata[<span class="s1">'DevEUI'</span><span class="o">]</span><span class="p">;</span>
+                    data.deviceType <span class="o">=</span> metadata[<span class="s1">'deviceType'</span><span class="o">]</span><span class="p">;</span>
+                    data.ContentType <span class="o">=</span> <span class="s2">"application/json"</span><span class="p">;</span>
+                    data.Accept <span class="o">=</span> <span class="s2">"application/json"</span><span class="p">;</span>
+                    data.urlPrefix <span class="o">=</span> <span class="s2">"/core/latest/api/devices/"</span><span class="p">;</span>
+                    data.urlSufix <span class="o">=</span> <span class="s2">"/downlinkMessages"</span><span class="p">;</span>
+                    data.urlSufixToken <span class="o">=</span> <span class="s2">"/admin/latest/api/oauth/token"</span><span class="p">;</span>
+                    data.firstParamToken <span class="o">=</span> <span class="s2">"client_credentials"</span><span class="p">;</span>
+                    data.urlSufixGetDevices <span class="o">=</span> <span class="s2">"/core/latest/api/devices"</span><span class="p">;</span>
+                    // Result object with encoded downlink payload
+                    var result <span class="o">=</span> <span class="o">{</span>
+                        // downlink data content <span class="nb">type</span>: JSON, TEXT or BINARY <span class="o">(</span><span class="nb">base64 </span>format<span class="o">)</span>
+                        contentType: <span class="s2">"JSON"</span>,
+                        // downlink data
+                        data: JSON.stringify<span class="o">(</span>data<span class="o">)</span>,
+                        msg: msg,
+                        metadata:  metadata
+                    <span class="o">}</span><span class="p">;</span>
+                    <span class="k">return </span>result<span class="p">;</span>
+                 <span class="o">}</span>
+             <span class="o">}</span>
+             
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </figure>
+ 
+  </details>
+</ul>
+
+<p>Alternatively, you can import it from this <a href="/docs/user-guide/resources/actility/downlink_actility_converter.json">file</a></p>
+<details>
+   <summary>
+     <font color="#006400"><i><b>the following way: Go to Data Converters -&gt; Add new Data Converter -&gt; Import Converter </b></i></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/user-guide/rule-engine-2-0/tutorials/mqtt-downlink/import_new_converter.png" /> 
+</details>
+
+<h2 id="step-5-integration-configuration">Step 5. Integration configuration</h2>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of creating integration on the ThingsBoard platform</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/create_integration.png" /> 
+</details>
+<p><strong>    <font color="red">WARNING !!!</font>
+ After creation of the Integration…</strong></p>
+<ul>
+  <li>check of the <strong>base URL,</strong></li>
+  <li>check <strong>downLink URL</strong> in order to:</li>
+  <ol>
+    <li>copy <strong>downLink URL</strong> - the HTTP Endpoint URL from the integration window (Example: https://thingparkenterprise.eu.actility.com/thingpark/dx/core/latest/api/devices)</li>
+    <li>paste this <strong>downLink URL</strong> to the URL of the Application server Actility where the device data is sent to and received from.</li>
+  </ol>
+</ul>
+
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of page ThingPark Wireless OSS intelligent logger (Actility),</strong> where you need to copy the <strong>downLink URL</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/actility_application.png" /> 
+</details>
+
+<h2 id="step-6-verifying-devices-connectivity-after-the-creation-and-configuration-of-the-integration">Step 6. Verifying devices connectivity after the creation and configuration of the Integration.</h2>
+<p>After creating and configuring the integration and connecting it to platform ThingPark Wireless company Actility, ThingsBoard will begin receiving the first reports of the telemetry from your devices.</p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of receiving the first reports of the telemetry</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/after_integr_mesag.png" /> 
+</details>
+<p>On the basis of these first messages ThingsBoard system will automatically create devices with type  and name  under which devices were registered in the ThingPark Actility Enterprise.</p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of how ThingsBoard system will automatically create devices</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/after_integr_dev.png" /> 
+</details>
+<p>That’s why after creating and configuring the integration and before starting the Dashboard setup you need to check that all your devices are detected and visible in ThingsBoard.</p>
+
+<h2 id="step-7-creation--and--configuration-of-the-dashboard">Step 7. Creation  and  configuration of the Dashboard</h2>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of the Dashboard after finishing its creation</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/actility_dashboard_example.png" /> 
+</details>
+
+<p><a href="/images/samples/abeeway/actility_dashboard.json">Example:  Dashboard in json format</a></p>
+
+<p><strong>- Creation of the Dashboard<strong></strong></strong></p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of the creation of the Dashboard</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/dashboard_create_01.png" /> 
+</details>
+<ol>
+  <li>Open Dashboard and add to: <br /> alias (List abeeways): filter_type: Entity_list, type: Device, device_names: DevEUI_1_, DevEUI_2_, DevEUI_3_...</li>
+  <details>
+     <summary>
+       <font color="#006400"><em><strong>Screenshot: open Dashboard and add to: alias (List abeeways): filter_type: Entity_list, type: Device, device_names: DevEUI_1_, DevEUI_2_, DevEUI_3_...</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+    </summary>
+ <img src="/images/samples/abeeway/alias_create.png" /> 
+  </details>
+  <li>Open Dashboard and add to: alias (DigEntityFrom): type: Entity from dashboard state, type: Device</li>
+  <details>
+     <summary>
+       <font color="#006400"><em><strong>Screenshot: open Dashboard and add to: alias (DigEntityFrom): type: Entity from dashboard state, type: Device</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+    </summary>
+ <img src="/images/samples/abeeway/alias_create_entityFromDashboard.png" /> 
+  </details>
+</ol>
+
+<p><strong>- Add to the Dashboard new widgets:</strong></p>
+<ol>
+  <li>widget number 1:</li>
+  <ul>
+    <li>Current_bundle: Cards -&gt; latest_values -&gt; Entities:</li>
+    <li>Datasources: type: Entity, parameters: List abeeways</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of creation of the widget number 1</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_cards.png" /> 
+    </details>
+    <li>Action: action sources: on row click, Name: ${entityName}, type: Update_current_dashboard_state, Set_entity_from_widget</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of widget settings - action sources: on row click to widget number 1</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_cards_action.png" /> 
+    </details>
+  </ul>
+  <li>widget number 2:</li>
+  <ul>
+    <li>Current_bundle: Charts -&gt; time_series: Timeseries_Float:</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of creation of the widget number 2</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_charts_timeseriesFloat.png" /> 
+    </details>
+    <li>Data_Source: type: Entity, parameters: List_abeeways, key:temperature, label: ${entityLabel}</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of adding datasource to widget number 2 (part 1)</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_charts.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of adding datasource to widget number 2 (part 2)</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_charts_entityLabel.png" /> 
+    </details>
+  </ul>
+  <li>widget number 3:</li>
+  <ul>
+    <li>Current_bundle: Digital_guages</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of creation of the widget number 3</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_difital_guages.png" /> 
+    </details>
+    <li>Data_Source: type: Entity, parameters: DigEntityFrom, key:temperature, label: temperature</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of adding datasource to widget number 3</strong></em></font>
+ <strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_difital.png" /> 
+    </details>
+  </ul>
+  <li>widget number 4:</li>
+  <ul>
+    <li>Current_bundle: Cards -&gt;Timeseries</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of creation widget number 4</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_cards_Timeseries.png" /> 
+    </details>
+    <li>Data_Source: type: Entity, parameters: DigEntityFrom</li>
+    <ul>
+      <li>keys:temperature, label: temperature</li>
+      <li>keys:batteryVoltage, label: batteryVoltage ...</li>
+    </ul>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of adding datasource to widget number 4</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_cards_with_value.png" /> 
+    </details>
+  </ul>
+  <li>widget number 5:</li>
+  <ul>
+    <li>Current_bundle: Input widgets -&gt;Update Multiple Attributes</li>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of creation of the widget number 5</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_input.png" /> 
+    </details>
+    <li>Data_Source: type: Entity, parameters: DigEntityFrom</li>
+    <ul>
+      <li>keys:sentPayloadHex, label: ${entityLabel}</li>
+    </ul>
+    <details>
+       <summary>
+         <font color="#006400"><em><strong>Screenshot of adding datasource to the widget number 5</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/widget_create_input_with_value.png" /> 
+    </details>
+  </ul>
+</ol>
+
+<p>-<strong><em>Note</em></strong>:</p>
+<ul>
+  <li>Widgets Number 1 and Number 2 with alias <strong>Entity_list.Device</strong>.</li>
+  <li>Widgets Number 3 and Number 4 with alias <strong>DigEntityFrom</strong>.</li>
+</ul>
+
+<h2 id="step-8-post-telemetry-and-verify-the-integration-configuration">Step 8: Post telemetry and verify the Integration configuration</h2>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of Integration settings change log see here</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/integration_latest_telemetry.png" /> 
+</details>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of a log of incoming messages from from ThingPark Wireless OSS intelligent logger (Actility) Platform:</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/integration_events.png" /> 
+</details>
+<p>If your devices are active and you do everything correctly when you connect the ThingPark Wireless OSS intelligent <br /> logger (Actility) Platform, then you will see incoming messages on the dashboard you created.</p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of incoming messages to the dashboard you created</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/actility_dashboard_example.png" /> 
+</details>
+
+<h2 id="step-9-configuration-the-root-rule-chain-root">Step 9: Configuration the Root Rule Chain (Root)</h2>
+
+<p>After adding widget number 5, it must be associated with the downlink decoder.<br />
+To do this, go to the “Rule Chain” tab and open the “Root Rule Chain”.<br /></p>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Screenshot of configuration of the Root Rule Chain for the message to be sent to device</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+ <img src="/images/samples/abeeway/rule_chain.png" /> 
+</details>
+<p><br />
+Editing the “Root Rule Chain”:</p>
+<ul>
+  <li>To get the original name of the device via metadata After "Message Type Switch" add Enrichment node: "originator fields" with the name "Fetch Name and Type":</li>
+  <ul>
+    <li>name: deviceName</li>
+    <li>type: deviceType</li>
+    <li>The relationship between "Message Type Switch" and "Fetch Name and Type":</li>
+    <ul>
+      <li>"Rule node link details": "Attributes Update"</li>
+    </ul>
+  </ul>
+  <details>
+     <summary>
+       <font color="#006400"><em><strong>Screenshot of the created Enrichment node: "originator fields"</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+    </summary>
+ <img src="/images/samples/abeeway/create_incrichment_originator_fields.png" /> 
+  </details>
+  <li>To receive downlink data by a decoder and transmit decoded data to "Action - rpc call request":</li>
+  <ul>
+    <li>between "Fetch Name and Type" and "Action - rpc call request"</li>
+    <ul>
+      <li>add: Action: "integration downlink": name: Actility_DownLink, integration: Test_ThigPark</li>
+      <details>
+         <summary>
+           <font color="#006400"><em><strong>Screenshot of the created Action: "integration downlink"</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+        </summary>
+ <img src="/images/samples/abeeway/create_action _integration_downlink.png" /> 
+      </details>
+    </ul>
+    <li>The relationship between "Fetch Name and Type" and "Actility_DownLink":</li>
+    <ul>
+      <li>"Rule node link details": "Success"</li>
+    </ul>
+    <li>The relationship between "Actility_DownLink" and "Action - rpc call request":</li>
+    <ul>
+      <li>"Rule node link details": "Success"</li>
+    </ul>
+  </ul>
+</ul>
+
+<h2 id="step-10-create-and-sent-downlink-messages">Step 10: Create and Sent Downlink messages</h2>
+
+<p>Before sending a message:</p>
+<ul>
+  <li>you must create a heading in which the type of request is determined (information about the configuration, or about the status of the device, or about the new configuration)<br /> 
+and also the content of the data itself (a detailed description of the data).</li>
+</ul>
+
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Information to create Downlink messages</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+   <ul>
+    <li>These messages are sent from the server to the tracker through the LoRa network. They are used to either configure or manage the tracker. Each message contains a header including:</li>
+    <ul>
+      <li>A message type</li>
+      <li>An acknowledgement token</li>
+    </ul>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>The remainder of the message depends on the message type described in the following table.</strong></em></font>
+ <br /> (<strong>click to open expanded view</strong>) 
+      </summary>
+       <table style="width: 50%">
+              <thead>
+                  <tr>
+                      <td><b>Message type</b></td>
+                      <td><b>ID</b></td>
+                      <td><b>Description</b></td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>POD</td>
+                      <td>0x01</td>
+                      <td>Position on demand</td>
+                  </tr>
+                  <tr>
+                      <td>Set Mode</td>
+                      <td>0x02</td>
+                      <td>hange the tracker operational mode</td>
+                  </tr>
+                  <tr>
+                      <td>Request configuration</td>
+                      <td>0x03</td>
+                      <td>Request the actual configuration of the tracker</td>
+                  </tr>
+                  <tr>
+                      <td>Start SOS mode</td>
+                      <td>0x04</td>
+                      <td>Turn on SOS mode</td>
+                  </tr>
+                  <tr>
+                      <td>Stop SOS mode</td>
+                      <td>0x05</td>
+                      <td>Turn off SOS mode</td>
+                  </tr>
+                  <tr>Enrichment: "originator fields"
+                      <td>Set Param</td>
+                      <td>0x0B</td>
+                      <td>Modify parameter(s)</td>
+                  </tr>
+                  <tr>
+                      <td>Debug command</td>
+                      <td>0xFF</td>
+                      <td>Remove BLE bonding. Reset the tracker</td>
+                  </tr>
+                </tbody>
+            </table>
+ 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Create request: Position on demand</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+       <ul>
+        <details>
+           <summary>
+             <font color="##228b22"><em><strong>Create request: Position on demand -&gt; Mode: operating modes. Acceptable values are:</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+          </summary>
+           <table style="width: 40%">
+                      <thead>
+                          <tr>
+                              <td><b>Mode</b></td>
+                              <td><b>Value</b></td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>Standby</td>
+                              <td>0</td>
+                          </tr>
+                          <tr>
+                              <td>Motion tracking</td>
+                              <td>1</td>
+                          </tr>
+                          <tr>
+                              <td>Permanent tracking</td>
+                              <td>2</td>
+                          </tr>
+                          <tr>
+                              <td>Motion start/end tracking</td>
+                              <td>3</td>
+                          </tr>
+                          <tr>
+                              <td>Activity tracking</td>
+                              <td>4</td>
+                          </tr>
+                          <tr>
+                              <td>Off mode</td>
+                              <td>5</td>
+                          </tr>
+                       </tbody>
+                    </table>
+ 
+        </details>
+        <ul>
+          <li>Operational mode configuration</li>
+          <figure class="highlight">
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>                    <span class="o">{</span>... 
+                          payloadHex: <span class="s2">"0203"</span>, ...
+                    <span class="o">}</span>
+                    
+</pre></td></tr></tbody></table></code></pre></div>            </div>
+          </figure>
+          <li>Request device configuration</li>
+          <figure class="highlight">
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>                    <span class="o">{</span>... 
+                        payloadHex: <span class="s2">"030605090C01"</span>, ...
+                        <span class="k">*</span> <span class="s2">"05"</span> - geoloc_sensor,
+                        <span class="k">*</span> <span class="s2">"09"</span> - gps_timeout,
+                        <span class="k">*</span> <span class="s2">"0C"</span> - gps_convergence, 
+                        <span class="k">*</span> <span class="s2">"01"</span> - lora_period,                  
+                        Special parameter Id:  
+                        <span class="k">*</span> <span class="s2">"0xFD"</span>: get the BLE version.
+                        <span class="k">*</span> <span class="s2">"0xFE"</span>: get the firmware version.
+                    <span class="o">}</span>
+                    
+</pre></td></tr></tbody></table></code></pre></div>            </div>
+          </figure>
+          <li>Parameters configuration</li>
+          <figure class="highlight">
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>                    <span class="o">{</span>... 
+                          payloadHex: <span class="s2">"0B 0A 0C00000078 1100000E10"</span>, ...              
+                         <span class="k">*</span> <span class="s2">"0C00000078"</span> - 0C - gps_convergence, 0x78 - value <span class="o">(</span>sec<span class="o">)</span>, 
+                         <span class="k">*</span> 1100000E10 - 11 - gps_standby_timeout. 0xE10 - value <span class="o">(</span>sec<span class="o">)</span><span class="nb">.</span> 
+                    <span class="o">}</span>
+                    
+</pre></td></tr></tbody></table></code></pre></div>            </div>
+          </figure>
+        </ul>
+      </ul>
+ 
+    </details>
+  </ul>
+ 
+</details>
+<details>
+   <summary>
+     <font color="#006400"><em><strong>Sending Downlink messages</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+  </summary>
+   <ul>
+    <li>Messages to devices are sent from widget number 5:</li>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Screenshot of the sent message from widget number 5</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/sent_message.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Example of the creation message</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+       <figure class="highlight">
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>                <span class="o">{</span>... 
+                      payloadHex: <span class="s2">"03020001020305"</span>, 
+                ...<span class="o">}</span>
+                
+</pre></td></tr></tbody></table></code></pre></div>        </div>
+      </figure>
+       <figure class="highlight">
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>                <span class="o">{</span>... 
+                    Byte 0 Byte 1 Byte 2-21          
+                    <span class="s2">"0x03"</span> <span class="s2">"ACK"</span> Byte <span class="s2">"2-21"</span> Parameter ID list <span class="o">(</span>optional<span class="o">)</span>        
+                    Special parameter Id:        
+                    ➢ 0xFD: get the BLE version.        
+                    ➢ 0xFE: get the firmware version.           
+                    Byte 2-21 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 10 11 12       
+                    13 fd fe        
+                    00 01 02 03 05 06 08 09 0a 0b 0c 0d 0e 0f 10 11 12 13 fe 
+                ...<span class="o">}</span>
+                
+</pre></td></tr></tbody></table></code></pre></div>        </div>
+      </figure>
+ 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Screenshot of receiving / sending messages to the device ThingPark Wireless OSS intelligent logger (Actility)</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/receiving_message_actility.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Screenshot of receiving messages from the device ThingPark Wireless OSS intelligent logger (Actility)</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/receiving_actility_from_dev.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Screenshot of receiving confirmation from the ThingPark Wireless to ThingsBoardabout sending a message to the device</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/receiving_confirmation_singboard.png" /> 
+    </details>
+    <details>
+       <summary>
+         <font color="#228b22"><em><strong>Screenshot of decoding device response by Thingsboard UpLink decoder</strong></em></font>
+ (<strong>click to open expanded view</strong>) 
+      </summary>
+ <img src="/images/samples/abeeway/decoding_device_response.png" /> 
+    </details>
+  </ul>
+ 
+</details>
+
+<h2 id="next-steps">Next steps</h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDGettingStartedGuides">Getting started guides</a> - These guides provide quick overview of main ThingsBoard features. Designed to be completed in 15-30 minutes.</p>
+  </li>
+  <li>
+    <p><a href="/docs/user-guide/install/pe/installation-options/">Installation guides</a> - Learn how to setup ThingsBoard on various available operating systems.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDConnectYourDevice">Connect your device</a> - Learn how to connect devices based on your connectivity technology or solution.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataVisualization">Data visualization</a> - These guides contain instructions how to configure complex ThingsBoard dashboards.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataProcessing">Data processing &amp; actions</a> - Learn how to use ThingsBoard Rule Engine.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDDataAnalytics">IoT Data analytics</a> - Learn how to use rule engine to perform basic analytics tasks.</p>
+  </li>
+  <li>
+    <p><a href="/docs/pe/guides#AnchorIDAdvancedFeatures">Advanced features</a> - Learn about advanced ThingsBoard features.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/pe/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

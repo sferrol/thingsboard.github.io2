@@ -1,0 +1,4199 @@
+
+
+
+
+
+
+
+
+<!Doctype html>
+<html id="docs" class="ThingsBoard Documentation">
+
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="cf-2fa-verify" content="a08672380de15e9">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ThingsBoard Release Notes | ThingsBoard Community Edition</title>
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="ThingsBoard Release Notes" />
+<meta name="author" content="thingsboard" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="ThingsBoard architecture" />
+<meta property="og:description" content="ThingsBoard architecture" />
+<link rel="canonical" href="http://0.0.0.0:4002/docs/reference/releases/" />
+<meta property="og:url" content="http://0.0.0.0:4002/docs/reference/releases/" />
+<meta property="og:site_name" content="ThingsBoard" />
+<meta property="og:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://0.0.0.0:4002/images/thingsboard_logo.png" />
+<meta property="twitter:title" content="ThingsBoard Release Notes" />
+<meta name="twitter:site" content="@thingsboard" />
+<meta name="twitter:creator" content="@thingsboard" />
+<script type="application/ld+json">
+{"url":"http://0.0.0.0:4002/docs/reference/releases/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://0.0.0.0:4002/images/thingsboard_logo.png"},"name":"thingsboard"},"author":{"@type":"Person","name":"thingsboard"},"image":{"twitter":"/images/thingsboard_logo.png","facebook":"/images/thingsboard_logo.png","url":"http://0.0.0.0:4002/images/thingsboard_logo.png","@type":"imageObject"},"description":"ThingsBoard architecture","@type":"WebPage","headline":"ThingsBoard Release Notes","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+    <meta name="twitter:description" content="ThingsBoard architecture"/>
+    
+    
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.7.0/qs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifffer/1.5.0/gifffer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            Gifffer();
+        }
+    </script>
+    <script type="text/javascript">
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function (a) {
+            "use strict";
+            var b = function (b, c, d) {
+                function e(a) {
+                    return h.body ? a() : void setTimeout(function () {
+                        e(a)
+                    })
+                }
+
+                function f() {
+                    i.addEventListener && i.removeEventListener("load", f), i.media = d || "all"
+                }
+
+                var g, h = a.document, i = h.createElement("link");
+                if (c) g = c; else {
+                    var j = (h.body || h.getElementsByTagName("head")[0]).childNodes;
+                    g = j[j.length - 1]
+                }
+                var k = h.styleSheets;
+                i.rel = "stylesheet", i.href = b, i.media = "only x", e(function () {
+                    g.parentNode.insertBefore(i, c ? g : g.nextSibling)
+                });
+                var l = function (a) {
+                    for (var b = i.href, c = k.length; c--;) if (k[c].href === b) return a();
+                    setTimeout(function () {
+                        l(a)
+                    })
+                };
+                return i.addEventListener && i.addEventListener("load", f), i.onloadcssdefined = l, l(f), i
+            };
+            "undefined" != typeof exports ? exports.loadCSS = b : a.loadCSS = b
+        }("undefined" != typeof global ? global : this);
+
+        /*! onloadCSS. (onload callback for loadCSS) [c]2017 Filament Group, Inc. MIT License */
+        function onloadCSS(a, b) {
+            function c() {
+                !d && b && (d = !0, b.call(a))
+            }
+
+            var d;
+            a.addEventListener && a.addEventListener("load", c), a.attachEvent && a.attachEvent("onload", c), "isApplicationInstalled" in navigator && "onloadcssdefined" in a && a.onloadcssdefined(c)
+        }
+    </script>
+    <script type="text/javascript">
+
+        function jqueryDefer(method) {
+            if (window.jQuery) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryDefer(method)
+                }, 50);
+            }
+        }
+
+        function jqueryUiDefer(method) {
+            if (window.jQuery && window.jQuery.ui) {
+                method();
+            } else {
+                setTimeout(function () {
+                    jqueryUiDefer(method)
+                }, 50);
+            }
+        }
+
+        window.vis = (function () {
+            var stateKey,
+                eventKey,
+                keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+            for (stateKey in keys) {
+                if (stateKey in document) {
+                    eventKey = keys[stateKey];
+                    break;
+                }
+            }
+            return function (c) {
+                if (c) document.addEventListener(eventKey, c);
+                return !document[stateKey];
+            }
+        })();
+
+        function loadScript(src, callback) {
+            var s, r, t;
+            r = false;
+            s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = src;
+            s.onload = s.onreadystatechange = function () {
+                if (!r && (!this.readyState || this.readyState == 'complete')) {
+                    r = true;
+                    if (callback) {
+                        callback();
+                    }
+                }
+            };
+            t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        }
+
+        function loadCssAsync(src, callback) {
+            var stylesheet = loadCSS(src);
+            if (callback) {
+                onloadCSS(stylesheet, callback);
+            }
+        }
+
+        function loadNextScript(index, scriptsList, completeCallback) {
+            if (index < scriptsList.length) {
+                var script = scriptsList[index];
+                if (script.type === 'script') {
+                    loadScript(script.src, function () {
+                        if (script.callback) {
+                            script.callback();
+                        }
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                } else if (script.type === 'css') {
+                    loadCssAsync(script.src, function () {
+                        index++;
+                        loadNextScript(index, scriptsList, completeCallback);
+                    });
+                }
+            } else if (completeCallback) {
+                completeCallback();
+            }
+        }
+
+        var initialScriptsList = [
+            {src: '/js/jquery-2.2.0.min.js', type: 'script'},
+            {src: '/css/jquery-ui.min.css', type: 'css'},
+            {src: '/js/jquery-ui.min.js', type: 'script'},
+            {src: '/js/jquery.vide.js', type: 'script'},
+            {src: '/js/script.js', type: 'script'},
+            {src: '/css/photoswipe.css', type: 'css'},
+            {src: '/css/default-skin/default-skin.css', type: 'css'},
+            {src: '/js/photoswipe.min.js', type: 'script'},
+            {src: '/js/photoswipe-ui-default.min.js', type: 'script'}
+        ];
+
+        loadNextScript(0, initialScriptsList);
+
+        jqueryDefer(function () {
+            (function ($, win) {
+                $.fn.inViewport = function (cb) {
+                    return this.each(function (i, el) {
+                        function visPx() {
+                            var H = $(this).height(),
+                                r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+                            var result = cb.call(el, Math.max(0, t > 0 ? H - t : (b < H ? b : H)));
+                            if (result) {
+                                $(win).off("resize scroll", visPx);
+                            }
+                        }
+
+                        visPx();
+                        $(win).on("resize scroll", visPx);
+                    });
+                };
+            }(jQuery, window));
+        });
+
+        function inViewportDefer(method) {
+            if (window.jQuery && $.fn.inViewport) {
+                method();
+            } else {
+                setTimeout(function () {
+                    inViewportDefer(method)
+                }, 50);
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function _gaLt(event) {
+            /* If GA is blocked or not loaded, or not main|middle|touch click then don't track */
+            if (!ga.hasOwnProperty("loaded") || ga.loaded != true || (event.which != 1 && event.which != 2)) {
+                return;
+            }
+            var el = event.srcElement || event.target;
+
+            while (el && (typeof el.tagName == 'undefined' || el.tagName.toLowerCase() != 'a' || !el.href)) {
+                el = el.parentNode;
+            }
+            if (el && el.href) {
+                var link = el.href;
+                if ((link.indexOf(location.host) == -1 || link.indexOf('.' + location.host) > 0) && !link.match(/^javascript\:/i)) {
+                    var target = (el.target && !el.target.match(/^_(self|parent|top)$/i)) ? el.target : false;
+                    if (event.ctrlKey || event.shiftKey || event.metaKey || event.which == 2) {
+                        target = "_blank";
+                    }
+
+                    var hbrun = false; // tracker has not yet run
+                    var hitBack = function () {
+                        if (hbrun) return;
+                        hbrun = true;
+                        window.location.href = link;
+                    };
+
+                    if (target) {
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search
+                        );
+                    } else {
+                        event.preventDefault ? event.preventDefault() : event.returnValue = !1;
+                        ga(
+                            "send", "event", "Outgoing Links", link,
+                            document.location.pathname + document.location.search, {
+                                "hitCallback": hitBack
+                            }
+                        );
+
+                        setTimeout(hitBack, 1000);
+                    }
+                }
+            }
+        }
+
+        var _w = window;
+        var _gaLtEvt = ("ontouchstart" in _w) ? "click" : "mousedown";
+        _w.addEventListener ? _w.addEventListener("load", function () {
+                document.body.addEventListener(_gaLtEvt, _gaLt, !1)
+            }, !1)
+            : _w.attachEvent && _w.attachEvent("onload", function () {
+            document.body.attachEvent("on" + _gaLtEvt, _gaLt)
+        });
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-88383331-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        function Burger() {
+            var header = $('header');
+            var body = $('body');
+            if (header.hasClass('opened-burger')) {
+                header.removeClass('opened-burger');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                body.css('overflow', '');
+            } else {
+                header.addClass('opened-burger');
+                body.css('overflow', 'hidden');
+            }
+        }
+    </script>
+    <script>
+
+        jqueryDefer(function () {
+            let menuElement = $('nav.head-menu > ul');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            let menuItems = $('nav.head-menu > ul > li');
+            let indicator = $('nav.head-menu > ul > div.indicator');
+            let subMenuActive = false;
+            menuElement.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('div.sub-menu-container').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            submenuContainer.on('mouseleave', function (event) {
+                if (!$(event.relatedTarget).parents('nav.head-menu > ul').length) {
+                    subMenuActive = false;
+                    submenuContainer.removeClass('active bounds-transition');
+                    menuItems.removeClass('active');
+                    indicator.removeClass('left-transition');
+                }
+            });
+            menuItems.each(function() {
+                let item = $( this );
+                let subMenuId = item.attr('data-submenu-id');
+                item.on('mouseenter', function () {
+                    let submenus = $('nav.head-menu > div.sub-menu-container > div');
+                    submenus.css('display', 'none');
+                    menuItems.removeClass('active');
+                    item.addClass('active');
+                    let targetSubMenu = $('nav.head-menu > div.sub-menu-container > div#'+subMenuId);
+                    targetSubMenu.css('display', 'block');
+                    submenuContainer.css('overflow', 'visible');
+                    let left = item.position().left + (item.outerWidth() - targetSubMenu.outerWidth()) / 2;
+                    submenuContainer.css('left', left + 'px');
+                    if (!subMenuActive) {
+                        submenuContainer.addClass('active');
+                        subMenuActive = true;
+                    } else {
+                        submenuContainer.addClass('bounds-transition');
+                        indicator.addClass('left-transition');
+                    }
+                    indicator.css('left', item.position().left);
+                    indicator.css('width', item.outerWidth());
+                    submenuContainer.css('height', targetSubMenu.outerHeight() + 'px');
+                    submenuContainer.css('width', targetSubMenu.outerWidth() + 'px');
+                    submenuContainer.css('overflow', 'hidden');
+                });
+            });
+
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                initMobileSubmenu();
+            }
+
+            $(window).resize(function(){
+                let newIsMobile = $('button.burger').css('display') === 'block';
+                if (isMobile !== newIsMobile) {
+                    isMobile = newIsMobile;
+                    if (isMobile) {
+                        initMobileSubmenu();
+                    } else {
+                        restoreDesktopSubmenu();
+                    }
+                }
+            });
+
+            // Products selector
+
+            
+            let productsSelector = $('.products-selector');
+            $(window).click(function(e) {
+                if (productsSelector[0].contains(e.target)) {
+                    if (productsSelector.hasClass('active')) {
+                        productsSelector.removeClass('active');
+                    } else {
+                        productsSelector.addClass('active');
+                    }
+                } else {
+                    productsSelector.removeClass('active');
+                }
+            });
+            
+
+            // Rogue line numbers fix (don't show line numbers for 1 row)
+            $( document ).ready(function() {
+                $('.rouge-gutter.gl').each(function() {
+                    var lineNumbers = $(this).children('.lineno');
+                    if (lineNumbers.text() === '1\n') {
+                        $(this).css('display', 'none');
+                    }
+                });
+            });
+        });
+
+        function initMobileSubmenu() {
+
+            var header = $('header');
+            if (header.hasClass('opened-burger')) {
+                var body = $('body');
+                body.css('overflow', 'hidden');
+            }
+
+            let targetSubMenus = $('nav.head-menu > div.sub-menu-container > div');
+            targetSubMenus.css('display', 'block');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'none');
+
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                let subMenuId = subMenu.attr('id');
+                let parent = $('nav.head-menu > ul > li.'+subMenuId);
+                parent.append(subMenu);
+            });
+        }
+
+        function restoreDesktopSubmenu() {
+            var body = $('body');
+            body.css('overflow', '');
+            let targetSubMenus = $('nav.head-menu > ul > li > div');
+            let submenuContainer = $('nav.head-menu > div.sub-menu-container');
+            submenuContainer.removeClass('active');
+            submenuContainer.css('display', 'block');
+            let menuItems = $('nav.head-menu > ul > li');
+            menuItems.removeClass('active');
+            targetSubMenus.each(function() {
+                let subMenu = $( this );
+                submenuContainer.append(subMenu);
+            });
+        }
+
+        function listburg(subMenuId) {
+            let isMobile = $('button.burger').css('display') === 'block';
+            if (isMobile) {
+                let targetSubMenu = $('nav.head-menu > ul > li > div.centered-sub#'+subMenuId+' > ul.sub-menu');
+                let isOpen = targetSubMenu.hasClass('open-sub');
+                let subMenus = $('nav.head-menu > ul > li > div.centered-sub > ul.sub-menu');
+                subMenus.removeClass('open-sub');
+                if (!isOpen) {
+                    targetSubMenu.addClass('open-sub');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="products-selector">
+    <img src="/images/thingsboard-cm-icon.svg"/>
+    <div class="product-info">
+        <div class="product-title">
+            Community Edition
+        </div>
+        <div class="product-description">
+            ThingsBoard Documentation
+        </div>
+    </div>
+    <div class="products">
+        
+        
+
+    
+        
+        
+
+
+        
+    
+
+
+        <a href="/docs/paas/" class="product">Cloud</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/pe/reference/releases/" class="product">Professional Edition</a>
+        
+        
+
+    
+        
+        
+
+
+        
+            
+        
+    
+
+
+        <a href="/docs/reference/releases/" class="product active">Community Edition</a>
+        
+        
+
+    
+
+
+        <a href="/docs/edge/" class="product">Edge</a>
+        
+        
+
+    
+
+
+        <a href="/docs/iot-gateway/" class="product">IoT Gateway</a>
+        
+        
+
+    
+
+
+        <a href="/products/license-server/" class="product">License Server</a>
+        
+        
+
+    
+
+
+        <a href="/docs/trendz/" class="product">Trendz Analytics</a>
+        
+    </div>
+</div>
+
+<header>
+    <div class="logo-burger">
+        
+        <button onclick="Burger()" class="burger"></button>
+        <div id="githubButtonContainer">
+            <a class="github-button" href="https://github.com/thingsboard/thingsboard" data-show-count="true"
+               aria-label="Star thingsboard/thingsboard on GitHub">Star</a>
+        </div>
+    </div>
+    <nav class="head-menu">
+        <ul>
+            <li class="nav-products" data-submenu-id="nav-products">
+                <a onclick="listburg('nav-products')">Products</a>
+            </li>
+            <li class="nav-services" data-submenu-id="nav-services">
+                <a onclick="listburg('nav-services')">Services</a>
+            </li>
+            
+            <li class="nav-cases" data-submenu-id="nav-cases">
+                <a onclick="listburg('nav-cases')">Use Cases</a>
+            </li>
+            <li class="nav-customers" data-submenu-id="nav-customers">
+                <a onclick="listburg('nav-customers')">Customers</a>
+            </li>
+            <li class="nav-company" data-submenu-id="nav-company">
+                <a onclick="listburg('nav-company')">Company</a>
+            </li>
+            <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+        </ul>
+        <div class="sub-menu-container">
+            <div id="nav-products" class="centered-sub">
+                <ul class="sub-menu products">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <p class="group-name">IoT platforms</p>
+                            <a class="cloud-lnk" href="/products/paas/">
+                                <img src="/images/thingsboard-c-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Cloud</h1>
+                                    <p>Platform as a service</p>
+                                </div>
+                            </a>
+                            <a class="prof-lnk" href="/products/thingsboard-pe/">
+                                <img src="/images/thingsboard-p-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Professional Edition</h1>
+                                    <p>Advanced IoT platform</p>
+                                </div>
+                            </a>
+                            <a class="com-lnk" href="/">
+                                <img src="/images/thingsboard-cm-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Community Edition</h1>
+                                    <p>Open source platform</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <p class="group-name">Product ecosystem</p>
+                            <a class="edge-lnk" href="/products/thingsboard-edge/">
+                                <img src="/images/thingsboard-e-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Edge</h1>
+                                    <p>Edge computing</p>
+                                </div>
+                            </a>
+                            <a class="gateway-lnk" href="/docs/iot-gateway/what-is-iot-gateway/">
+                                <img src="/images/gateway-icon.svg">
+                                <div class="sub-text">
+                                    <h1>IoT Gateway</h1>
+                                    <p>Connect legacy protocols</p>
+                                </div>
+                            </a>
+                            <a class="license-lnk" href="/products/license-server/">
+                                <img src="/images/license-icon.svg">
+                                <div class="sub-text">
+                                    <h1>License Server</h1>
+                                    <p>Billing solution</p>
+                                </div>
+                            </a>
+                            <a class="trendz-lnk" href="/products/trendz/">
+                                <img src="/images/trendz-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Trendz Analytics</h1>
+                                    <p>Data analytics and Prediction</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-services" class="centered-sub">
+                <ul class="sub-menu services">
+                    <a href="/docs/services/support/">
+                        <img src="/images/support-icon.svg">
+                        <div class="sub-text">
+                            <h1>Support</h1>
+                            <p>Support packages</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/trainings/">
+                        <img src="/images/train-icon.svg">
+                        <div class="sub-text">
+                            <h1>Trainings</h1>
+                            <p>ThingsBoard education courses</p>
+                        </div>
+                    </a>
+                    <a href="/docs/services/consulting/">
+                        <img src="/images/prof-icon.svg">
+                        <div class="sub-text">
+                            <h1>Professional services</h1>
+                            <p>Development of solutions by the ThingsBoard team</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+            <div id="nav-cases" class="centered-sub">
+                <ul class="sub-menu cases">
+                    <a href="/smart-metering/">
+                        <img src="/images/case-met-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Metering</h1>
+                            <p>Collection, analysis and visualization of data from meters</p>
+                        </div>
+                    </a>
+                    <a href="/smart-energy/">
+                        <img src="/images/case-eng-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Energy</h1>
+                            <p>Energy monitoring and efficiency analysis</p>
+                        </div>
+                    </a>
+                    <a href="/smart-farming/">
+                        <img src="/images/case-fam-icon.svg">
+                        <div class="sub-text">
+                            <h1>Smart Farming</h1>
+                            <p>Monitoring of indoor conditions and plant growth characteristics</p>
+                        </div>
+                    </a>
+                    <a href="/fleet-tracking/">
+                        <img src="/images/case-trk-icon.svg">
+                        <div class="sub-text">
+                            <h1>Fleet Tracking</h1>
+                            <p>Fleet tracking and fleet management</p>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div id="nav-customers" class="centered-sub">
+                <ul class="sub-menu customers">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-energy/">
+                                <img src="/images/se-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Energy</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/agriculture/">
+                                <img src="/images/agr-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Agriculture</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/smart-buildings/">
+                                <img src="/images/sb-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart Buildings</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/industries/smart-city/">
+                                <img src="/images/sc-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Smart City</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/telecom/">
+                                <img src="/images/tel-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Telecom</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/industries/industry40/">
+                                <img src="/images/in-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Industry 4.0</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="nav-company" class="centered-sub">
+                <ul class="sub-menu about">
+                    <div class="sub-groups">
+                        <div class="group">
+                            <a class="small-link" href="/company/">
+                                <img src="/images/about-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Our Company</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/docs/contact-us/">
+                                <img src="/images/contact-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Contact Us</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="/careers/">
+                                <img src="/images/careers-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Careers</h1>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="group">
+                            <a class="small-link" href="/mediakit/">
+                                <img src="/images/media-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Media Kit</h1>
+                                </div>
+                            </a>
+                            <a class="small-link" href="https://blog.thingsboard.io/">
+                                <img src="/images/blog-s-icon.svg">
+                                <div class="sub-text">
+                                    <h1>Blog</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-group">
+                        <a class="small-link" href="/partners/hardware/">
+                            <img src="/images/hard-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Hardware partners</h1>
+                            </div>
+                        </a>
+                        <a class="small-link" href="/partners/distributors/">
+                            <img src="/images/dis-s-icon.svg">
+                            <div class="sub-text">
+                                <h1>Distributors</h1>
+                            </div>
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <a href="/installations/" class="n-button try">Try it now</a>
+        <a href="/pricing/" class="n-button price">Pricing</a>
+    </div>
+</header>
+
+
+<div id="searchBox">
+    <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
+    <button class="searchButton"></button>
+</div>
+
+<!--  HERO  -->
+<section id="hero">
+  <div id="hero-content">
+    <div id="vendorStrip">
+      <div id="docsList">
+          <ul>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/" class="YAH">Documentation</a>
+                  
+                     <div class="indicator"><div class="head-arrow"></div><div class="line"></div><div class="sub-background"></div></div>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/guides/" >Guides</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/user-guide/install/installation-options/" >Installation</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/reference/" >Architecture</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/api/" >API</a>
+                  
+              </li>
+            
+              
+              
+              
+              <li>
+                  <a href="/docs/faq/" >FAQ</a>
+                  
+              </li>
+            
+          </ul>
+          <div id="docsBreadcrumbs">
+              
+                  
+                  
+                  
+                  
+                      
+                  
+                      
+                  
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+
+        
+            
+        
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+
+        
+            
+        
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+        
+        
+    
+
+    
+
+    
+
+    
+
+
+        
+            
+        
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                         
+                         
+                         
+    
+
+    
+
+    
+
+    
+
+    
+
+
+                         
+                            
+                         
+                      
+                  
+                      
+                  
+                      
+                        
+                        
+                  
+                    <span class="item">Documentation</span>
+                    
+                        <span class="divider">></span>
+                    
+                  
+                    <span class="item">Release Notes</span>
+                    
+                  
+              
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="docsNav">
+    <div class="docItems">
+        
+            
+            
+                <a class="toc" href="/docs/getting-started-guides/helloworld/" >Getting Started</a>
+            
+        
+            
+            
+                <div class="pi-accordion">
+                    
+
+
+<a class="item" data-title="Community Edition" href="/docs/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/getting-started-guides/connectivity/"></a>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and relations" href="/docs/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/user-guide/rule-engine-2-0/external-nodes/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="PE Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/user-guide/claiming-devices/"></a>
+
+
+<a class="item item-new" data-title="Device provisioning" href="/docs/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/user-guide/api-limits/"></a>
+
+
+<a class="item item-new" data-title="Bulk Provisioning" href="/docs/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item item-pe" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item item-pe" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item item-pe" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item item-pe" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item item-pe" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/user-guide/audit-log/"></a>
+
+
+<a class="item item-pe" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item" data-title="OAuth 2 Support" href="/docs/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/user-guide/ui/rule-chains/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item item-new" data-title="Chart widgets" href="/docs/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item item-new" data-title="Entity Table widget" href="/docs/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation widget" href="/docs/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Dashboards" href="/docs/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/user-guide/ui/mail-settings/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute" href="/docs/user-guide/contribution/how-to-contribute/"></a>
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/reference/roadmap/"></a>
+                </div>
+            
+        
+            
+            
+                <a class="toc" href="/docs/guides/" >Guides</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/user-guide/install/installation-options/" >Installation</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/reference/" >Architecture</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/api/" >API</a>
+            
+        
+            
+            
+                <a class="toc" href="/docs/faq/" >FAQ</a>
+            
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<section id="encyclopedia">
+  
+  <div id="docsToc">
+        <div class="pi-accordion">
+        
+
+
+<a class="item" data-title="Community Edition" href="/docs/"></a>
+
+
+<a class="item" data-title="What is ThingsBoard?" href="/docs/getting-started-guides/what-is-thingsboard/"></a>
+
+
+<a class="item" data-title="How to connect your device?" href="/docs/getting-started-guides/connectivity/"></a>
+
+
+<div class="item" data-title="Key concepts">
+  <div class="container">
+
+
+<a class="item" data-title="Entities and relations" href="/docs/user-guide/entities-and-relations/"></a>
+
+
+<a class="item" data-title="Tenant Profiles" href="/docs/user-guide/tenant-profiles/"></a>
+
+
+<a class="item item-new" data-title="Device Profiles" href="/docs/user-guide/device-profiles/"></a>
+
+
+<a class="item" data-title="Attributes" href="/docs/user-guide/attributes/"></a>
+
+
+<a class="item" data-title="Time-series data" href="/docs/user-guide/telemetry/"></a>
+
+
+<a class="item" data-title="Alarms" href="/docs/user-guide/alarms/"></a>
+
+
+<a class="item" data-title="Remote commands to devices" href="/docs/user-guide/rpc/"></a>
+
+
+<a class="item item-new" data-title="OTA updates" href="/docs/user-guide/ota-updates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Dashboards">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/dashboards/"></a>
+
+
+<a class="item" data-title="Aliases" href="/docs/user-guide/ui/aliases/"></a>
+
+
+<a class="item" data-title="Widget Actions" href="/docs/user-guide/ui/widget-actions/"></a>
+
+
+<a class="item" data-title="Widgets Library" href="/docs/user-guide/ui/widget-library/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Rule engine">
+  <div class="container">
+
+
+<a class="item" data-title="Getting Started" href="/docs/user-guide/rule-engine-2-0/re-getting-started/"></a>
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/rule-engine-2-0/overview/"></a>
+
+
+<a class="item" data-title="Architecture" href="/docs/user-guide/rule-engine-2-0/architecture/"></a>
+
+
+<div class="item" data-title="Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Filter Nodes" href="/docs/user-guide/rule-engine-2-0/filter-nodes/"></a>
+
+
+<a class="item" data-title="Enrichment Nodes" href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/"></a>
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="External Nodes" href="/docs/user-guide/rule-engine-2-0/external-nodes/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="PE Nodes">
+  <div class="container">
+
+
+<a class="item" data-title="Transformation Nodes" href="/docs/pe/user-guide/rule-engine-2-0/transformation-nodes/"></a>
+
+
+<a class="item" data-title="Action Nodes" href="/docs/pe/user-guide/rule-engine-2-0/action-nodes/"></a>
+
+
+<a class="item" data-title="Analytics Nodes" href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Custom Rule Nodes" href="/docs/user-guide/contribution/rule-node-development/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="White-labeling">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/pe/user-guide/white-labeling/"></a>
+
+
+<a class="item" data-title="Self-registration" href="/docs/pe/user-guide/self-registration/"></a>
+
+
+<a class="item" data-title="Custom Translations" href="/docs/pe/user-guide/custom-translation/"></a>
+
+
+<a class="item" data-title="Custom Menu" href="/docs/pe/user-guide/custom-menu/"></a>
+  </div>
+</div>
+
+
+<div class="item item-pe" data-title="Integrations">
+  <div class="container">
+
+
+<a class="item" data-title="Overview" href="/docs/user-guide/integrations/"></a>
+
+
+<a class="item" data-title="Remote Integrations" href="/docs/user-guide/integrations/remote-integrations/"></a>
+
+
+<a class="item" data-title="HTTP" href="/docs/user-guide/integrations/http/"></a>
+
+
+<a class="item" data-title="MQTT" href="/docs/user-guide/integrations/mqtt/"></a>
+
+
+<a class="item" data-title="OPC-UA" href="/docs/user-guide/integrations/opc-ua/"></a>
+
+
+<a class="item" data-title="Actility ThingPark" href="/docs/user-guide/integrations/thingpark/"></a>
+
+
+<a class="item" data-title="TheThingsNetwork" href="/docs/user-guide/integrations/ttn/"></a>
+
+
+<a class="item" data-title="TheThingsIndustries" href="/docs/user-guide/integrations/tti/"></a>
+
+
+<a class="item" data-title="LORIOT" href="/docs/user-guide/integrations/loriot/"></a>
+
+
+<a class="item" data-title="AWS IoT" href="/docs/user-guide/integrations/aws-iot/"></a>
+
+
+<a class="item" data-title="AWS Kinesis" href="/docs/user-guide/integrations/aws-kinesis/"></a>
+
+
+<a class="item" data-title="IBM Watson" href="/docs/user-guide/integrations/ibm-watson-iot/"></a>
+
+
+<a class="item" data-title="Azure Event Hub" href="/docs/user-guide/integrations/azure-event-hub/"></a>
+
+
+<a class="item" data-title="Azure IoT Hub" href="/docs/user-guide/integrations/azure-iot-hub/"></a>
+
+
+<a class="item" data-title="TCP" href="/docs/user-guide/integrations/tcp/"></a>
+
+
+<a class="item" data-title="UDP" href="/docs/user-guide/integrations/udp/"></a>
+
+
+<a class="item" data-title="SigFox" href="/docs/user-guide/integrations/sigfox/"></a>
+
+
+<a class="item" data-title="Ocean Connect" href="/docs/user-guide/integrations/ocean-connect/"></a>
+
+
+<a class="item" data-title="Custom Integration development guide" href="/docs/user-guide/integrations/custom/"></a>
+
+
+<a class="item" data-title="Notifications and Alarms on your smartphone using Telegram Bot" href="/docs/user-guide/rule-engine-2-0/tutorials/integration-with-telegram-bot/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Analytics">
+  <div class="container">
+
+
+<a class="item" data-title="Trendz Analytics" href="/docs/trendz/"></a>
+
+
+<a class="item" data-title="Kafka Streams" href="/docs/samples/analytics/kafka-streams/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Other Features">
+  <div class="container">
+
+
+<a class="item" data-title="Device Connectivity Status" href="/docs/user-guide/device-connectivity-status/"></a>
+
+
+<a class="item" data-title="Claiming Devices" href="/docs/user-guide/claiming-devices/"></a>
+
+
+<a class="item item-new" data-title="Device provisioning" href="/docs/user-guide/device-provisioning/"></a>
+
+
+<a class="item" data-title="Entity Views" href="/docs/user-guide/entity-views/"></a>
+
+
+<a class="item" data-title="API Limits" href="/docs/user-guide/api-limits/"></a>
+
+
+<a class="item item-new" data-title="Bulk Provisioning" href="/docs/user-guide/bulk-provisioning/"></a>
+
+
+<a class="item item-pe" data-title="Entity Groups" href="/docs/pe/user-guide/groups/"></a>
+
+
+<a class="item item-pe" data-title="Scheduler" href="/docs/pe/user-guide/scheduler/"></a>
+
+
+<a class="item item-pe" data-title="Reporting" href="/docs/pe/user-guide/reporting/"></a>
+
+
+<a class="item item-pe" data-title="CSV/XLS data export" href="/docs/pe/user-guide/csv-xls-data-export/"></a>
+
+
+<a class="item item-pe" data-title="File Storage" href="/docs/pe/user-guide/file-storage/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Security">
+  <div class="container">
+
+
+<a class="item" data-title="Audit Log" href="/docs/user-guide/audit-log/"></a>
+
+
+<a class="item item-pe" data-title="Advanced RBAC for IoT" href="/docs/pe/user-guide/rbac/"></a>
+
+
+<a class="item" data-title="OAuth 2 Support" href="/docs/user-guide/oauth-2-support/"></a>
+
+
+<a class="item" data-title="MQTT over SSL" href="/docs/user-guide/mqtt-over-ssl/"></a>
+
+
+<a class="item" data-title="Device authentication options" href="/docs/user-guide/device-credentials/"></a>
+
+
+<a class="item" data-title="Access Token based authentication" href="/docs/user-guide/access-token/"></a>
+
+
+<a class="item" data-title="Basic MQTT Credentials" href="/docs/user-guide/basic-mqtt/"></a>
+
+
+<a class="item" data-title="X.509 Certificate based authentication" href="/docs/user-guide/certificates/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Administration UI">
+  <div class="container">
+
+
+<a class="item" data-title="Tenants" href="/docs/user-guide/ui/tenants/"></a>
+
+
+<a class="item" data-title="Customers" href="/docs/user-guide/ui/customers/"></a>
+
+
+<a class="item" data-title="Users" href="/docs/user-guide/ui/users/"></a>
+
+
+<a class="item" data-title="Assets" href="/docs/user-guide/ui/assets/"></a>
+
+
+<a class="item" data-title="Devices" href="/docs/user-guide/ui/devices/"></a>
+
+
+<a class="item" data-title="Rule Chains" href="/docs/user-guide/ui/rule-chains/"></a>
+
+
+<div class="item" data-title="Widgets">
+  <div class="container">
+
+
+<a class="item item-new" data-title="Chart widgets" href="/docs/user-guide/ui/chart-widget/"></a>
+
+
+<a class="item item-new" data-title="Entity Table widget" href="/docs/user-guide/ui/entity-table-widget/"></a>
+
+
+<a class="item" data-title="Trip Animation widget" href="/docs/user-guide/ui/trip-animation-widget/"></a>
+
+
+<a class="item" data-title="Advanced data key configuration" href="/docs/user-guide/ui/advanced-data-key-configuration/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Dashboards" href="/docs/user-guide/ui/dashboards/"></a>
+
+
+<a class="item" data-title="SMS Provider Settings" href="/docs/user-guide/ui/sms-provider-settings/"></a>
+
+
+<a class="item" data-title="Mail Settings" href="/docs/user-guide/ui/mail-settings/"></a>
+  </div>
+</div>
+
+
+<div class="item" data-title="Contribution Guide">
+  <div class="container">
+
+
+<a class="item" data-title="How to contribute" href="/docs/user-guide/contribution/how-to-contribute/"></a>
+
+
+<a class="item" data-title="How to contribute your device integration guide" href="/docs/user-guide/contribution/how-to-contribute-your-device-integration-guide/"></a>
+
+
+<a class="item" data-title="Rule Node development" href="/docs/user-guide/contribution/rule-node-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v3.x)" href="/docs/user-guide/contribution/widgets-development/"></a>
+
+
+<a class="item" data-title="Widgets development (ThingsBoard v2.x)" href="/docs/user-guide/contribution/widgets-development-before-3.0/"></a>
+  </div>
+</div>
+
+
+<a class="item" data-title="Troubleshooting" href="/docs/user-guide/troubleshooting/"></a>
+
+
+<a class="item" data-title="Release Notes" href="/docs/reference/releases/"></a>
+
+
+<a class="item" data-title="Roadmap" href="/docs/reference/roadmap/"></a>
+        </div> <!-- /pi-accordion -->
+  </div> <!-- /docsToc -->
+  
+  <div id="docsContent" class=" hasTocContent">
+      <div id="table-of-contents">
+          
+              <h4>On this page</h4>
+          
+      </div>
+      <div id="top-spacer"></div>
+      <h1>ThingsBoard Release Notes</h1>
+      <div id="content">
+          <ul id="markdown-toc">
+  <li><a href="#v331-september-3-2021" id="markdown-toc-v331-september-3-2021">v3.3.1 (September 3, 2021)</a></li>
+  <li><a href="#v33-august-13-2021" id="markdown-toc-v33-august-13-2021">v3.3 (August 13, 2021)</a></li>
+  <li><a href="#v322-march-24-2021" id="markdown-toc-v322-march-24-2021">v3.2.2 (March 24, 2021)</a>    <ul>
+      <li><a href="#thingsboard-ce" id="markdown-toc-thingsboard-ce">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe" id="markdown-toc-thingsboard-pe">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v321-january-26-2021" id="markdown-toc-v321-january-26-2021">v3.2.1 (January 26, 2021)</a>    <ul>
+      <li><a href="#thingsboard-ce-1" id="markdown-toc-thingsboard-ce-1">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-1" id="markdown-toc-thingsboard-pe-1">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v256-january-26-2021" id="markdown-toc-v256-january-26-2021">v2.5.6 (January 26, 2021)</a>    <ul>
+      <li><a href="#thingsboard-ce-2" id="markdown-toc-thingsboard-ce-2">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-2" id="markdown-toc-thingsboard-pe-2">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v32-december-1-2020" id="markdown-toc-v32-december-1-2020">v3.2 (December 1, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-3" id="markdown-toc-thingsboard-ce-3">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-3" id="markdown-toc-thingsboard-pe-3">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v255-december-1-2020" id="markdown-toc-v255-december-1-2020">v2.5.5 (December 1, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-4" id="markdown-toc-thingsboard-ce-4">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-4" id="markdown-toc-thingsboard-pe-4">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v311-august-28-2020" id="markdown-toc-v311-august-28-2020">v3.1.1 (August 28, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-5" id="markdown-toc-thingsboard-ce-5">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-5" id="markdown-toc-thingsboard-pe-5">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v254-august-28-2020" id="markdown-toc-v254-august-28-2020">v2.5.4 (August 28, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-6" id="markdown-toc-thingsboard-ce-6">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-6" id="markdown-toc-thingsboard-pe-6">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v31-august-12-2020" id="markdown-toc-v31-august-12-2020">v3.1 (August 12, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-7" id="markdown-toc-thingsboard-ce-7">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-7" id="markdown-toc-thingsboard-pe-7">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v253-august-12-2020" id="markdown-toc-v253-august-12-2020">v2.5.3 (August 12, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-8" id="markdown-toc-thingsboard-ce-8">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-8" id="markdown-toc-thingsboard-pe-8">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v301-june-9-2020" id="markdown-toc-v301-june-9-2020">v3.0.1 (June 9, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-9" id="markdown-toc-thingsboard-ce-9">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-9" id="markdown-toc-thingsboard-pe-9">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v252-june-9-2020" id="markdown-toc-v252-june-9-2020">v2.5.2 (June 9, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-10" id="markdown-toc-thingsboard-ce-10">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-10" id="markdown-toc-thingsboard-pe-10">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v30-june-1-2020" id="markdown-toc-v30-june-1-2020">v3.0 (June 1, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-11" id="markdown-toc-thingsboard-ce-11">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-11" id="markdown-toc-thingsboard-pe-11">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v251-june-1-2020" id="markdown-toc-v251-june-1-2020">v2.5.1 (June 1, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-12" id="markdown-toc-thingsboard-ce-12">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-12" id="markdown-toc-thingsboard-pe-12">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v25-may-12-2020" id="markdown-toc-v25-may-12-2020">v2.5 (May 12, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-13" id="markdown-toc-thingsboard-ce-13">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-13" id="markdown-toc-thingsboard-pe-13">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v243-january-8-2020" id="markdown-toc-v243-january-8-2020">v2.4.3 (January 8, 2020)</a>    <ul>
+      <li><a href="#thingsboard-ce-14" id="markdown-toc-thingsboard-ce-14">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-14" id="markdown-toc-thingsboard-pe-14">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v242-december-10-2019" id="markdown-toc-v242-december-10-2019">v2.4.2 (December 10, 2019)</a>    <ul>
+      <li><a href="#thingsboard-ce-15" id="markdown-toc-thingsboard-ce-15">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-15" id="markdown-toc-thingsboard-pe-15">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v241-september-13-2019" id="markdown-toc-v241-september-13-2019">v2.4.1 (September 13, 2019)</a>    <ul>
+      <li><a href="#thingsboard-ce-16" id="markdown-toc-thingsboard-ce-16">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-16" id="markdown-toc-thingsboard-pe-16">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v24-july-10-2019" id="markdown-toc-v24-july-10-2019">v2.4 (July 10, 2019)</a>    <ul>
+      <li><a href="#thingsboard-ce-17" id="markdown-toc-thingsboard-ce-17">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-17" id="markdown-toc-thingsboard-pe-17">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v231-april-3-2019" id="markdown-toc-v231-april-3-2019">v2.3.1 (April 3, 2019)</a>    <ul>
+      <li><a href="#thingsboard-ce-18" id="markdown-toc-thingsboard-ce-18">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-18" id="markdown-toc-thingsboard-pe-18">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v23-february-7-2019" id="markdown-toc-v23-february-7-2019">v2.3 (February 7, 2019)</a>    <ul>
+      <li><a href="#thingsboard-ce-19" id="markdown-toc-thingsboard-ce-19">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-19" id="markdown-toc-thingsboard-pe-19">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#v22-november-30-2018" id="markdown-toc-v22-november-30-2018">v2.2 (November 30, 2018)</a>    <ul>
+      <li><a href="#thingsboard-ce-20" id="markdown-toc-thingsboard-ce-20">ThingsBoard CE</a></li>
+      <li><a href="#thingsboard-pe-20" id="markdown-toc-thingsboard-pe-20">ThingsBoard PE</a></li>
+    </ul>
+  </li>
+  <li><a href="#earlier-releases" id="markdown-toc-earlier-releases">Earlier releases</a></li>
+</ul>
+
+<h2 id="v331-september-3-2021">v3.3.1 (September 3, 2021)</h2>
+
+<p>Minor release with the following improvements and bug fixes:</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Core:
+    <ul>
+      <li>Added sequential RPC calls support;</li>
+      <li>Edge functionality enabled by default;</li>
+      <li>Additional thread pools naming (logging);</li>
+      <li>Ability to override spring MVC async request-timeout property (avoid REST API timeouts)</li>
+    </ul>
+  </li>
+  <li>Transport:
+    <ul>
+      <li>Added support for UTF-8 characters in MQTT credential Client ID;</li>
+      <li>Improved Session Activity reporting - short-lived sessions support;</li>
+      <li>LwM2M: advanced tracking of sent requests</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>New <strong>Markdown/HTML</strong> widget;</li>
+      <li>Chart widgets: custom comparison intervals for data key;</li>
+      <li>Chart widgets: tooltips visibility configuration;</li>
+      <li>Added copy user id button within user details;</li>
+      <li>Multiple attributes widget: added patterns support for widget title;</li>
+      <li>Input widgets: added required field option;</li>
+      <li>Added clear all filters option in events filter panel;</li>
+      <li>Rule nodes forms: added show/hide password toggle to credentials fields of external rule nodes;</li>
+      <li>New rxjs operators available in widget context (switchMap, catchError);</li>
+      <li>Custom translations support for alarm type and alarm details in device profile alarm rules</li>
+    </ul>
+  </li>
+  <li>Build scripts:
+    <ul>
+      <li>Improved maven artifacts dependency management</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Core:
+    <ul>
+      <li>Added validation and replacement of Queue names in the Device profile;</li>
+      <li>Value of property SECURITY_USER_LOGIN_CASE_SENSITIVE is considered on password reset request;</li>
+      <li>Corrected handling unique device name constraint violation for save device transaction</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Fixed device profile update handling by rule node — new telemetry keys from device profile were ignored;</li>
+      <li>Fixed NPE while tell next in Rule chain actor message processor</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>Hierarchy widget: process entity label from dashboard state;</li>
+      <li>Fixed link to <strong>Resources library</strong> in SysAdmin home page;</li>
+      <li>Fixed full-screen mode toggle in JSON forms;</li>
+      <li>Improved queue name selector in device profile form;</li>
+      <li>Fixed <strong>Show on widget</strong> button behavior: always display default widgets bundle;</li>
+      <li>MQTT rule node form: credentials fields now optional;</li>
+      <li>Global loading indication: added considering of canceled requests</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="v33-august-13-2021">v3.3 (August 13, 2021)</h2>
+
+<p>Major release which contains 2126 commits and 1668 changed files.</p>
+
+<p><strong>Major Improvements:</strong></p>
+
+<ul>
+  <li>Core:
+    <ul>
+      <li>Interface to provision and communicate with ThingsBoard Edge;</li>
+      <li>Firmware and Software over-the-air updates (FOTA &amp; SOTA);</li>
+      <li>Persistent RPC calls;</li>
+      <li>API limits for number of created alarms;</li>
+      <li>Alarm removal by TTL;</li>
+      <li>Add Apple OAuth2 provider;</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Non-blocking subscribe method to prevent locks on repartition event;</li>
+      <li>Significant performance improvement of remote js-executor;</li>
+      <li>Per-customer and system level api usage stats;</li>
+    </ul>
+  </li>
+  <li>Transports:
+    <ul>
+      <li>LwM2M transport implementation;</li>
+      <li>SNMP transport implementation;</li>
+      <li>CoAP DTLS support;</li>
+      <li>PSM and eDRX support for CoAP and LwM2M transports;</li>
+      <li>Support of FOTA and SOTA updates for MQTT, HTTP, CoAP and LwM2M transports;</li>
+      <li>Ability to launch MQTT and MQTTS simultaneously in one transport instance;</li>
+      <li>Explicit fields presence support for protobuf payloads;</li>
+      <li>Content format support for CoAP resources;</li>
+    </ul>
+  </li>
+  <li>
+    <p>UI:</p>
+
+    <ul>
+      <li>Ability to manage resource library;</li>
+      <li>Ability to manage OTA packages;</li>
+      <li>Ability to manage Edge instances;</li>
+      <li>Event filters for Debug, Error, Stats and other event types;</li>
+      <li>FOTA dashboard;</li>
+      <li>Update to Angular 11;</li>
+      <li>Performance improvement: switched change detection strategy to OnPush;</li>
+      <li>Performance improvement: moved widget header to widget container;</li>
+      <li>QR Code widget</li>
+    </ul>
+  </li>
+  <li>
+    <p>Mobile App support:</p>
+
+    <ul>
+      <li>Support of mobile widget actions: Scan QR code, take picture/photo, open map directions, etc;</li>
+      <li>Support for dashboards in the mobile app;</li>
+      <li>Ability to hide dashboard toolbar settings. Improve dashboard setting dialog. Handle dashboard right layout toggle in the mobile app;</li>
+      <li>Ability to configure icons for dashboard and device profile entities.</li>
+      <li>Ability to specify the mobile dashboard as an alarm details view for mobile application;</li>
+      <li>Ability to control visibility and order of dashboards in the mobile application.</li>
+      <li>Ability to hide widgets in the mobile mode.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Minor Improvements:</strong></p>
+
+<ul>
+  <li>
+    <p>Core:</p>
+
+    <ul>
+      <li>Performance improvement and bug fix in the device state service which impacts active/inactive device events calculation;</li>
+      <li>Performance improvement for tenant state load;</li>
+      <li>Performance improvement for the attributes cache;</li>
+      <li>Performance improvement for querying events and cleanup of events;</li>
+      <li>Performance improvement and memory management for DeviceActorMessageProcessor;</li>
+      <li>Create assign/unassign device event when claiming/reclaiming device;</li>
+      <li>Additional validation for entities to protect from XSS;</li>
+      <li>Refactor predicate queries building;</li>
+      <li>Ignore empty search conditions for filters;</li>
+      <li>Ignore default value for filters with constant key type;</li>
+      <li>Make alarm condition serializable;</li>
+      <li>Ability to define consumer properties per topic;</li>
+      <li>Improvement thread pool naming;</li>
+      <li>New alarms API: getAllAlarms and getCustomerAlarms;</li>
+      <li>“alarmConditionRepeats” and “alarmConditionDuration” metadata fields of alarms generated via alarm rules;</li>
+      <li>Reset of JWT tokens when user changes password;</li>
+      <li>Sync kafka commit to improve performance;</li>
+      <li>Statistics collection using Prometheus;</li>
+      <li>Method to find dashboard by name and tenant ID;</li>
+      <li>Kafka client version set to 2.8.0; Optimized kafka producer/consumer parameters;</li>
+      <li>Spring security version set to 5.4.4;</li>
+      <li>Remove outdated versions of Netty;</li>
+      <li>Add logging of error msg to easily identify root cause of failed logins;</li>
+      <li>Add module cluster-api and used it in rule engine and other services;</li>
+      <li>callback execution in the device state service;</li>
+      <li>Transaction aware cache to synchronize cache put/evict operations with ongoing Spring-managed transactions;</li>
+    </ul>
+  </li>
+  <li>Transports:
+    <ul>
+      <li>Support of server-side RPC requests via protobuf for CoAP and MQTT;</li>
+      <li>Improvements to data converter to support big decimal values;</li>
+      <li>Remove redundant lock on device creating for provisioning feature;</li>
+      <li>Ability to queue configurable number of uplink MQTT messages while processing connect request;</li>
+      <li>Correct close and cleanup of the MQTT session context;</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Add transaction support to save/update/delete of rule chains.</li>
+      <li>Dynamic alarm severity support in Create Alarm rule node;</li>
+      <li>QueueController returns up to date list from thingsboard.yml;</li>
+      <li>Move the message decoding out of the lock to reduce locking time;</li>
+      <li>Queue check on the very first poll in the lifecycle before any subscribe method calls;</li>
+      <li>Not going to sleep after pull if time left less than 1 millisecond.</li>
+      <li>Ability to use HTML templates in the send email node;</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>Improvement of time window visualization in the mobile view;</li>
+      <li>JSON input widget;</li>
+      <li>Ability to configure dashboard logo;</li>
+      <li>Improvement to query params handling;</li>
+      <li>Ability to update dashboard image from screenshot;</li>
+      <li>‘Use entity lable in tab name’ checkbox in timeseries table;</li>
+      <li>Entity info in widget actions as ‘additionalParams’ for entities table widget;</li>
+      <li>Update to logic for ‘Set entity from widget’ in static widget;</li>
+      <li>Move Transport type selector to transport configuration step in the device wizard;</li>
+      <li>Ability to copy-paste content from widget;</li>
+      <li>Cache cellContent, cellStyle, rowStyle in entity tables widget;</li>
+      <li>Disable scroll zooming in the image map;</li>
+      <li>Improvement to exception handling to exclude output like “object Object”;</li>
+      <li>Improvement to chips after blur input;</li>
+      <li>Improvement explanation of what’s accepted in entity alias “Entity Name”;</li>
+      <li>Update to Czech translation;</li>
+      <li>Ability to toggle show password in the input field of login form;</li>
+      <li>focus for entity-key-list component after blur this component;</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Bug Fixes:</strong></p>
+
+<ul>
+  <li>
+    <p>Core:</p>
+
+    <ul>
+      <li>Remove ServiceId from Kafka consumer GroupId;</li>
+      <li>Cassandra prepared Statement initialization lock;</li>
+      <li>Restore old Nashorn sandbox version until bug in library is fixed;</li>
+      <li>Remove duplicate call of onData function for websocket subscriptions;</li>
+      <li>Transaction management for component descriptors and events;</li>
+      <li>Potential outdated server info on recalculatePartitions;</li>
+      <li>Performance fix of alarm query based on pg_stat analysis;</li>
+      <li>Performance fix of device count query;</li>
+      <li>Update the ts_kv_latest table only if the value that arrives has the newer timestamp;</li>
+      <li>Added cache cleanup when entity is renamed;</li>
+      <li>org.apache.kafka.common.KafkaException: javax.security.auth.login.LoginException;</li>
+      <li>Rest Api Call Node fixes: added default header Content-Type</li>
+      <li>Postgresql driver version upgrade to 42.2.20 to fix connection issue with Postgres 11;</li>
+      <li>Drop partition function in install script and added fix to upgrade script</li>
+      <li>Configuration parameter name for Compression Type;</li>
+      <li>Message order for Gateway and LwM2M transports in the core consumer;</li>
+      <li>Duplication of sessions in the device actor cache;</li>
+      <li>Authorization and password reset vulnerability;</li>
+      <li>Entity view selection in relation query alias;</li>
+      <li>Typo in equals method of widget bundle class;</li>
+      <li>SerializationFailedException during device claiming;</li>
+      <li>Dependency vulnerabilities;</li>
+      <li>Spring security issue;</li>
+      <li>Create device notification in DefaultTransportApiService;</li>
+    </ul>
+  </li>
+  <li>
+    <p>UI:</p>
+
+    <ul>
+      <li>Updated device profiles table after added new profiles</li>
+      <li>Access is forbidden error in the system admin change profile;</li>
+      <li>Alarm rules validation when use changes key or value types;</li>
+      <li>Switch control widget to update state after rpc call response;</li>
+      <li>Widget type filter in the widgets selector;</li>
+      <li>Title when make rule chain root in Chinese;</li>
+      <li>Resolving of the assets page;</li>
+      <li>Multiple datasource processing data in map widgets;</li>
+      <li>Incorrect calculate minIntervalLimit;</li>
+      <li>Some typos in rus/ukr translations;</li>
+      <li>HTML action of identical widgets on the dashboard;</li>
+      <li>Error message in Led Indicator;</li>
+      <li>Entity autocomplete;</li>
+      <li>Thresholds appearing when threshold attribute is not set in flot widgets;</li>
+      <li>HttpCleint and DrugDrop is now accessible for widget extensions to avoid stackoverflow when importing external modules;</li>
+      <li>Device credentials component validation;</li>
+      <li>State controller to not update state when stateId is not changed;</li>
+      <li>New dashboard settings in Safari;</li>
+      <li>Typos in widgets descriptions;</li>
+      <li>Do not “uppercase” unit title of digital gauges;</li>
+      <li>Entities count datasource label overwriting, configured label was never displayed;</li>
+      <li>Entity node level in the entity hierarchy widget;</li>
+      <li>Applying default thresholds line width in the Bar Chart widget;</li>
+      <li>Incorrect time window displaying;</li>
+      <li>Displaying static widget configuration tabs, when configuration of advanced settings is empty;</li>
+      <li>Not updated dashboard URL, after updated a current dashboard state;</li>
+      <li>Tooltip in Map widget for Safari browser;</li>
+      <li>Validation on removal of the alias that is used in the alarm widgets;</li>
+      <li>Added missing help link in add device and add device-profile dialogs;</li>
+      <li>Closing the main menu with the escape key;</li>
+      <li>Clear password after save SMTP settings;</li>
+      <li>Update of the device inactivity timeout attribute;</li>
+      <li>Behaviour of ESC button while in main menu;</li>
+      <li>StartTs and endTs in deleteEntityTimeseries;</li>
+    </ul>
+  </li>
+  <li>
+    <p>Transports:</p>
+
+    <ul>
+      <li>Configuration of session cleanup;</li>
+      <li>For statistics collection period;</li>
+      <li>CoAP client can subscribe to attribute and rpc updates simultaneously;</li>
+      <li>Removed unnecessary retain of PUBLISH message for QoS 2;</li>
+      <li>Handling of duplicated read/observe requests for CoAP;</li>
+      <li>Memory leak in GatewaySessionHandler by using weak hash map for locks;</li>
+    </ul>
+  </li>
+  <li>Rest Client:
+    <ul>
+      <li>GetAlarms method;</li>
+      <li>Removed redundant parameter for AlarmController, AlarmQuery and getAlarms;</li>
+      <li>Reduced default log level;</li>
+      <li>Include the limit value in the getTimeseries REST call;</li>
+    </ul>
+  </li>
+  <li>
+    <p>Build/Installation scripts:</p>
+
+    <ul>
+      <li>JAVA_OPTS in K8S config maps to work with Java 11;</li>
+      <li>Reference to the maven repositories;</li>
+      <li>Updated HAProxy and Certbot version for docker-compose scripts;</li>
+      <li>Update haproxy config. Enable HTTP/2;</li>
+      <li>Upgrade Postgres to version 12 in the docker images;</li>
+      <li>Logger template added for Top Rule Nodes by max execution time;</li>
+      <li>Added prometheus-grafana monitoring to Docker scripts;</li>
+      <li>Updated MSA read me file;</li>
+      <li>Correct keystore file lookup from files instead of classpath;</li>
+      <li>Update of os-maven-plugin version;</li>
+      <li>Unique name for logs container in order to avoid container name conflicts;</li>
+      <li>Improved black box tests;</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="v322-march-24-2021">v3.2.2 (March 24, 2021)</h2>
+
+<h3 id="thingsboard-ce">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements and bug fixes:</p>
+
+<p><strong>Major Improvements:</strong></p>
+
+<ul>
+  <li>Migration to JDK 11;</li>
+  <li>Rule Engine:
+    <ul>
+      <li>Added <a href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/#calculate-delta">“calculate delta”</a> rule node;</li>
+      <li>Added “current customer” and “current tenant” dynamic source types to DeviceProfile key filter. See examples <a href="/docs/user-guide/device-profiles/#example-6-advanced-thresholds">6</a> and <a href="/docs/user-guide/device-profiles/#example-7-dynamic-thresholds-based-on-the-tenant-or-customer-attributes">7</a>;</li>
+      <li>Added kafka consumer-groups statistics. See rule engine <a href="/docs/user-guide/rule-engine-2-0/overview/#troubleshooting">troubleshooting</a> for more info;</li>
+      <li>Attributes cache. See <a href="/docs/user-guide/attributes/#performance-enhancement">Performance enhancement</a>;</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>Added <a href="/docs/user-guide/dashboards/#2-widget-data-source-types">“Entity Count”</a> datasource for widgets;</li>
+      <li>Added “Entity Type” alias. See usage in the “Entity count data source” example <a href="/docs/user-guide/dashboards/#2-widget-data-source-types">here</a>;</li>
+      <li>Added support of common intervals and time zones to the <a href="/docs/user-guide/dashboards/#time-window">time window</a> selector;</li>
+      <li>Ability to set up a home dashboard for users instead of default “Home” view;</li>
+      <li>Improved <a href="/docs/user-guide/dashboards/#adding-widget-to-the-dashboard">“add widget”</a> dialog. Added description and preview images for widgets and widget bundles;</li>
+      <li>Added column visibility and <a href="/docs/user-guide/ui/entity-table-widget/#6-row-style-function">row style</a> functions for table widgets;</li>
+      <li>UI: Improved dashboard load performance by optimizing widget header template.</li>
+    </ul>
+  </li>
+  <li>Transport:
+    <ul>
+      <li>Support of <a href="/docs/user-guide/device-profiles/#coap-device-type-default">Protobuf</a> for CoAP transport;</li>
+      <li>Support of <a href="/docs/user-guide/device-profiles/#coap-device-type-efento-nb-iot">Efento</a> devices for CoAP transport;</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Core:
+    <ul>
+      <li>Added usage statistics configuration to yml file;</li>
+      <li>Added support Phone Number’s SID or Messaging Service SID for Twilio SMS provider;</li>
+      <li>Add HTTP cookie repository to store oauth2 authorization requests;</li>
+      <li>Added support for RSA encrypted keys in PEM client credentials;</li>
+      <li>Fix DAO layer to save the newest record with the same timestamp. Enabled updates for old time-series data.</li>
+      <li>Updated version of dependencies to fix vulnerabilities;</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Added ability to use the pattern to substitute variables from data in rule nodes;</li>
+      <li>Constant filters for device profile;</li>
+      <li>Process alarm rules on activity and inactivity events;</li>
+      <li>Push entity created event to the device profile rule chain and corresponding queue;</li>
+      <li>Added ability to get customer details by the user in the ‘customer details’ rule node;</li>
+      <li>Script rule node supports split of the incoming message to multiple outcoming messages;</li>
+    </ul>
+  </li>
+  <li>Transport:
+    <ul>
+      <li>Added support of BigDecimal to the JsonConverter;</li>
+      <li>Use msg queue from device profile instead of default;</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>Improved load and update time in the time series table;</li>
+      <li>Improved alarm tabs in the entity details: default time interval 30 days;</li>
+      <li>Dynamic color point in trip-animation widget;</li>
+      <li>First/Last page-buttons to the tables-paginator;</li>
+      <li>New setting for subscription - reloadOnlyOnDataUpdated;</li>
+      <li>Replaced deprecated PortalInjector;</li>
+      <li>Added entity info for single-entity aliases even if no alarms to display;</li>
+      <li>Added the ability to get the value of a key that contains dots in the name to table widgets;</li>
+      <li>Fix enable/disable user buttons while the user is not activated yet;</li>
+      <li>Added entity names to dialog headers in rule node and widget dialogs;</li>
+      <li>Updated Czech translation;</li>
+      <li>Updated Spanish translation;</li>
+      <li>Login form password visibility;</li>
+    </ul>
+  </li>
+  <li>Build scripts:
+    <ul>
+      <li>Update deb/rpm packages java dep versions. Update JVM options.</li>
+      <li>Added subject alternative names into key generation tool;</li>
+      <li>Refactoring of migration tool for new Thingsboard DB structure;</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Core:
+    <ul>
+      <li>Fixed race condition in the partition change events;</li>
+      <li>Fixed memory leak in entity data subscription service;</li>
+      <li>Fix TTL telemetry cleanup function for PostgreSQL;</li>
+      <li>Added ping for WS sessions to avoid session close due to inactivity;</li>
+      <li>Fixed creating partitions in PostgreSQL for stale telemetry which partition was already removed according to TTL;</li>
+      <li>Removed redundant queries for the latest values subscriptions;</li>
+      <li>Allow Customer to edit assigned entities;</li>
+      <li>Fixed default values for claiming queue and duration;</li>
+      <li>Fixed API call to get highest alarm severity.</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Fixed NPE in Rest API Call rule node;</li>
+      <li>Device profile node now uses message timestamp as alarm startTs instead of current time;</li>
+      <li>Memory leak fix for cases when actors fail to initialize or stopped;</li>
+      <li>Fixed TbKafkaNode. Configure directly serializer class for key/values instead of string class name;</li>
+      <li>Handle case when device was removed from DB but message in the queue;</li>
+      <li>Fixed unlimited error messages in TbMsgGeneratorNode;</li>
+      <li>Fixed SAS credentials in IoT hub node;</li>
+      <li>Added lock to avoid ‘No such function invoke InternalXXX’ exception for embedded JS execution;</li>
+      <li>Fixed outdated data in cleared alarm event;</li>
+    </ul>
+  </li>
+  <li>UI:
+    <ul>
+      <li>Show correct milliseconds value in the table widget;</li>
+      <li>Fixed display of widget action dialog in Safari browser;</li>
+      <li>Fixed fullscreen button in the JS/JSON editor;</li>
+      <li>Added validation of the obtained value from the cell style function;</li>
+      <li>Make file input work properly when there are multiple on page;</li>
+      <li>Removed creationTime corruption during widget update;</li>
+      <li>Validate EntityId before update dashboard state;</li>
+      <li>Fixed text search for queries with reserved characters;</li>
+      <li>Fixed filter preview text at boolean type in alarm rule;</li>
+      <li>Fixed time-series bars tooltip;</li>
+      <li>Fixed widget data keys autocomplete after change data source type;</li>
+      <li>Fixed time-series widget (invoke data updated callback from data aggregator on initial data). Improve widget selector.</li>
+      <li>Fixed entity select component for the current customer;</li>
+      <li>Fixed error on login in assigned default dashboard was deleted;</li>
+      <li>Notify all core services when device is updated;</li>
+    </ul>
+  </li>
+  <li>Build scripts:
+    <ul>
+      <li>Fixed PostgreSQL distribution config in docker files;</li>
+      <li>Update Cassandra to 4.0 in docker files for “tb-cassandra” image;</li>
+    </ul>
+  </li>
+  <li>Rest client:
+    <ul>
+      <li>Fix of incorrect url for getTenantProfiles call;</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="thingsboard-pe">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.2.2">TB CE v3.2.2</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Update custom menu: Introduce dashboardId parameter to embed dashboard instead of using iframe;</li>
+  <li>Azure Event Hub Integration is updated to use new SDK;</li>
+  <li>Added new version of <a href="/docs/pe/user-guide/rule-engine-2-0/analytics-nodes/#alarms-count-node">“Alarms Count Node”</a>.</li>
+  <li>Added “Duplicate to group entities by group name” rule node;</li>
+  <li>Added ability to aggregate data on each message in the “Aggregate stream node”.</li>
+  <li>Add ability to aggregate data weekly from Sunday to Saturday in the “Aggregate stream node”.</li>
+  <li>Extend column export parameters in entities and alarms table for CSV export;</li>
+  <li>Improvements to scheduler and integration services in cluster mode;</li>
+</ul>
+
+<p>Bug Fixes:</p>
+
+<ul>
+  <li>Security improvement: Customer can’t see Tenant attributes using Entity Query API;</li>
+  <li>Fixed Customer Changes Owner from Sub-Customer to Customer;</li>
+  <li>Sigfox integration fix;</li>
+  <li>Fixed validation of Kafka integration configuration;</li>
+  <li>Fixed downlink for TCP/UDP integrations;</li>
+  <li>Fixed SAS credentials in IoT hub node;</li>
+  <li>Skip recursive tag scan for OPC-UA Integration. Added explicit disconnect at the end of the scan;</li>
+  <li>Can’t change the role type (Generic vs Group) if it is already used;</li>
+  <li>Fix tb-web-report docker image;</li>
+  <li>UI: Fixed validation of credentials in the LORIOT integration;</li>
+  <li>UI: Fix entities by group name alias - do not set owner id when groupStateEntity is disabled;</li>
+</ul>
+
+<h2 id="v321-january-26-2021">v3.2.1 (January 26, 2021)</h2>
+
+<h3 id="thingsboard-ce-1">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements and bug fixes:</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>UI: Improve UI load speed using lazy loading modules technique;</li>
+  <li>UI: Optimize UI - switch to AOT compiler. Use JIT compiler for dynamic components (widgets + rule nodes configuration);</li>
+  <li>UI: Introduce initial page loading spinner;</li>
+  <li>UI: Preload of Material Icons font;</li>
+  <li>UI: Added a new settings “Open in a new browser tab” in the widget action “Navigate to other dashboard”;</li>
+  <li>UI: Add ability to open dashboard state in separate dialog;</li>
+  <li>Device Profile UI: Fetch existing entity keys in alarm rules filters;</li>
+  <li>UI: Added translation for API usage dashboard;</li>
+  <li>UI: Added support translation on widget title and widget title tooltip;</li>
+  <li>UI: Added Slovenian translation;</li>
+  <li>UI: Update Korean translation;</li>
+  <li>UI: Update Czech translation;</li>
+  <li>UI: Update Chinese translation;</li>
+  <li>Added Cassandra timeseries partitions cache;</li>
+  <li>Added authentication methods (Basic and Certificate) for REST API call node;</li>
+  <li>Added ability to return arrays in transformation script node;</li>
+  <li>Log ‘Timeseries Updated’ event to audit log and populate it into rule chain;</li>
+  <li>Improved logging of Rule Node Errors;</li>
+  <li>Updated kafka to version 2.6.0 and improved kafka settings;</li>
+  <li>Update docker compose configurations to use PostgreSQL version 12;</li>
+  <li>Change AWS SMS type from Promotional to Transactional;</li>
+  <li>Introduce configurable maximum length of debug event symbols;</li>
+  <li>Improve audit log service - use JacksonUtil instead of ObjectMapper;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Improve load performance of device profile details;</li>
+  <li>UI: Fixed update of device profile after devices bulk import;</li>
+  <li>UI: Fix trip animation widget for multiple devices;</li>
+  <li>UI: Fixed map polygons;</li>
+  <li>UI: Fixed first init webcamera in iOS device;</li>
+  <li>UI: Fixed updated marker tooltip function in map widgets;</li>
+  <li>UI: Trip animation widget: fixed speed change handling;</li>
+  <li>UI: Fixed Safari browser issues;</li>
+  <li>UI: Skip user reload when refreshing JWT token during initial user load;</li>
+  <li>UI: Fixed admin widget action order in dialog;</li>
+  <li>UI: Fixed custom action (with HTML) template action order in dialog;</li>
+  <li>UI: Hide flot tooltip on chart destroying, prevent showing tooltip on flot hover, if edit mode is on;</li>
+  <li>UI: Device wizard: Rollback(delete) device when failed to save device credentials;</li>
+  <li>UI: Fixed reset password form - add email validation to prevent html injections;</li>
+  <li>MQTT transport: added # filter topic handling;</li>
+  <li>MQTT transport: fix handling of cleanSession flag;</li>
+  <li>Fixed processing of lastActivityTime for devices created by gateway. Introduce “Overwrite last activity” parameter for gateway;</li>
+  <li>Kafka queue: removed ServiceId from kafka consumer groupId;</li>
+  <li>Fixed timeouts in device profile rule node;</li>
+  <li>Add processing of alarm acknowledgment by device profile rule node;</li>
+  <li>Rule Engine: fixed Message copy for 2 or more relations;</li>
+  <li>Fixed audit logs for device profile;</li>
+  <li>Fixed cycle API usage state update;</li>
+  <li>Fixed NPE - skip usage state messages for deleted tenants;</li>
+</ul>
+
+<h3 id="thingsboard-pe-1">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.2.1">TB CE v3.2.1</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Google Cloud Pub/Sub integration;</li>
+  <li>ChirpStack integration;</li>
+  <li>Send “Owner changed” event to rule engine and audit log;</li>
+  <li>UI: Optimized load of ExcelJS module;</li>
+</ul>
+
+<p>Bug Fixes:</p>
+
+<ul>
+  <li>Fixed “aggregate stream” rule node;</li>
+  <li>Fixed shutdown of AWS SQS integration;</li>
+  <li>Fxed double uplink converting in tcp integration;</li>
+  <li>Remote integrations: changed parameter “PRC_HOST” to “RPC_HOST”;</li>
+  <li>UI: Fixed - do not delete integration parameter when value is single space;</li>
+  <li>UI: Fixed copy integration parameters in chrome browser;</li>
+  <li>UI: Fixed integration and converter view;</li>
+</ul>
+
+<h2 id="v256-january-26-2021">v2.5.6 (January 26, 2021)</h2>
+
+<h3 id="thingsboard-ce-2">ThingsBoard CE</h3>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Added Cassandra timeseries partitions cache;</li>
+  <li>Improve audit log service - use JacksonUtil instead of ObjectMapper;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>MQTT transport: fix handling of cleanSession flag;</li>
+  <li>Kafka queue: removed ServiceId from kafka consumer groupId;</li>
+</ul>
+
+<h3 id="thingsboard-pe-2">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.6">TB CE v2.5.6</a>.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Send “Owner changed” event to rule engine and audit log;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Remote integrations: changed parameter “PRC_HOST” to “RPC_HOST”;</li>
+</ul>
+
+<h2 id="v32-december-1-2020">v3.2 (December 1, 2020)</h2>
+
+<h3 id="thingsboard-ce-3">ThingsBoard CE</h3>
+
+<p>The goal of this release is to simplify provisioning and connecting the devices and configuration of the alarms. 
+We have also added features to track tenant API usage.</p>
+
+<p><strong>Major Improvements:</strong></p>
+
+<ul>
+  <li><a href="/docs/user-guide/tenant-profiles/">Tenant Profiles</a> to manage API and Rate Limits;</li>
+  <li><a href="/docs/user-guide/device-profiles/">Device Profiles</a> to configure default rule chain and queue, set transport configuration and define <a href="/docs/user-guide/device-profiles/#alarm-rules">Alarm Rules</a>;</li>
+  <li>Added support of custom <a href="/docs/user-guide/device-profiles/#mqtt-device-topic-filters">MQTT Topics</a> and basic <a href="/docs/user-guide/basic-mqtt/">MQTT credentials</a> as alternative to access token;</li>
+  <li>Added support of custom device payload schema using <a href="/docs/user-guide/device-profiles/#mqtt-device-payload">protocol buffers</a> for MQTT transport;</li>
+  <li><a href="/docs/user-guide/device-provisioning/">Device provisioning</a> is now available via device profiles;</li>
+  <li><a href="/docs/user-guide/ui/sms-provider-settings">SMS Provider</a> and <a href="/docs/user-guide/rule-engine-2-0/external-nodes/#send-sms-node">Send SMS</a> rule node;</li>
+  <li>UI for <a href="/docs/user-guide/oauth-2-support/">OAuth2</a> settings.</li>
+</ul>
+
+<p><strong>Minor Improvements:</strong></p>
+
+<ul>
+  <li>Added <a href="/docs/user-guide/tenant-profiles/#api-usage-dashboard">Api Usage</a> dashboard;</li>
+  <li>Added “orderBy” request parameter for telemetry controller;</li>
+  <li>Added queueName to enqueueForTellNext in TbSendRPCRequestNode;</li>
+  <li>Added protection from the circular reference across different rule chains;</li>
+  <li>Added new language Brazilian Portuguese;</li>
+  <li>Improvements to camera and alarm widgets, legend sort;</li>
+  <li>Added support of min/max values in multiple attributes input widget;</li>
+  <li>UI performance improvements;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Cover all markers to fit bounds by default even when fit bounds marker is disabled in the map widget;</li>
+</ul>
+
+<h3 id="thingsboard-pe-3">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.2">TB CE v3.2</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>LORIOT integration;</li>
+  <li>RabbitMQ integration;</li>
+  <li>Simplified Alarm Search Query;</li>
+  <li>Api usage stats collection for Integrations;</li>
+</ul>
+
+<p>Bug Fixes:</p>
+
+<ul>
+  <li>Critical bug fix for alarm search query when sorting by entity key;</li>
+  <li>Show correct time for device profiles scheduler preview;</li>
+  <li>Added proxy for reCaptcha.</li>
+</ul>
+
+<h2 id="v255-december-1-2020">v2.5.5 (December 1, 2020)</h2>
+
+<h3 id="thingsboard-ce-4">ThingsBoard CE</h3>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Added partition property for kafka settings;</li>
+  <li>Changed default QoS for default SubAck message from AT_LEAST_ONCE to AT_MOST_ONCE</li>
+  <li>Added ability to not notify device about attributes update;</li>
+  <li>Added ability to set/force base URL for password reset links;</li>
+  <li>Added validation of circular reference in the rule chains;</li>
+  <li>AWS SQS client improvements for JS executors;</li>
+  <li>Updated dependency versions to fix some vulnerabilities;</li>
+  <li>Added handler for too long payload exception in MQTT transport</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Fixed telemetry cleanup procedure for telemetry stored in PostgreSQL;</li>
+  <li>Added ability to use exp-pause-between-retries for message processing strategies;</li>
+  <li>Fixed for client certificate check in case of MQTT two-way SSL connection;</li>
+  <li>Fixed inactivitiy timeout for gw sessions;</li>
+  <li>Fixed knob control widget;</li>
+</ul>
+
+<h3 id="thingsboard-pe-4">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.5">TB CE v2.5.5</a>.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Added logs to detect rule nodes that cause timeout;</li>
+  <li>Top 5 rule nodes statistics;</li>
+  <li>Twilio rule node improvements to support new line characters;</li>
+  <li>Added lock to the kafka integration;</li>
+  <li>IBM Watson integration improvements</li>
+  <li>Improvement to logo container size;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed csv export;</li>
+</ul>
+
+<h2 id="v311-august-28-2020">v3.1.1 (August 28, 2020)</h2>
+
+<h3 id="thingsboard-ce-5">ThingsBoard CE</h3>
+
+<p>Minor bug fix release:</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Performance improvement for Alarm related SQL queries;</li>
+  <li>UI: Upgrade Angular framework version to 10;</li>
+  <li>UI: Switch to yarn package-manager;</li>
+  <li>UI: Update Italian locale;</li>
+  <li>UI: Improved modules loading;</li>
+  <li>UI: Introduced common modules map;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Fixed error tslint for map widget;</li>
+  <li>UI: Fixed update position new marker/polygon on resize in image-map;</li>
+  <li>UI: Fixed call action: polygon click;</li>
+  <li>UI: Fixed clear state params for dashboardId change;</li>
+  <li>Various fixed of filtering queues;</li>
+</ul>
+
+<h3 id="thingsboard-pe-5">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.1.1">TB CE v3.1.1</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Created Apache Pulsar integration;</li>
+  <li>Added lifecycle event “UPDATE” for converter;</li>
+</ul>
+
+<p>Bug Fixes:</p>
+
+<ul>
+  <li>UI: Limit Aggregation Time Unit;</li>
+  <li>Fixed query in case generic is not set and entity group ids is present;</li>
+  <li>Fixed entity data query - replace bool_or with max;</li>
+  <li>Fixed search by type for user entities query;</li>
+  <li>Fixed for text search in entity selection;</li>
+  <li>Fixed Tenant User queries with a combination of generic and group permissions;</li>
+  <li>Removed PostgreSQL from tb-pe image;</li>
+  <li>Remote integration API: Force disconnect on connection error;</li>
+</ul>
+
+<h2 id="v254-august-28-2020">v2.5.4 (August 28, 2020)</h2>
+
+<h3 id="thingsboard-ce-6">ThingsBoard CE</h3>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Password from SMTP settings is no longer shared to UI;</li>
+  <li>Added logs for in memory queue</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Fixed SQL scripts for Unit tests</li>
+</ul>
+
+<h3 id="thingsboard-pe-6">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.4">TB CE v2.5.4</a>.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Created Apache Pulsar integration;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>UI: Fixed show dashboard added Group permission;</li>
+  <li>Fixed Report service - duplicate generate report post request;</li>
+  <li>Fixed tb-pe docker image;</li>
+</ul>
+
+<h2 id="v31-august-12-2020">v3.1 (August 12, 2020)</h2>
+
+<h3 id="thingsboard-ce-7">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements and bug fixes.</p>
+
+<p><strong>Main features:</strong></p>
+
+<ul>
+  <li>Filters over entity fields, attributes and latest telemetry;</li>
+  <li>Alarm widget improvements;</li>
+  <li>Performance improvements to insets in PostgreSQL;</li>
+  <li>Ability to store the latest values in SQL instead of NoSQL;</li>
+</ul>
+
+<p><strong>Additional features:</strong></p>
+
+<ul>
+  <li>UI:
+    <ul>
+      <li>External angular modules for widget development;</li>
+      <li>Support of the files with .txt extensions in bulk import of entities;</li>
+      <li>Flot: add ability to use attributes in datakeys labels;</li>
+      <li>Maps cluster mode optimizations;</li>
+      <li>Add ability to edit polygons on image map;</li>
+      <li>New alias entity types: Current User and Current User Owner (Tenant or Customer);</li>
+    </ul>
+  </li>
+  <li>Rule Engine:
+    <ul>
+      <li>Improved logging of failed and timeout messages;</li>
+      <li>Azure iot hub rule node;</li>
+      <li>Open rule chain from rule node link;</li>
+      <li>Clear alarm node now accepts alarm id as an originator;</li>
+      <li>Log time to acknowledge message;</li>
+      <li>Display sorted metadata keys in rule nodes;</li>
+    </ul>
+  </li>
+  <li>REST API: Ability to move device to another tenant;</li>
+  <li>Enable default credential provider chain for aws sqs;</li>
+  <li>Added logging of MQTT payload errors;</li>
+  <li>Added support of Confluent cloud;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI:
+    <ul>
+      <li>Fixed show polygon on image map widget;</li>
+      <li>Fix page link without pagination. Minor fixes;</li>
+      <li>Fix boolean input widgets;</li>
+      <li>Fix web camera input widget;</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="thingsboard-pe-7">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.1">TB CE v3.1</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Performance improvements for majority of REST API calls;</li>
+  <li>Azure IoT Hub integration;</li>
+  <li>The Things Industries integration;</li>
+</ul>
+
+<h2 id="v253-august-12-2020">v2.5.3 (August 12, 2020)</h2>
+
+<h3 id="thingsboard-ce-8">ThingsBoard CE</h3>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Performance improvements to inserts in PostgreSQL;</li>
+  <li>Prometheus Metrics;</li>
+  <li>Created Azure IoT hub rule node;</li>
+  <li>REST API: Ability to move device to another tenant;</li>
+  <li>Added proxy configs to rest api call rule node (#2943);</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>refactored DataValidator email pattern</li>
+</ul>
+
+<h3 id="thingsboard-pe-8">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.3">TB CE v2.5.3</a>.</p>
+
+<h2 id="v301-june-9-2020">v3.0.1 (June 9, 2020)</h2>
+
+<h3 id="thingsboard-ce-9">ThingsBoard CE</h3>
+
+<p>Minor release with everything from 3.0/2.5.2 plus the following improvements.</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Improved database migration - create indexes after inserts;</li>
+  <li>Improved rpc error handling;</li>
+  <li>Moved component tb-contact to shared module;</li>
+  <li>Updated Czech translation;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Dashboard page fixes and improvements;</li>
+  <li>UI: Fix map tooltip actions;</li>
+  <li>UI: Input maps fixed: error create the first marker;</li>
+  <li>UI: Fix image map initialization;</li>
+  <li>UI: Fix state chart subscription;</li>
+  <li>Set correct cassandra datacenter;</li>
+</ul>
+
+<h3 id="thingsboard-pe-9">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.0.1">TB CE v3.0.1</a> with the following improvements.</p>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Fix null value during export into csv.</li>
+</ul>
+
+<h2 id="v252-june-9-2020">v2.5.2 (June 9, 2020)</h2>
+
+<h3 id="thingsboard-ce-10">ThingsBoard CE</h3>
+
+<p>Minor bug-fix release with few improvements.</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Replaced Akka with pure java implementation of Actor System;</li>
+  <li>Using external executor in Kafka Node;</li>
+  <li>Improvements for actor initialization logic;</li>
+  <li>Improved handling of peak connect attempts;</li>
+  <li>RPC Request Node improvement to avoid blocking;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Fixed the activation of on-row event on details click;</li>
+  <li>UI: Fixed problem widget-editor in Safari #2900;</li>
+  <li>Message is pushed to correct queue in case of duplication;</li>
+  <li>Never use Fork-Join pool with parallelism set to 1.</li>
+</ul>
+
+<h3 id="thingsboard-pe-10">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.2">TB CE v2.5.2</a> with the following improvements.</p>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Fix null value during export into csv;</li>
+</ul>
+
+<h2 id="v30-june-1-2020">v3.0 (June 1, 2020)</h2>
+
+<h3 id="thingsboard-ce-11">ThingsBoard CE</h3>
+
+<p>Major release with everything from 2.5 plus the following improvements.</p>
+
+<p><strong>Main features:</strong></p>
+
+<ul>
+  <li>AngularJS 1.5.8 -&gt; Angular 9 migration for entire UI;</li>
+  <li>Force SQL DB usage to store entities;</li>
+</ul>
+
+<p><strong>Additional features:</strong></p>
+
+<ul>
+  <li>Improved pagination and filtering;</li>
+  <li>Improved and refactored Map widgets;</li>
+  <li>Improved tool-tips for widget development;</li>
+  <li>Cassandra driver updated to 4.x;</li>
+  <li>Dramatically reduced number of REST API calls generated by UI;</li>
+  <li>Replaced Velocity with Freemarker.</li>
+</ul>
+
+<h3 id="thingsboard-pe-11">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v3.0">TB CE v3.0</a> with the following improvements.</p>
+
+<p><strong>Main features:</strong></p>
+
+<ul>
+  <li>Advanced CSS for White-labeling;</li>
+</ul>
+
+<p><strong>Additional features:</strong></p>
+
+<ul>
+  <li>No more “Fetch more” button;</li>
+  <li>SQL native filtering and pagination in entity groups;</li>
+</ul>
+
+<h2 id="v251-june-1-2020">v2.5.1 (June 1, 2020)</h2>
+
+<h3 id="thingsboard-ce-12">ThingsBoard CE</h3>
+
+<p>Minor bug-fix release with few improvements.</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>UI: Batch support for fetching entities from relations</li>
+  <li>Improved K8S deployment scripts;</li>
+  <li>Cluster mode performance improvements;</li>
+  <li>Proxy configuration for email rule node and sysadmin email settings;</li>
+  <li>Additional setting “max_eval_requests_timeout” to separate JS “eval” from JS “invoke” timeouts;</li>
+  <li>Added ‘alwaysFullScreen’ and ‘defaultDashboardName’ OAuth2 properties;</li>
+  <li>Refactored DEB/RPM builds to minimize code duplication and enable CentOS 8 support;</li>
+  <li>Added gatewayId to metadata in ENTITY_CREATED event message;</li>
+  <li>Added timestamp to TbMsg;</li>
+  <li>Added minimum RPC timeout value setting;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Fixed claim devices API;</li>
+  <li>Fixed shared/client attribute updates over WS;</li>
+  <li>Fixed REST API security checks for some corner cases;</li>
+  <li>UI: Fixed data displaying in mobile browser for digital gauge widget;</li>
+  <li>Fixed 2.4.3 -&gt; 2.5 upgrade script for AWS RDS;</li>
+</ul>
+
+<h3 id="thingsboard-pe-12">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5.1">TB CE v2.5.1</a> with the following improvements.</p>
+
+<p><strong>Improvements:</strong></p>
+
+<ul>
+  <li>Performance improvement for RBAC functionality;</li>
+  <li>Added maxRecords and requestTimeout to AWS Kinesis integration;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Start scheduled events correctly if startTime is set earlier than repeat config start date</li>
+</ul>
+
+<h2 id="v25-may-12-2020">v2.5 (May 12, 2020)</h2>
+
+<h3 id="thingsboard-ce-13">ThingsBoard CE</h3>
+
+<p>Major release with the following improvements.</p>
+
+<p><strong>Main features:</strong></p>
+
+<ul>
+  <li>Support of new Queue implementations: AWS SQS, Google Pub/Sub, Azure Service Bus and RabbitMQ;</li>
+  <li>Rule Engine:
+    <ul>
+      <li>Implemented back pressure logic;</li>
+      <li>Implemented processing checkpoints;</li>
+      <li>Configurable Submit and Ack strategies;</li>
+      <li>Ability to launch Rule Engine as separate microservice;</li>
+      <li>Ability to isolate tenant processing to separate rule engine instance(s);</li>
+      <li>Improved statistics and error tracing;</li>
+      <li>Automatic reset of blacklisted functions;</li>
+      <li>Replaced gRPC with queues for communication between ThingsBoard components;</li>
+    </ul>
+  </li>
+  <li>OAuth support;</li>
+  <li>JSON support for telemetry and attributes;</li>
+  <li>Improvements to timeseries DAO for SQL:
+    <ul>
+      <li>Reduced size of telemetry tables on 40%;</li>
+      <li>Updated minimum PostgreSQL version from 9.x to 11.x;</li>
+      <li>Configurable TTL implementation for telemetry and events;</li>
+      <li>Partitioning of time series data in PostgreSQL;</li>
+    </ul>
+  </li>
+  <li>Non Root docker images support;</li>
+  <li>Refactored and improved Java REST client;</li>
+  <li>UI: Added Widgets and Dashboard for Managing Gateway;</li>
+</ul>
+
+<p><strong>Additional features:</strong></p>
+
+<ul>
+  <li>Service Discovery improvements;</li>
+  <li>Introduced SMTP TLS version to default mail service and send email node;</li>
+  <li>Added settings for queue topic creation;</li>
+  <li>Added “check alarm status” rule node;</li>
+  <li>Added “sendActivationEmail” as request param for activateUser controller;</li>
+  <li>UI: Added new alias - “current tenant”;</li>
+  <li>UI: Added ticks support to digital gauge;</li>
+  <li>UI: Added ability to configure thresholds to Flot charts;</li>
+  <li>UI: Added gauge color limits configuration;</li>
+  <li>UI: Added Latvian locale;</li>
+  <li>UI: Added Romanian locale;</li>
+  <li>UI: Added fetchLastLevelOnly checkbox to alias query filter;</li>
+  <li>UI: Added option to set bar alignment in ‘flot-bar-widget’;</li>
+  <li>UI: Added new settings to web-camera input widget;</li>
+  <li>UI: Added ability to use apostrophe in custom translations in tables;</li>
+  <li>Demo Data: Added “Thermostats” Dashboard as an example of custom actions;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>Fixed MQTT inactivity disconnects;</li>
+  <li>Fixed concurrent processing of new device connections for gateway MQTT session;</li>
+  <li>Fixed device reconnect abnormal when certificate authentication is turned on;</li>
+  <li>Fixed Alarm Ack/Clear/Update when Relation Type Filter is used;</li>
+  <li>Fixed PostgreSQL Inserts logic;</li>
+  <li>Fixed logging statistics configuration;</li>
+  <li>Fixed dependency vulnerabilities;</li>
+  <li>Fixed PEM keys with password for MQTT server;</li>
+  <li>UI: Fixed error when updating websocket for “impersonated” user (#2743)</li>
+  <li>UI: Fixed SQL DAO shutdown sequence;</li>
+  <li>UI: Fixed Digital gauge values don’t switch to 0 when telemetry is 0;</li>
+  <li>UI: Fixed Digital Gauge Widget sometimes does not update latest value;</li>
+  <li>UI: Fixed infinite loop caused by default md-dialog resize function in Safari</li>
+  <li>UI: Fixed manage dashboard states for Safari;</li>
+  <li>UI: Fixed entity label for header action in dashboard states;</li>
+  <li>UI: Fixed validation for geo-fencing nodes;</li>
+  <li>UI: Fixed dialogs in Safari;</li>
+</ul>
+
+<h3 id="thingsboard-pe-13">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.5">TB CE v2.5</a> with the following improvements.</p>
+
+<p><strong>Main features:</strong></p>
+
+<ul>
+  <li>Rule Engine improvements similar to Community Edition;</li>
+  <li>OAuth improvements similar to Community Edition;</li>
+  <li>Improved performance;</li>
+</ul>
+
+<p><strong>Additional features:</strong></p>
+
+<ul>
+  <li>Added Entity Name column for multiple entities to export functionality;</li>
+  <li>Avoid entity count check for unlimited subscriptions;</li>
+  <li>Persistent volumes for k8s deployments to store license data;</li>
+</ul>
+
+<p><strong>Bug fixes:</strong></p>
+
+<ul>
+  <li>UI: Fix XLSX export to use local time;</li>
+  <li>UI: Add CSV string-delimiter for export;</li>
+  <li>RE: Fix for owner logic in TbAddToGroupNode node.</li>
+</ul>
+
+<h2 id="v243-january-8-2020">v2.4.3 (January 8, 2020)</h2>
+
+<h3 id="thingsboard-ce-14">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Performance Improvement for Device State Service;</li>
+  <li>Async JS Execution;</li>
+  <li>Added support of Entity Label in bulk import;</li>
+  <li>Added “delete alarm” API to alarm service.</li>
+  <li>UI: Added new Alarm widget settings: “Maximum number of alarms to load” and “Fetch size”.</li>
+  <li>UI: Improved state controller for dashboard;</li>
+  <li>UI: Added support of Entity Label to state name and dashboard breadcrumbs;</li>
+  <li>UI: Added data key settings to change legend appearance for charts.</li>
+  <li>UI: Hide timewindow when all options are hidden;</li>
+  <li>UI: Control widgets background color;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>More clear thread names;</li>
+  <li>Added support of activity event for “Copy to view” rule node;</li>
+  <li>JS Stats for Nashorn JS Executor;</li>
+  <li>UI: Added Traditional Chinese locale;</li>
+  <li>UI: Added Entity Label to widget actions;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>UI: Fix timewindow parameters when zooming flot widget chart;</li>
+  <li>UI: Fixed knob control widget;</li>
+  <li>UI: Fixed entity name resolution;</li>
+  <li>UI: Fixed disable timewindow logic;</li>
+</ul>
+
+<h3 id="thingsboard-pe-14">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.4.3">TB CE v2.4.3</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>New Integration: Actility ThingPark Enterprise;</li>
+  <li>Added new alias: “Entities by group name”.</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Rest client update;</li>
+  <li>Added “other properties” for Kafka integration;</li>
+  <li>TCP and UDP integration: added HEX handler type;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>UI: Fix promise to tenant_admin and generic permission;</li>
+  <li>White-labeling: Fixed NPE in case tenant has not additional info;</li>
+</ul>
+
+<h2 id="v242-december-10-2019">v2.4.2 (December 10, 2019)</h2>
+
+<h3 id="thingsboard-ce-15">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Batch attribute and telemetry updates for PostgreSQL 
+(up to 40000 insert/second on an average laptop);</li>
+  <li>Alarm create/update performance improvements;</li>
+  <li>Ability to store device state changes to telemetry instead of attributes;</li>
+  <li>Added coverage of nearly all REST API calls in the Java REST Client;</li>
+  <li>Optimization of device creation and lookup performance;</li>
+  <li>JS Invoke become async;</li>
+  <li>Redis cluster configuration support;</li>
+  <li>Added Redis queue support in REST API call node;</li>
+  <li>UI: Added ‘Device claiming’ widget;</li>
+  <li>UI: Improved ‘Trip Animation’ widget;</li>
+  <li>UI: Improved ‘Multiple Attributes’ widget;</li>
+  <li>UI: New input widgets use map (image/openstreet/gogle) to set location entity</li>
+  <li>UI: Added clustering of markers on Map widget. See <a href="https://www.youtube.com/watch?v=sBFmOHxWbag">video tutorial</a>.</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Added ‘label’ field to Assets;</li>
+  <li>Added configurable logging of performance metrics;</li>
+  <li>Improved reporting of last activity time from the remote transport;</li>
+  <li>Tool for migrating from Postgres to hybrid mode;</li>
+  <li>Updated PostgreSQL driver version to 9.4.1212;</li>
+  <li>Allow Nulls in JsonConverter for usability;</li>
+  <li>Improved activation link to work without x-forwarded-port not set;</li>
+  <li>increased default JS execution time to 3000 ms;</li>
+  <li>UI: Improved translations for RU &amp; UA;</li>
+  <li>UI: Added Greek language;</li>
+  <li>UI: Move action button to header widget;</li>
+  <li>UI: Bulk provisioning supports label filed;</li>
+  <li>UI: Ability to hide “Columns to Display” and “Alarm Status Filter”;</li>
+  <li>UI: Charts:
+    <ul>
+      <li>Ability to compare current data with data for last day, week, month, year;</li>
+      <li>Ability to hide tooltip values that are 0 or false;</li>
+      <li>Ability to configure dataKey and remove it from stacking mode;</li>
+      <li>Ability to specify type of the dots on line chart: ‘circle’, ‘cross’, ‘diamond’, ‘square’ і ‘triangle’;</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Clear Alarm Node fix clearTs and endTs in log message;</li>
+  <li>UI: Fixed CDN Url for Google Maps widget;</li>
+  <li>UI: Fixed missing translations for login page;</li>
+  <li>UI: Fixed spelling;</li>
+  <li>UI: Fixed widgets order mobile view;</li>
+  <li>UI: Fixed disable on condition and errors displaying;</li>
+  <li>UI: Fix delete timeseries data;</li>
+</ul>
+
+<h3 id="thingsboard-pe-15">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.4.2">TB CE v2.4.2</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Kafka integration;</li>
+  <li>AWS Kinesis integration;</li>
+  <li>UDP/TCP integration improvements and documentation;</li>
+  <li>Added support of Assets and Entity Groups in the integrations;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Add new format export data XLSX;</li>
+  <li>JPA improvements.</li>
+  <li>Misc performance improvements;</li>
+  <li>UI: New alias: Owner of an entity from dashboard state</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fix schedule reconnect for stopped OPC-UA integration;</li>
+  <li>Fix for OPC-UA Client reconnect issue;</li>
+  <li>Fix event storage reader not to skips an extra line in file on start;</li>
+  <li>Fix export file name to support custom translate;</li>
+</ul>
+
+<h2 id="v241-september-13-2019">v2.4.1 (September 13, 2019)</h2>
+
+<h3 id="thingsboard-ce-16">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Password policy setting. Login/Logout audit log. See <a href="https://www.youtube.com/watch?v=ZKUs01k8_H4">video tutorial</a>;</li>
+  <li>Timescale DB support;</li>
+  <li>5x performance improvement for PostgreSQL insert speed;</li>
+  <li>UI: New ‘Custom Action’ editor with HTML/CSS/JS input capabilities;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>UI: Migrate to latest webpack version 4.36.1;</li>
+  <li>UI: Add the possibility to hide single time-window fields;</li>
+  <li>UI: Add new ‘multiple-input’ widget to ‘input widgets’ bundle;</li>
+  <li>UI: Webcamera input widget;</li>
+  <li>UI: Add new React component ‘ThingsboardIcon’, a form to select an icon from widget settings;</li>
+  <li>UI: Add support for optional widget title tooltip text;</li>
+  <li>UI: Improve IT, ES, FR and DE translation;</li>
+  <li>Update Netty, GRPC, jackson-databind versions;</li>
+  <li>Refactoring of DAO layer and separated common interfaces to separate module;</li>
+  <li>Claim device improvements;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fix NPE in transport service;</li>
+  <li>MqttTransportHandler: Use default channelReadComplete implementation to avoid memory leaks;</li>
+  <li>Fixed memory leaks in MqttTransportHandler (<a href="https://github.com/thingsboard/thingsboard/issues/1787">#1787</a>);</li>
+  <li>Fixed broken swagger-ui;</li>
+  <li>Fixed violations on attributes/event primary and unique keys constraints;</li>
+  <li>UI: Fix fullscreen mode for ace editors inside react schema form.</li>
+</ul>
+
+<h3 id="thingsboard-pe-16">ThingsBoard PE</h3>
+
+<p>Everything from <a href="https://github.com/thingsboard/thingsboard/releases/tag/v2.4.1">TB CE v2.4.1</a> with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Remote Integrations feature to execute Integrations in a separate microservice;</li>
+  <li>Added TCP &amp; UDP Integrations;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Integration enable/disable feature;</li>
+  <li>AWS SQS Integration;</li>
+</ul>
+
+<h2 id="v24-july-10-2019">v2.4 (July 10, 2019)</h2>
+
+<h3 id="thingsboard-ce-17">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Added <a href="/docs/user-guide/bulk-provisioning/">Bulk Provisioning</a> of devices/assets using CSV files;</li>
+  <li>Added <a href="/docs/user-guide/claiming-devices/">Claiming devices</a> feature;</li>
+  <li>UI: Ability to reorder datakey chips via Drag&amp;Drop in widget editor;</li>
+  <li>UI: Combined attributes and timeseries datakeys for latest values widget in widget editor;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Added events debug mode rate limits;</li>
+  <li>Added debug events TTL;</li>
+  <li>Improved “tenant/customer details” rule nodes;</li>
+  <li>Improved “get originator attributes” and “get device attributes”rule nodes;</li>
+  <li>Improve “create alarm” rule node: ability to use metadata for alarm type;</li>
+  <li>Added “Entity View” type to “Filter” rule nodes;</li>
+  <li>Added indexes to SQL database schema;</li>
+  <li>Added device label field;</li>
+  <li>UI: add map HERE provider to OpenStreet Map widgets;</li>
+  <li>UI: added custom provider option for OpenStreet Map widgets;</li>
+  <li>UI: added ‘Disable scroll zooming’ setting for all Map widgets;</li>
+  <li>UI: Trip animation widget improvements;</li>
+  <li>UI: Added ability to choose direction of legend items in legend settings;</li>
+  <li>UI: Added ability to hide widget timewindow;</li>
+  <li>UI: Added rowClick and cellButton action sources to Timeseries Table widget;</li>
+  <li>UI: Updated German locale;</li>
+  <li>UI: Added hide empty lines option to Timeseries Table widget;</li>
+  <li>UI: Added Chinese translation for entity views;</li>
+  <li>UI: Added option to show tooltip on hover for Map widgets;</li>
+  <li>UI: Added Czech locale;</li>
+  <li>UI: Added ability to define form groups in json schema for widgets configuration forms;</li>
+  <li>UI: Added ‘On HTML element click’ action source for HTML card (static and value) widgets;</li>
+</ul>
+
+<p>New Rule nodes:</p>
+
+<ul>
+  <li>“gcp pubsub” - Google Cloud PubSub external node;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed mqtt keep-alive;</li>
+  <li>Fixed <a href="https://github.com/thingsboard/thingsboard/issues/1686">issue #1686</a>;</li>
+  <li>Fixed windows installation scripts;</li>
+  <li>UI: fix Chinese translation problem;</li>
+  <li>UI: fix Entities Table widget for wrong dataKey value when same key is used on multiple columns with different processing function;</li>
+</ul>
+
+<h3 id="thingsboard-pe-17">ThingsBoard PE</h3>
+
+<p>Everything from TB CE v2.4.0 with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Added <a href="/docs/user-guide/self-registration/">Self-registration</a> feature;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Improve ‘add to group’ node - add ability to remove entity from current groups;</li>
+  <li>Allow pushing ENTITY_CREATED event on device creation via Integration;</li>
+  <li>Allow pushing ENTITY_CREATED event on customer creation via Integration;</li>
+  <li>Integrations: added ability to change device owner from uplink data;</li>
+  <li>UI: Added ‘Copy entity group id’ button;</li>
+  <li>UI: Added white-labeling settings to show product name and version;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed matching by FQN and ID in OPC-UA integration;</li>
+  <li>Fixed whitelabeling issues for subcustomers;</li>
+  <li>Fixed owners cache;</li>
+  <li>Add validation to Group Permissions Controller;</li>
+</ul>
+
+<h2 id="v231-april-3-2019">v2.3.1 (April 3, 2019)</h2>
+
+<h3 id="thingsboard-ce-18">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Migrate to Spring Boot 2.1.0 and Spring 5.1.2;</li>
+  <li><a href="https://github.com/thingsboard/thingsboard/tree/master/k8s">Kubernetes scripts</a> for ThingsBoard Microservices;</li>
+  <li>UI: New Trip Animation Widget;</li>
+  <li>UI: New Date Range Navigator Widget;</li>
+  <li>UI: New <a href="https://www.youtube.com/watch?v=bc07ys-azqw">Entities Hierarchy Widget</a>;</li>
+  <li>UI: Added ability to visualize Polygons on the map widgets;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>added feature for resetting debug-mode in all rule-nodes;</li>
+  <li>UI: Updated Italian locale;</li>
+  <li>UI: Added Ukrainian locale;</li>
+  <li>UI: Added full Canadian postal code validation;</li>
+  <li>UI: Add searchbox support for all ace editors;</li>
+  <li>UI: Widgets - add entityDescription variable;</li>
+  <li>Improved zookeeper client reconnect logic;</li>
+  <li>Improved GRPC session error handling.</li>
+</ul>
+
+<p>New Rule nodes:</p>
+
+<ul>
+  <li>Relation Rule Node</li>
+  <li>Save to custom Cassandra table Rule Node</li>
+  <li>Geofencing rule nodes</li>
+  <li>Get Entity Details nodes</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>fixed Customer User permissions for RPC call;</li>
+  <li>fixed regexp in webpack build;</li>
+  <li>fixed NPE in TbGetTelemetryNode;</li>
+  <li>fixed NPE in TbMsgMetaData constructor;</li>
+  <li>fixed NPE in actor message processors;</li>
+  <li>fixed CORS mapping;</li>
+  <li>fixed doulbe PUBACK for attribute request messages;</li>
+  <li>UI: fixed individual tooltip content in Flot widget;</li>
+  <li>added prefix to device credentials cache keys.</li>
+</ul>
+
+<h3 id="thingsboard-pe-18">ThingsBoard PE</h3>
+
+<p>Everything from TB CE v2.3.1 with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Introduced <a href="/docs/user-guide/rbac/">Change Owner</a> operation;</li>
+  <li>Introduced <a href="/docs/user-guide/custom-menu/">Custom Menu</a> feature;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>UI: improved French locale;</li>
+  <li>Improve reports generation.</li>
+</ul>
+
+<p>New Rule Nodes:</p>
+
+<ul>
+  <li>Change Owner Rule Node</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed Public Users permissions: Added Alarm Read permission.</li>
+  <li>UI: Fixed multiple users deletion;</li>
+  <li>UI: Timer-Based scheduler layout fix;</li>
+  <li>UI: Fixed custom translation update on page refresh.</li>
+</ul>
+
+<h2 id="v23-february-7-2019">v2.3 (February 7, 2019)</h2>
+
+<h3 id="thingsboard-ce-19">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Support of message transactions using new synchronization rule nodes;</li>
+  <li>Delete Alarm API;</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Add ‘Reconnect’ and ‘RTU over TCP’ options to TCP Modbus extension configuration;</li>
+  <li>Added note to the originator telemetry node details about max fetch size (<a href="https://github.com/thingsboard/thingsboard/issues/1346">issue #1346</a>);</li>
+  <li>Use a fast serialization library like FST for serialization of TbActorMsg;</li>
+  <li>Improve create alarm node to read alarm config from message;</li>
+  <li>Improve clear alarm node to get alarm type using pattern with fields from message metadata;</li>
+  <li>Ability to make entity views public;</li>
+  <li>UI: Add German locale;</li>
+  <li>UI: Add Persian locale;</li>
+  <li>UI: Updated Russian locale;</li>
+  <li>UI: Updated Spanish locale;</li>
+  <li>UI: Improve Map widgets to not change zoom on every data update;</li>
+  <li>UI: Add ability to display polygons on Map widgets;</li>
+  <li>UI: Improve webpack resources compilation time by running loaders in concurrent mode;</li>
+</ul>
+
+<p>New Rule nodes:</p>
+
+<ul>
+  <li>Transaction nodes: Synchronization start and Synchronization end;</li>
+  <li>Delete relation node;</li>
+  <li>Unassign from customer node;</li>
+  <li>Check existence fields;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed aggregation for numeric data types to process long and double values in same time;</li>
+  <li>Fixed issues related to originator telemetry node;</li>
+  <li>Fixed <a href="https://github.com/thingsboard/thingsboard/issues/1327">issue #1327</a>;</li>
+  <li>Fixed <a href="https://github.com/thingsboard/thingsboard/issues/1355">issue #1355</a>;</li>
+  <li>Swagger UI: Fixed URL templating;</li>
+  <li>Fixed NPE in Netty-mqtt client on puback;</li>
+  <li>Fixed SQL aggregation queries (SQL Warning Code: -1003), issues <a href="https://github.com/thingsboard/thingsboard/issues/925">#925</a>, <a href="https://github.com/thingsboard/thingsboard/issues/397">#397</a>;</li>
+  <li>Add workaround to rest api call node to use “simple client HTTP factory” to avoid issues with HTTP headers introduced by netty client http factory;</li>
+  <li>UI: Fixed gateway mqtt extension configuration: make device type and topic expressions optional;</li>
+  <li>UI: Fixed issues with device/asset/entityView type autocomplete;</li>
+  <li>UI: Flot timeseries widgets: fixed issue with tooltip vertical position;</li>
+  <li>UI: Fixed <a href="https://github.com/thingsboard/thingsboard/issues/1427">issue #1427</a>: Boolean input widgets were saving wrong value;</li>
+</ul>
+
+<h3 id="thingsboard-pe-19">ThingsBoard PE</h3>
+
+<p>Everything from TB CE v2.3+ the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rbac/">Advanced RBAC for IoT</a> to be able to define user groups and set permissions in relation to entity groups (devices/assets/dashboards, etc);</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Added User, Entity View and Dashboard groups;</li>
+  <li>Improve scheduler configuration with ability to create time-based schedule;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed timezone processing of scheduler events;</li>
+  <li>Fixed OPC-UA integration reconnect procedure;</li>
+  <li>Fixed issue with multiple creation of devices by integration;</li>
+  <li>Improve Platform Integrations initialization;</li>
+  <li>UI: Fixed “Allow white-labeling” settings;</li>
+  <li>UI: Fixed issue with labels rendering on IE9+;</li>
+</ul>
+
+<h2 id="v22-november-30-2018">v2.2 (November 30, 2018)</h2>
+
+<h3 id="thingsboard-ce-20">ThingsBoard CE</h3>
+
+<p>Minor release with the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Introduced support of a <strong>microservices</strong> architecture and deployment options. 
+See <a href="/docs/reference/msa/">microservices</a> architecture page and <a href="https://github.com/thingsboard/thingsboard/blob/master/docker/README.md">deployment</a> tips for more details;</li>
+  <li>Improved <strong>docker images</strong> to be able to launch ThingsBoard with a single command. 
+See <a href="/docs/user-guide/install/docker/">Linux or MacOS</a> and <a href="/docs/user-guide/install/docker-windows/">Windows</a> installation pages;</li>
+  <li>Added <a href="/docs/user-guide/entity-views/"><strong>Entity Views</strong></a> feature to allow to 
+ limit the degree of exposure of the Device or Asset telemetry and attributes to the Customers;</li>
+  <li>Added ThingsBoard <a href="/docs/reference/msa/#javascript-executor-microservices"><strong>JavaScript Executor</strong></a> microservice to isolate execution of rule engine scripts from the main rule engine components and flow;</li>
+  <li>Added ThingsBoard <a href="/docs/reference/msa/#web-ui-microservices"><strong>Web UI</strong></a> microservice to isolate static content hosting from the REST and Websocket APIs;</li>
+  <li>Added ThingsBoard <a href="/docs/reference/msa/#transport-microservices"><strong>MQTT, HTTP and CoAP</strong></a> transport microservices to isolate communication with devices from the main ThingsBoard services;</li>
+  <li>Added support of <a href="/docs/reference/msa/#kafka">Kafka</a> to store device telemetry before it is processed with ThingsBoard Rule Engine;</li>
+  <li>Introduced <a href="/docs/user-guide/api-limits/">Rate Limits</a> for REST, Websocket and Device APIsl</li>
+  <li>Framework for <a href="https://github.com/thingsboard/thingsboard/tree/master/msa/black-box-tests"><strong>black-box testing</strong></a> of ThingsBoard by automatically launching ThingsBoard cluster using docker-compose and running API tests;</li>
+  <li>Added input widgets bundle.</li>
+</ul>
+
+<p>Additional features:</p>
+
+<ul>
+  <li>Alarm ack/clear event to the Rule Engine;</li>
+  <li>Added two additional parameters to post-processing function: timestamp of the previous value and original previous value;</li>
+  <li>Shutdown of all rule chains on tenant deletion;</li>
+  <li>Option for case-insensitive username;</li>
+  <li>Max string value length parameter for attributes/timeseries.</li>
+  <li>TTL for events in Cassandra DAO;</li>
+  <li>Redirect to a previous page after login;</li>
+  <li>Cast incoming attributes/telemetry numeric data type if possible;</li>
+  <li>Added Turkish locale;</li>
+  <li>Updated Italian locale;</li>
+  <li>Improved logging;</li>
+  <li>Introduced package-lock.json for msa packages with correct dependencies;</li>
+  <li>Introduced new Cassandra and PostgreSQL based <a href="/docs/user-guide/install/aws/"><strong>AMIs</strong></a>.</li>
+</ul>
+
+<p>Websockets:</p>
+
+<ul>
+  <li>Introduced WebSocket blocking send timeout parameter. Use Work Stealing Pool for dynamic threads management instead of custom ThreadPoolExecutor.</li>
+  <li>Added max size of queue per websocket</li>
+  <li>Performance improvement for websocket updates;</li>
+  <li>Improved websocket sending errors handling.</li>
+</ul>
+
+<p>New Rule nodes:</p>
+
+<ul>
+  <li><a href="/docs/user-guide/rule-engine-2-0/enrichment-nodes/#originator-telemetry"><strong>Originator Telemetry</strong></a> 
+ rule node to allow using <a href="/docs/user-guide/rule-engine-2-0/tutorials/telemetry-delta-validation/">multiple previous telemetry records</a> in the rule engine;</li>
+  <li>Create relation node;</li>
+  <li>Assign to customer node;</li>
+  <li>Message count node;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Fixed multiple issues related to concurrent restarts of the services in a cluster mode;</li>
+  <li>Fixed issue with header-actions in rpc-widgets;</li>
+  <li>Fixed issues with concurrent device creation using Gateway API;</li>
+  <li>Fixed Zookeeper reconnect error;</li>
+  <li>Fixed bugs related to entity views caching;</li>
+  <li>Fixed concurrency issues with websockets on high load;</li>
+  <li>Critical security fixes for some API calls related to device telemetry;</li>
+  <li>UI. Outsource CSS should be added before custom CSS</li>
+  <li>UI. Entities table widget (raised its height)</li>
+  <li>UI. Hide fixed table header in entity attributes table when in widget selection mode.</li>
+  <li>UI. Fix deprecated maps settings.</li>
+</ul>
+
+<h3 id="thingsboard-pe-20">ThingsBoard PE</h3>
+
+<p>Everything from TB CE v2.2+ the following improvements.</p>
+
+<p>Main features:</p>
+
+<ul>
+  <li>Added advanced localization support:
+    <ul>
+      <li>Asset and Device names localization;</li>
+      <li>Ability to overwrite any localization constants via UI;</li>
+    </ul>
+  </li>
+  <li>Login white-labeling improvement support on tenant and customer level based on custom domain names;</li>
+  <li>Ability to allow/deny white-labeling on Tenant and Customer level;</li>
+  <li>Added ability to hide help links or specify custom base URL;</li>
+  <li>Updated Spanish locale;</li>
+</ul>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li>Improve web report dashboard navigation;</li>
+  <li>Added ability to specify language in web reports;</li>
+  <li>Fixed export csv/xls data format according to locale</li>
+  <li>Scheduler service cluster mode bug fix</li>
+</ul>
+
+<h2 id="earlier-releases">Earlier releases</h2>
+
+<p>See GitHub releases page for previous release notes: https://github.com/thingsboard/thingsboard/releases</p>
+
+      </div>
+      <footer>
+	<main class="light-text">
+		<div class="newsletterSubsContainer">
+            <script type="text/javascript">
+                function subscribeForNewsletter(event) {
+                    event.stopPropagation();
+                    var script_tag = document.createElement('script');
+                    script_tag.setAttribute("type", "text/javascript");
+                    script_tag.setAttribute("src", "https://static.mailerlite.com/js/w/webforms.min.js?v28bf44f740701752bfc6767bc7e171d4");
+                    document.getElementsByTagName("head")[0].appendChild(script_tag);
+                    $(event.target).css('display', 'none');
+                    $('#mlb2-7341216').css('display', 'block');
+                }
+            </script>
+            <button class="n-button price subscribe" onClick="subscribeForNewsletter(event)">Sign up for ThingsBoard news</button>
+            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: none;">
+<!--            <div id="mlb2-7341216" class="ml-subscribe-form ml-subscribe-form-7341216" style="display: block;">-->
+                <div class="ml-vertical-align-center">
+                    <div class="subscribe-form ml-block-success" style="display: none;">
+                        <div class="form-section">
+                            <p>Thank you for your interest in ThingsBoard!<br/>Have a great day!</p>
+                        </div>
+                    </div>
+                    <form class="ml-block-form" action="https://static.mailerlite.com/webforms/submit/r9r9x7" data-id="708170" data-code="r9r9x7" method="POST" target="_blank">
+                        <div class="subscribe-form horizontal">
+                            <div class="form-section horizontal">
+                                <div class="form-group ml-field-email ml-validate-required ml-validate-email">
+                                    <input type="email" name="fields[email]" class="form-control" placeholder="Email address*" value="" autocomplete="email" x-autocompletetype="email" spellcheck="false" autocapitalize="off" autocorrect="off">
+                                </div>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <div class="form-section horizontal ml-button-position">
+                                <button class="primary n-button price subscribe" type="submit">
+                                    Subscribe
+                                </button>
+                                <button disabled="disabled" style="display: none;" type="button" class="n-button loading">
+                                    <img src="https://static.mailerlite.com/images/rolling@2x.gif" width="20" height="20" style="width: 20px; height: 20px;">
+                                </button>
+                            </div>
+                            <p>By subscribing you agree to receive newsletters from ThingsBoard, Inc.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+
+        <hr>
+
+        <div class="deeper">
+            <a href="/" class="footer-logo"></a>
+            <nav>
+                <a href="/docs/getting-started-guides/helloworld/">Get Started</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/iot-use-cases/">Use cases</a>
+                <a href="https://blog.thingsboard.io/">Blog</a>
+                <a href="/docs/services/">Services</a>
+                <a href="/docs/contact-us/">Contact us</a>
+            </nav>
+        </div>
+
+        <div class="deepmost">
+            <div class="copyright">&copy; 2021 The ThingsBoard Authors</div>
+            <div class="social">
+                <a href="https://github.com/thingsboard/thingsboard" class="github"></a>
+                <a href="https://gitter.im/thingsboard/chat" class="gitter"></a>
+                <a href="https://www.youtube.com/thingsboard" class="youtube"></a>
+                <a href="http://stackoverflow.com/questions/tagged/thingsboard" class="stack-overflow"></a>
+                <a href="https://groups.google.com/forum/#!forum/thingsboard" class="mailing-list"></a>
+                <a href="https://www.facebook.com/thingsboard" class="facebook"></a>
+                <a href="https://twitter.com/thingsboard" class="twitter"></a>
+            </div>
+        </div>
+	</main>
+</footer>
+
+  </div>
+</section>
+
+<style>
+  .cse .gsc-control-cse, .gsc-control-cse {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
+</style>
+<script>
+    jqueryDefer(function () {
+        $(document).on('selectionchange',function() {
+        // $(document).mouseup(function () {
+            $('.clipboard-btn').removeClass('noChars');
+            var selectedChars = getSelectedText();
+            // $('#numberChars').html(selectedChars.length);
+            if (selectedChars == 0) {
+                $('.clipboard-btn').addClass('noChars');
+            }
+        });
+    });
+    function getSelectedText() {
+        var text;
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.getSelection) {
+            text = document.getSelection();
+        } else if (document.selection) {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+</script>
+<script>
+    jqueryDefer(function () {
+        $(document).ready(function () {
+            var allCodeBlocksElements = $(".copy-code");
+            allCodeBlocksElements.each(function (i) {
+                var codeBlock = $(this);
+                if (!codeBlock.hasClass('highlighter-rouge')) {
+                    codeBlock = codeBlock.find('.highlighter-rouge');
+                }
+                codeBlock.each(function () {
+                    var block = codeBlock.find('pre.highlight > code .rouge-code');
+                    var currentId = "codeblock" + (i + 1);
+                    block.attr('id', currentId);
+                    var clipButton = $('<button class="clipboard-btn" data-clipboard-target="#' + currentId + '"><p>Copy to clipboard</p><div><img src="/images/copy-code-icon.svg" alt="Copy to clipboard"></div></button>');
+                    $(this).append(clipButton);
+                    var troyan = codeBlock.find('pre.highlight');
+                    var Tooltip = $('<div class="customTooltip"><div class="tooltipText">Copied!</div></div>');
+                    troyan.append(Tooltip);
+                    troyan.addClass('clipboard-btn');
+                    troyan.attr('data-clipboard-target', "#" + currentId);
+                    troyan.on('mouseleave', clearTooltip);
+                    troyan.on('blur', clearTooltip);
+                    troyan.on('click', function(e) {
+                        var el = $(e.currentTarget);
+                        if (el.hasClass('showTool')) {
+                            clearTooltip(e);
+                            troyan.attr('data-skip-tooltip', "true");
+                        }
+                    });
+                });
+            });
+
+            var clipboard = new Clipboard('.noChars');
+            clipboard.on('success', function (e) {
+                $('.clipboard-btn').removeClass('noChars');
+                e.clearSelection();
+                var trigger = e.trigger;
+                if (!$(trigger).attr('data-skip-tooltip')) {
+                    showTooltip(e.trigger, 'Copied!');
+                } else {
+                    $(trigger).removeAttr('data-skip-tooltip');
+                }
+            });
+
+            $('#search').focus(
+                function(){
+                    $(this).parent('#searchBox').addClass('focused');
+                }).blur(
+                function(){
+                    $(this).parent('#searchBox').removeClass('focused');
+                });
+
+            $('#searchBox .searchButton').click(function () {
+                var value = $('#search').val();
+                window.location.replace('/docs/search/?q=' + value);
+            });
+
+            $('#docsBreadcrumbs').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $('#docsNav').removeClass('active');
+                    $('#searchBox').removeClass('visible');
+                } else {
+                    $(this).addClass('active');
+                    $('#docsNav').addClass('active');
+                    $('#searchBox').addClass('visible');
+                }
+            });
+        });
+
+        function clearTooltip(e) {
+            var el = $(e.currentTarget);
+            el.removeClass('showTool');
+            el.attr('aria-label', null);
+        }
+
+        function showTooltip(elem, msg) {
+            var el = $(elem);
+            el.addClass('showTool');
+            el.attr('aria-label', msg);
+        }
+    });
+</script>
+
+<script>
+    jqueryDefer(function () {
+        var markdownTocs = null;
+        var contentAnchors = [];
+        var activeAnchor = null;
+        var firstAnchor = null;
+        var lastAnchor = null;
+
+        function updatePositions() {
+            contentAnchors = [];
+            markdownTocs.each(function (i) {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                var contentAnchor = $('div#content ' + href);
+                var top = Math.floor(contentAnchor.offset().top);
+                var bottom;
+                if (i < markdownTocs.length - 1) {
+                    var nextHref = $(markdownTocs[i + 1]).children('a').attr('href');
+                    var nextContentAnchor = $('div#content ' + nextHref);
+                    bottom = Math.floor(nextContentAnchor.offset().top);
+                } else {
+                    bottom = $('div#content').offset().top + $('div#content').innerHeight();
+                }
+                var contentAnchorInfo = {anchor: contentAnchor, toc: $(this), top: top, bottom: bottom, href: href};
+                contentAnchors.push(contentAnchorInfo);
+                if (i === 0) {
+                    firstAnchor = contentAnchorInfo;
+                }
+                if (i === markdownTocs.length - 1) {
+                    lastAnchor = contentAnchorInfo;
+                }
+            });
+        }
+
+        function findActiveContentToc() {
+            var top = $(window).scrollTop();
+            var bottom = top + $(window).height();
+            if (bottom === $('#encyclopedia').offset().top + $('#encyclopedia').innerHeight()) {
+                return lastAnchor;
+            } else {
+                bottom -= 154;
+                for (var i = 0; i < contentAnchors.length; i++) {
+                    var contentAnchor = contentAnchors[i];
+                    if (contentAnchor.top <= bottom &&
+                        contentAnchor.bottom > top) {
+                        return contentAnchor;
+                    }
+                }
+            }
+            return firstAnchor;
+        }
+
+        function updateActiveToc(init) {
+            updatePositions();
+            var newActiveAnchor = findActiveContentToc();
+            if (!activeAnchor || newActiveAnchor.href !== activeAnchor.href) {
+                activeAnchor = newActiveAnchor;
+                markdownTocs.removeClass('active');
+                activeAnchor.toc.addClass('active');
+                var tocTop = $('#table-of-contents').scrollTop() + 100;
+                var tocBottom = tocTop + $('#table-of-contents').innerHeight() - 200;
+                var activeTocTop = activeAnchor.toc.position().top;
+                var activeTocBottom = activeTocTop + activeAnchor.toc.children(':first').height();
+                if (tocTop > activeTocTop) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop -= 100;
+                } else if (tocBottom < activeTocBottom) {
+                    activeAnchor.toc[0].scrollIntoView();
+                    $('#table-of-contents')[0].scrollTop += init ? -100 : 100;
+                }
+            }
+        }
+        $( document ).ready(function() {
+            var tocs = $('#content > ul#markdown-toc');
+            var tableOfContents = $('#table-of-contents');
+            tableOfContents.append(tocs);
+            markdownTocs = $('#table-of-contents ul#markdown-toc li').filter(function() {
+                var tocAnchor = $(this).children('a');
+                var href = tocAnchor.attr('href');
+                if (!href.startsWith('#')) {
+                    return false;
+                } else {
+                    var contentAnchor = $('div#content ' + href);
+                    return contentAnchor.length > 0;
+                }
+            });
+            updateActiveToc(true);
+        });
+
+        $(document).on("scroll", function() {
+            updateActiveToc(false);
+        });
+
+    });
+</script>
+
+</body>
+</html>
+
